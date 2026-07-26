@@ -17,4 +17,4 @@ out/
 build/
 dist/
 *.log
-manim/media/
+**/manim/media/

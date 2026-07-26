@@ -2,7 +2,7 @@
 
 *A step-by-step guide, starting from zero, to a famous math problem that stayed open for 87 years and then fell in July 2026. Every idea is shown as an animation, and you can check the final discovery yourself.*
 
-![A square grid smoothly deforming into a curved shape that can be perfectly undone](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/00-start-here/hero.gif)
+![A square grid smoothly deforming into a curved shape that can be perfectly undone](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/00-start-here/hero.gif)
 
 Look at this animation. A flat grid gets bent into a strange curved shape. It looks like the grid is ruined.
 
@@ -14,7 +14,7 @@ The problem stayed open for 87 years. Then, in July 2026, it fell. Only partly, 
 
 This article explains the whole story from zero. You do not need any math background. Each chapter is one small idea, explained with a picture first. At the end, you can check the 2026 discovery **with your own hands**, using simple arithmetic.
 
-(Everything here is backed by an open repository: [github.com/Muchmirul/jacobian-conjecture](https://github.com/Muchmirul/jacobian-conjecture). It contains the code for every animation and a test suite that re-checks every mathematical claim.)
+(Everything here is backed by an open repository: [github.com/muchmirulys/conjectures](https://github.com/muchmirulys/conjectures/tree/main/jacobian-conjecture). It contains the code for every animation and a test suite that re-checks every mathematical claim.)
 
 Here is the plan. Chapters 1 to 8 build the ideas one by one. Chapter 9 states the famous question. Chapters 10 to 12 tell what happened to it.
 
@@ -26,7 +26,7 @@ We start with the smallest idea: what a "function" is.
 
 A **function** is a machine. You feed it a number. It gives you back a number. That is all.
 
-![Numbers ride through the machine 'double it, then add 1' one at a time, with a scoreboard recording each trip](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/01-functions-are-machines/machine.gif)
+![Numbers ride through the machine 'double it, then add 1' one at a time, with a scoreboard recording each trip](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/01-functions-are-machines/machine.gif)
 
 The machine above uses the rule "double the number, then add 1." Feed it 3, you get 7. Feed it 0, you get 1. Feed it 10, you get 21.
 
@@ -34,7 +34,7 @@ Two rules make a machine a function. First, it always gives an answer. Second, t
 
 Now change the viewpoint. This new picture powers the rest of the article. Instead of feeding the machine one number at a time, imagine it moving **every number on the number line at the same time**.
 
-![Dots on a number line all travel simultaneously to their outputs on a second line below](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/01-functions-are-machines/numberline.gif)
+![Dots on a number line all travel simultaneously to their outputs on a second line below](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/01-functions-are-machines/numberline.gif)
 
 Same machine, new picture: a function moves the whole line. Keep this picture in mind. We will soon use it on bigger spaces.
 
@@ -50,13 +50,13 @@ A machine moves every number. The next question is whether the move can be rever
 
 The machine "double it" sends 3 to 6. The machine "halve it" sends 6 back to 3. Run one after the other, and every number ends up exactly where it started.
 
-![Dots travel from the input line down to their doubled outputs, then travel back up home](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/02-the-undo-machine/undo.gif)
+![Dots travel from the input line down to their doubled outputs, then travel back up home](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/02-the-undo-machine/undo.gif)
 
 When a second machine brings every output back to its original input, it is called the **inverse**, or the undo machine. Doubling and halving undo each other. So do "add 5" and "subtract 5".
 
 Now try to undo "square it", which multiplies the number by itself.
 
-![Left: the dots minus 3 and 3 land on the same output 9. Right: the doubling dots land on separate outputs](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/02-the-undo-machine/collision.gif)
+![Left: the dots minus 3 and 3 land on the same output 9. Right: the doubling dots land on separate outputs](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/02-the-undo-machine/collision.gif)
 
 Feed it −3: you get 9. Feed it 3: you also get 9. Now stand at 9 and try to walk back. **Which input did you come from?** You cannot know. The information "was it negative?" is gone.
 
@@ -85,7 +85,7 @@ Take an input $x$. Allow yourself only two operations, adding and multiplying, u
 
 Here are their graphs. For each input $x$ along the bottom, the height of the curve shows the output.
 
-![The graphs of 2x+1, x squared, and x cubed minus 2x draw themselves; then dashed gray curves appear](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/03-polynomials/gallery.gif)
+![The graphs of 2x+1, x squared, and x cubed minus 2x draw themselves; then dashed gray curves appear](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/03-polynomials/gallery.gif)
 
 The dashed gray curves, $\sin x$, $1/x$, and $\sqrt{x}$, are **not** polynomials. Each one needs an operation we did not allow: dividing by the input, or an infinite process.
 
@@ -107,13 +107,13 @@ A **point** of the plane is a pair of numbers $(x, y)$: how far right, and how f
 
 In chapter 1, a machine moved the whole number line. A plane map moves the **whole plane**. To see it, draw a grid on the plane and watch the map carry it.
 
-![A square grid warps smoothly, two marked dots travel with it](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/04-maps-of-the-plane/rubbersheet.gif)
+![A square grid warps smoothly, two marked dots travel with it](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/04-maps-of-the-plane/rubbersheet.gif)
 
 The plane moves like a rubber sheet. The two dots are examples: each one is picked up at $(x, y)$ and put down at $F(x, y)$.
 
 Here are six basic plane maps, all moving at once.
 
-![Six panels animate at once: the untouched plane, then slide, turn, grow, lean and bend](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/04-maps-of-the-plane/gallery.gif)
+![Six panels animate at once: the untouched plane, then slide, turn, grow, lean and bend](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/04-maps-of-the-plane/gallery.gif)
 
 Slide, turn, grow, and lean all keep the grid lines straight. The last one, *bend*, does not, because its rule uses $y^2$ and $x^2$, and squaring is what bends lines. This connects back to chapter 3.
 
@@ -133,7 +133,7 @@ Some plane maps are perfectly regular. Grid lines stay **straight**, stay **para
 
 Watch what each one does to the yellow square, which starts with area 1.
 
-![Six straight maps morph the grid at once while a yellow patch shows each area factor](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/05-straight-maps-and-area/gallery.gif)
+![Six straight maps morph the grid at once while a yellow patch shows each area factor](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/05-straight-maps-and-area/gallery.gif)
 
 There is a pattern here. A straight map scales the yellow square's area by some factor, and it scales **every** piece of the plane, everywhere, by that **same** factor.
 
@@ -146,7 +146,7 @@ This one number, the area-scaling factor, is called the map's **determinant**. F
 
 Determinant zero is the disaster case.
 
-![The grid collapses onto a single diagonal line; three marked dots merge into one](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/05-straight-maps-and-area/squash.gif)
+![The grid collapses onto a single diagonal line; three marked dots merge into one](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/05-straight-maps-and-area/squash.gif)
 
 Watch the three dots. When the determinant is 0, the plane is pressed flat onto a line. Different points land on the same spot, which means collisions everywhere. Chapter 2 told us what that means: information destroyed, undo impossible.
 
@@ -172,7 +172,7 @@ F(x, y) = (x + y^2,\; y)
 
 In words, it slides each horizontal row to the right by $y^2$. Rows near the middle barely move, and rows far away move a lot. Watch the yellow square as the plane bends.
 
-![A grid bends into a sideways parabola shape; a yellow unit patch deforms but visibly keeps its size](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/06-bending-the-grid/shear.gif)
+![A grid bends into a sideways parabola shape; a yellow unit patch deforms but visibly keeps its size](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/06-bending-the-grid/shear.gif)
 
 The grid bends, but nothing is squeezed or stretched, so every small piece keeps **exactly its area**. This map is easy to undo. Each row slid right by $y^2$, so to undo it you slide it back: $G(x, y) = (x - y^2,\; y)$. $G$ undoes $F$ perfectly, and $G$ is itself a polynomial map. This is our first interesting **polynomial map with a polynomial undo**.
 
@@ -182,7 +182,7 @@ You can stack shears to build much wilder maps. Do a vertical shear, then a hori
 H(x, y) = (\,x + (y + x^2)^2,\; y + x^2\,)
 ```
 
-![Two shears stacked produce a wild-looking curved map](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/06-bending-the-grid/tangled.gif)
+![Two shears stacked produce a wild-looking curved map](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/06-bending-the-grid/tangled.gif)
 
 This is the bending from the very first animation of the article. It looks hopeless, but you know its secret: it is two simple shears, one after the other. To undo it, undo the layers in reverse order, like taking off your shoes and then your socks. Its undo map is again a polynomial, and in chapter 10 the computer will find it for us.
 
@@ -190,11 +190,11 @@ You can stack as many shears and straight maps as you like. The result looks mor
 
 Now the second kind. Some polynomial maps destroy information.
 
-![The plane folds like a closing book onto the right half plane; two marked dots crash into one](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/06-bending-the-grid/fold.gif)
+![The plane folds like a closing book onto the right half plane; two marked dots crash into one](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/06-bending-the-grid/fold.gif)
 
 $F(x, y) = (x^2, y)$ **folds** the plane like closing a book, so the left half lands exactly on the right half. The two dots show a collision: two different points reach one landing spot. This map cannot be undone.
 
-![Under (x, xy) the grid morphs while the red vertical line collapses onto a single point at the origin](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/06-bending-the-grid/crush.gif)
+![Under (x, xy) the grid morphs while the red vertical line collapses onto a single point at the origin](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/06-bending-the-grid/crush.gif)
 
 $F(x, y) = (x, x\cdot y)$ **crushes**, so the entire vertical center line collapses onto one single point. It also cannot be undone.
 
@@ -212,13 +212,13 @@ Now the word that sounds the scariest in this subject: the **Jacobian**. It is j
 
 Take the curved graph of $y = x^2$ and zoom in on one point.
 
-![A continuous zoom into the parabola at (1,1): the curve straightens until it is a straight line of slope 2](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/07-the-microscope/zoom1d.gif)
+![A continuous zoom into the parabola at (1,1): the curve straightens until it is a straight line of slope 2](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/07-the-microscope/zoom1d.gif)
 
 Under the microscope, the curve straightens out. Zoom in enough and it looks exactly like a straight line. The slope of that line, here 2, is called the *derivative* at that point. This one observation, that smooth things look straight up close, is all the calculus you need today.
 
 Now do the same with a bent grid. Take the stacked-shear map $H$ from the last chapter, pick the point $p = (0.5,\, 0.5)$, and zoom in on what $H$ does near $p$.
 
-![The camera stays locked on one dot while zooming in; the bent grid straightens into a perfect parallelogram grid](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/07-the-microscope/microscope.gif)
+![The camera stays locked on one dot while zooming in; the bent grid straightens into a perfect parallelogram grid](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/07-the-microscope/microscope.gif)
 
 Straight. Parallel. Evenly spaced. This is exactly what chapter 5 described. **Up close, a bent polynomial map looks just like a straight map.**
 
@@ -230,7 +230,7 @@ Here is why this matters. Straight maps have a determinant, an area factor. So a
 
 Let us paint this number over the whole plane for two maps, and send a probe dot to read it out.
 
-![A probe dot wanders over two heatmaps: over the shear its readout stays 1, over the fold it reads 2x and hits 0 on the fold line](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/07-the-microscope/det_heatmaps.gif)
+![A probe dot wanders over two heatmaps: over the shear its readout stays 1, over the fold it reads 2x and hits 0 on the fold line](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/07-the-microscope/det_heatmaps.gif)
 
 - The shear $(x + y^2, y)$ has local area factor **exactly 1 at every point**. At every location, under every zoom, it is a perfect area-preserving straight map. That is the precise meaning of "bends but never crushes".
 - The fold $(x^2, y)$ has local area factor $2x$. It is positive on the right half (blue), negative on the left half where that half got flipped (red), and exactly zero on the fold line. The picture shows exactly where the map destroys information.
@@ -251,7 +251,7 @@ But look at what it does **not** promise.
 
 Take the polynomial map $F(x, y) = (x^2 - y^2,\; 2xy)$ and apply it to a ring around the center. The blue half is on the right, and the gold half is on the left.
 
-![Two half-rings, blue and gold, each smoothly map onto the same full ring, interleaving](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/08-local-vs-global/wrap.gif)
+![Two half-rings, blue and gold, each smoothly map onto the same full ring, interleaving](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/08-local-vs-global/wrap.gif)
 
 Each half maps smoothly, with no creases and no crushing, and near every single point the microscope says "all clear". But the blue half covers the **entire** target ring, and the gold half covers **the same ring again**. Every target point is hit **twice**, by two points far away from each other. Watch the blue and gold dots collide.
 
@@ -259,7 +259,7 @@ These are collisions, but not local ones. Each collision pairs two points from o
 
 How many bad points caused this? On the whole plane, this map's local area factor is $4(x^2 + y^2)$.
 
-![A probe spirals inward, its readout shrinking until it hits exactly 0 at the origin, the only bad point](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/08-local-vs-global/one_bad_point.gif)
+![A probe spirals inward, its readout shrinking until it hits exactly 0 at the origin, the only bad point](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/08-local-vs-global/one_bad_point.gif)
 
 It is zero at **one single point**, the center, and healthy everywhere else. One bad point out of infinitely many, and the map uses it to wrap the plane around twice. That is how sensitive this game is.
 
@@ -287,11 +287,11 @@ Here is Keller's question, from 1939. Do not just ask the local area factor to a
 
 Surely such a map must be undoable, with a polynomial undo?
 
-![The statement card assembles clause by clause](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/09-the-conjecture/statement_card.gif)
+![The statement card assembles clause by clause](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/09-the-conjecture/statement_card.gif)
 
 Here is the same question in motion, with the condition first and then the question.
 
-![A polynomial map tangles the grid while a yellow patch keeps exactly the same area; then the motion reverses under the question](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/09-the-conjecture/conjecture.gif)
+![A polynomial map tangles the grid while a yellow patch keeps exactly the same area; then the motion reverses under the question](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/09-the-conjecture/conjecture.gif)
 
 That is the **Jacobian Conjecture**. It is not a theorem but a conjecture: a statement everyone believed and nobody could prove.
 
@@ -313,7 +313,7 @@ Nobody proved it, from 1939 to 2026.
 
 Before seeing what happened to the conjecture, you can test it, using a computer that does exact algebra rather than approximations.
 
-Python's `sympy` library works with polynomials exactly, the way you would with a pencil and unlimited patience. The [companion repo](https://github.com/Muchmirul/jacobian-conjecture) wraps it in a few helpers. Here is a real session with the stacked-shear map $H(x,y) = (x + (y+x^2)^2,\; y + x^2)$:
+Python's `sympy` library works with polynomials exactly, the way you would with a pencil and unlimited patience. The [companion repo](https://github.com/muchmirulys/conjectures/tree/main/jacobian-conjecture) wraps it in a few helpers. Here is a real session with the stacked-shear map $H(x,y) = (x + (y+x^2)^2,\; y + x^2)$:
 
 ```python
 >>> from jacobian_guide.core import jacobian_det, invert, compose, degree
@@ -336,7 +336,7 @@ It answers: the factor is the constant 1. Algebra checked the formula itself, so
 
 The computer returns an explicit polynomial undo, and the round trip simplifies to exactly $(x, y)$, the do-nothing map. Every point walks back home.
 
-![Step 1: the map H tangles the blue grid; step 2: its undo map G walks every point exactly back home](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/10-kicking-the-tires/roundtrip.gif)
+![Step 1: the map H tangles the blue grid; step 2: its undo map G walks every point exactly back home](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/10-kicking-the-tires/roundtrip.gif)
 
 For contrast, the fold $(x^2, y)$ has local area factor $2x$, which is not constant, so it never satisfied the condition. The conjecture makes no promise about it. That is consistent.
 
@@ -365,13 +365,13 @@ One detail is worth noticing. In the plane, the undo map always has the *same* d
 
 If every test passes and the statement looks true, why could nobody prove it? Because any proof must get past three separate obstacles at the same time. They stopped 87 years of attempts, including published proofs by serious mathematicians.
 
-![The timeline fills in event by event, 1884 to 2026](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/11-why-it-was-so-hard/timeline.gif)
+![The timeline fills in event by event, 1884 to 2026](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/11-why-it-was-so-hard/timeline.gif)
 
 The same pattern repeated for a century. Someone announces a proof, the world gets excited, and a subtle hole is found. It happened to Kraus in 1884, before Keller even asked the question, to Engel in 1955, three times to Segre, to Gröbner, and to many modern attempts.
 
 **Obstacle 1: the statement is false over the real numbers.** One hope was that ordinary real-plane geometry, the kind our pictures show, already forces a map to be undoable once the local factor is never zero. It does not. In 1994, Sergey Pinchuk built an explicit pair of polynomials, of degrees 10 and 25. Their local area factor is **positive at every real point**. And the map still sends two different points to the same place. Watch the probe below read this factor everywhere: the running minimum dips low, but it never touches 0.
 
-![A probe sweeps Pinchuk's log-scale determinant heatmap; the running minimum never reaches zero](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/11-why-it-was-so-hard/pinchuk_det.gif)
+![A probe sweeps Pinchuk's log-scale determinant heatmap; the running minimum never reaches zero](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/11-why-it-was-so-hard/pinchuk_det.gif)
 
 There is no crushing anywhere and no flipping anywhere, and yet there is still a collision. So reasoning about real numbers alone can never prove the conjecture, because over the reals the statement is simply not true.
 
@@ -381,11 +381,11 @@ There is no crushing anywhere and no flipping anywhere, and yet there is still a
 
 Watch the collapse on a clock with 5 positions.
 
-![Five numbers around a clock face all travel to position 0; the machine x minus x to the fifth has slope 1 yet collapses the whole clock](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/11-why-it-was-so-hard/clock.gif)
+![Five numbers around a clock face all travel to position 0; the machine x minus x to the fifth has slope 1 yet collapses the whole clock](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/11-why-it-was-so-hard/clock.gif)
 
 **Obstacle 3: the danger sits at infinity.** A classical theorem, due to Hadamard, says that a map that is locally undoable everywhere, and that does not let points run away to infinity, is globally undoable. So maybe polynomial maps cannot send points to infinity in a bad way? They can. Under the crush map $(x, xy)$, take the points $(1/2, 2), (1/3, 3), (1/4, 4), \dots$ The points themselves run off to infinity. Their outputs $(1/2, 1), (1/3, 1), (1/4, 1), \dots$ quietly approach the ordinary point $(0, 1)$.
 
-![Left: the input rides the hyperbola out of every window; right: its output slides along y = 1 toward (0, 1)](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/11-why-it-was-so-hard/escape.gif)
+![Left: the input rides the hyperbola out of every window; right: its output slides along y = 1 toward (0, 1)](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/11-why-it-was-so-hard/escape.gif)
 
 So the escape route to infinity is open, and the important behavior happens near infinity. That is exactly where the mistaken proofs, starting with Kraus in 1884, quietly leaked.
 
@@ -417,11 +417,11 @@ These are three short polynomials, of degrees 7, 6, and 4, with small whole-numb
 
 **Fact 2: and yet.**
 
-![The three input points appear one by one, then three dots ride the arrows and all arrive at the single output (minus 1/4, 0, 0)](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/12-the-fall/collision_card.gif)
+![The three input points appear one by one, then three dots ride the arrows and all arrive at the single output (minus 1/4, 0, 0)](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/12-the-fall/collision_card.gif)
 
 Watch it happen in 3D. Each point travels to its output, and all three paths end on the same red X.
 
-![Three points in 3D space travel along dotted roads that converge on one red X at (minus 1/4, 0, 0)](https://raw.githubusercontent.com/Muchmirul/jacobian-conjecture/main/guide/12-the-fall/collision.gif)
+![Three points in 3D space travel along dotted roads that converge on one red X at (minus 1/4, 0, 0)](https://raw.githubusercontent.com/muchmirulys/conjectures/main/jacobian-conjecture/guide/12-the-fall/collision.gif)
 
 Three different points. One landing spot. Standing at $(-1/4,\, 0,\, 0)$, you cannot know which of the three points you came from. This is the collision from chapter 2, and with it, the end of any undo machine. **The Jacobian Conjecture is false in three dimensions.**
 
@@ -469,7 +469,7 @@ That is what you just did.
 
 ## Where to go next
 
-- **The companion repository**, [github.com/Muchmirul/jacobian-conjecture](https://github.com/Muchmirul/jacobian-conjecture), has the code for every animation, the exact-algebra helpers, the full test suite, and research notes with sources.
+- **The companion repository**, [github.com/muchmirulys/conjectures](https://github.com/muchmirulys/conjectures/tree/main/jacobian-conjecture), has the code for every animation, the exact-algebra helpers, the full test suite, and research notes with sources.
 - A. van den Essen, *Polynomial Automorphisms and the Jacobian Conjecture*, the standard book (advanced).
 - T. Tao's blog post on the Ax–Grothendieck theorem, on why "no collisions" automatically gives "no gaps".
 - L. A. Campbell, *Picturing Pinchuk's Plane Polynomial Pair* (arXiv:math/9812032), the real-numbers counterexample in pictures.
