@@ -9,7 +9,7 @@ animations, its own code, and its own tests. Pick one and start reading.
 
 | Topic | What it is about | Read it |
 |---|---|---|
-| [jacobian-conjecture](jacobian-conjecture/) | A question from 1939 about polynomial machines that can be undone. It stayed open for 87 years and then fell in July 2026. | [chapters](jacobian-conjecture/guide/00-start-here/README.md) · [one page](https://muchmirulys.github.io/conjectures/jacobian-conjecture/) |
+| [jacobian-conjecture](jacobian-conjecture/) | A question from 1939 about polynomial machines that can be undone. It stayed open for 87 years and then fell in July 2026. | [chapters](jacobian-conjecture/guide/00-start-here/README.md) · [one page](https://muchmirul.github.io/conjectures/jacobian-conjecture/) |
 
 ## How a topic is laid out
 

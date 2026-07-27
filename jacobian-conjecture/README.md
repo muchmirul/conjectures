@@ -2,7 +2,7 @@
 
 *A visual, step-by-step journey from "what is a function?" to one of the most famous problems of modern mathematics, no math background required.*
 
-One topic inside [conjectures](../README.md). Read it online: [muchmirulys.github.io/conjectures/jacobian-conjecture](https://muchmirulys.github.io/conjectures/jacobian-conjecture/)
+One topic inside [conjectures](../README.md). Read it online: [muchmirul.github.io/conjectures/jacobian-conjecture](https://muchmirul.github.io/conjectures/jacobian-conjecture/)
 
 <img src="guide/00-start-here/hero.gif" width="680" alt="A square grid smoothly deforming into a dramatic swoosh, a polynomial map that can be perfectly undone">
 
@@ -32,7 +32,7 @@ This repo teaches you the whole story from absolute zero: pictures first, simple
 
 Prefer one continuous page? The whole guide is also assembled as a single article, in three formats:
 
-- **[docs/jacobian-conjecture/index.html](../docs/jacobian-conjecture/index.html)**, the polished web version: real LaTeX math (MathJax), playing animations, article typography. Published at [muchmirulys.github.io/conjectures/jacobian-conjecture](https://muchmirulys.github.io/conjectures/jacobian-conjecture/).
+- **[docs/jacobian-conjecture/index.html](../docs/jacobian-conjecture/index.html)**, the polished web version: real LaTeX math (MathJax), playing animations, article typography. Published at [muchmirul.github.io/conjectures/jacobian-conjecture](https://muchmirul.github.io/conjectures/jacobian-conjecture/).
 - **[docs/jacobian-conjecture/x-article.html](../docs/jacobian-conjecture/x-article.html)**, the X (Twitter) Article source: all math converted to clean Unicode text, no markup to clean up, open it in a browser, select all below the instructions box, and paste into X's article editor; upload each GIF at its orange marker.
 - **[ARTICLE.md](ARTICLE.md)**, plain GitHub-flavored Markdown.
 
