@@ -1,12 +1,12 @@
 # Kakeya's Needle, from Zero
 
-*A step-by-step guide, starting from nothing, to a question asked in 1917 about turning a needle around, whose answer broke everyone's intuition and whose sequel stayed open until February 2025. Every idea is shown as an animation, and the final proof of the grid version is one you can run yourself.*
+*A step-by-step guide, starting from nothing, to a question asked in 1917 about turning a needle around, whose answer broke everyone's intuition and whose sequel stayed open until February 2025. Every idea is shown as a picture first, and the final proof of the grid version is one you can run yourself.*
 
 ![A needle turning through every direction inside a thin spiky green shape](guide/00-start-here/hero.gif)
 
-Look at that needle. It is one unit long. It is turning, and by the end it will have pointed in every direction there is. The whole time it stays inside that ragged green bush, whose area is under a quarter of a square unit.
+Look at that needle. It is one unit long. It is turning, and by the end it will have pointed in every direction there is. The whole time it stays inside that ragged green shape, whose area is under a quarter of a square unit.
 
-Here is the part that broke people: **the bush can be made smaller than any size you name.** A millionth. A trillionth. And a close cousin of it has area exactly **zero** and still contains a needle pointing every possible way.
+Here is the part that broke people: **the shape can be made smaller than any size you name.** A millionth. A trillionth. And a close cousin of it has area exactly **zero** and still contains a needle pointing every possible way.
 
 This article explains the whole story from zero. You do not need any math background. Each section is one small idea, explained with a picture first.
 
@@ -89,13 +89,13 @@ Cutting once gave two thirds. Cut again, and again.
 
 Take the triangle with base from 0 to 1 and apex at height 1. Cut the base into $2^k$ equal pieces and join each to the apex: you get $2^k$ thin **slivers**, and between them they hold every direction the triangle held. Now slide the slivers into each other, in stages: neighbours, then neighbouring pairs, then quadruples.
 
-![Thirty two slivers sliding together stage by stage into a bush, with the area falling](guide/05-the-perron-tree/tree.gif)
+![Thirty two slivers sliding together stage by stage into a tree, with the area falling](guide/05-the-perron-tree/tree.gif)
 
 Nothing is rotated. Nothing is resized. So the pile still holds a needle in every direction of the fan. This is a **Perron tree**, after Oskar Perron, who in 1928 turned Besicovitch's original construction into this picture.
 
 There is a trap. The obvious thing is to use the best single merge at every stage, overlapping each pair to two thirds.
 
-![Two trees side by side: the steady squeeze makes a bowtie of area 0.1680, the varying squeeze makes a bush of area 0.1295](guide/05-the-perron-tree/stall.png)
+![Two trees side by side: the steady squeeze makes a bowtie of area 0.1680, the varying squeeze makes a thin tree of area 0.1295](guide/05-the-perron-tree/stall.png)
 
 The steady squeeze makes a **bowtie**: every sliver passes through one point, and the solid triangle below it never thins. Its area is exactly $\frac16 + \frac{1}{3 \cdot 2^k}$, which falls, and falls, and then **stops** at one sixth. Cut into a billion slivers and a third of the original area is still there.
 
@@ -118,6 +118,8 @@ One honest note: this falls slowly. The known theory says the best a tree of $n$
 ![Five Perron trees in a row, thinner and thinner, areas falling from 0.4688 to 0.1181](guide/06-area-zero/shrink.png)
 
 Same fan of directions in every picture. Less and less ground. Besicovitch proved in 1919 that this never stops. For any small number you name there is a figure holding a needle in every direction whose area is below it, and in the limit you get a set of area exactly **zero** that still contains a full unit needle pointing every possible way. Such a thing is called a **Besicovitch set**.
+
+One step hides inside that sentence. A tree only holds the directions of the triangle it was cut from, a fan of about 53 degrees, not the full 180. Closing that gap is cheap: lay down four copies of the tree, each turned to cover a different part of the circle. Four small areas added together are still small, and now every direction is there. That is the only place in this whole construction where anything is rotated, and it is worth remembering, because the same repair comes back in section 12.
 
 He was not even working on Kakeya's problem. He was in Perm, in Russia, working on a question about Riemann integration, and he needed a set like this as a tool.
 
@@ -209,6 +211,8 @@ Dvir's argument is written for any dimension, so it is worth seeing the grid in 
 
 Twenty seven points, thirteen directions through them, a Kakeya set of fifteen points found by a greedy sweep, and Dvir's floor of ten. The camera turns because a flat drawing of a cube of points lies about which points are near each other.
 
+What comes next is the steepest part of this article, so here is a promise before you climb: it needs nothing new. A polynomial is what it was in school, a sum of terms like $3x^2y$. Everything else is counting, how many terms a polynomial can have and how many points sit on a line. Every step below is run on a small grid by the repository, so anything that does not land as words can be watched happening as numbers.
+
 In 2008 Zeev Dvir proved the general statement in about half a page. Suppose $K$ is a Kakeya set in the grid and suppose it is small.
 
 1. A polynomial of degree at most $q-1$ in $n$ variables has a fixed number of coefficients, written $\binom{q+n-1}{n}$, which is nothing more exotic than a count of how many terms it can have. Asking it to vanish at a point is one linear equation on those coefficients.
@@ -235,7 +239,7 @@ Here is the whole assault on three dimensions as one number: the best dimension 
 | 2019 | Katz, Zahl | 5/2 plus epsilon, Hausdorff too |
 | 2025 | Wang, Zahl | 3 |
 
-Read the fifth row again. A whole paper by three of the strongest people in the field, to move the number by a ten billionth.
+Read the fourth row again. A whole paper by three of the strongest people in the field, to move the number by a ten billionth.
 
 ![Two rotating three dimensional scenes: a bush of tubes through one point, and a hairbrush of tubes crossing one spine tube](guide/11-why-it-was-hard/hairbrush.gif)
 
@@ -263,6 +267,8 @@ You can build a Kakeya set of space yourself, out of the flat tree of section 5,
 
 A unit needle of space pointing along (a, b, c) casts a shadow on the plane shorter than one unit, so it fits inside the segment the flat tree already holds in that direction, while the height it needs is covered by the slab. The blue needle above is checked point by point by the repository's tests: every point of it lies inside a sliver and inside the slab.
 
+The slab on its own is not the finished object. It inherits the tree's fan, so it holds a direction only when that direction's shadow lands inside the fan, and the repository keeps a test whose only job is to fail the directions outside it. Four turned copies finish it, exactly the repair from section 6. What the picture really shows is that height comes free, in the same way sliding sideways came free, which is why the volume can still be squeezed to zero once you move up into space. Dimension is the part that got harder.
+
 | year | who | what |
 |---|---|---|
 | 1917 | Kakeya | asks for the smallest room a needle can turn in |
@@ -275,8 +281,9 @@ A unit needle of space pointing along (a, b, c) casts a shadow on the plane shor
 | 1991 | Bourgain | dimension beats (n+1)/2, the modern assault begins |
 | 1995 | Wolff | the hairbrush, so 5/2 in 3D |
 | 1999 | Wolff | poses the finite field version |
+| 2000 | Katz, Laba, Tao | 3D nudged past 5/2, by a ten-billionth |
 | 2008 | Dvir | finite fields fall to the polynomial method |
-| 2019 | Katz, Zahl | 3D nudged past 5/2, by a ten-billionth |
+| 2019 | Katz, Zahl | the same nudge for the finer ruler, Hausdorff dimension |
 | 2025 | Wang, Zahl | every Kakeya set in 3D has dimension 3 |
 
 | dimension | status |
@@ -303,6 +310,24 @@ For a century this was a story about shrinking: how small, how much smaller, is 
 The answer, when it came, was not a trick. It was thirty years of accumulated ability to talk about structure at many scales at once, finally sharp enough to close the gap.
 
 And the needle, the actual physical needle from 1917, turns in a room of any size you name. That part was true the whole time.
+
+## The plain words, and the real ones
+
+This guide used everyday words on purpose. Everything else written about Kakeya uses the other set of words, so here they are side by side. Nothing new is being introduced, only renamed.
+
+| what this guide called it | what everyone else calls it |
+|---|---|
+| a room | a Kakeya needle set: a set a unit needle can be turned inside |
+| a shape holding a needle in every direction | a Kakeya set, or a Besicovitch set when its area is zero |
+| a tree | a Perron tree |
+| a sliver | one of the thin triangles the base was cut into |
+| the fan | the interval of directions a triangle holds |
+| the free slide | a translation of the needle along its own line |
+| ground covered, ink on the page | measure: area in the plane, volume in space |
+| the box counting ruler of section 7 | Minkowski dimension, also called box dimension |
+| the finer ruler of section 12 | Hausdorff dimension |
+| a fattened needle, a tube | a $\delta$ neighbourhood of a unit segment |
+| the grid of section 10 | the finite field $\mathbb{F}_q^n$ |
 
 ## Where to go next
 

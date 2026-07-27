@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, VIOLET,
-                    YELLOW, needle_line, out_dir, place, readout, save_anim,
-                    style_axes, title)
+                    YELLOW, end_pad, needle_line, out_dir, place, readout,
+                    save_anim, style_axes, title)
 
 OUT = out_dir("01-the-needle")
 
@@ -42,7 +42,7 @@ def directions_gif(n=36, fps=9):
         counter.set_text(f"{int(round(180 * j / (n - 1))):3d} of 180 degrees")
         return [line]
 
-    save_anim(fig, update, n + 8, OUT / "directions.gif", fps=fps)
+    save_anim(fig, update, n + end_pad(fps), OUT / "directions.gif", fps=fps)
 
 
 def position_gif(fps=10, n=28):
@@ -64,7 +64,7 @@ def position_gif(fps=10, n=28):
                        f"{int(round(math.degrees(a))):3d} degrees")
         return []
 
-    save_anim(fig, update, n + 6, OUT / "position.gif", fps=fps)
+    save_anim(fig, update, n + end_pad(fps), OUT / "position.gif", fps=fps)
 
 
 if __name__ == "__main__":

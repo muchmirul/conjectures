@@ -1,12 +1,12 @@
 # Start here
 
-<img src="hero.gif" width="620" alt="A needle turning through every direction inside a thin spiky green shape that looks like a bush">
+<img src="hero.gif" width="620" alt="A needle turning through every direction inside a thin spiky green shape that looks like a tree">
 
 Look at that needle.
 
-It is one unit long. It is turning, and by the end of its journey it will have pointed in **every direction there is**. And the whole time it stays inside that ragged green bush, whose total area is smaller than a quarter of a square unit.
+It is one unit long. It is turning, and by the end of its journey it will have pointed in **every direction there is**. And the whole time it stays inside that ragged green shape, whose total area is smaller than a quarter of a square unit.
 
-That already feels tight. Here is the thing that broke people's intuition for a hundred years: **the bush can be made smaller than any size you name.** A millionth. A trillionth. And a close cousin of it has an area of exactly **zero**, while still containing a needle pointing every possible way.
+That already feels tight. Here is the thing that broke people's intuition for a hundred years: **the shape can be made smaller than any size you name.** A millionth. A trillionth. And a close cousin of it has an area of exactly **zero**, while still containing a needle pointing every possible way.
 
 In 1917 a Japanese mathematician, Soichi Kakeya, asked how small such a room could be. He expected a pretty answer. He got one of the strangest facts in geometry, and then a question that stayed open for a century, whose answer arrived in **February 2025**.
 

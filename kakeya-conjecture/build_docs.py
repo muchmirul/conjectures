@@ -154,7 +154,11 @@ def render_html(blocks) -> str:
             cells = "".join(f"<th>{inline(c)}</th>" for c in head)
             rows = "".join("<tr>" + "".join(f"<td>{inline(c)}</td>"
                                             for c in r) + "</tr>" for r in body)
-            out.append(f'<div class="scroll"><table><thead><tr>{cells}</tr>'
+            # a table of sentences reads badly centred, while a table of
+            # numbers reads badly ragged, so the cells decide the alignment
+            longest = max((len(c) for r in body for c in r), default=0)
+            cls = ' class="words"' if longest > 25 else ""
+            out.append(f'<div class="scroll"><table{cls}><thead><tr>{cells}</tr>'
                        f"</thead><tbody>{rows}</tbody></table></div>")
         elif kind == "math":
             out.append(f"$$ {payload[0]} $$")
@@ -221,6 +225,7 @@ MathJax = {
   .scroll { overflow-x: auto; }
   table { border-collapse: collapse; margin: 1.2rem auto; }
   th, td { border: 1px solid var(--line); padding: 0.45rem 0.8rem; text-align: center; }
+  table.words th, table.words td { text-align: left; }
   th { background: #f6f5f2; }
   ul, ol { padding-left: 1.4rem; }
   li { margin: 0.35rem 0; }

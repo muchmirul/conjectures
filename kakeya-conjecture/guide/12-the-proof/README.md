@@ -51,8 +51,9 @@ That is the honest split, and it is worth knowing which side of it any statement
 | 1991 | Bourgain | dimension beats (n+1)/2, the modern assault begins |
 | 1995 | Wolff | the hairbrush: dimension at least (n+2)/2, so 5/2 in 3D |
 | 1999 | Wolff | poses the finite field version |
+| 2000 | Katz, Laba, Tao | 3D nudged past 5/2, by a ten-billionth |
 | 2008 | **Dvir** | **finite fields fall to the polynomial method, in half a page** |
-| 2019 | Katz, Zahl | 3D nudged past 5/2, by a ten-billionth |
+| 2019 | Katz, Zahl | the same nudge for the finer ruler, Hausdorff dimension |
 | 2025 | **Wang, Zahl** | **every Kakeya set in 3D has dimension 3** |
 
 Kakeya asked in 1917 for the smallest room. Besicovitch answered in 1919 that there is none, and the question turned into a different one. That second question outlived everyone who first asked it.

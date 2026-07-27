@@ -10,7 +10,7 @@ Take the triangle with base from 0 to 1 and apex at height 1. Cut its base into 
 
 Now slide the slivers into each other, in stages. Neighbours first, then neighbouring pairs, then neighbouring quadruples.
 
-<img src="tree.gif" width="660" alt="Thirty two slivers of a triangle sliding together stage by stage into a bush shape, with the area readout falling">
+<img src="tree.gif" width="660" alt="Thirty two slivers of a triangle sliding together stage by stage into a tree shape, with the area readout falling">
 
 Nothing is rotated. Nothing is resized. Nothing is thrown away. So the pile still holds a needle in every direction of the original fan, and the tests in this repo check exactly that: after every stage, each sliver is still a translate of the one it came from, and the directions covered still run over the whole fan.
 
@@ -20,7 +20,7 @@ The result is called a **Perron tree**, after Oskar Perron, who in 1928 turned B
 
 The obvious thing is to use the best single merge from chapter 3 at every stage: overlap each pair to two thirds. Watch what happens.
 
-<img src="stall.png" width="840" alt="Two Perron trees side by side: the steady squeeze makes a bowtie of area 0.1680, the varying squeeze makes a bush of area 0.1295">
+<img src="stall.png" width="840" alt="Two Perron trees side by side: the steady squeeze makes a bowtie of area 0.1680, the varying squeeze makes a thin tree of area 0.1295">
 
 The steady squeeze makes a **bowtie**. All the slivers pass through one point, and below that point sits a solid triangle that never gets any thinner. The area is exactly
 

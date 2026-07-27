@@ -14,6 +14,8 @@ Same fan of directions in every picture. Less and less ground.
 
 Besicovitch proved in 1919 that this never stops: for **any** small number you name, there is a figure holding a unit needle in every direction whose area is below it. Take the limit properly and you get a set of area exactly **zero** which still contains a full unit needle pointing in every one of the 180 degrees. Such a thing is called a **Besicovitch set**, or a **Kakeya set**.
 
+One step hides inside that sentence. A tree only holds the directions of the triangle it was cut from, a fan of about 53 degrees, not the full 180. Closing that gap is cheap: lay down four copies of the tree, each turned to cover a different part of the circle. Four small areas added together are still small, and now every direction is there. That is the only place in this whole construction where anything is rotated, and chapter 12 needs the same repair when the tree is pushed into space.
+
 He was not even working on Kakeya's problem. He was in Perm, in Russia, working on a question about Riemann integration, and needed a set like this as a tool. Kakeya's question reached him later, and he noticed his tool answered it.
 
 ## Turning the needle inside almost nothing

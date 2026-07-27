@@ -5,9 +5,9 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
-from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED, VIOLET,
-                    YELLOW, needle_line, out_dir, place, readout, save_anim, save_fig,
-                    style_axes, title)
+from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED,
+                    VIOLET, YELLOW, end_pad, needle_line, out_dir, place,
+                    readout, save_anim, save_fig, style_axes, title)
 from kakeya_guide.plotting import shade
 from kakeya_guide.shapes import (DELTOID_AREA, DISC_AREA, TRIANGLE_AREA,
                                  deltoid, deltoid_tangent_chord, disc,
@@ -51,7 +51,7 @@ def rooms_gif(n=90, fps=14):
             trail[j].set_data([p[0], q[0]], [p[1], q[1]])
         return []
 
-    save_anim(fig, update, n + 10, OUT / "rooms.gif", fps=fps)
+    save_anim(fig, update, n + end_pad(fps), OUT / "rooms.gif", fps=fps)
 
 
 def shrinking_png():

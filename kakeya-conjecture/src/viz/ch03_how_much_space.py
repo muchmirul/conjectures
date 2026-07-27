@@ -5,9 +5,9 @@ from fractions import Fraction
 import matplotlib.pyplot as plt
 import numpy as np
 
-from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED, VIOLET,
-                    YELLOW, add_slivers, ease, out_dir, readout, save_anim,
-                    sliver_xy, style_axes, title)
+from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED,
+                    VIOLET, YELLOW, add_slivers, ease, end_pad, out_dir,
+                    readout, save_anim, sliver_xy, style_axes, title)
 from kakeya_guide.core import merged_pair_area, sliver, union_area, width_at
 from kakeya_guide.plotting import area_curve
 
@@ -50,7 +50,7 @@ def overlap_gif(n=42, fps=12):
         dot.set_data([dx], [float(areas[j])])
         return []
 
-    save_anim(fig, update, n + 10, OUT / "overlap.gif", fps=fps)
+    save_anim(fig, update, n + end_pad(fps), OUT / "overlap.gif", fps=fps)
 
 
 def slices_gif(n=46, fps=12):
@@ -96,7 +96,7 @@ def slices_gif(n=46, fps=12):
                                      zorder=3)
         return []
 
-    save_anim(fig, update, n + 10, OUT / "slices.gif", fps=fps)
+    save_anim(fig, update, n + end_pad(fps), OUT / "slices.gif", fps=fps)
 
 
 if __name__ == "__main__":

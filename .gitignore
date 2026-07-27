@@ -12,6 +12,12 @@ venv/
 .idea/
 .DS_Store
 
+# Local-only instructions
+CLAUDE.md
+
+# Local-only: the link-preview card, not part of the guide itself
+*/guide/00-start-here/thumbnail.png
+
 # Output
 out/
 build/

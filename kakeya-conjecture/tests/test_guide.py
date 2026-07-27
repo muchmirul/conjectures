@@ -74,13 +74,19 @@ def test_the_grid_table_matches_what_the_search_finds():
 
 # --- every chapter: the figures it points at exist -------------------------
 
+#: Cards for link previews, not part of any chapter, so no README points at
+#: them.  They are git-ignored and rebuilt locally by their chapter script.
+LOCAL_ONLY = {"thumbnail.png"}
+
+
 @pytest.mark.parametrize("chapter", sorted(p.name for p in GUIDE.iterdir()
                                            if p.is_dir()))
 def test_chapter_figures_exist_and_are_used(chapter):
     folder = GUIDE / chapter
     text = (folder / "README.md").read_text()
     referenced = set(re.findall(r'src="([^"]+\.(?:gif|png))"', text))
-    on_disk = {p.name for p in folder.iterdir() if p.suffix in (".gif", ".png")}
+    on_disk = {p.name for p in folder.iterdir()
+               if p.suffix in (".gif", ".png") and p.name not in LOCAL_ONLY}
     assert referenced <= on_disk, f"{chapter} points at a missing figure"
     assert on_disk <= referenced, f"{chapter} has a figure nothing points at"
 

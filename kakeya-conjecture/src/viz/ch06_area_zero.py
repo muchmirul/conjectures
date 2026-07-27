@@ -3,9 +3,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED, VIOLET,
-                    add_slivers, needle_at, needle_line, out_dir, place,
-                    readout, save_anim, save_fig, style_axes, title, turn_schedule)
+from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED,
+                    VIOLET, add_slivers, end_pad, needle_at, needle_line,
+                    out_dir, place, readout, save_anim, save_fig, style_axes,
+                    title, turn_schedule)
 from kakeya_guide.core import union_area, union_area_numeric
 from kakeya_guide.examples import RAMPED_AREAS_DECIMAL, tree
 
@@ -66,7 +67,7 @@ def turn_gif(k=4, fps=12):
                       f"{'pivoting inside a sliver' if kind == 'pivot' else 'hopping to the next sliver'}")
         return []
 
-    save_anim(fig, update, len(plan) + 10, OUT / "turn.gif", fps=fps)
+    save_anim(fig, update, len(plan) + end_pad(fps), OUT / "turn.gif", fps=fps)
 
 
 def to_zero_png():

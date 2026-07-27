@@ -5,9 +5,9 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
-from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED, VIOLET,
-                    YELLOW, needle_line, out_dir, place, readout, save_anim, save_fig,
-                    style_axes, title)
+from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED,
+                    VIOLET, YELLOW, end_pad, needle_line, out_dir, place,
+                    readout, save_anim, save_fig, style_axes, title)
 from kakeya_guide.shapes import pal_join_area, pal_join_travel, sector_area
 
 OUT = out_dir("04-the-free-slide")
@@ -43,7 +43,7 @@ def free_slide_gif(n=34, fps=12):
         noteR.set_text(f"moved  {1.1 * u:.2f}\nswept  {1.1 * u:.2f}")
         return []
 
-    save_anim(fig, update, n + 8, OUT / "free_slide.gif", fps=fps)
+    save_anim(fig, update, n + end_pad(fps), OUT / "free_slide.gif", fps=fps)
 
 
 def pal_join_gif(theta=0.32, fps=11):
@@ -112,7 +112,7 @@ def pal_join_gif(theta=0.32, fps=11):
             note.set_text(f"pivot back   swept {pal_join_area(theta):.3f} in all")
         return []
 
-    save_anim(fig, update, frames + 8, OUT / "pal_join.gif", fps=fps)
+    save_anim(fig, update, frames + end_pad(fps), OUT / "pal_join.gif", fps=fps)
 
 
 def cost_png():

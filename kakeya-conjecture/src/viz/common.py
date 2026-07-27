@@ -130,3 +130,15 @@ def fade_in(artist, t):
 def hold(frames, n):
     """Repeat the last frame n times so a GIF pauses before looping."""
     return list(frames) + [frames[-1]] * n
+
+
+def end_pad(fps, seconds=2.5):
+    """How many extra frames to ask for so the last one stays up to be read.
+
+    Every animation here ends on the frame that carries the point, usually a
+    number or a filled dial.  The update functions clamp their index, so any
+    frames past the end simply repeat that last one.  Without a pause of a
+    couple of seconds the loop wipes the answer away mid-sentence, which is
+    the single most irritating thing an explanatory GIF can do.
+    """
+    return max(1, round(fps * seconds))

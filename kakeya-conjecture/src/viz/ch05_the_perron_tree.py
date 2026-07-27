@@ -5,9 +5,10 @@ from fractions import Fraction
 import matplotlib.pyplot as plt
 import numpy as np
 
-from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED, VIOLET,
-                    YELLOW, add_slivers, ease, morph_slivers, out_dir, readout,
-                    save_anim, save_fig, style_axes, title)
+from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED,
+                    VIOLET, YELLOW, add_slivers, ease, end_pad,
+                    morph_slivers, out_dir, readout, save_anim, save_fig,
+                    style_axes, title)
 from kakeya_guide.core import (perron_stages, perron_tree, ramped_alphas,
                                union_area)
 from kakeya_guide.examples import steady_area, tree
@@ -30,7 +31,7 @@ def tree_gif(k=5, per_stage=10, fps=11):
     patches = add_slivers(ax, stages[0], color=GREEN, alpha=0.42, zorder=3)
     note = readout(ax, (0.02, 0.99), "", fontsize=11.5)
 
-    frames = per_stage * k + 16
+    frames = per_stage * k + end_pad(fps)
 
     def update(i):
         i = min(i, per_stage * k)

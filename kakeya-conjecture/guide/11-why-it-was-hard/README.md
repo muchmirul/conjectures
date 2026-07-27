@@ -17,7 +17,7 @@ Here is the whole assault on three dimensions, as one number: the best dimension
 | 2019 | Katz, Zahl | $5/2 + \varepsilon$ in 3D, for Hausdorff dimension too |
 | 2025 | Wang, Zahl | **3** |
 
-Read the fifth row again. A whole paper, by three of the strongest people in the field, to move the number by a ten billionth. That is not a joke at their expense: getting off 5/2 at all was the point, and it took an argument nobody had thought of. But it tells you how hard the ground was.
+Read the fourth row again. A whole paper, by three of the strongest people in the field, to move the number by a ten billionth. That is not a joke at their expense: getting off 5/2 at all was the point, and it took an argument nobody had thought of. But it tells you how hard the ground was.
 
 ## What made it hard: the enemy has structure
 
