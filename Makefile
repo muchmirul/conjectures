@@ -1,6 +1,6 @@
 # Repository root. Every topic is a self-contained folder with its own Makefile.
 # Add a new topic by creating its folder and adding its name here.
-TOPICS := jacobian-conjecture
+TOPICS := jacobian-conjecture kakeya-conjecture
 
 VENV := $(CURDIR)/.venv
 

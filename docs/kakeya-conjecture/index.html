@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kakeya's Needle, from Zero</title>
+<meta name="description" content="An illustrated guide, starting from zero, to the Kakeya needle problem: why there is no smallest room, and how the three dimensional conjecture fell in February 2025.">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']],
+         displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+  chtml: { scale: 1.0 }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style>
+  :root {
+    --surface: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+    --line: #e1e0d9; --blue: #2a78d6; --green: #008300; --red: #d03b3b;
+    --violet: #4a3aa7; --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--surface); color: var(--ink);
+    font: 17px/1.65 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  header.hero { text-align: center; margin-bottom: 2.5rem; }
+  h1 { font-size: 2.1rem; line-height: 1.2; margin: 0 0 0.75rem; }
+  .subtitle { color: var(--ink2); font-style: italic; font-size: 1.05rem; max-width: 40rem; margin: 0 auto; }
+  h2 { font-size: 1.5rem; margin: 3.2rem 0 1rem; padding-top: 1.6rem; border-top: 1px solid var(--line); }
+  h2 .n { color: var(--blue); }
+  p { margin: 0.9rem 0; }
+  figure { margin: 1.6rem 0; text-align: center; }
+  figure img { max-width: 100%; height: auto; border-radius: 6px; }
+  figcaption { color: var(--muted); font-size: 0.85rem; margin-top: 0.45rem; line-height: 1.45; }
+  blockquote {
+    margin: 1.4rem 0; padding: 0.85rem 1.1rem; border-left: 4px solid var(--green);
+    background: var(--card); border-radius: 0 6px 6px 0; color: var(--ink);
+  }
+  blockquote p { margin: 0.35rem 0; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.9em; }
+  code { background: #f0efec; padding: 0.1em 0.35em; border-radius: 4px; }
+  pre {
+    background: #f6f5f2; border: 1px solid var(--line); border-radius: 8px;
+    padding: 0.9rem 1.1rem; overflow-x: auto; line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; margin: 1.2rem auto; }
+  th, td { border: 1px solid var(--line); padding: 0.45rem 0.8rem; text-align: center; }
+  th { background: #f6f5f2; }
+  ul, ol { padding-left: 1.4rem; }
+  li { margin: 0.35rem 0; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  footer { margin-top: 4rem; padding-top: 1.4rem; border-top: 1px solid var(--line);
+           color: var(--muted); font-size: 0.9rem; }
+  nav.toc {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 1rem 1.3rem; margin: 2rem 0; font-size: 0.95rem;
+    columns: 2; column-gap: 2rem;
+  }
+  nav.toc a { display: block; padding: 0.12rem 0; color: var(--ink2); }
+  nav.toc a:hover { color: var(--blue); }
+  h3 { font-size: 1.15rem; margin: 2rem 0 0.6rem; color: var(--ink); }
+  figure img.missing { outline: 2px dashed var(--red); padding: 1rem; }
+  @media (max-width: 600px) { nav.toc { columns: 1; } h1 { font-size: 1.7rem; } }
+</style>
+</head>
+<body>
+<main>
+
+<header class="hero"><h1>Kakeya&#x27;s Needle, from Zero</h1>
+<p class="subtitle">A step-by-step guide, starting from nothing, to a question asked in 1917 about turning a needle around, whose answer broke everyone&#x27;s intuition and whose sequel stayed open until February 2025. Every idea is shown as an animation, and the final proof of the grid version is one you can run yourself.</p></header>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/00-start-here/hero.gif" alt="A needle turning through every direction inside a thin spiky green shape" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/00-start-here/hero.gif;../../kakeya-conjecture/guide/00-start-here/hero.gif"><figcaption>A needle turning through every direction inside a thin spiky green shape</figcaption></figure>
+<p>Look at that needle. It is one unit long. It is turning, and by the end it will have pointed in every direction there is. The whole time it stays inside that ragged green bush, whose area is under a quarter of a square unit.</p>
+<p>Here is the part that broke people: <strong>the bush can be made smaller than any size you name.</strong> A millionth. A trillionth. And a close cousin of it has area exactly <strong>zero</strong> and still contains a needle pointing every possible way.</p>
+<p>This article explains the whole story from zero. You do not need any math background. Each section is one small idea, explained with a picture first.</p>
+<p>Everything here is backed by an open repository. It contains the code for every animation and a test suite that re-computes every number, in exact arithmetic. Where a claim cannot be checked by a computer, the text says so plainly.</p>
+<nav class="toc"><a href="#s1">1 · The needle and its directions</a><a href="#s2">2 · Turning around</a><a href="#s3">3 · How much space</a><a href="#s4">4 · The free slide</a><a href="#s5">5 · The Perron tree</a><a href="#s6">6 · Area zero</a><a href="#s7">7 · Zero, but big</a><a href="#s8">8 · The conjecture</a><a href="#s9">9 · Why it matters</a><a href="#s10">10 · On a grid</a><a href="#s11">11 · Why it was hard</a><a href="#s12">12 · The proof</a><a href="#s13">What you can check yourself</a><a href="#s14">Where to go next</a></nav>
+<h2 id="s1"><span class="n">1 ·</span> The needle and its directions</h2>
+<p>Take a straight piece of wire, one unit long. Call it a <strong>needle</strong>. It has two facts attached: where it is, and which way it points. For this whole story the &quot;where&quot; is scenery and the &quot;which way&quot; is the plot.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/01-the-needle/position.gif" alt="Three needles in different places, all pointing the same way" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/01-the-needle/position.gif;../../kakeya-conjecture/guide/01-the-needle/position.gif"><figcaption>Three needles in different places, all pointing the same way</figcaption></figure>
+<p>Point the needle east, then west. Nothing changed: a needle has no head and no tail. So its directions run from 0 degrees to 180, and then repeat.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/01-the-needle/directions.gif" alt="A needle turning through a half circle while a dial fills up" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/01-the-needle/directions.gif;../../kakeya-conjecture/guide/01-the-needle/directions.gif"><figcaption>A needle turning through a half circle while a dial fills up</figcaption></figure>
+<p>Turning a needle through a half circle takes it through every direction that exists.</p>
+<p>Two questions will come back again and again:</p>
+<ol><li><strong>Does this shape hold a needle in every direction?</strong> A shape that passes is a <strong>Kakeya set</strong>.</li><li><strong>Can the needle turn from one direction to the next without leaving the shape?</strong> A shape that passes that is a <strong>Kakeya needle set</strong>.</li></ol>
+<p>The second is stricter than the first, the way a road network is stricter than a set of parking spaces. Half the surprises in this story come from the gap between them.</p>
+<h2 id="s2"><span class="n">2 ·</span> Turning around</h2>
+<p>You want to turn a needle right around. Easy: draw a circle around its middle and spin it. The needle is 1 long, so the disc has diameter 1 and area $\pi/4 \approx 0.7854$.</p>
+<p>Can you do better? Here are three rooms, with the needle really turning in each one.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/02-turning-around/rooms.gif" alt="Three panels: a needle spinning in a disc, a three point turn in a triangle, a chord sliding inside a deltoid" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/02-turning-around/rooms.gif;../../kakeya-conjecture/guide/02-turning-around/rooms.gif"><figcaption>Three panels: a needle spinning in a disc, a three point turn in a triangle, a chord sliding inside a deltoid</figcaption></figure>
+<p><strong>The triangle.</strong> An equilateral triangle of height 1 works, area $1/\sqrt{3} \approx 0.5774$. The motion is a three point turn: pivot 60 degrees about a corner, slide along a side, pivot about the next corner. Three pivots make a half circle. In 1921 Julius Pal proved this is the smallest room with no dents in it.</p>
+<p><strong>The deltoid.</strong> Allow dents and you do better. Roll a circle of radius 1/4 inside a circle of radius 3/4 and trace one point: you get a three cusped curve whose every tangent line cuts off a chord of length exactly 1. The needle can be that chord and slide around inside. Area $\pi/8 \approx 0.3927$, half the triangle.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/02-turning-around/shrinking.png" alt="A bar chart: disc 0.7854, triangle 0.5774, deltoid 0.3927, then a question mark" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/02-turning-around/shrinking.png;../../kakeya-conjecture/guide/02-turning-around/shrinking.png"><figcaption>A bar chart: disc 0.7854, triangle 0.5774, deltoid 0.3927, then a question mark</figcaption></figure>
+<p>In 1917 Soichi Kakeya asked how small the room can be. He suspected the deltoid was the answer. To see what actually happens you need two ordinary looking ideas.</p>
+<h2 id="s3"><span class="n">3 ·</span> How much space</h2>
+<p>Two shapes cover a region. How much area is that? Not the sum: the ground they share is one patch of ground, and it does not get counted twice.</p>
+<p>That sounds like a technicality. It is the whole trick.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/03-how-much-space/overlap.gif" alt="A triangle split down the middle; the right half slides onto the left half while the area drops to two thirds" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/03-how-much-space/overlap.gif;../../kakeya-conjecture/guide/03-how-much-space/overlap.gif"><figcaption>A triangle split down the middle; the right half slides onto the left half while the area drops to two thirds</figcaption></figure>
+<p>Split a triangle down the middle and slide the right half onto the left. The pieces do not shrink. Nothing is thrown away. Every direction the triangle held is still held, because sliding a piece sideways does not turn it. And yet the ink on the page <strong>drops</strong>.</p>
+<p>Slide by the right amount and the two halves together cover exactly <strong>two thirds</strong> of what the whole triangle covered. The area after sliding by $t$ is exactly $1 - t + \tfrac34 t^2$, smallest at $t = 2/3$.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/03-how-much-space/slices.gif" alt="A horizontal line sweeping up through two overlapping triangles, building a profile of covered width" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/03-how-much-space/slices.gif;../../kakeya-conjecture/guide/03-how-much-space/slices.gif"><figcaption>A horizontal line sweeping up through two overlapping triangles, building a profile of covered width</figcaption></figure>
+<p>That is also how the areas in this article are computed: sweep a horizontal line up the figure, measure the width covered at each height with overlaps counted once, and add it all up. The code does this in exact fractions, so the numbers quoted are not rounded estimates.</p>
+<p>A needle only cares about direction, and overlapping pieces hold all the directions they held apart. So overlap is free storage.</p>
+<h2 id="s4"><span class="n">4 ·</span> The free slide</h2>
+<p>Move a needle sideways and it sweeps a rectangle. Move it along the line it already lies on and it sweeps a line, which has no area.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/04-the-free-slide/free_slide.gif" alt="Left: a needle sliding along its own direction sweeping nothing. Right: the same needle moving sideways, painting a red rectangle" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/04-the-free-slide/free_slide.gif;../../kakeya-conjecture/guide/04-the-free-slide/free_slide.gif"><figcaption>Left: a needle sliding along its own direction sweeping nothing. Right: the same needle moving sideways, painting a red rectangle</figcaption></figure>
+<p>So a needle can travel any distance you like along its own direction, for free. Pivoting about one end through an angle $\theta$ sweeps a pie slice of area $\theta/2$. That is the entire price list.</p>
+<p>Now the move that changes everything. Your needle is on one line and you want it on a different, parallel line.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/04-the-free-slide/pal_join.gif" alt="A needle slides far out, pivots slightly, slides back along a slanted line, pivots back" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/04-the-free-slide/pal_join.gif;../../kakeya-conjecture/guide/04-the-free-slide/pal_join.gif"><figcaption>A needle slides far out, pivots slightly, slides back along a slanted line, pivots back</figcaption></figure>
+<p>Slide far out along your own line (free), pivot by a small angle $\theta$ (cost $\theta/2$), slide along the slightly slanted line until it meets the other line (free), pivot back (cost $\theta/2$). Total area: $\theta$, as small as you please. This is a <strong>Pal join</strong>.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/04-the-free-slide/cost.png" alt="A log-log plot: as the pivot angle shrinks the area falls and the distance travelled explodes" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/04-the-free-slide/cost.png;../../kakeya-conjecture/guide/04-the-free-slide/cost.png"><figcaption>A log-log plot: as the pivot angle shrinks the area falls and the distance travelled explodes</figcaption></figure>
+<p>The price is distance. To cross a fixed gap with a pivot of $\theta$ you travel about $1/\theta$. Halve the area, double the trip. Nothing here is a cheat: &quot;long and thin&quot; and &quot;small area&quot; are perfectly compatible, and our eyes are simply not built to believe that.</p>
+<h2 id="s5"><span class="n">5 ·</span> The Perron tree</h2>
+<p>Cutting once gave two thirds. Cut again, and again.</p>
+<p>Take the triangle with base from 0 to 1 and apex at height 1. Cut the base into $2^k$ equal pieces and join each to the apex: you get $2^k$ thin <strong>slivers</strong>, and between them they hold every direction the triangle held. Now slide the slivers into each other, in stages: neighbours, then neighbouring pairs, then quadruples.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/05-the-perron-tree/tree.gif" alt="Thirty two slivers sliding together stage by stage into a bush, with the area falling" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/05-the-perron-tree/tree.gif;../../kakeya-conjecture/guide/05-the-perron-tree/tree.gif"><figcaption>Thirty two slivers sliding together stage by stage into a bush, with the area falling</figcaption></figure>
+<p>Nothing is rotated. Nothing is resized. So the pile still holds a needle in every direction of the fan. This is a <strong>Perron tree</strong>, after Oskar Perron, who in 1928 turned Besicovitch&#x27;s original construction into this picture.</p>
+<p>There is a trap. The obvious thing is to use the best single merge at every stage, overlapping each pair to two thirds.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/05-the-perron-tree/stall.png" alt="Two trees side by side: the steady squeeze makes a bowtie of area 0.1680, the varying squeeze makes a bush of area 0.1295" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/05-the-perron-tree/stall.png;../../kakeya-conjecture/guide/05-the-perron-tree/stall.png"><figcaption>Two trees side by side: the steady squeeze makes a bowtie of area 0.1680, the varying squeeze makes a bush of area 0.1295</figcaption></figure>
+<p>The steady squeeze makes a <strong>bowtie</strong>: every sliver passes through one point, and the solid triangle below it never thins. Its area is exactly $\frac16 + \frac{1}{3 \cdot 2^k}$, which falls, and falls, and then <strong>stops</strong> at one sixth. Cut into a billion slivers and a third of the original area is still there.</p>
+<p>The fix is to squeeze hard where the slivers are thin and gently where they are fat: at stage $j$, overlap each pair to $(j+1)/(j+4)$ of its width.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/05-the-perron-tree/areas.png" alt="Two curves: the steady squeeze flattens onto the one sixth line while the varying squeeze keeps dropping" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/05-the-perron-tree/areas.png;../../kakeya-conjecture/guide/05-the-perron-tree/areas.png"><figcaption>Two curves: the steady squeeze flattens onto the one sixth line while the varying squeeze keeps dropping</figcaption></figure>
+<div class="scroll"><table><thead><tr><th>slivers</th><th>steady squeeze</th><th>varying squeeze</th></tr></thead><tbody><tr><td>1</td><td>0.500000</td><td>0.500000</td></tr><tr><td>16</td><td>0.187500</td><td>0.244289</td></tr><tr><td>64</td><td>0.171875</td><td>0.166697</td></tr><tr><td>256</td><td>0.167969</td><td>0.129469</td></tr><tr><td>512</td><td>0.167318</td><td>0.118088</td></tr></tbody></table></div>
+<p>One honest note: this falls slowly. The known theory says the best a tree of $n$ slivers can do is about $1/\log n$, and that rate is sharp. To push the area below one percent you would need something like $2^{100}$ slivers. That slowness is a large part of why this subject was hard, and why the picture in your head refuses to believe the next section.</p>
+<h2 id="s6"><span class="n">6 ·</span> Area zero</h2>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/06-area-zero/shrink.png" alt="Five Perron trees in a row, thinner and thinner, areas falling from 0.4688 to 0.1181" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/06-area-zero/shrink.png;../../kakeya-conjecture/guide/06-area-zero/shrink.png"><figcaption>Five Perron trees in a row, thinner and thinner, areas falling from 0.4688 to 0.1181</figcaption></figure>
+<p>Same fan of directions in every picture. Less and less ground. Besicovitch proved in 1919 that this never stops. For any small number you name there is a figure holding a needle in every direction whose area is below it, and in the limit you get a set of area exactly <strong>zero</strong> that still contains a full unit needle pointing every possible way. Such a thing is called a <strong>Besicovitch set</strong>.</p>
+<p>He was not even working on Kakeya&#x27;s problem. He was in Perm, in Russia, working on a question about Riemann integration, and he needed a set like this as a tool.</p>
+<p>Turning the needle is a stronger demand, and this is where the free slide earns its keep.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/06-area-zero/turn.gif" alt="A needle pivoting inside each sliver of a Perron tree in turn, with a dial filling up" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/06-area-zero/turn.gif;../../kakeya-conjecture/guide/06-area-zero/turn.gif"><figcaption>A needle pivoting inside each sliver of a Perron tree in turn, with a dial filling up</figcaption></figure>
+<p>Inside one sliver the needle pivots about the apex and sweeps that sliver&#x27;s wedge of directions. To reach the next sliver it changes lines with a Pal join, which costs as little as you like. Perron tree plus Pal joins gives Besicovitch&#x27;s 1928 theorem:</p>
+<blockquote><p>For every $\varepsilon &gt; 0$ there is a set of area less than $\varepsilon$ inside which a unit needle can be turned continuously through 180 degrees.</p></blockquote>
+<p>The smallest room does not exist. There is no smallest. Ask for a room of area one billionth and you get one. The deltoid was not close to the answer; there was no answer to be close to.</p>
+<h2 id="s7"><span class="n">7 ·</span> Zero, but big</h2>
+<p>Area is now useless as a measure of these sets. A Besicovitch set has area 0. So does a dot. So does a segment. A sharper ruler is needed, and the one mathematicians use is <strong>dimension</strong>: not the space the set lives in, but how it fills space as you zoom in.</p>
+<p>Cover the set with boxes of side $\varepsilon$ and count them. A dot needs 1 box always. A segment needs about $1/\varepsilon$. A square needs about $1/\varepsilon^2$. The exponent is the dimension.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/07-zero-but-big/cantor.png" alt="Rows showing the middle thirds Cantor set losing length, from 1 piece to 128" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/07-zero-but-big/cantor.png;../../kakeya-conjecture/guide/07-zero-but-big/cantor.png"><figcaption>Rows showing the middle thirds Cantor set losing length, from 1 piece to 128</figcaption></figure>
+<p>Now a set that is neither. Start with the interval from 0 to 1 and remove the middle third, then the middle third of what is left, forever. Its length after $m$ rounds is exactly $(2/3)^m$, so the finished set has length <strong>0</strong>.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/07-zero-but-big/boxcount.png" alt="Boxes of three sizes covering the Cantor set, with a log-log plot whose slope is 0.6309" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/07-zero-but-big/boxcount.png;../../kakeya-conjecture/guide/07-zero-but-big/boxcount.png"><figcaption>Boxes of three sizes covering the Cantor set, with a log-log plot whose slope is 0.6309</figcaption></figure>
+<p>But at box size $3^{-m}$ the count is exactly $2^m$. Read that as a rate: make the boxes three times finer and you need only <strong>twice</strong> as many, where a full line would need three times as many and a dot would need no more at all. That rate is the dimension, and here it works out to $\log 2 / \log 3 = 0.6309\ldots$. Length zero, dimension 0.63. Bigger than a dot, smaller than a line.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/07-zero-but-big/zoo.png" alt="A bar chart of dimensions: a dot 0, Cantor 0.63, Cantor times a line 1.63, a Besicovitch set 2, a square 2" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/07-zero-but-big/zoo.png;../../kakeya-conjecture/guide/07-zero-but-big/zoo.png"><figcaption>A bar chart of dimensions: a dot 0, Cantor 0.63, Cantor times a line 1.63, a Besicovitch set 2, a square 2</figcaption></figure>
+<p>And a Besicovitch set in the plane? Area 0, like everything here. Dimension <strong>2</strong>, the same as a solid square. That is a theorem of Roy Davies from 1971.</p>
+<h2 id="s8"><span class="n">8 ·</span> The conjecture</h2>
+<p>You now have every piece. A Kakeya set holds a unit needle in every direction. It can have zero volume. Dimension measures size in a way that survives that. And in the plane, every Kakeya set has the largest dimension possible.</p>
+<p>So the question asks itself. In three dimensions, in four, in $n$: the volume can still be squeezed to zero. Can the <strong>dimension</strong> be squeezed at all?</p>
+<blockquote><p>a set in n-dimensional space<br> <strong>holding a unit needle in every direction</strong><br> may have zero volume (Besicovitch),<br> <strong>but it must still have dimension n</strong></p></blockquote>
+<p>That is the <strong>Kakeya set conjecture</strong>.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/08-the-conjecture/what_it_forbids.png" alt="A dimension line with everything below 2 shaded red as forbidden" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/08-the-conjecture/what_it_forbids.png;../../kakeya-conjecture/guide/08-the-conjecture/what_it_forbids.png"><figcaption>A dimension line with everything below 2 shaded red as forbidden</figcaption></figure>
+<p>It does not predict a value to be discovered. It says every value except the maximum is impossible. Squeezing on volume works perfectly; squeezing on dimension is claimed to be blocked completely.</p>
+<h3>Every direction, in every dimension</h3>
+<p>The words doing the work are &quot;every direction&quot;, and what they mean changes with the dimension you are in.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/08-the-conjecture/dimensions.gif" alt="Three rotating panels: in 2 dimensions the needle directions make a flat circle, in 3 dimensions a sphere, in 4 dimensions they are turned in the fourth axis and projected down" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/08-the-conjecture/dimensions.gif;../../kakeya-conjecture/guide/08-the-conjecture/dimensions.gif"><figcaption>Three rotating panels: in 2 dimensions the needle directions make a flat circle, in 3 dimensions a sphere, in 4 dimensions they are turned in the fourth axis and projected down</figcaption></figure>
+<p>All three panels are real three dimensional scenes and the camera goes round all of them, which is the only way a flat screen can tell the truth about depth. In the plane the directions make a circle, and seen edge on it is visibly flat. In space they make a sphere, which is exactly why the problem got harder. In four dimensions they make a shape nobody can look at, so the picture turns them in the fourth axis and projects the result down to three, the way a cube&#x27;s shadow is drawn on paper. The breathing you see, needles growing and shrinking as they swing, is the fourth axis passing through the projection: no rotation of a three dimensional object can do that.</p>
+<h2 id="s9"><span class="n">9 ·</span> Why it matters</h2>
+<p>A needle is infinitely thin and nothing real is. Fatten it into a <strong>tube</strong> of thickness $\delta$.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/09-why-it-matters/tubes.png" alt="Four panels of tubes pointing in every direction at four thicknesses" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/09-why-it-matters/tubes.png;../../kakeya-conjecture/guide/09-why-it-matters/tubes.png"><figcaption>Four panels of tubes pointing in every direction at four thicknesses</figcaption></figure>
+<p>The moment you say &quot;tube&quot;, analysts recognise the object. A wave travelling in some direction over some stretch of time lives in a tube. Adding waves that go in many directions is exactly asking how much their tubes can pile up.</p>
+<p>That is why this puzzle became load bearing: the restriction problem in Fourier analysis, Bochner-Riesz summation, local smoothing for wave equations, dispersive PDE, exponential sums in number theory, and randomness extractors in computer science all lean on Kakeya-type estimates. Kakeya sits at the bottom of that hierarchy. It is the easiest of the family, and it was still open for a century.</p>
+<h2 id="s10"><span class="n">10 ·</span> On a grid</h2>
+<p>Continuous space is hard. So in 1999 Thomas Wolff suggested the same question in the simplest possible universe: arithmetic modulo a prime $q$.</p>
+<p>Points are pairs $(x, y)$ with coordinates in $\{0, \ldots, q-1\}$ and everything wraps around. A <strong>line</strong> is the $q$ points $a + tb$. There are exactly $q+1$ directions. A <strong>Kakeya set</strong> holds a whole line in every direction.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/10-on-a-grid/grid.png" alt="A 7 by 7 grid with 31 of its 49 points marked, and beside it the line the set holds in each of the 8 directions" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/10-on-a-grid/grid.png;../../kakeya-conjecture/guide/10-on-a-grid/grid.png"><figcaption>A 7 by 7 grid with 31 of its 49 points marked, and beside it the line the set holds in each of the 8 directions</figcaption></figure>
+<p>For small $q$ you can simply search all the possibilities:</p>
+<div class="scroll"><table><thead><tr><th>grid</th><th>points</th><th>directions</th><th>smallest Kakeya set</th><th>Dvir&#x27;s floor</th></tr></thead><tbody><tr><td>q=2</td><td>4</td><td>3</td><td>3</td><td>3</td></tr><tr><td>q=3</td><td>9</td><td>4</td><td>7</td><td>6</td></tr><tr><td>q=5</td><td>25</td><td>6</td><td>17</td><td>15</td></tr><tr><td>q=7</td><td>49</td><td>8</td><td>31</td><td>28</td></tr></tbody></table></div>
+<p>About half the grid. Not a tiny corner of it.</p>
+<p>Dvir&#x27;s argument is written for any dimension, so it is worth seeing the grid in three dimensions first.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/10-on-a-grid/grid3d.gif" alt="A rotating 3D view of the 27 point grid F_3 x F_3 x F_3, with the 15 points of a Kakeya set marked in green" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/10-on-a-grid/grid3d.gif;../../kakeya-conjecture/guide/10-on-a-grid/grid3d.gif"><figcaption>A rotating 3D view of the 27 point grid F_3 x F_3 x F_3, with the 15 points of a Kakeya set marked in green</figcaption></figure>
+<p>Twenty seven points, thirteen directions through them, a Kakeya set of fifteen points found by a greedy sweep, and Dvir&#x27;s floor of ten. The camera turns because a flat drawing of a cube of points lies about which points are near each other.</p>
+<p>In 2008 Zeev Dvir proved the general statement in about half a page. Suppose $K$ is a Kakeya set in the grid and suppose it is small.</p>
+<ol><li>A polynomial of degree at most $q-1$ in $n$ variables has a fixed number of coefficients, written $\binom{q+n-1}{n}$, which is nothing more exotic than a count of how many terms it can have. Asking it to vanish at a point is one linear equation on those coefficients.</li><li>If $K$ has fewer points than that, some <strong>nonzero</strong> polynomial $g$ of degree at most $q-1$ vanishes on all of $K$.</li><li>$K$ contains a whole line in each direction $b$. Along that line $g$ becomes a one variable polynomial of degree at most $q-1$ with $q$ roots, so it is identically zero there.</li><li>The top coefficient along that line is exactly the top part of $g$ evaluated at $b$. So the top part dies in every direction.</li><li>A homogeneous polynomial dying in every direction dies everywhere, and nothing nonzero of degree below $q$ can vanish on the whole grid.</li><li>Contradiction. So $|K| \geq \binom{q+n-1}{n} \geq q^n/n!$.</li></ol>
+<p>Every one of those steps is a computation on small grids, and the repository runs all of them: finding the vanishing polynomial by linear algebra over the field, restricting it to a line and watching every coefficient come out zero, comparing top coefficients with top parts, and computing the rank that closes the argument.</p>
+<h2 id="s11"><span class="n">11 ·</span> Why it was hard</h2>
+<p>Here is the whole assault on three dimensions as one number: the best dimension anyone could prove a Kakeya set in space must have.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/11-why-it-was-hard/bounds.png" alt="A step chart from 1919 to 2025: 2, then 5/2, then 5/2 plus a sliver, then 3" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/11-why-it-was-hard/bounds.png;../../kakeya-conjecture/guide/11-why-it-was-hard/bounds.png"><figcaption>A step chart from 1919 to 2025: 2, then 5/2, then 5/2 plus a sliver, then 3</figcaption></figure>
+<div class="scroll"><table><thead><tr><th>year</th><th>who</th><th>what was proved</th></tr></thead><tbody><tr><td>1919</td><td>Besicovitch</td><td>dimension at least 2</td></tr><tr><td>1991</td><td>Bourgain</td><td>the first modern advance, past (n+1)/2 in every dimension</td></tr><tr><td>1995</td><td>Wolff</td><td>5/2 in three dimensions</td></tr><tr><td>2000</td><td>Katz, Laba, Tao</td><td>5/2 plus a ten billionth</td></tr><tr><td>2019</td><td>Katz, Zahl</td><td>5/2 plus epsilon, Hausdorff too</td></tr><tr><td>2025</td><td>Wang, Zahl</td><td>3</td></tr></tbody></table></div>
+<p>Read the fifth row again. A whole paper by three of the strongest people in the field, to move the number by a ten billionth.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/11-why-it-was-hard/hairbrush.gif" alt="Two rotating three dimensional scenes: a bush of tubes through one point, and a hairbrush of tubes crossing one spine tube" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/11-why-it-was-hard/hairbrush.gif;../../kakeya-conjecture/guide/11-why-it-was-hard/hairbrush.gif"><figcaption>Two rotating three dimensional scenes: a bush of tubes through one point, and a hairbrush of tubes crossing one spine tube</figcaption></figure>
+<p>Wolff&#x27;s idea shows what &quot;hard&quot; means here. The naive move is to find a point where many tubes meet, a <strong>bush</strong>, and count the room they need. Wolff instead found a whole <em>tube</em> that many tubes cross, a <strong>hairbrush</strong>, which forces far more room. That one idea was worth half a dimension and stood as the record for a quarter of a century.</p>
+<p>And the grid proof does not carry over. On a grid two lines share at most one point, and a line is either wholly in your set or not. In the plane two tubes pointing in nearly the same direction can hug each other along their whole length, and a set can be almost made of lines without containing any. Polynomials do not notice &quot;almost&quot;.</p>
+<h2 id="s12"><span class="n">12 ·</span> The proof</h2>
+<p>On 24 February 2025, Hong Wang and Joshua Zahl posted a 127 page paper, <em>Volume estimates for unions of convex sets, and the Kakeya set conjecture in three dimensions</em>. Its main theorem:</p>
+<blockquote><p>Every Kakeya set in three dimensional space has Hausdorff and Minkowski dimension 3.</p></blockquote>
+<p>Those are two different rulers for the same idea. Minkowski dimension is the box counting of section 7. Hausdorff dimension is a finer one that can give a smaller answer, so proving the statement for both is the stronger result, and it leaves no room for a set that is thin in the subtler sense.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/12-the-proof/volume.gif" alt="Ninety tubes pointing in every direction of three dimensional space, with the camera turning right round them" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/12-the-proof/volume.gif;../../kakeya-conjecture/guide/12-the-proof/volume.gif"><figcaption>Ninety tubes pointing in every direction of three dimensional space, with the camera turning right round them</figcaption></figure>
+<p>The engine is a statement about tubes: take thin tubes in space, limit how many can be crammed into any one convex region, and their union must have almost the largest volume it could. The needle statement follows.</p>
+<p>The camera turns because it has to. This is a claim about three dimensions, and a still picture hides the point: those tubes run over a whole sphere of directions, not a circle of them.</p>
+<p>You can build a Kakeya set of space yourself, out of the flat tree of section 5, by pushing it sideways into a slab.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/12-the-proof/kakeya3d.gif" alt="The flat Perron tree extruded into a translucent slab in three dimensions, rotating, with a blue needle inside it leaning out of the original plane" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/kakeya-conjecture/guide/12-the-proof/kakeya3d.gif;../../kakeya-conjecture/guide/12-the-proof/kakeya3d.gif"><figcaption>The flat Perron tree extruded into a translucent slab in three dimensions, rotating, with a blue needle inside it leaning out of the original plane</figcaption></figure>
+<p>A unit needle of space pointing along (a, b, c) casts a shadow on the plane shorter than one unit, so it fits inside the segment the flat tree already holds in that direction, while the height it needs is covered by the slab. The blue needle above is checked point by point by the repository&#x27;s tests: every point of it lies inside a sliver and inside the slab.</p>
+<div class="scroll"><table><thead><tr><th>year</th><th>who</th><th>what</th></tr></thead><tbody><tr><td>1917</td><td>Kakeya</td><td>asks for the smallest room a needle can turn in</td></tr><tr><td>1919</td><td>Besicovitch</td><td>builds a set of area zero holding every direction</td></tr><tr><td>1921</td><td>Pal</td><td>smallest convex room: the triangle of height 1</td></tr><tr><td>1928</td><td>Besicovitch</td><td>turns the needle in a room of any size you name</td></tr><tr><td>1928</td><td>Perron</td><td>the tree: a short proof anyone can draw</td></tr><tr><td>1971</td><td>Davies</td><td>in the plane, area zero still means dimension 2</td></tr><tr><td>1971</td><td>Cunningham</td><td>arbitrarily small rooms with no holes, inside a disc</td></tr><tr><td>1991</td><td>Bourgain</td><td>dimension beats (n+1)/2, the modern assault begins</td></tr><tr><td>1995</td><td>Wolff</td><td>the hairbrush, so 5/2 in 3D</td></tr><tr><td>1999</td><td>Wolff</td><td>poses the finite field version</td></tr><tr><td>2008</td><td>Dvir</td><td>finite fields fall to the polynomial method</td></tr><tr><td>2019</td><td>Katz, Zahl</td><td>3D nudged past 5/2, by a ten-billionth</td></tr><tr><td>2025</td><td>Wang, Zahl</td><td>every Kakeya set in 3D has dimension 3</td></tr></tbody></table></div>
+<div class="scroll"><table><thead><tr><th>dimension</th><th>status</th></tr></thead><tbody><tr><td>1</td><td>trivial</td></tr><tr><td>2</td><td>proved by Davies, 1971</td></tr><tr><td>3</td><td>proved by Wang and Zahl, February 2025</td></tr><tr><td>4 and up</td><td><strong>open</strong></td></tr></tbody></table></div>
+<p>The result is specifically three dimensional: it uses the geometry of lines in space, where two directions span a plane and the third dimension is the only room left over. In four dimensions there is more room, the configurations multiply, and the known bounds fall well short.</p>
+<p>So the conjecture is settled in exactly the dimensions where you can draw a picture.</p>
+<h2 id="s13">What you can check yourself</h2>
+<p>A 127 page proof cannot be checked by running a script, and nothing in the repository pretends to. What you can run is everything underneath it: the exact areas of the Perron trees and the closed form that makes a fixed squeeze stall at one sixth, the deltoid&#x27;s unit chord and the triangle&#x27;s three point turn, the box dimension of the Cantor set, the smallest Kakeya sets on grids up to 7 by 7, and every step of Dvir&#x27;s proof.</p>
+<pre><code>make venv &amp;&amp; make test &amp;&amp; make figures</code></pre>
+<p>For a century this was a story about shrinking: how small, how much smaller, is there a floor. Besicovitch answered that in the strongest way available, by removing the floor. Everyone agreed on the replacement question and then could not answer it for another hundred years, while it quietly became a wall holding up Fourier analysis.</p>
+<p>The answer, when it came, was not a trick. It was thirty years of accumulated ability to talk about structure at many scales at once, finally sharp enough to close the gap.</p>
+<p>And the needle, the actual physical needle from 1917, turns in a room of any size you name. That part was true the whole time.</p>
+<h2 id="s14">Where to go next</h2>
+<ul><li><strong>The companion repository</strong>, <a href="https://github.com/muchmirul/conjectures/tree/main/kakeya-conjecture">github.com/muchmirul/conjectures</a>, has the code for every figure, the exact-arithmetic geometry, Dvir&#x27;s proof run step by step, the full test suite, and research notes listing which claims are checked here and which are quoted.</li><li>H. Wang and J. Zahl, <em>Volume estimates for unions of convex sets, and the Kakeya set conjecture in three dimensions</em> (arXiv:2502.17655), the 2025 proof itself.</li><li>T. Tao&#x27;s blog post, <em>The three-dimensional Kakeya conjecture, after Wang and Zahl</em>, a readable account of the strategy, written the day after the paper appeared.</li><li>J. Zahl, <em>A survey of the Kakeya conjecture, 2000 to 2025</em> (arXiv:2512.09397), for where the field stands and what is still open.</li><li>Z. Dvir, <em>On the size of Kakeya sets in finite fields</em> (2008), the half page proof of section 10.</li><li>K. Falconer, <em>The Geometry of Fractal Sets</em>, for Besicovitch sets and dimension built up from the ground.</li><li>Quanta Magazine, <em>&#x27;Once in a Century&#x27; Proof Settles Math&#x27;s Kakeya Conjecture</em> (March 2025), the story with no equations in it.</li><li>The Wikipedia article <em>Kakeya set</em>, for current status and further references.</li></ul>
+
+<footer>
+<p>Written July 2026. One topic inside <a href="../">conjectures</a>. Every figure is
+generated from the <a href="https://github.com/muchmirul/conjectures/tree/main/kakeya-conjecture">repository</a>: <code>make figures</code> rebuilds
+every one, and <code>make test</code> re-verifies every mathematical claim in exact
+arithmetic. Math is rendered with MathJax.</p>
+</footer>
+</main>
+<script>
+// Every figure lists the places it might live: GitHub raw, which is the only
+// one the published page can reach, and then the topic folder beside this file,
+// which is the one that works when the page is opened straight from disk.  Try
+// them in order rather than giving up on the first miss, so an animation never
+// silently fails to appear.
+document.querySelectorAll('figure img[data-fallbacks]').forEach(function (img) {
+  var tries = img.getAttribute('data-fallbacks').split(';');
+  var at = 0;
+  function next() {
+    at += 1;
+    if (at < tries.length) { img.src = tries[at]; }
+    else { img.classList.add('missing'); img.alt = 'could not load: ' + img.alt; }
+  }
+  img.addEventListener('error', next);
+  if (img.complete && img.naturalWidth === 0) { next(); }
+});
+</script>
+</body>
+</html>

@@ -10,6 +10,7 @@ animations, its own code, and its own tests. Pick one and start reading.
 | Topic | What it is about | Read it |
 |---|---|---|
 | [jacobian-conjecture](jacobian-conjecture/) | A question from 1939 about polynomial machines that can be undone. It stayed open for 87 years and then fell in July 2026. | [chapters](jacobian-conjecture/guide/00-start-here/README.md) · [one page](https://muchmirul.github.io/conjectures/jacobian-conjecture/) |
+| [kakeya-conjecture](kakeya-conjecture/) | A question from 1917 about the smallest room you can turn a needle around in. There is no smallest room, and the sequel question fell in three dimensions in February 2025. | [chapters](kakeya-conjecture/guide/00-start-here/README.md) · [one page](https://muchmirul.github.io/conjectures/kakeya-conjecture/) |
 
 ## How a topic is laid out
 
@@ -22,6 +23,9 @@ animations, its own code, and its own tests. Pick one and start reading.
   tests/      checks for every mathematical claim the topic makes
   notes/      research notes and sources
 ```
+
+A topic may also carry a `build_docs.py`, which rebuilds its page under `docs/`
+from its `ARTICLE.md`, so the one-page version never has to be edited by hand.
 
 Two things live at the repository root instead, because they have to:
 
