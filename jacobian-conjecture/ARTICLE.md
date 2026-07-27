@@ -263,9 +263,11 @@ How many bad points caused this? On the whole plane, this map's local area facto
 
 It is zero at **one single point**, the center, and healthy everywhere else. One bad point out of infinitely many, and the map uses it to wrap the plane around twice. That is how sensitive this game is.
 
-*(It gets worse. There are smooth non-polynomial maps whose local factor is nonzero at every point, with no exception at all, that still hit target points infinitely often. So for general smooth maps, "locally fine everywhere" is very far from "globally undoable". If any hope remains, it must come from using very special machines, such as polynomials.)*
+Be careful about what this example proves, though. This map *has* a zero, so it fails the shortcut's own test, and the shortcut never promised anything about it. What the example really shows is the **shape of the danger**: collisions pair up points from opposite sides of the plane, far outside any microscope's view. The microscope is a local tool, and undoability is a global question.
 
-So "local factor never zero" is not enough on its own. If we want a local condition that guarantees a global undo, we must add something. Keller chose the strongest possible local condition: the local area factor must be **the same constant at every point**, not just nonzero. And the map must be **polynomial**. Is that enough?
+So maybe the shortcut still works? If the local factor avoids zero at *every* point, with no exception at all, must the map be undoable? **Still no.** There are maps whose local factor is nonzero everywhere and that still send two faraway points to the same spot. Chapter 11 shows a famous one, built entirely from polynomials: its factor is positive at every point of the plane, and it has a collision anyway. (For smooth non-polynomial maps it gets even worse: some hit target points infinitely often.)
+
+So "local factor never zero" is not enough on its own, even when it holds everywhere. If we want a local condition that guarantees a global undo, we must ask for something stronger. Keller chose the strongest possible local condition: the local area factor must be **the same constant at every point**, not just nonzero. And the map must be **polynomial**. Is that enough?
 
 That is the Jacobian Conjecture. The next chapter states it fully.
 
@@ -287,7 +289,11 @@ Here is Keller's question, from 1939. Do not just ask the local area factor to a
 
 Surely such a map must be undoable, with a polynomial undo?
 
-![The statement card assembles clause by clause](https://raw.githubusercontent.com/muchmirul/conjectures/main/jacobian-conjecture/guide/09-the-conjecture/statement_card.gif)
+> **The Jacobian Conjecture** (Keller, 1939)
+>
+> Take any polynomial map, in any dimension.
+> Suppose its local area factor is the same nonzero constant at every point.
+> **Then the map can be undone, and its undo is also a polynomial map.**
 
 Here is the same question in motion, with the condition first and then the question.
 
@@ -365,25 +371,54 @@ One detail is worth noticing. In the plane, the undo map always has the *same* d
 
 If every test passes and the statement looks true, why could nobody prove it? Because any proof must get past three separate obstacles at the same time. They stopped 87 years of attempts, including published proofs by serious mathematicians.
 
-![The timeline fills in event by event, 1884 to 2026](https://raw.githubusercontent.com/muchmirul/conjectures/main/jacobian-conjecture/guide/11-why-it-was-so-hard/timeline.gif)
+A note before we climb. This is the steepest part of the article, but it needs no new machinery. Every idea below is one you already have: machine, undo, collision, polynomial, local area factor. Each obstacle follows the same simple shape. First a **hope**, a natural plan for a proof. Then the **example that kills it**. Take them one at a time.
+
+```
+1884       Kraus claims a proof. It leaks at infinity.
+1939       Keller poses the conjecture.
+1955-61    A wave of published proofs. All wrong.
+1980       Wang: true for degree 2 and below.
+1982       Bass, Connell, Wright: degree 3 decides everything.
+1983       Moh: true in the plane up to degree 100.
+1994       Pinchuk: the real-number version is false.
+1998       Smale lists it as Problem 16 for the new century.
+2004       Nagata's map proved wild. 3D is stranger than the plane.
+2026       Counterexample. False in dimension 3 and up. Plane still open.
+```
 
 The same pattern repeated for a century. Someone announces a proof, the world gets excited, and a subtle hole is found. It happened to Kraus in 1884, before Keller even asked the question, to Engel in 1955, three times to Segre, to Gröbner, and to many modern attempts.
 
-**Obstacle 1: the statement is false over the real numbers.** One hope was that ordinary real-plane geometry, the kind our pictures show, already forces a map to be undoable once the local factor is never zero. It does not. In 1994, Sergey Pinchuk built an explicit pair of polynomials, of degrees 10 and 25. Their local area factor is **positive at every real point**. And the map still sends two different points to the same place. Watch the probe below read this factor everywhere: the running minimum dips low, but it never touches 0.
+**Obstacle 1: the statement is false over the real numbers.**
+
+*The hope:* our pictures live in the ordinary real plane. Maybe real-plane geometry already does the whole job. If the local area factor is never zero, maybe a real polynomial map simply must be undoable.
+
+*The example that kills it:* in 1994, Sergey Pinchuk built an explicit pair of polynomials, of degrees 10 and 25. Their local area factor is **positive at every real point**. It never touches zero, anywhere, with no exception. And the map still sends two different points to the same place. Watch the probe below read this factor everywhere: the running minimum dips low, but it never touches 0.
 
 ![A probe sweeps Pinchuk's log-scale determinant heatmap; the running minimum never reaches zero](https://raw.githubusercontent.com/muchmirul/conjectures/main/jacobian-conjecture/guide/11-why-it-was-so-hard/pinchuk_det.gif)
 
-There is no crushing anywhere and no flipping anywhere, and yet there is still a collision. So reasoning about real numbers alone can never prove the conjecture, because over the reals the statement is simply not true.
+There is no crushing anywhere and no flipping anywhere, and yet there is still a collision. This is the map chapter 8 promised you. So reasoning about real numbers alone can never prove the conjecture, because over the reals the statement is simply not true.
 
-*(How do we know Pinchuk's factor is never zero? It equals $\det J = t^2 + (t + f\,(13 + 15h))^2 + f^2$ for certain helper polynomials $t, f, h$. That is a sum of three squares, so it is never negative, and a short argument shows it is never zero. It is positive everywhere but not constant, and over the complex numbers "never zero" and "constant" would be the same thing. This is why the complex setting in chapter 9 matters. The repo verifies the identity symbolically in `tests/test_pinchuk.py`.)*
+One natural question: if Pinchuk broke the real version, why did he not break the official conjecture too? Because the official conjecture lives in the complex numbers, and Pinchuk's trick cannot survive there. His factor stays away from zero the way a sum of squares stays away from being negative: the square of a real number is never negative, so a sum of squares never dips below zero. Complex numbers have no idea of "negative", so that protection disappears. Over the complex numbers, any polynomial that is not constant hits zero somewhere. Pinchuk's factor is not constant, so over the complex numbers it would hit zero, and his map would no longer qualify. His counterexample is real-only, and Keller's question stayed open.
 
-**Obstacle 2: the statement is false in clock arithmetic.** Another hope was that pure symbol manipulation, meaning algebra that works in any number system, might be enough. It is not. Take a clock with a prime number $p$ of positions, where numbers wrap around. The simple machine $F(x) = x - x^p$ has constant slope 1, the perfect condition. Yet it sends *every* clock position to 0. That is a total collapse. So any proof must use a property that ordinary numbers have and clock arithmetic lacks (*characteristic zero*, in the jargon). Pure symbol-pushing cannot be enough.
+*(The details, if you want them: Pinchuk's factor equals $\det J = t^2 + (t + f\,(13 + 15h))^2 + f^2$ for certain helper polynomials $t, f, h$. That is a sum of three squares, so it is never negative, and a short argument shows it is never zero. The repo verifies the identity symbolically in `tests/test_pinchuk.py`.)*
+
+**Obstacle 2: the statement is false in clock arithmetic.**
+
+*The hope:* polynomials are pure symbols. Maybe just pushing the symbols around, using rules of algebra that work in every number system, is enough to prove the conjecture.
+
+*The example that kills it:* clock arithmetic, where numbers wrap around like hours on a clock face. Take a clock with a prime number $p$ of positions. The simple machine $F(x) = x - x^p$ has constant slope 1, the perfect condition. Yet it sends *every* clock position to 0. That is a total collapse, the worst collision possible.
 
 Watch the collapse on a clock with 5 positions.
 
 ![Five numbers around a clock face all travel to position 0; the machine x minus x to the fifth has slope 1 yet collapses the whole clock](https://raw.githubusercontent.com/muchmirul/conjectures/main/jacobian-conjecture/guide/11-why-it-was-so-hard/clock.gif)
 
-**Obstacle 3: the danger sits at infinity.** A classical theorem, due to Hadamard, says that a map that is locally undoable everywhere, and that does not let points run away to infinity, is globally undoable. So maybe polynomial maps cannot send points to infinity in a bad way? They can. Under the crush map $(x, xy)$, take the points $(1/2, 2), (1/3, 3), (1/4, 4), \dots$ The points themselves run off to infinity. Their outputs $(1/2, 1), (1/3, 1), (1/4, 1), \dots$ quietly approach the ordinary point $(0, 1)$.
+So the conjecture is false in clock arithmetic. Any proof must therefore use a property that ordinary numbers have and clock numbers lack (*characteristic zero*, in the jargon). Pure symbol-pushing, valid in every number system, can never be enough.
+
+**Obstacle 3: the danger sits at infinity.**
+
+*The hope:* a classical theorem, due to Hadamard, says that a map that is locally undoable everywhere, and that does not let points run away to infinity, is globally undoable. So maybe polynomial maps cannot send points to infinity in a bad way, and Hadamard finishes the job.
+
+*The example that kills it:* they can. Under the crush map $(x, xy)$, take the points $(1/2, 2), (1/3, 3), (1/4, 4), \dots$ The points themselves run off to infinity. Their outputs $(1/2, 1), (1/3, 1), (1/4, 1), \dots$ quietly approach the ordinary point $(0, 1)$.
 
 ![Left: the input rides the hyperbola out of every window; right: its output slides along y = 1 toward (0, 1)](https://raw.githubusercontent.com/muchmirul/conjectures/main/jacobian-conjecture/guide/11-why-it-was-so-hard/escape.gif)
 
@@ -415,9 +450,13 @@ These are three short polynomials, of degrees 7, 6, and 4, with small whole-numb
 
 **Fact 1: the condition holds.** Its local volume factor, the 3D Jacobian determinant, is exactly the constant $-2$ everywhere. This is precisely Keller's condition. (The minus sign only means space comes out mirror-flipped, uniformly. The size of the factor never changes.)
 
-**Fact 2: and yet.**
+**Fact 2: and yet.** Three different points land on one single spot:
 
-![The three input points appear one by one, then three dots ride the arrows and all arrive at the single output (minus 1/4, 0, 0)](https://raw.githubusercontent.com/muchmirul/conjectures/main/jacobian-conjecture/guide/12-the-fall/collision_card.gif)
+```
+(  0,     0,  -1/4 )   →   ( -1/4, 0, 0 )
+(  1,  -3/2,  13/2 )   →   ( -1/4, 0, 0 )
+( -1,   3/2,  13/2 )   →   ( -1/4, 0, 0 )
+```
 
 Watch it happen in 3D. Each point travels to its output, and all three paths end on the same red X.
 
