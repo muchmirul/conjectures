@@ -30,13 +30,12 @@ This repo teaches you the whole story from absolute zero: pictures first, simple
 
 **Start reading: [chapter 0 →](guide/00-start-here/README.md)**
 
-Prefer one continuous page? The whole guide is also assembled as a single article, in three formats:
+Prefer one continuous page? The whole guide is also assembled as a single article, in two formats:
 
 - **[docs/jacobian-conjecture/index.html](../docs/jacobian-conjecture/index.html)**, the polished web version: real LaTeX math (MathJax), playing animations, article typography. Published at [muchmirul.github.io/conjectures/jacobian-conjecture](https://muchmirul.github.io/conjectures/jacobian-conjecture/).
-- **[docs/jacobian-conjecture/x-article.html](../docs/jacobian-conjecture/x-article.html)**, the X (Twitter) Article source: all math converted to clean Unicode text, no markup to clean up, open it in a browser, select all below the instructions box, and paste into X's article editor; upload each GIF at its orange marker.
 - **[ARTICLE.md](ARTICLE.md)**, plain GitHub-flavored Markdown.
 
-These three live at the repository root under `docs/`, not in this folder, because GitHub Pages can only publish from the root or from `/docs`.
+The web version lives at the repository root under `docs/`, not in this folder, because GitHub Pages can only publish from the root or from `/docs`.
 
 ## Run the code
 
