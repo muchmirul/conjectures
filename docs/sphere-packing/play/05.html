@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Count the same total twice · sphere packing</title>
+<style>
+ :root{{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+        --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;--violet:#4a3aa7;}}
+ @media (prefers-color-scheme: dark){{
+   :root{{--surface:#15150f;--ink:#f2f1ea;--ink2:#c9c7bd;--muted:#8d8b82;--line:#33322c;}}
+ }}
+ *{{box-sizing:border-box}}
+ body{{margin:0;padding:28px 20px 56px;background:var(--surface);color:var(--ink);
+   font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif;}}
+ main{{max-width:760px;margin:0 auto}}
+ .back{{font-size:14px;color:var(--muted);text-decoration:none}}
+ .back:hover{{color:var(--blue)}}
+ h1{{font-size:24px;line-height:1.25;margin:14px 0 6px}}
+ .lede{{color:var(--ink2);margin:0 0 22px}}
+ .try{{border-left:3px solid var(--blue);padding:8px 0 8px 14px;margin:0 0 22px;
+   color:var(--ink2);font-size:15px}}
+ canvas{{width:100%;height:auto;display:block;border-radius:8px;background:var(--surface)}}
+ .controls{{margin:18px 0 0}}
+ .row{{display:flex;align-items:center;gap:12px;margin:10px 0}}
+ .row label{{flex:0 0 190px;font-size:14px;color:var(--ink2)}}
+ input[type=range]{{flex:1;accent-color:var(--blue)}}
+ .val{{flex:0 0 90px;text-align:right;font-family:ui-monospace,monospace;font-size:13px}}
+ .readout{{margin-top:18px;padding:14px 16px;border:1px solid var(--line);border-radius:8px;
+   font-family:ui-monospace,monospace;font-size:14px;white-space:pre-line}}
+ .verdict-ok{{color:var(--green)}} .verdict-no{{color:var(--red)}}
+ .nav{{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-size:14px}}
+ .nav a{{color:var(--blue);text-decoration:none}} .nav a:hover{{text-decoration:underline}}
+ .note{{margin-top:26px;font-size:13.5px;color:var(--muted)}}
+ /* embedded in the article: drop the chrome the article already provides */
+ body.embed{{padding:14px 16px 18px}}
+ body.embed .back, body.embed h1, body.embed .lede, body.embed .nav{{display:none}}
+ body.embed .try{{margin-top:0}}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="../index.html">back to the article</a>
+<h1>5 · Count the same total twice</h1>
+<p class="lede">A small packing on the left, its frequencies on the right. Step through the count.</p>
+<p class="try"><strong>Try this.</strong> Step forward. Every pair of distinct centres pulls the total down, and every frequency pushes it up. The packing is trapped between them.</p>
+<canvas id="c" width="720" height="380"></canvas>
+<div class="controls"><div class="row"><label for="k">how far through the count</label><input type="range" id="k" min="0" max="100" step="1" value="0"><span class="val" id="kv"></span></div></div>
+<div class="readout" id="out"></div>
+<p class="note">Poisson summation is the identity that makes the two counts equal. This page shows the two counts, not the proof of the identity.</p>
+<div class="nav"><a href="04.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="06.html">next →</a></div>
+</main>
+<script>
+if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
+
+// gamma, by Lanczos, so ball volumes work in any dimension
+function lgamma(z){
+  const g=7,p=[0.99999999999980993,676.5203681218851,-1259.1392167224028,
+    771.32342877765313,-176.61502916214059,12.507343278686905,
+    -0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];
+  if(z<0.5) return Math.log(Math.PI/Math.sin(Math.PI*z))-lgamma(1-z);
+  z-=1; let x=p[0];
+  for(let i=1;i<g+2;i++) x+=p[i]/(z+i);
+  const t=z+g+0.5;
+  return 0.5*Math.log(2*Math.PI)+(z+0.5)*Math.log(t)-t+Math.log(x);
+}
+function logBallVolume(d){ return (d/2)*Math.log(Math.PI)-lgamma(d/2+1); }
+function ballVolume(d){ return Math.exp(logBallVolume(d)); }
+function ballFractionOfCube(d){ return Math.exp(logBallVolume(d)-d*Math.log(2)); }
+
+// generalised Laguerre, the building blocks certificates are made of
+function laguerre(k,alpha,y){
+  let total=0;
+  for(let i=0;i<=k;i++){
+    const c=Math.exp(lgamma(k+alpha+1)-lgamma(i+alpha+1)-lgamma(k-i+1));
+    let fact=1; for(let j=2;j<=i;j++) fact*=j;
+    total+=c*Math.pow(-y,i)/fact;
+  }
+  return total;
+}
+// the sign carrying factor: the Gaussian is positive and cannot change a sign
+function polyPart(coeffs,d,r){
+  const y=2*Math.PI*r*r; let s=0;
+  for(let k=0;k<coeffs.length;k++) s+=coeffs[k]*laguerre(k,d/2-1,y);
+  return s;
+}
+function value(coeffs,d,r){ return polyPart(coeffs,d,r)*Math.exp(-Math.PI*r*r); }
+function transformCoeffs(coeffs){ return coeffs.map((c,k)=>k%2?-c:c); }
+function admissible(coeffs,d){
+  const hat=transformCoeffs(coeffs);
+  if(polyPart(hat,d,0)<=0) return false;
+  for(let i=0;i<=1200;i++){ const r=1+i*(7/1200); if(polyPart(coeffs,d,r)>1e-12) return false; }
+  for(let i=0;i<=1200;i++){ const r=i*(8/1200); if(polyPart(hat,d,r)<-1e-12) return false; }
+  return true;
+}
+function densityBound(coeffs,d){
+  const hat=transformCoeffs(coeffs);
+  return ballVolume(d)*value(coeffs,d,0)/(Math.pow(2,d)*value(hat,d,0));
+}
+const ALPHA_STAR=0.5*Math.log2(2*Math.PI/Math.E);
+const KL_EXPONENT=0.59905576;
+const LP_RATE=Math.sqrt(Math.E/(2*Math.PI));
+const SIGN_RADIUS=1/Math.PI;
+
+// --- a very small plotting helper -----------------------------------------
+function Plot(canvas,xlo,xhi,ylo,yhi,pad){
+  const ctx=canvas.getContext('2d'), W=canvas.width, H=canvas.height;
+  pad=pad||{l:52,r:16,t:16,b:38};
+  const X=x=>pad.l+(x-xlo)/(xhi-xlo)*(W-pad.l-pad.r);
+  const Y=y=>H-pad.b-(y-ylo)/(yhi-ylo)*(H-pad.t-pad.b);
+  return {ctx,X,Y,W,H,pad,
+    clear(){ctx.clearRect(0,0,W,H);},
+    axes(xlabel,ylabel){
+      ctx.strokeStyle='#c3c2b7';ctx.lineWidth=1;ctx.beginPath();
+      ctx.moveTo(pad.l,pad.t);ctx.lineTo(pad.l,H-pad.b);ctx.lineTo(W-pad.r,H-pad.b);ctx.stroke();
+      ctx.fillStyle='#898781';ctx.font='12px system-ui';ctx.textAlign='center';
+      if(xlabel)ctx.fillText(xlabel,(pad.l+W-pad.r)/2,H-8);
+      if(ylabel){ctx.save();ctx.translate(13,(pad.t+H-pad.b)/2);ctx.rotate(-Math.PI/2);
+        ctx.fillText(ylabel,0,0);ctx.restore();}
+    },
+    hline(y,color,dash){ctx.save();ctx.strokeStyle=color;ctx.setLineDash(dash||[]);
+      ctx.beginPath();ctx.moveTo(pad.l,Y(y));ctx.lineTo(W-pad.r,Y(y));ctx.stroke();ctx.restore();},
+    vline(x,color,dash){ctx.save();ctx.strokeStyle=color;ctx.setLineDash(dash||[]);
+      ctx.beginPath();ctx.moveTo(X(x),pad.t);ctx.lineTo(X(x),H-pad.b);ctx.stroke();ctx.restore();},
+    curve(f,color,lw){ctx.strokeStyle=color;ctx.lineWidth=lw||2.4;ctx.beginPath();
+      for(let i=0;i<=400;i++){const x=xlo+(xhi-xlo)*i/400,y=f(x);
+        if(i===0)ctx.moveTo(X(x),Y(y));else ctx.lineTo(X(x),Y(y));}ctx.stroke();},
+    band(x0,x1,color){ctx.fillStyle=color;ctx.fillRect(X(x0),pad.t,X(x1)-X(x0),H-pad.t-pad.b);},
+    label(x,y,text,color,align){ctx.fillStyle=color;ctx.font='12px system-ui';
+      ctx.textAlign=align||'left';ctx.fillText(text,X(x),Y(y));},
+    tick(x,y,text){ctx.fillStyle='#898781';ctx.font='11px system-ui';ctx.textAlign='center';
+      ctx.fillText(text,X(x),Y(y));}
+  };
+}
+
+
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+const k=document.getElementById('k');
+const n=5, C=[]; for(let i=0;i<n;i++)for(let j=0;j<n;j++)C.push([i,j]);
+const F=[]; for(let i=-2;i<=2;i++)for(let j=-2;j<=2;j++)F.push([i,j]);
+function draw(){
+  const t=parseInt(k.value); ctx.clearRect(0,0,cv.width,cv.height);
+  const s=52, ox=70, oy=60;
+  ctx.fillStyle='#898781';ctx.font='13px system-ui';ctx.textAlign='center';
+  ctx.fillText('pairs of centres',ox+2*s,26); ctx.fillText('frequencies',470+2*s/2,26);
+  for(const p of C){ctx.beginPath();ctx.arc(ox+p[0]*s,oy+p[1]*s,7,0,7);
+    ctx.fillStyle='#e1e0d9';ctx.fill();}
+  const half=Math.min(t,50), pairsShown=Math.floor(half/50*(C.length*C.length-1));
+  if(t<=50){
+    const a=C[pairsShown%C.length], b=C[Math.floor(pairsShown/C.length)%C.length];
+    ctx.strokeStyle='#4a3aa7';ctx.lineWidth=2;ctx.beginPath();
+    ctx.moveTo(ox+a[0]*s,oy+a[1]*s);ctx.lineTo(ox+b[0]*s,oy+b[1]*s);ctx.stroke();
+    for(const p of [a,b]){ctx.beginPath();ctx.arc(ox+p[0]*s,oy+p[1]*s,8,0,7);
+      ctx.fillStyle='#4a3aa7';ctx.fill();}
+  }
+  const fx=470, fy=60, fs=42, lit=t<=50?0:Math.round((t-50)/50*F.length);
+  for(let i=0;i<F.length;i++){
+    const p=F[i];
+    ctx.beginPath();ctx.arc(fx+(p[0]+2)*fs/1.6,fy+(p[1]+2)*fs/1.6,7,0,7);
+    ctx.fillStyle=i<lit?'#008300':'#e1e0d9';ctx.fill();
+  }
+  document.getElementById('kv').textContent=t+'%';
+  document.getElementById('out').textContent = t<=50
+    ? 'counting over pairs of centres\nevery pair beyond a centre with itself sits at\n'+
+      'distance one or more, where rule one makes it\nat or below zero: it can only pull the total down'
+    : 'counting over frequencies\nrule two makes every one of them at or above zero:\n'+
+      'they can only push the total up\n\none total, squeezed from both sides';
+}
+k.addEventListener('input',draw);draw();
+
+</script>
+</body>
+</html>

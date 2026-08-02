@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Play with it · sphere packing</title>
+<style>
+ :root{{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+        --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;--violet:#4a3aa7;}}
+ @media (prefers-color-scheme: dark){{
+   :root{{--surface:#15150f;--ink:#f2f1ea;--ink2:#c9c7bd;--muted:#8d8b82;--line:#33322c;}}
+ }}
+ *{{box-sizing:border-box}}
+ body{{margin:0;padding:28px 20px 56px;background:var(--surface);color:var(--ink);
+   font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif;}}
+ main{{max-width:760px;margin:0 auto}}
+ .back{{font-size:14px;color:var(--muted);text-decoration:none}}
+ .back:hover{{color:var(--blue)}}
+ h1{{font-size:24px;line-height:1.25;margin:14px 0 6px}}
+ .lede{{color:var(--ink2);margin:0 0 22px}}
+ .try{{border-left:3px solid var(--blue);padding:8px 0 8px 14px;margin:0 0 22px;
+   color:var(--ink2);font-size:15px}}
+ canvas{{width:100%;height:auto;display:block;border-radius:8px;background:var(--surface)}}
+ .controls{{margin:18px 0 0}}
+ .row{{display:flex;align-items:center;gap:12px;margin:10px 0}}
+ .row label{{flex:0 0 190px;font-size:14px;color:var(--ink2)}}
+ input[type=range]{{flex:1;accent-color:var(--blue)}}
+ .val{{flex:0 0 90px;text-align:right;font-family:ui-monospace,monospace;font-size:13px}}
+ .readout{{margin-top:18px;padding:14px 16px;border:1px solid var(--line);border-radius:8px;
+   font-family:ui-monospace,monospace;font-size:14px;white-space:pre-line}}
+ .verdict-ok{{color:var(--green)}} .verdict-no{{color:var(--red)}}
+ .nav{{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-size:14px}}
+ .nav a{{color:var(--blue);text-decoration:none}} .nav a:hover{{text-decoration:underline}}
+ .note{{margin-top:26px;font-size:13.5px;color:var(--muted)}}
+ /* embedded in the article: drop the chrome the article already provides */
+ body.embed{{padding:14px 16px 18px}}
+ body.embed .back, body.embed h1, body.embed .lede, body.embed .nav{{display:none}}
+ body.embed .try{{margin-top:0}}
+.list{list-style:none;padding:0;margin:0}.list li{padding:12px 0;border-bottom:1px solid var(--line)}.list a{display:block;color:var(--blue);text-decoration:none;font-size:16px}.list span{display:block;color:var(--muted);font-size:13.5px;margin-top:2px}</style>
+</head>
+<body>
+<main>
+<a class="back" href="../index.html">back to the article</a>
+<h1>Play with it</h1>
+<p class="lede">One page per chapter. Every number in the article is a control on one of these.</p>
+
+
+<ul class="list"><li><a href="00.html">0 · Turn the stack yourself</a><span>The greengrocer's stack of equal balls, in three dimensions. Drag it.</span></li>
+<li><a href="01.html">1 · Slide the rows together</a><span>Circles of the same size, arranged in rows. The slider staggers the rows and pulls them closer.</span></li>
+<li><a href="02.html">2 · Add dimensions and watch the room go</a><span>One ball, and the box that just holds it. The slider changes the dimension.</span></li>
+<li><a href="03.html">3 · Try to settle it by hand</a><span>Click to drop circles. They refuse to overlap, and the packing you build is one of infinitely many.</span></li>
+<li><a href="04.html">4 · Break a certificate yourself</a><span>A working certificate in the plane. Each slider changes one of its parts.</span></li>
+<li><a href="05.html">5 · Count the same total twice</a><span>A small packing on the left, its frequencies on the right. Step through the count.</span></li>
+<li><a href="06.html">6 · The gap nobody has closed</a><span>What can be built, against what has been proved impossible, in the dimensions where this repository has a certificate.</span></li>
+<li><a href="07.html">7 · What a change in the fourth decimal is worth</a><span>Two bounds that differ by 0.0053 halvings per dimension. The slider picks the dimension.</span></li>
+<li><a href="08.html">8 · Stretch until the two agree</a><span>A certificate and its Fourier transform. The slider stretches the certificate.</span></li>
+<li><a href="09.html">9 · Push the radius into the wall</a><span>The negative half of the balanced function has to fit inside a ball. The slider shrinks that ball.</span></li>
+<li><a href="10.html">10 · Move the Gaussian onto the wall</a><span>A Gaussian starts in the wrong place. The slider switches on the deformation that moves it.</span></li>
+<li><a href="11.html">11 · Watch the two halves close</a><span>One direction rules every certificate out below a rate. The other builds one that reaches it. The slider raises the dimension.</span></li>
+<li><a href="12.html">12 · What is settled, and what is not</a><span>The ceiling on the method, against the packings anyone can actually build. The slider raises the dimension.</span></li></ul>
+
+<p class="note">Each page is self contained: no libraries and no network, so they work offline and from a file.</p>
+<div class="nav"><a href="../index.html">back to the article</a></div>
+</main>
+<script>
+if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
+
+
+</script>
+</body>
+</html>
