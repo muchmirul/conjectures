@@ -288,6 +288,9 @@ BODY
 is generated from the <a href="REPO">repository</a>: <code>make figures</code> rebuilds
 the pictures, and <code>make test</code> checks the calculated numbers used in the
 guide.</p>
+<p>This article was written with AI assistance and careful human review. Its claims
+are backed by the repository's test suite where computation can reach them, and are
+quoted from the cited sources where it cannot.</p>
 </footer>
 </main>
 <script>
