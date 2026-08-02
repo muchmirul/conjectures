@@ -273,6 +273,9 @@ MathJax = {
   nav.toc a:hover { color: var(--blue); }
   h3 { font-size: 1.15rem; margin: 2rem 0 0.6rem; color: var(--ink); }
   figure img.missing { outline: 2px dashed var(--red); padding: 1rem; }
+  p.source { text-align: center; font-size: 0.85rem; margin: 0 0 1.4rem; }
+  p.source a { color: var(--muted); }
+  p.source a:hover { color: var(--blue); }
   figure.sim iframe { width: 100%; height: 650px; border: 1px solid var(--line);
                       border-radius: 10px; background: #fff; }
   @media (max-width: 600px) { nav.toc { columns: 1; } h1 { font-size: 1.7rem; } }
@@ -280,6 +283,8 @@ MathJax = {
 </head>
 <body>
 <main>
+
+<p class="source"><a href="https://github.com/muchmirul/conjectures">source: github.com/muchmirul/conjectures</a></p>
 
 BODY
 
