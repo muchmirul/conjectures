@@ -66,9 +66,6 @@ MathJax = {
   nav.toc a:hover { color: var(--blue); }
   h3 { font-size: 1.15rem; margin: 2rem 0 0.6rem; color: var(--ink); }
   figure img.missing { outline: 2px dashed var(--red); padding: 1rem; }
-  p.source { text-align: center; font-size: 0.85rem; margin: 0 0 1.4rem; }
-  p.source a { color: var(--muted); }
-  p.source a:hover { color: var(--blue); }
   figure.sim iframe { width: 100%; height: 650px; border: 1px solid var(--line);
                       border-radius: 10px; background: #fff; }
   @media (max-width: 600px) { nav.toc { columns: 1; } h1 { font-size: 1.7rem; } }
@@ -77,12 +74,10 @@ MathJax = {
 <body>
 <main>
 
-<p class="source"><a href="https://github.com/muchmirul/conjectures">source: github.com/muchmirul/conjectures</a></p>
-
 <header class="hero"><h1>Stacking Balls, from Zero</h1>
 <p class="subtitle">A step-by-step visual guide to packing equal balls, a question first asked in 1611, and to a major result proved in 2026. You do not need a maths background. Each new idea begins with a picture.</p></header>
 <figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/sphere-packing/guide/00-start-here/hero.gif" alt="Equal balls in a tightly packed fruit-shop stack, rotating so you can see its depth" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/sphere-packing/guide/00-start-here/hero.gif;../../sphere-packing/guide/00-start-here/hero.gif"><figcaption>Equal balls in a tightly packed fruit-shop stack, rotating so you can see its depth</figcaption></figure>
-<p>Every ball in this stack is the same size, and none of them overlap. This familiar fruit-shop arrangement fills a little under 75 percent of the surrounding space. The remaining space is made of gaps between the balls.</p>
+<p>Every ball in this stack is the same size, and none of them overlap. This familiar fruit-shop arrangement fills a little under 75 percent of the surrounding space. The remaining space is made of gaps between the balls. Everything in this guide comes from the open source repository at <a href="https://github.com/muchmirul/conjectures">github.com/muchmirul/conjectures</a>: the text, every figure, and the tests behind each number.</p>
 <p>For circles on a flat surface, the best arrangement is known. For balls in ordinary three-dimensional space, finding the answer took almost four hundred years. In most higher dimensions, the exact answer is still unknown and is expected to remain difficult. Researchers therefore also ask a more manageable question: how dense could any packing possibly be? In 2026, they found the exact long-term limit of the main method used to answer that question. The result improved a general limit that had stood since 1978.</p>
 <p>This guide develops that story one small step at a time. Most numbered sections also have a <a href="play/index.html">page you can play with</a>, where you can change the main quantities and watch the picture respond.</p>
 <p>The 2026 result is presented in two documents. The first gives the finished proof. The second is a behind-the-scenes guide that explains how the main ideas were found, including earlier attempts that did not work. Sections 8 to 11 explain the finished proof. The other sections provide the surrounding story. A table near the end shows where each idea appears in the two source documents.</p>

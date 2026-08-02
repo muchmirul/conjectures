@@ -66,9 +66,6 @@ MathJax = {
   nav.toc a:hover { color: var(--blue); }
   h3 { font-size: 1.15rem; margin: 2rem 0 0.6rem; color: var(--ink); }
   figure img.missing { outline: 2px dashed var(--red); padding: 1rem; }
-  p.source { text-align: center; font-size: 0.85rem; margin: 0 0 1.4rem; }
-  p.source a { color: var(--muted); }
-  p.source a:hover { color: var(--blue); }
   figure.sim iframe { width: 100%; height: 650px; border: 1px solid var(--line);
                       border-radius: 10px; background: #fff; }
   @media (max-width: 600px) { nav.toc { columns: 1; } h1 { font-size: 1.7rem; } }
@@ -77,12 +74,10 @@ MathJax = {
 <body>
 <main>
 
-<p class="source"><a href="https://github.com/muchmirul/conjectures">source: github.com/muchmirul/conjectures</a></p>
-
 <header class="hero"><h1>The Triangle Game, from Zero</h1>
 <p class="subtitle">A step-by-step visual guide to a colouring game studied since 1955, a question for which Erdős offered prize money, and the 2026 result that answered it. You do not need a maths background. Each new idea begins with a picture.</p></header>
 <figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/00-start-here/hero.gif" alt="All 120 connections between sixteen people receiving one of three colours without making a one-colour triangle" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/00-start-here/hero.gif;../../multicolor-ramsey/guide/00-start-here/hero.gif"><figcaption>All 120 connections between sixteen people receiving one of three colours without making a one-colour triangle</figcaption></figure>
-<p>The animation shows sixteen people with a connection between every pair. That makes 120 connections, and each one receives one of three colours. When the colouring is complete, there is no group of three people whose three mutual connections all have the same colour. Sixteen is the largest group for which this is possible with three colours. Greenwood and Gleason built this example and proved that seventeen is impossible in 1955.</p>
+<p>The animation shows sixteen people with a connection between every pair. That makes 120 connections, and each one receives one of three colours. When the colouring is complete, there is no group of three people whose three mutual connections all have the same colour. Sixteen is the largest group for which this is possible with three colours. Greenwood and Gleason built this example and proved that seventeen is impossible in 1955. Everything in this guide comes from the open source repository at <a href="https://github.com/muchmirul/conjectures">github.com/muchmirul/conjectures</a>: the text, every figure, and the tests behind each number.</p>
 <p>This guide asks what happens when many more colours are available. More colours let us keep a larger group safe, but how much larger can the group become for each added colour? Erdős offered cash prizes for answering that question. For decades, the best construction and the best limit were so far apart that researchers did not even know whether the long-term rate stopped at a fixed number. A result in 2026 showed that it never stops growing.</p>
 <p>The guide develops the result in small steps. Most numbered sections also have a <a href="play/index.html">page you can play with</a>, where you can change the main choices and watch the picture respond.</p>
 <p>The code that creates every figure is included in this repository. The tests recalculate the numbers and check the small colourings shown here. When a statement comes from an existing theorem rather than those tests, the text says so.</p>
