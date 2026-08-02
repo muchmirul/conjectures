@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Race the old recipes at any scale · the triangle game</title>
+<style>
+ :root{{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+        --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;--violet:#4a3aa7;}}
+ @media (prefers-color-scheme: dark){{
+   :root{{--surface:#15150f;--ink:#f2f1ea;--ink2:#c9c7bd;--muted:#8d8b82;--line:#33322c;}}
+ }}
+ *{{box-sizing:border-box}}
+ body{{margin:0;padding:28px 20px 56px;background:var(--surface);color:var(--ink);
+   font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif;}}
+ main{{max-width:760px;margin:0 auto}}
+ .back{{font-size:14px;color:var(--muted);text-decoration:none}}
+ .back:hover{{color:var(--blue)}}
+ h1{{font-size:24px;line-height:1.25;margin:14px 0 6px}}
+ .lede{{color:var(--ink2);margin:0 0 22px}}
+ .try{{border-left:3px solid var(--blue);padding:8px 0 8px 14px;margin:0 0 22px;
+   color:var(--ink2);font-size:15px}}
+ canvas{{width:100%;height:auto;display:block;border-radius:8px;background:var(--surface)}}
+ .controls{{margin:18px 0 0}}
+ .row{{display:flex;align-items:center;gap:12px;margin:10px 0}}
+ .row label{{flex:0 0 190px;font-size:14px;color:var(--ink2)}}
+ input[type=range]{{flex:1;accent-color:var(--blue)}}
+ .val{{flex:0 0 90px;text-align:right;font-family:ui-monospace,monospace;font-size:13px}}
+ .readout{{margin-top:18px;padding:14px 16px;border:1px solid var(--line);border-radius:8px;
+   font-family:ui-monospace,monospace;font-size:14px;white-space:pre-line}}
+ .verdict-ok{{color:var(--green)}} .verdict-no{{color:var(--red)}}
+ .nav{{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-size:14px}}
+ .nav a{{color:var(--blue);text-decoration:none}} .nav a:hover{{text-decoration:underline}}
+ .note{{margin-top:26px;font-size:13.5px;color:var(--muted)}}
+ /* embedded in the article: drop the chrome the article already provides */
+ body.embed{{padding:14px 16px 18px}}
+ body.embed .back, body.embed h1, body.embed .lede, body.embed .nav{{display:none}}
+ body.embed .try{{margin-top:0}}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="../index.html">back to the article</a>
+<h1>11 · Race the old recipes at any scale</h1>
+<p class="lede">The old fixed recipe against the 2026 bound with its printed, deliberately enormous constant. The slider moves through orders of magnitude of colors.</p>
+<p class="try"><strong>Try this.</strong> Find the crossover. It sits around ten to the sixtieth colors, which is the article's honesty point: the theorem is about the shape of growth, not about beating records at drawable sizes.</p>
+<canvas id="c" width="720" height="380"></canvas>
+<div class="controls"><div class="row"><label for="e">colors: ten to this power</label><input type="range" id="e" min="1" max="80" step="1" value="10"><span class="val" id="ev"></span></div></div>
+<div class="readout" id="out"></div>
+<p class="note">Below 342 colors the printed bound is vacuous, then for a long stretch it trails the old recipe, and around ten to the sixtieth it passes everything forever. The constant was left huge on purpose; the climb is the theorem.</p>
+<div class="nav"><a href="10.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="12.html">next →</a></div>
+</main>
+<script>
+if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
+
+// the shared edge palette: color 0 is always this red, in every page
+const EDGE_COLORS=['#d03b3b','#2a78d6','#eda100','#4a3aa7','#00787a','#008300'];
+
+// the pentagon table: ring pairs get color 0, star pairs color 1
+function pentagonColoring(){
+  const M=[...Array(5)].map(()=>Array(5).fill(-1));
+  for(let i=0;i<5;i++)for(let j=i+1;j<5;j++){
+    const d=Math.min((j-i)%5,(i-j+5)%5);
+    M[i][j]=M[j][i]=(d===1)?0:1;
+  }
+  return M;
+}
+
+// the sixteen-element field, built on x^4 = x + 1 over the two-element field
+function gf16Mul(a,b){
+  let out=0;
+  while(b){ if(b&1)out^=a; a<<=1; if(a&16)a^=19; b>>=1; }
+  return out;
+}
+function gf16Class(v){
+  let x=1;
+  for(let e=0;e<15;e++){ if(x===v)return e%3; x=gf16Mul(x,2); }
+  return -1;
+}
+// the record table, or any first n people of it (a safe table stays safe
+// when people leave)
+function gf16Coloring(n){
+  const M=[...Array(n)].map(()=>Array(n).fill(-1));
+  for(let i=0;i<n;i++)for(let j=i+1;j<n;j++)
+    M[i][j]=M[j][i]=gf16Class(i^j);
+  return M;
+}
+
+// the referee: every one-color triangle in a coloring matrix
+function monoTriangles(M){
+  const out=[],n=M.length;
+  for(let i=0;i<n;i++)for(let j=i+1;j<n;j++){
+    const c=M[i][j]; if(c<0)continue;
+    for(let k=j+1;k<n;k++)
+      if(M[i][k]===c&&M[j][k]===c)out.push([i,j,k]);
+  }
+  return out;
+}
+
+// multiplying safe tables: rooms keep outer colors between them,
+// fresh colors inside
+function productColoring(outer,inner,outerColors){
+  const no=outer.length,ni=inner.length,n=no*ni;
+  const M=[...Array(n)].map(()=>Array(n).fill(-1));
+  for(let a=0;a<n;a++)for(let b=a+1;b<n;b++){
+    const pa=Math.floor(a/ni),ua=a%ni,pb=Math.floor(b/ni),ub=b%ni;
+    M[a][b]=M[b][a]=(pa===pb)?outerColors+inner[ua][ub]:outer[pa][pb];
+  }
+  return M;
+}
+
+// the sorting staircase: forced(1)=3, forced(k)=k*(forced(k-1)-1)+2
+function upperStaircase(k){
+  const v=[3];
+  for(let c=2;c<=k;c++)v.push(c*(v[v.length-1]-1)+2);
+  return v;
+}
+
+const PENTAGON_BASE=Math.sqrt(5);
+const GF16_BASE=Math.cbrt(16);
+const PRE_2026_BASE=Math.pow(380,1/5);
+// the honest floor: the best safe table provable by multiplying the record
+// blocks (2 people per color, 5 per two, 16 per three, 50 per four)
+function productLower(k){
+  const blocks=[[1,2],[2,5],[3,16],[4,50]];
+  const best=Array(k+1).fill(1);
+  for(let i=1;i<=k;i++)for(const [c,s] of blocks)
+    if(c<=i)best[i]=Math.max(best[i],best[i-c]*s);
+  return best[k];
+}
+// the 2026 paper's explicit per-color base, constant deliberately unoptimized
+function explicitNewBase(k){
+  return Math.cbrt(k)/(6*Math.exp(38)*Math.log(k));
+}
+
+// the referee's card this repository found and verified (13 rows, 8 columns)
+const REFEREE=[[1,1,0,1,1,1,1,1],[1,0,0,1,0,0,1,0],[1,0,0,1,1,0,1,1],
+  [1,0,1,1,1,0,0,0],[1,0,1,1,0,1,0,0],[0,0,0,1,0,0,1,1],[0,1,1,0,1,0,1,1],
+  [0,1,1,0,1,0,0,0],[0,1,1,0,0,0,0,0],[0,1,1,0,0,1,1,1],[1,1,0,1,0,1,1,0],
+  [0,0,1,0,0,1,0,1],[1,0,0,0,0,0,0,0]];
+// the first row showing both symbols within the chosen columns, or -1
+function saturatedRow(cols){
+  for(let r=0;r<REFEREE.length;r++){
+    const seen=new Set(cols.map(z=>REFEREE[r][z]));
+    if(seen.size===2)return r;
+  }
+  return -1;
+}
+
+// the noisy five-symbol channel and the classic two-letter code
+function confusable(a,b){ return a===b||((a-b+5)%5)===1||((a-b+5)%5)===4; }
+function distinguishable(u,v){
+  for(let d=0;d<u.length;d++)if(!confusable(u[d],v[d]))return d;
+  return -1;
+}
+const CODEBOOK=[[0,0],[1,2],[2,4],[3,1],[4,3]];
+
+// people on a circle, starting from the top
+function ringPos(n,cx,cy,r){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const a=Math.PI/2+2*Math.PI*i/n;
+    out.push([cx+r*Math.cos(a),cy-r*Math.sin(a)]);
+  }
+  return out;
+}
+
+// --- a very small plotting helper -----------------------------------------
+function Plot(canvas,xlo,xhi,ylo,yhi,pad){
+  const ctx=canvas.getContext('2d'), W=canvas.width, H=canvas.height;
+  pad=pad||{l:52,r:16,t:16,b:38};
+  const X=x=>pad.l+(x-xlo)/(xhi-xlo)*(W-pad.l-pad.r);
+  const Y=y=>H-pad.b-(y-ylo)/(yhi-ylo)*(H-pad.t-pad.b);
+  return {ctx,X,Y,W,H,pad,
+    clear(){ctx.clearRect(0,0,W,H);},
+    axes(xlabel,ylabel){
+      ctx.strokeStyle='#c3c2b7';ctx.lineWidth=1;ctx.beginPath();
+      ctx.moveTo(pad.l,pad.t);ctx.lineTo(pad.l,H-pad.b);ctx.lineTo(W-pad.r,H-pad.b);ctx.stroke();
+      ctx.fillStyle='#898781';ctx.font='12px system-ui';ctx.textAlign='center';
+      if(xlabel)ctx.fillText(xlabel,(pad.l+W-pad.r)/2,H-8);
+      if(ylabel){ctx.save();ctx.translate(13,(pad.t+H-pad.b)/2);ctx.rotate(-Math.PI/2);
+        ctx.fillText(ylabel,0,0);ctx.restore();}
+    },
+    curve(f,color,lw){ctx.strokeStyle=color;ctx.lineWidth=lw||2.4;ctx.beginPath();
+      for(let i=0;i<=400;i++){const x=xlo+(xhi-xlo)*i/400,y=f(x);
+        if(i===0)ctx.moveTo(X(x),Y(y));else ctx.lineTo(X(x),Y(y));}ctx.stroke();},
+    dots(xs,ys,color){ctx.fillStyle=color;
+      for(let i=0;i<xs.length;i++){ctx.beginPath();ctx.arc(X(xs[i]),Y(ys[i]),3.4,0,7);ctx.fill();}},
+    line(xs,ys,color,lw){ctx.strokeStyle=color;ctx.lineWidth=lw||2;ctx.beginPath();
+      for(let i=0;i<xs.length;i++){if(i===0)ctx.moveTo(X(xs[i]),Y(ys[i]));
+        else ctx.lineTo(X(xs[i]),Y(ys[i]));}ctx.stroke();},
+    hline(y,color,dash){ctx.save();ctx.strokeStyle=color;ctx.setLineDash(dash||[]);
+      ctx.beginPath();ctx.moveTo(pad.l,Y(y));ctx.lineTo(W-pad.r,Y(y));ctx.stroke();ctx.restore();},
+    vline(x,color,dash){ctx.save();ctx.strokeStyle=color;ctx.setLineDash(dash||[]);
+      ctx.beginPath();ctx.moveTo(X(x),pad.t);ctx.lineTo(X(x),H-pad.b);ctx.stroke();ctx.restore();},
+    label(x,y,text,color,align){ctx.fillStyle=color;ctx.font='12px system-ui';
+      ctx.textAlign=align||'left';ctx.fillText(text,X(x),Y(y));}
+  };
+}
+
+// drawing a coloring onto a canvas, shared by several pages
+function drawColoring(ctx,M,pos,lw,highlight){
+  const n=M.length;
+  for(let i=0;i<n;i++)for(let j=i+1;j<n;j++){
+    const c=M[i][j]; if(c<0)continue;
+    ctx.strokeStyle=EDGE_COLORS[c];ctx.lineWidth=lw||1.6;ctx.globalAlpha=0.8;
+    ctx.beginPath();ctx.moveTo(pos[i][0],pos[i][1]);
+    ctx.lineTo(pos[j][0],pos[j][1]);ctx.stroke();
+  }
+  ctx.globalAlpha=1;
+  if(highlight)for(const [i,j,k] of highlight){
+    ctx.strokeStyle=EDGE_COLORS[M[i][j]];ctx.lineWidth=6;
+    for(const [a,b] of [[i,j],[j,k],[i,k]]){
+      ctx.beginPath();ctx.moveTo(pos[a][0],pos[a][1]);
+      ctx.lineTo(pos[b][0],pos[b][1]);ctx.stroke();
+    }
+  }
+  for(const [x,y] of pos){
+    ctx.beginPath();ctx.arc(x,y,6,0,7);
+    ctx.fillStyle='#fff';ctx.fill();
+    ctx.strokeStyle='#52514e';ctx.lineWidth=1.4;ctx.stroke();
+  }
+}
+
+
+const cv=document.getElementById('c');
+const e=document.getElementById('e');
+function draw(){
+  const E=parseInt(e.value),K=Math.pow(10,E);
+  const P=Plot(cv,1,80,-40,90);
+  P.clear();P.axes('colors, as a power of ten','rate (digits per color)');
+  P.curve(x=>Math.log10(PRE_2026_BASE),'#4a3aa7');
+  P.curve(x=>{const k=Math.pow(10,x);return Math.log10(explicitNewBase(k));},'#d03b3b');
+  P.hline(0,'#c3c2b7',[3,3]);
+  P.vline(E,'#52514e',[4,4]);
+  P.label(4,Math.log10(PRE_2026_BASE)+3,'old fixed recipe','#4a3aa7');
+  P.label(40,25,'2026 bound, printed constant','#d03b3b');
+  const nb=explicitNewBase(K);
+  document.getElementById('ev').textContent='10^'+E;
+  document.getElementById('out').textContent=
+    'colors            10^'+E+'\n'+
+    'old recipe rate   '+PRE_2026_BASE.toFixed(2)+' people per color\n'+
+    'new bound rate    '+(nb>=100?nb.toExponential(2):nb.toPrecision(3))+' people per color\n'+
+    (nb>PRE_2026_BASE?'the new bound has taken over and never looks back'
+     :nb>1?'the new bound says something, but the old recipe is still bigger'
+     :'the new bound says nothing at all down here');
+}
+e.addEventListener('input',draw);draw();
+
+</script>
+</body>
+</html>

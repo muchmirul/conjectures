@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Triangle Game, from Zero</title>
+<meta name="description" content="An illustrated guide, starting from zero, to the multicolor Ramsey triangle game: how many people can be kept free of a one-color triangle per color spent, and how 2026 proved that rate climbs without bound.">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']],
+         displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+  chtml: { scale: 1.0 }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style>
+  :root {
+    --surface: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+    --line: #e1e0d9; --blue: #2a78d6; --green: #008300; --red: #d03b3b;
+    --violet: #4a3aa7; --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--surface); color: var(--ink);
+    font: 17px/1.65 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  header.hero { text-align: center; margin-bottom: 2.5rem; }
+  h1 { font-size: 2.1rem; line-height: 1.2; margin: 0 0 0.75rem; }
+  .subtitle { color: var(--ink2); font-style: italic; font-size: 1.05rem; max-width: 40rem; margin: 0 auto; }
+  h2 { font-size: 1.5rem; margin: 3.2rem 0 1rem; padding-top: 1.6rem; border-top: 1px solid var(--line); }
+  h2 .n { color: var(--blue); }
+  p { margin: 0.9rem 0; }
+  figure { margin: 1.6rem 0; text-align: center; }
+  figure img { max-width: 100%; height: auto; border-radius: 6px; }
+  figcaption { color: var(--muted); font-size: 0.85rem; margin-top: 0.45rem; line-height: 1.45; }
+  blockquote {
+    margin: 1.4rem 0; padding: 0.85rem 1.1rem; border-left: 4px solid var(--green);
+    background: var(--card); border-radius: 0 6px 6px 0; color: var(--ink);
+  }
+  blockquote p { margin: 0.35rem 0; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.9em; }
+  code { background: #f0efec; padding: 0.1em 0.35em; border-radius: 4px; }
+  pre {
+    background: #f6f5f2; border: 1px solid var(--line); border-radius: 8px;
+    padding: 0.9rem 1.1rem; overflow-x: auto; line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; margin: 1.2rem auto; }
+  th, td { border: 1px solid var(--line); padding: 0.45rem 0.8rem; text-align: center; }
+  table.words th, table.words td { text-align: left; }
+  th { background: #f6f5f2; }
+  ul, ol { padding-left: 1.4rem; }
+  li { margin: 0.35rem 0; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  footer { margin-top: 4rem; padding-top: 1.4rem; border-top: 1px solid var(--line);
+           color: var(--muted); font-size: 0.9rem; }
+  nav.toc {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 1rem 1.3rem; margin: 2rem 0; font-size: 0.95rem;
+    columns: 2; column-gap: 2rem;
+  }
+  nav.toc a { display: block; padding: 0.12rem 0; color: var(--ink2); }
+  nav.toc a:hover { color: var(--blue); }
+  h3 { font-size: 1.15rem; margin: 2rem 0 0.6rem; color: var(--ink); }
+  figure img.missing { outline: 2px dashed var(--red); padding: 1rem; }
+  figure.sim iframe { width: 100%; height: 650px; border: 1px solid var(--line);
+                      border-radius: 10px; background: #fff; }
+  @media (max-width: 600px) { nav.toc { columns: 1; } h1 { font-size: 1.7rem; } }
+</style>
+</head>
+<body>
+<main>
+
+<header class="hero"><h1>The Triangle Game, from Zero</h1>
+<p class="subtitle">A step by step guide to a coloring game that has been studied since 1955, to a question about it that Erdős put money on, and to the 2026 result that answered it. No mathematical background is assumed. Every idea arrives as a picture first.</p></header>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/00-start-here/hero.gif" alt="All 120 connections among sixteen people being colored with three colors, ending safe" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/00-start-here/hero.gif;../../multicolor-ramsey/guide/00-start-here/hero.gif"><figcaption>All 120 connections among sixteen people being colored with three colors, ending safe</figcaption></figure>
+<p>Sixteen people, every pair connected, every connection given one of three colors. Watch to the end: no three people have all three of their mutual connections in a single color. That is the whole game, and sixteen is the largest group that can win it with three colors. It has been since 1955, and nobody has beaten it.</p>
+<p>The question this article builds toward is what happens when you have many colors. With more colors you can protect a bigger group. How much bigger, per color? Erdős offered cash for the answer in the 1980s, the standard reference book recorded the question in 1990, and until recently the honest summary was that the two known guardrails were absurdly far apart. In 2026 the question was answered.</p>
+<p>This article explains the whole story from zero. Each section is one small idea with a picture, and each one has a <a href="play/index.html">page you can play with</a> where the numbers in it are controls you can move.</p>
+<p>The code for every figure is in this repository, along with a test suite that recomputes each number. Where a claim is somebody else&#x27;s theorem rather than something computed here, the text says so.</p>
+<pre><code>    the game           1  the game            2  six is forced
+                       3  more crayons
+    the question       4  the question
+    the old tools      5  multiply            6  the ceiling
+                       7  the gap
+    the 2026 answer    8  palettes            9  the trap
+                      10  the referee        11  the tower
+                      12  what it means, and what it does not</code></pre>
+<figure class="sim"><iframe src="play/00.html?embed" loading="lazy" title="Simulation for chapter 0"></iframe><figcaption>Move the controls above. <a href="play/00.html">Open this simulation on its own page</a></figcaption></figure>
+<nav class="toc"><a href="#s1">1 · The game</a><a href="#s2">2 · Six is forced</a><a href="#s3">3 · More crayons</a><a href="#s4">4 · The question</a><a href="#s5">5 · Multiply</a><a href="#s6">6 · The ceiling</a><a href="#s7">7 · The gap</a><a href="#s8">8 · Palettes</a><a href="#s9">9 · The trap</a><a href="#s10">10 · The referee</a><a href="#s11">11 · The tower</a><a href="#s12">12 · What it means, and what it does not</a><a href="#s13">What you can check yourself</a><a href="#s14">The plain words, and the real ones</a><a href="#s15">Where to go next</a></nav>
+<h2 id="s1"><span class="n">1 ·</span> The game</h2>
+<p>Take a group of people and connect every pair with a string. Now color every string. You lose the moment three people are joined to each other by three strings of the same color. Call such a threesome a <strong>one-color triangle</strong>, and call a finished coloring with no one-color triangle <strong>safe</strong>.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/01-the-game/rules.png" alt="A four-person group colored two ways, one with a one-color triangle and one safe" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/01-the-game/rules.png;../../multicolor-ramsey/guide/01-the-game/rules.png"><figcaption>A four-person group colored two ways, one with a one-color triangle and one safe</figcaption></figure>
+<p>The left group is lost: the thick triangle has all three of its strings in the first color. The right group is safe: every one of its four possible triangles wears two colors.</p>
+<p>With two colors, five people can be kept safe, and there is essentially one way to do it. Put the five in a circle. Color the ring of neighbouring pairs with the first color and the star of skipping pairs with the second.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/01-the-game/pentagon.gif" alt="The five-person table being colored, then all ten triangles checked one by one" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/01-the-game/pentagon.gif;../../multicolor-ramsey/guide/01-the-game/pentagon.gif"><figcaption>The five-person table being colored, then all ten triangles checked one by one</figcaption></figure>
+<p>The sweep at the end is the point. A safe coloring is not a vague impression, it is a finite list of checks: this table has ten possible triangles, and all ten mix their colors. The test suite of this repository performs exactly that sweep.</p>
+<p>Why it works is worth one sentence. Each color&#x27;s strings form a ring of five on their own, and a ring has no triangle of any kind, so it certainly has no one-color one.</p>
+<figure class="sim"><iframe src="play/01.html?embed" loading="lazy" title="Simulation for chapter 1"></iframe><figcaption>Move the controls above. <a href="play/01.html">Open this simulation on its own page</a></figcaption></figure>
+<h2 id="s2"><span class="n">2 ·</span> Six is forced</h2>
+<p>Five people can be kept safe with two colors. Six cannot. This is the one theorem this article proves completely, and the proof fits in a picture.</p>
+<p>Sit six people down, pick one of them, and look at her five strings. Five strings, two colors: some color appears on at least three of them. Say it is red, going to three particular people.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/02-six-is-forced/pigeonhole.gif" alt="The pigeonhole proof playing out: three same-colored strings force a triangle either way" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/02-six-is-forced/pigeonhole.gif;../../multicolor-ramsey/guide/02-six-is-forced/pigeonhole.gif"><figcaption>The pigeonhole proof playing out: three same-colored strings force a triangle either way</figcaption></figure>
+<p>Now watch those three people. If any two of them are joined by a red string, that string plus their two red strings back to the first person close a red triangle. So all three of their mutual strings must avoid red, which means all three are blue, and that is a blue triangle. A one-color triangle appears in either case.</p>
+<p>Nothing about the argument used which coloring was chosen, so every coloring of six people fails. Machines agree: this repository&#x27;s tests walk through all 32768 ways to two-color the fifteen strings of a six-person group, and not one is safe. The sweep finds a little more than the proof promised.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/02-six-is-forced/census.png" alt="The census of all 32768 colorings of six people, counted by how many one-color triangles each contains" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/02-six-is-forced/census.png;../../multicolor-ramsey/guide/02-six-is-forced/census.png"><figcaption>The census of all 32768 colorings of six people, counted by how many one-color triangles each contains</figcaption></figure>
+<p>The bar at zero is empty, which is the theorem. The bar at one is also empty: the luckiest colorings of six contain exactly two one-color triangles, never just one. That refinement is a 1959 observation of Goodman, rediscovered here by brute force.</p>
+<p>So the story of two colors is complete: five people can be kept safe and six cannot. Call six the <strong>forcing size</strong> for two colors: the group size at which a one-color triangle becomes unavoidable.</p>
+<figure class="sim"><iframe src="play/02.html?embed" loading="lazy" title="Simulation for chapter 2"></iframe><figcaption>Move the controls above. <a href="play/02.html">Open this simulation on its own page</a></figcaption></figure>
+<h2 id="s3"><span class="n">3 ·</span> More crayons</h2>
+<p>A third color changes the scale of the game. The record safe group jumps from five to sixteen, and the sixteen-person coloring is the one the opening animation drew. Here it is taken apart, one color at a time.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/03-more-crayons/layers.png" alt="The record three-color table split into its three one-color nets, each triangle-free" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/03-more-crayons/layers.png;../../multicolor-ramsey/guide/03-more-crayons/layers.png"><figcaption>The record three-color table split into its three one-color nets, each triangle-free</figcaption></figure>
+<p>Each panel is one color&#x27;s net. Every person is joined to exactly five others in each color, and each net, seen on its own, contains no triangle at all. A net with no triangle can never hold a one-color one, so the whole table is safe. The construction comes from Greenwood and Gleason in 1955; this repository rebuilds it from their recipe and re-checks all 560 triangles.</p>
+<p>Greenwood and Gleason also proved the matching failure: seventeen people cannot be kept safe with three colors. That direction is far beyond checking case by case, since the colorings of seventeen people outnumber atoms, so this article quotes it rather than verifying it.</p>
+<p>Then the exact answers stop.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/03-more-crayons/records.png" alt="What is known for one, two, three and four colors, with the four-color range still open" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/03-more-crayons/records.png;../../multicolor-ramsey/guide/03-more-crayons/records.png"><figcaption>What is known for one, two, three and four colors, with the four-color range still open</figcaption></figure>
+<p>For four colors the forcing size is known to be somewhere between 51 and 62, a range that has stood for decades. For five colors the uncertainty is wider still. Nobody knows the answer for any color count past three, and it is not for lack of computers: the case-by-case approach dies immediately, and everything since has been about finding arguments instead.</p>
+<figure class="sim"><iframe src="play/03.html?embed" loading="lazy" title="Simulation for chapter 3"></iframe><figcaption>Move the controls above. <a href="play/03.html">Open this simulation on its own page</a></figcaption></figure>
+<h2 id="s4"><span class="n">4 ·</span> The question</h2>
+<p>Line up what the records so far actually cost. Two colors bought a table of five. Three colors bought a table of sixteen. The natural currency is not the table size itself but the table size <em>per color spent</em>, measured so that the arithmetic comes out fair: a recipe that turns each color into the same multiplying factor should score that factor.</p>
+<p>Two colors for five people scores about 2.24, because 2.24 times itself is five. Three colors for sixteen scores about 2.52, because 2.52 times itself, twice over, is sixteen. The best recipe known before 2026, built from addition tricks on number circles, approaches a score of about 3.28 as the color count grows. It only approaches it: the recipe loses a fixed slice at every round, so no single small table actually reaches that rate, and at five colors, for example, a table big enough to score 3.28 outright is already impossible.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/04-the-question/rate.png" alt="The people-per-color rate of the known constructions, climbing slowly toward an open question" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/04-the-question/rate.png;../../multicolor-ramsey/guide/04-the-question/rate.png"><figcaption>The people-per-color rate of the known constructions, climbing slowly toward an open question</figcaption></figure>
+<p>The bars creep upward. The question the rest of this article answers is the obvious one about that creep.</p>
+<blockquote><p>As the number of colors grows without limit, does the people-per-color rate climb without limit too, or does it level off at some fixed ceiling?</p></blockquote>
+<p>Erdős offered 250 dollars for determining what the rate approaches and 100 dollars for merely deciding whether it is finite. The question was recorded in the standard Ramsey theory reference in 1990, and it stayed open, in both directions, until the result this article describes.</p>
+<p>It is worth feeling why both answers were plausible. Each new color is a whole extra dimension of freedom, so perhaps tables can grow faster and faster per color forever. On the other hand every construction anyone had ever written down got a fixed rate and no more, as the next chapter shows.</p>
+<figure class="sim"><iframe src="play/04.html?embed" loading="lazy" title="Simulation for chapter 4"></iframe><figcaption>Move the controls above. <a href="play/04.html">Open this simulation on its own page</a></figcaption></figure>
+<h2 id="s5"><span class="n">5 ·</span> Multiply</h2>
+<p>The classical tool takes two safe tables and multiplies them. Watch it act on two copies of the pentagon.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/05-multiply/blowup.gif" alt="Each of five people becoming a room of five, keeping outer colors between rooms and fresh colors inside" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/05-multiply/blowup.gif;../../multicolor-ramsey/guide/05-multiply/blowup.gif"><figcaption>Each of five people becoming a room of five, keeping outer colors between rooms and fresh colors inside</figcaption></figure>
+<p>Each of the original five people becomes a <strong>room</strong> holding a full copy of the other table. A string between two rooms keeps the color the two original people used. A string inside a room uses the inner table&#x27;s coloring, in fresh colors that nothing else touches.</p>
+<p>The result is safe, and the reason splits cleanly in two. A triangle with all three corners in one room is a triangle of the inner table, and the inner table was safe. A triangle touching more than one room cannot use any inside color, so all its strings run between rooms; but two corners in one room lead outward in strings that copy the <em>same</em> original person&#x27;s colors, so the triangle&#x27;s colors trace a triangle of the outer table, and the outer table was safe. The tests do not take this on faith: they verify the 25-person, four-color product cold, all 2300 triangles, and an 80-person, five-color product as well.</p>
+<p>So safe tables multiply: sizes multiply, color counts add. Repeat forever and five people at two colors become 25 at four, 125 at six, and so on without end.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/05-multiply/tower.png" alt="Repeated products of the pentagon and of the sixteen table, straight lines on a growth chart" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/05-multiply/tower.png;../../multicolor-ramsey/guide/05-multiply/tower.png"><figcaption>Repeated products of the pentagon and of the sixteen table, straight lines on a growth chart</figcaption></figure>
+<p>Both lines are straight on this chart, and straight means stuck. Multiplying the pentagon forever earns exactly 2.24 people per color at every step, and the sixteen-person table earns exactly 2.52, because each round adds the same colors and multiplies by the same factor. A fixed recipe, repeated, can never make the rate climb. Whatever answers the question of chapter 4 has to spend its colors in a genuinely new way.</p>
+<figure class="sim"><iframe src="play/05.html?embed" loading="lazy" title="Simulation for chapter 5"></iframe><figcaption>Move the controls above. <a href="play/05.html">Open this simulation on its own page</a></figcaption></figure>
+<h2 id="s6"><span class="n">6 ·</span> The ceiling</h2>
+<p>The other guardrail comes from the six-person argument of chapter 2, which generalizes to any number of colors. Pick one person at a big table and sort everyone else by the color of their string to her.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/06-the-ceiling/sort.gif" alt="One person&#x27;s fifteen connections in the sixteen-person table, sliding into three color groups" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/06-the-ceiling/sort.gif;../../multicolor-ramsey/guide/06-the-ceiling/sort.gif"><figcaption>One person&#x27;s fifteen connections in the sixteen-person table, sliding into three color groups</figcaption></figure>
+<p>With three colors and fifteen strings, some group holds at least five people. Inside that group, its own color is now poison: any string of that color between two members would close a triangle with the person at the center. So the group is a smaller table effectively playing with one color fewer, and the same move can be made again inside it, and again, until the colors run out and a bare triangle is forced.</p>
+<p>Run the argument in reverse and it says: a table safe for one color holds at most 2 people, so a table safe for two colors holds at most a group small enough that sorting works out, and so on. The forcing sizes it proves are 3, 6, 17, 66, 327, and onward, each step multiplying by roughly the number of colors.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/06-the-ceiling/staircase.png" alt="The staircase of forcing sizes next to plain factorials on a growth chart" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/06-the-ceiling/staircase.png;../../multicolor-ramsey/guide/06-the-ceiling/staircase.png"><figcaption>The staircase of forcing sizes next to plain factorials on a growth chart</figcaption></figure>
+<p>Multiplying by the color count at every step is exactly what a factorial does, so the ceiling grows like a factorial. The staircase happens to be exactly right at two colors and at three, where 6 and 17 are the true answers. At four colors it says 66 while the truth is at most 62; the best refinement in the literature trims such constants, reaching about e minus one sixth times the factorial, but no refinement has ever changed the factorial shape.</p>
+<figure class="sim"><iframe src="play/06.html?embed" loading="lazy" title="Simulation for chapter 6"></iframe><figcaption>Move the controls above. <a href="play/06.html">Open this simulation on its own page</a></figcaption></figure>
+<h2 id="s7"><span class="n">7 ·</span> The gap</h2>
+<p>Put the two guardrails on one chart and the problem stares back.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/07-the-gap/gap.png" alt="The exponential floor and the factorial ceiling, with the widening unknown band shaded" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/07-the-gap/gap.png;../../multicolor-ramsey/guide/07-the-gap/gap.png"><figcaption>The exponential floor and the factorial ceiling, with the widening unknown band shaded</figcaption></figure>
+<p>The floor in the chart is what multiplying the record tables honestly proves at each color count. It grows like a fixed number raised to the color count. The ceiling grows like the factorial of the color count, which is what you get when the multiplying factor itself keeps growing. These are different kinds of growth, and the band between them widens without end. Fifty years of work lived inside that band, moving the floor&#x27;s fixed rate from 2.24 toward 3.28 without ever changing its character.</p>
+<p>Shortcuts were tried. Here is the most tempting one, sunk by a computation you can watch.</p>
+<p>There are lots of orderings of a handful of items, factorially many, and any two orderings first disagree at some position. Color each pair of orderings by that position. Factorially many tables from a handful of colors would smash the question. With three items there are six orderings and only two possible colors, and if the trick worked it would beat the pentagon.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/07-the-gap/orderings.gif" alt="Six orderings colored by first disagreement, with a one-color triangle found and flashed" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/07-the-gap/orderings.gif;../../multicolor-ramsey/guide/07-the-gap/orderings.gif"><figcaption>Six orderings colored by first disagreement, with a one-color triangle found and flashed</figcaption></figure>
+<p>It does not work. The orderings ABC, BAC and CAB pairwise first-disagree at the very same position, the first letter, so their triangle is one-colored. Nothing about three items is special; the same collision happens at every size, and the tests exhibit it. Patching the color to record more information avoids the collision only by spending far more colors, which puts you back where you started.</p>
+<p>Other routes fail for their own reasons. Building tables from addition on a number circle turns out to be the same problem wearing different clothes, not an easier one. What every failure has in common is this: each color&#x27;s net must stay triangle-free, and the cheap ways to guarantee that all quarantine every color inside its own private region. The winning idea has to let many rooms <em>reuse</em> the same color, while some global mechanism guarantees the reused pieces can never assemble a triangle. Finding that mechanism took until 2026, and it is the next three chapters.</p>
+<figure class="sim"><iframe src="play/07.html?embed" loading="lazy" title="Simulation for chapter 7"></iframe><figcaption>Move the controls above. <a href="play/07.html">Open this simulation on its own page</a></figcaption></figure>
+<h2 id="s8"><span class="n">8 ·</span> Palettes</h2>
+<p>Nothing in the next three chapters is harder than what you have already read. The construction has three moving parts, each of which is a rule simple enough to draw, and this chapter is the first: who is allowed to use which color.</p>
+<p>The people are divided into rooms, as in chapter 5. The new ingredient is that every room is issued a <strong>palette</strong>: a list of colors that room deliberately refuses to use inside itself. Every other color is fair game internally. And a string between two different rooms must use a color that exactly one of the two rooms holds.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/08-palettes/rooms.gif" alt="A string between two rooms auditioning colors until one is held on exactly one side" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/08-palettes/rooms.gif;../../multicolor-ramsey/guide/08-palettes/rooms.gif"><figcaption>A string between two rooms auditioning colors until one is held on exactly one side</figcaption></figure>
+<p>That little rule already kills every triangle that touches three different rooms. Fix any single color and any three rooms, and ask whether that color is held or missing in each room. A triangle across the three rooms would need its color on all three walls, held on exactly one side of each. Try to arrange it: around the triangle, held must alternate with missing at every wall, and a cycle of three cannot alternate. Some wall always has the color held on both sides or on neither.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/08-palettes/parity.png" alt="All eight hold-or-miss patterns for one color across three rooms, each with an unusable wall" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/08-palettes/parity.png;../../multicolor-ramsey/guide/08-palettes/parity.png"><figcaption>All eight hold-or-miss patterns for one color across three rooms, each with an unusable wall</figcaption></figure>
+<p>All eight patterns fail, and the tests enumerate them rather than trusting the story. So triangles across three rooms are ruled out, and the rule costs nothing. What it does not rule out is a triangle with two corners in the same room, and that is the trap of the next chapter.</p>
+<figure class="sim"><iframe src="play/08.html?embed" loading="lazy" title="Simulation for chapter 8"></iframe><figcaption>Move the controls above. <a href="play/08.html">Open this simulation on its own page</a></figcaption></figure>
+<h2 id="s9"><span class="n">9 ·</span> The trap</h2>
+<p>The dangerous triangle has two corners inside one room and one corner outside. The color on its strings is one the room actively uses, so the room contains strings of that color, and an outsider connected in by two same-colored strings might land exactly on two people the room has already joined in that color.</p>
+<p>The defense starts by looking at one color&#x27;s net inside the room. Here is the red net of the pentagon room, with its people badged into <strong>teams</strong>.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/09-the-trap/teams.png" alt="The red net inside the pentagon room, with three teams and no red string inside any team" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/09-the-trap/teams.png;../../multicolor-ramsey/guide/09-the-trap/teams.png"><figcaption>The red net inside the pentagon room, with three teams and no red string inside any team</figcaption></figure>
+<p>The teams are chosen so that no red string stays inside one team; every red string crosses between teams. Three teams suffice for the pentagon&#x27;s red net. Now the rule that disarms the trap: all red strings arriving from any one outsider must land inside a single team.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/09-the-trap/trap.gif" alt="The trap springing when the rule is broken, and failing to spring when it is obeyed" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/09-the-trap/trap.gif;../../multicolor-ramsey/guide/09-the-trap/trap.gif"><figcaption>The trap springing when the rule is broken, and failing to spring when it is obeyed</figcaption></figure>
+<p>Watch both halves. Rule ignored, the outsider&#x27;s two red strings land on two people who are red-connected, and the triangle snaps shut. Rule obeyed, the outsider&#x27;s red strings land on teammates only, teammates are never red-connected, and no red triangle can involve that outsider. Strings that the rule turns away are colored instead with a color the room&#x27;s palette forbids inside, which is harmless for the room automatically: a triangle needs an inside string of its color, and there are none. The tests verify both endings on exactly the colorings drawn here.</p>
+<p>This is the point of palettes beyond the parity trick of chapter 8. A palette does not just say which colors a room avoids. It splits every arriving color into two safety cases: colors the room misses are safe by emptiness, and colors the room holds are safe by teams, provided the landing rule is enforced. Enforcing it for every pair of rooms at once, without spending new colors, is the job of the referee.</p>
+<figure class="sim"><iframe src="play/09.html?embed" loading="lazy" title="Simulation for chapter 9"></iframe><figcaption>Move the controls above. <a href="play/09.html">Open this simulation on its own page</a></figcaption></figure>
+<h2 id="s10"><span class="n">10 ·</span> The referee</h2>
+<p>Here is the enforcement problem, stripped down. A string runs from person u in one room to person v in another. The rule of chapter 9 says the team it lands on must be determined by the sender, not chosen freely. But the string&#x27;s color must also be held on exactly one side, per chapter 8, and there are many candidate colors, and this must work for every pair of rooms in the construction simultaneously, using no information beyond the two endpoints themselves.</p>
+<p>The solution is a single fixed card of symbols, written down once, before any rooms or people exist. This article calls it the <strong>referee&#x27;s card</strong>. Here is a real one, at toy size, found and fully verified by this repository.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/10-the-referee/referee.gif" alt="The referee&#x27;s card at toy size, with every choice of four columns containing a row that shows both symbols" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/10-the-referee/referee.gif;../../multicolor-ramsey/guide/10-the-referee/referee.gif"><figcaption>The referee&#x27;s card at toy size, with every choice of four columns containing a row that shows both symbols</figcaption></figure>
+<p>The card&#x27;s one promise: choose any four of its columns, and some row shows every symbol within those four columns. Thirteen rows of coin flips are enough to make that hold for all seventy ways of picking four columns out of eight, and the tests check all seventy. At this toy size the promise is easy and almost any random card passes; at the sizes the real construction needs, nothing could be checked case by case, and the existence of a valid card is guaranteed instead by two counting arguments layered on top of each other. What matters downstream is only this: the card is fixed once and works for every situation at once.</p>
+<p>Why insist that the card come first? Because a rule invented after seeing a particular pair of words could always be bent to fit that pair, and an agreement arranged after the fact guarantees nothing about the next pair. The promise has force precisely because one card, written blind, must serve every pair of rooms on every floor, forever.</p>
+<p>From the card come two fixed answer lists, one for each direction of the conversation. Each person&#x27;s teams, across the relevant colors, spell out a word. When two words meet, the promise of the card guarantees a position where one word agrees with the answer list of the other.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/10-the-referee/meeting.gif" alt="Two words and the two fixed answer lists, scanned until the guaranteed agreement appears" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/10-the-referee/meeting.gif;../../multicolor-ramsey/guide/10-the-referee/meeting.gif"><figcaption>Two words and the two fixed answer lists, scanned until the guaranteed agreement appears</figcaption></figure>
+<p>That agreeing position picks the string&#x27;s color, and it does so in exactly the shape chapter 9 demanded: the landing team at the receiving end is read off from the sender&#x27;s word. Two red strings from the same outsider therefore land on the same team, always, and the trap never springs. The tests verify the meeting promise exhaustively at toy size: all 8192 possible words on one side, every possible word on the other, no pair escapes.</p>
+<p>One honest caveat. The toy is real and fully checked, but its size is chosen for the eye. The real construction&#x27;s smallest card has 57 rows, and the words are 57 symbols long. Nothing conceptual changes with the size; only the counting arguments do.</p>
+<figure class="sim"><iframe src="play/10.html?embed" loading="lazy" title="Simulation for chapter 10"></iframe><figcaption>Move the controls above. <a href="play/10.html">Open this simulation on its own page</a></figcaption></figure>
+<h2 id="s11"><span class="n">11 ·</span> The tower</h2>
+<p>All three parts are on the table. What remains is assembly, and one piece of bookkeeping that turns the assembly into a growing rate.</p>
+<p>The construction is a tower of floors. The ground floor is one person. Each new floor takes a batch of fresh colors and builds many rooms, each room holding a complete copy of the floor below with its colors relabeled. Every room&#x27;s palette is chosen from the enlarged pool, sized so that the colors a room holds are exactly as many as the floor below needs. Strings between rooms are colored by the referee, whose single fixed table serves every floor and every pair of rooms.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/11-the-tower/tower.gif" alt="Floors of rooms of rooms, with later floors multiplying by more than earlier ones" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/11-the-tower/tower.gif;../../multicolor-ramsey/guide/11-the-tower/tower.gif"><figcaption>Floors of rooms of rooms, with later floors multiplying by more than earlier ones</figcaption></figure>
+<p>The diagram is a cartoon of the shape, not a portrait of the size; the real floors are astronomically wide. The bookkeeping that matters is this. Palettes on floor after floor are drawn from a growing pool of colors, and the number of usably different palettes grows with the pool. So the number of rooms a floor can support grows as the tower rises. Each floor multiplies the table size by more than the floor before, and that is precisely the behaviour no fixed product could ever have.</p>
+<p>Two constraints fight over the tower&#x27;s height. Any two rooms on one floor must have palettes different enough that each room holds plenty of colors the other one is missing, or the referee has too few candidate colors to pick from; that forces palettes to be large, which spends colors. Colors, in turn, are what the final score divides by. Balancing the two, a tower of some height spends about the cube of that height in colors (times smaller logarithmic factors) and pays out about that height in people per color. Undo the cube: a table built with some number of colors earns a rate of about the <em>cube root</em> of its color count, divided by a logarithm.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/11-the-tower/base.png" alt="Flat rates of the fixed recipes against the climbing rate shape of the 2026 construction" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/11-the-tower/base.png;../../multicolor-ramsey/guide/11-the-tower/base.png"><figcaption>Flat rates of the fixed recipes against the climbing rate shape of the 2026 construction</figcaption></figure>
+<p>The flat lines are the whole world before 2026. The curve climbs past every one of them and keeps going. At the smallest full-scale size, the numbers are: a referee&#x27;s card of 57 rows, palettes of 114 colors per floor, three floors, 342 colors in all. This repository computes those parameters from the paper&#x27;s recipe and the tests pin them.</p>
+<figure class="sim"><iframe src="play/11.html?embed" loading="lazy" title="Simulation for chapter 11"></iframe><figcaption>Move the controls above. <a href="play/11.html">Open this simulation on its own page</a></figcaption></figure>
+<h2 id="s12"><span class="n">12 ·</span> What it means, and what it does not</h2>
+<p>The theorem, in the words of this article: for every color count from two upward, there is a safe table whose people-per-color rate is at least a fixed constant times the cube root of the color count divided by its logarithm. The rate climbs without bound. Erdős&#x27;s 100-dollar question, whether the rate approaches something finite, is answered: it does not. His 250-dollar question, what it approaches, is answered the same way: it grows forever.</p>
+<p>Combined with the factorial ceiling of chapter 6, the forcing size is now boxed in tightly in shape: it is the color count raised to a power that is itself proportional to the color count.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/12-what-it-means/sandwich.png" alt="After 2026 both the floor and the ceiling grow the same way, with only the multiple open" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/12-what-it-means/sandwich.png;../../multicolor-ramsey/guide/12-what-it-means/sandwich.png"><figcaption>After 2026 both the floor and the ceiling grow the same way, with only the multiple open</figcaption></figure>
+<p>Be equally clear about what was not settled.</p>
+<pre><code>    settled                                  still open
+    -------                                  ----------
+    the rate climbs without bound            the multiple: the floor gets a third,
+    the forcing size is the color count      the ceiling gets one, and the truth
+      to the power of about the color count  is somewhere between
+    the four-color forcing size is           still somewhere between 51 and 62</code></pre>
+<p>And be clear about scale. The theorem&#x27;s explicit constant is enormous, deliberately so, because the authors optimized the argument&#x27;s shape rather than its constants. With that constant, the new bound does not overtake the old 3.28-per-color recipe until around ten to the sixtieth colors, and below 342 colors it says nothing at all. At every size a person will ever draw, the older constructions give bigger tables. What changed is not any record at small sizes; it is the answer to what kind of growth is possible.</p>
+<p>There is a payoff outside the game. A safe table is secretly a code for talking over a noisy channel. Here is the classic small example of the phenomenon, re-checked by this repository&#x27;s tests.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/12-what-it-means/channel.png" alt="The noisy five-symbol channel, and the five two-letter codewords that beat single letters" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/multicolor-ramsey/guide/12-what-it-means/channel.png;../../multicolor-ramsey/guide/12-what-it-means/channel.png"><figcaption>The noisy five-symbol channel, and the five two-letter codewords that beat single letters</figcaption></figure>
+<p>Five symbols, each confusable with its neighbours. Any three symbols include a confusable pair, so single-letter messages stop at two safe words; but there are five two-letter words that pairwise differ safely somewhere, which is more per letter. Capacity is about long words, not single letters. A safe table with many colors performs the same trick at scale: its people become symbols, its colors become letter positions, and the sixteen-fold or larger table gives that many words, all mutually safe. Because the rate now climbs without bound, there are channels in which any three symbols contain a confusable pair and yet whose capacity is as large as you like. Before this result, it was not known whether such channels exist at all.</p>
+<pre><code>    1955  Greenwood and Gleason: two colors force at six, three at seventeen
+    1971  Erdős, McEliece and Taylor connect the game to channel capacity
+    1973  Chung: four colors force at fifty one or more
+    1983  Chung and Grinstead&#x27;s survey records Erdős&#x27;s prizes
+    1990  Graham, Rothschild and Spencer record the growth question
+    1995  Alon and Orlitsky make the channel connection explicit
+    2021  Schur-type recipes reach the best fixed rate, about 3.28
+    2026  the rate is proved to climb without bound</code></pre>
+<figure class="sim"><iframe src="play/12.html?embed" loading="lazy" title="Simulation for chapter 12"></iframe><figcaption>Move the controls above. <a href="play/12.html">Open this simulation on its own page</a></figcaption></figure>
+<h2 id="s13">What you can check yourself</h2>
+<p>Everything below runs from this repository, with no mathematical background needed.</p>
+<pre><code>cd multicolor-ramsey
+make venv        # once
+make test        # re-checks every number in this article
+make figures     # re-renders every picture</code></pre>
+<p>The tests do these things, among others:</p>
+<ul><li>rebuild the pentagon and the sixteen-person coloring and re-check every triangle</li><li>walk all 32768 two-colorings of six people and confirm none is safe, and that the luckiest contain exactly two one-color triangles</li><li>multiply the pentagon by itself and verify the 25-person, four-color product, and an 80-person, five-color one</li><li>recompute the staircase 3, 6, 17, 66, 327 and compare the four-color step against the known range of 51 to 62</li><li>find the referee&#x27;s card at toy size, verify its promise over all seventy column choices, and verify the meeting guarantee over every pair of words</li><li>check all eight hold-or-miss patterns of the parity rule, and both endings of the trap</li><li>confirm the paper&#x27;s own parameters: 57 rows, 114 colors per floor, 342 colors at the smallest full-scale size</li><li>estimate where the explicit bound first overtakes the old recipes, which is around ten to the sixtieth colors</li></ul>
+<p>The one thing you cannot check here is the theorem. The full tower is described, not implemented, because its smallest honest floor is wider than any computer. The moving parts are implemented and verified at toy size, and the notes in this folder say exactly which claim rests on which test.</p>
+<h2 id="s14">The plain words, and the real ones</h2>
+<div class="scroll"><table class="words"><thead><tr><th>this article says</th><th>the standard term</th></tr></thead><tbody><tr><td>the triangle game</td><td>Ramsey theory for triangles, with k colors</td></tr><tr><td>a one-color triangle</td><td>a monochromatic triangle</td></tr><tr><td>a safe table</td><td>a triangle-free k-edge-coloring of a complete graph</td></tr><tr><td>the forcing size</td><td>the multicolor Ramsey number, written R(3, ..., 3) with k threes</td></tr><tr><td>people per color</td><td>the k-th root of the largest safe table size; Erdős&#x27;s question asks for its limit</td></tr><tr><td>a room</td><td>a block of the recursive construction</td></tr><tr><td>a palette</td><td>the set of colors a block omits; cross-room colors come from the symmetric difference of two palettes</td></tr><tr><td>a team</td><td>one class of a proper vertex coloring of a single color&#x27;s graph</td></tr><tr><td>the referee&#x27;s card</td><td>the saturated matrix</td></tr><tr><td>the two answer lists</td><td>the two-sided coordinate cover, a pair of fixed maps built from the matrix</td></tr><tr><td>the tower</td><td>the recursive palette construction of the 2026 proof</td></tr><tr><td>the noisy channel payoff</td><td>the Shannon capacity of graphs with independence number two is unbounded</td></tr></tbody></table></div>
+<p>The source writes the forcing size for k colors as a subscripted R, and the people-per-color limit as the limit of its k-th root, which it proves is infinite.</p>
+<h2 id="s15">Where to go next</h2>
+<ul><li>The source: chapter 9 of <em>Ten Advances in Mathematics and Theoretical Computer Science</em>, with its reasoning walkthrough. Both are in <code>docs/ten-proofs/09-multicolor-ramsey/</code>.</li><li>Greenwood and Gleason, &quot;Combinatorial relations and chromatic graphs&quot;, Canadian Journal of Mathematics 7 (1955), for the pentagon and the sixteen-person table.</li><li>Radziszowski, &quot;Small Ramsey numbers&quot;, the living survey of everything known at small sizes.</li><li>Alon and Orlitsky, &quot;Repeated communication and Ramsey graphs&quot;, IEEE Transactions on Information Theory 41 (1995), for the channel connection.</li><li><code>notes/research-content.md</code> in this folder, which lists every claim above and marks it as computed here, quoted from the literature, or part of the 2026 result.</li></ul>
+
+<footer>
+<p>Written July 2026. One topic inside <a href="../">conjectures</a>. Every figure is
+generated from the <a href="https://github.com/muchmirul/conjectures/tree/main/multicolor-ramsey">repository</a>: <code>make figures</code> rebuilds
+every one, and <code>make test</code> re-verifies every mathematical claim in exact
+arithmetic. Math is rendered with MathJax.</p>
+</footer>
+</main>
+<script>
+// Every figure lists the places it might live: GitHub raw, which is the only
+// one the published page can reach, and then the topic folder beside this file,
+// which is the one that works when the page is opened straight from disk.  Try
+// them in order rather than giving up on the first miss, so an animation never
+// silently fails to appear.
+document.querySelectorAll('figure img[data-fallbacks]').forEach(function (img) {
+  var tries = img.getAttribute('data-fallbacks').split(';');
+  var at = 0;
+  function next() {
+    at += 1;
+    if (at < tries.length) { img.src = tries[at]; }
+    else { img.classList.add('missing'); img.alt = 'could not load: ' + img.alt; }
+  }
+  img.addEventListener('error', next);
+  if (img.complete && img.naturalWidth === 0) { next(); }
+});
+</script>
+</body>
+</html>
