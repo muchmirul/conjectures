@@ -85,3 +85,11 @@ hard to beat.
 Distrust, and verify. The writing is friendly, but the claims are not hand-waved.
 Every topic re-checks its own mathematics from scratch, in exact arithmetic, on your
 machine, not on anyone's authority.
+
+## Donation
+
+USDT (Solana)
+
+```
+7adm4hMtxxBSjcztEewVqFV7cXvktceFMfdgMopAXVeC
+```
