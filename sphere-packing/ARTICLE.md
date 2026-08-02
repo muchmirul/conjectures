@@ -8,7 +8,7 @@ Every ball in this stack is the same size, and none of them overlap. This famili
 
 For circles on a flat surface, the best arrangement is known. For balls in ordinary three-dimensional space, finding the answer took almost four hundred years. In most higher dimensions, the exact answer is still unknown and is expected to remain difficult. Researchers therefore also ask a more manageable question: how dense could any packing possibly be? In 2026, they found the exact long-term limit of the main method used to answer that question. The result improved a general limit that had stood since 1978.
 
-This guide develops that story one small step at a time. Every numbered section also has a [page you can play with](https://muchmirul.github.io/conjectures/sphere-packing/play/index.html), where you can change the main quantities and watch the picture respond.
+This guide develops that story one small step at a time. Most numbered sections also have a [page you can play with](https://muchmirul.github.io/conjectures/sphere-packing/play/index.html), where you can change the main quantities and watch the picture respond.
 
 The code that makes each figure is included in this repository. The tests recalculate the numbers used in the guide. When a statement comes from an existing theorem rather than from those calculations, the text says so.
 
@@ -217,8 +217,6 @@ A good example proves what the method can achieve. A limit that applies to every
 
 In 2020, Afkhami-Jeddi, Cohn, Hartman, de Laat and Tajdini calculated the rate they expected and stated it as a conjecture. In 2026, both required statements were proved.
 
-**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/07.html)** to let the small difference between the two rates build across many dimensions.
-
 ## 8 · The balancing trick
 
 The final sections do not require a new starting idea. They reuse the two sign rules and the Fourier transform from section 4, together with the familiar idea of a radius. Until now, we asked what one chosen certificate could prove. We will now ask what every possible certificate is forced to look like.
@@ -290,8 +288,6 @@ Two extra parts repair side effects of the adjustment. They do not change the ce
 
 Without the adjustment, the bell curve fades quickly at great distances. The adjustment spoils some of that fading, so a tiny positive bump far away restores it. The broad checks also do not control the signs near the centre, so two polynomial factors—simple curves built from powers—are added to handle that short range separately.
 
-**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/10.html)** to move the Gaussian radius toward the limiting value.
-
 ## 11 · The two halves meet
 
 One part of the proof says that no certificate can have a better long-term radius than the limit. The other part builds certificates whose radii approach that same limit. Either statement alone leaves room for a gap. Together, they show that the limit is exact.
@@ -355,8 +351,6 @@ Both versions were expected to approach the same radius in high dimensions. The 
 ![The plus and minus radii approaching the same dashed limit, with the plus radius always smaller; the spacing shows the trend rather than exact values](guide/12-what-it-means/two_radii.png)
 
 The shared limit does not mean the two radii are equal in any particular dimension. The source shows that the plus radius is smaller in every finite dimension. Their difference becomes small compared with the square root of the dimension, so only their long-term limits agree.
-
-**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/12.html)** to compare the two radii as they move toward their shared limit.
 
 ## What you can check yourself
 

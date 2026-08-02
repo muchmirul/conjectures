@@ -38,8 +38,6 @@ Both versions were expected to approach the same radius in high dimensions. The 
 
 The shared limit does not mean the two radii are equal in any particular dimension. The source shows that the plus radius is smaller in every finite dimension. Their difference becomes small compared with the square root of the dimension, so only their long-term limits agree.
 
-**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/12.html)** to compare the two radii as they move toward their shared limit.
-
 ---
 
 [← The two halves meet](../11-they-meet/README.md)  ·  [the whole article on one page](../../ARTICLE.md)

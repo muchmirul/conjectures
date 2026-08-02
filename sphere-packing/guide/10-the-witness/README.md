@@ -25,8 +25,6 @@ Two extra parts repair side effects of the adjustment. They do not change the ce
 
 Without the adjustment, the bell curve fades quickly at great distances. The adjustment spoils some of that fading, so a tiny positive bump far away restores it. The broad checks also do not control the signs near the centre, so two polynomial factors—simple curves built from powers—are added to handle that short range separately.
 
-**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/10.html)** to move the Gaussian radius toward the limiting value.
-
 ---
 
 [← The wall](../09-the-wall/README.md)  ·  [The two halves meet →](../11-they-meet/README.md)  ·  [the whole article on one page](../../ARTICLE.md)

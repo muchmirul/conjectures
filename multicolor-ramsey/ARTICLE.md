@@ -8,7 +8,7 @@ The animation shows sixteen people with a connection between every pair. That ma
 
 This guide asks what happens when many more colours are available. More colours let us keep a larger group safe, but how much larger can the group become for each added colour? Erdős offered cash prizes for answering that question. For decades, the best construction and the best limit were so far apart that researchers did not even know whether the long-term rate stopped at a fixed number. A result in 2026 showed that it never stops growing.
 
-The guide develops the result in small steps. Every numbered section also has a [page you can play with](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/index.html), where you can change the main choices and watch the picture respond.
+The guide develops the result in small steps. Most numbered sections also have a [page you can play with](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/index.html), where you can change the main choices and watch the picture respond.
 
 The code that creates every figure is included in this repository. The tests recalculate the numbers and check the small colourings shown here. When a statement comes from an existing theorem rather than those tests, the text says so.
 
@@ -153,8 +153,6 @@ At each step, the size is multiplied by roughly the current number of colours. R
 
 Later refinements reduce the fixed amount in front of the factorial without changing this overall shape. The best published multiplier is called e minus one sixth, where e is a standard fixed number of about 2.72. No known upper-bound argument has replaced factorial growth with a fundamentally smaller kind of growth.
 
-**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/06.html)** to sort the connections and build the upper-limit staircase.
-
 ## 7 · The gap
 
 The lower and upper limits can now be placed on the same chart.
@@ -172,8 +170,6 @@ Take every ordering of a small set of letters. For each pair of orderings, find 
 It fails. The orderings ABC, BAC and CAB all first differ from one another at the first letter. Their three connections therefore receive the same colour. The same collision can be built with any larger number of items. Recording more detail in each colour can prevent this particular collision, but it also uses so many extra colours that the hoped-for advantage disappears.
 
 Addition patterns on number circles face another version of the same difficulty. Every colour, viewed alone, must contain no triangle. Simple methods achieve that by keeping each colour in a restricted part of the construction. To make the people-per-colour score grow, many different rooms must be able to reuse the same colours without letting the reused pieces join into a triangle. The 2026 construction provides a fixed global rule that makes this reuse safe.
-
-**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/07.html)** to test the ordering shortcut and watch its first failure.
 
 ## 8 · Palettes
 
@@ -258,8 +254,6 @@ Turning that relationship around gives the final rate: for a given colour count,
 ![The fixed scores of older recipes compared with the rising shape of the 2026 score](guide/11-the-tower/base.png)
 
 The rising curve shows the long-term shape without the theorem's tiny fixed multiplier. It is not a plot of useful values at small colour counts. For the smallest full-scale stage, the referee's card has 57 rows. Each floor uses palettes containing 114 colors, and three floors use 342 colours altogether. This repository recalculates those parameters from the paper's instructions.
-
-**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/11.html)** to add floors and compare a fixed product with the growing tower.
 
 ## 12 · What it means, and what it does not
 

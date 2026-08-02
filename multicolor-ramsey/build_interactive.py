@@ -486,71 +486,6 @@ a.addEventListener('input',draw);b.addEventListener('input',draw);draw();
      "The drawing shows rooms and the strings between them faintly; the "
      "verdict below is computed from the full product, every triple."),
 
-    (6, "06-the-ceiling", "Climb the staircase",
-     "The sorting argument's forcing sizes, color count by color count. "
-     "Each step multiplies by roughly the number of colors.",
-     "Step through k and watch the values: 3, 6, 17, 66, 327. The first "
-     "three are exactly right. At four colors the truth is at most 62, so "
-     "the staircase overshoots by a little, but its factorial shape has "
-     "never been beaten.",
-     slider("k", "colors", 1, 10, 1, 4),
-     r"""
-const cv=document.getElementById('c');
-const k=document.getElementById('k');
-function draw(){
-  const K=parseInt(k.value);
-  const vals=upperStaircase(10);
-  const P=Plot(cv,0.5,10.5,0.3,Math.log10(vals[9])+0.6);
-  P.clear();P.axes('colors','forcing size (digits)');
-  P.line([...Array(10)].map((_,i)=>i+1),vals.map(v=>Math.log10(v)),'#2a78d6');
-  P.dots([...Array(10)].map((_,i)=>i+1),vals.map(v=>Math.log10(v)),'#2a78d6');
-  P.vline(K,'#4a3aa7',[4,4]);
-  document.getElementById('kv').textContent=K;
-  document.getElementById('out').textContent=
-    'staircase so far   '+upperStaircase(K).join(', ')+'\n'+
-    'at '+K+' colors, a party of '+upperStaircase(K)[K-1].toLocaleString()+
-    ' surely forces a one-color triangle';
-}
-k.addEventListener('input',draw);draw();
-""",
-     "The vertical scale is digits, because the values race off any linear "
-     "chart almost immediately."),
-
-    (7, "07-the-gap", "Stand in the gap",
-     "The floor is what multiplying the record blocks proves, the ceiling "
-     "is the staircase, and before 2026 everything in between was unknown.",
-     "Slide k outward and read the ratio. By twelve colors the ceiling is "
-     "already thousands of times the floor, and the band never stops "
-     "widening.",
-     slider("k", "colors", 2, 14, 1, 6),
-     r"""
-const cv=document.getElementById('c');
-const k=document.getElementById('k');
-function draw(){
-  const K=parseInt(k.value);
-  const stair=upperStaircase(14);
-  const P=Plot(cv,1.5,14.5,0,Math.log10(stair[13])+1);
-  P.clear();P.axes('colors','party size (digits)');
-  const ks=[...Array(13)].map((_,i)=>i+2);
-  P.line(ks,ks.map(x=>Math.log10(stair[x-1])),'#2a78d6');
-  P.line(ks,ks.map(x=>Math.log10(productLower(x))),'#008300');
-  P.vline(K,'#4a3aa7',[4,4]);
-  P.label(3.4,Math.log10(stair[12])-1.2,'forced for sure','#2a78d6');
-  P.label(9.5,3.2,'safe for sure','#008300');
-  const floor=productLower(K),ceil=stair[K-1];
-  document.getElementById('kv').textContent=K;
-  document.getElementById('out').textContent=
-    'at '+K+' colors\n'+
-    'safe for sure     '+floor.toLocaleString()+' people\n'+
-    'forced for sure   '+ceil.toLocaleString()+' people\n'+
-    'the unknown band spans a factor of '+(ceil/floor).toFixed(0);
-}
-k.addEventListener('input',draw);draw();
-""",
-     "Different kinds of growth: the floor multiplies by about the same "
-     "3.28 for every color, the ceiling multiplies by the color count "
-     "itself."),
-
     (8, "08-palettes", "Test the parity rule",
      "One color, three rooms. Toggle which rooms hold the color, and watch "
      "which walls a string of that color may cross.",
@@ -719,44 +654,6 @@ draw();
      "Thirteen rows of coin flips suffice at this toy size, and almost any "
      "random card passes here. At the real sizes nothing can be checked "
      "case by case, and two counting arguments do the work instead."),
-
-    (11, "11-the-tower", "Race the old recipes at any scale",
-     "The old fixed recipe against the 2026 bound with its printed, "
-     "deliberately enormous constant. The slider moves through orders of "
-     "magnitude of colors.",
-     "Find the crossover. It sits around ten to the sixtieth colors, which "
-     "is the article's honesty point: the theorem is about the shape of "
-     "growth, not about beating records at drawable sizes.",
-     slider("e", "colors: ten to this power", 1, 80, 1, 10),
-     r"""
-const cv=document.getElementById('c');
-const e=document.getElementById('e');
-function draw(){
-  const E=parseInt(e.value),K=Math.pow(10,E);
-  const P=Plot(cv,1,80,-40,90);
-  P.clear();P.axes('colors, as a power of ten','rate (digits per color)');
-  P.curve(x=>Math.log10(PRE_2026_BASE),'#4a3aa7');
-  P.curve(x=>{const k=Math.pow(10,x);return Math.log10(explicitNewBase(k));},'#d03b3b');
-  P.hline(0,'#c3c2b7',[3,3]);
-  P.vline(E,'#52514e',[4,4]);
-  P.label(4,Math.log10(PRE_2026_BASE)+3,'old fixed recipe','#4a3aa7');
-  P.label(40,25,'2026 bound, printed constant','#d03b3b');
-  const nb=explicitNewBase(K);
-  document.getElementById('ev').textContent='10^'+E;
-  document.getElementById('out').textContent=
-    'colors            10^'+E+'\n'+
-    'old recipe rate   '+PRE_2026_BASE.toFixed(2)+' people per color\n'+
-    'new bound rate    '+(nb>=100?nb.toExponential(2):nb.toPrecision(3))+' people per color\n'+
-    (nb>PRE_2026_BASE?'the new bound has taken over and never looks back'
-     :nb>1?'the new bound says something, but the old recipe is still bigger'
-     :'the new bound says nothing at all down here');
-}
-e.addEventListener('input',draw);draw();
-""",
-     "Below 342 colors the printed bound is vacuous, then for a long "
-     "stretch it trails the old recipe, and around ten to the sixtieth it "
-     "passes everything forever. The constant was left huge on purpose; "
-     "the climb is the theorem."),
 
     (12, "12-what-it-means", "Beat the channel with longer words",
      "The noisy five-symbol channel: each symbol can be heard as either "

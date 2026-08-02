@@ -443,37 +443,6 @@ d.addEventListener('input',draw);draw();
      "Both bounds come from certificates found by the search in this "
      "repository, and both are re-checked in the test suite."),
 
-    (7, "07-the-ceiling", "What a change in the fourth decimal is worth",
-     "Two bounds that differ by 0.0053 halvings per dimension. The slider "
-     "picks the dimension.",
-     "Take the dimension to 1000. A difference you would round away becomes a "
-     "factor of forty.",
-     slider("d", "dimension", 10, 2000, 10, 100),
-     r"""
-const cv=document.getElementById('c');
-const d=document.getElementById('d');
-function draw(){
-  const D=parseInt(d.value);
-  const P=Plot(cv,0,2000,-1300,0);
-  P.clear();P.axes('dimension','how many halvings the bound is worth');
-  P.curve(x=>-KL_EXPONENT*x,'#898781');
-  P.curve(x=>-ALPHA_STAR*x,'#008300');
-  P.vline(D,'#4a3aa7',[4,4]);
-  P.label(1500,-KL_EXPONENT*1500+70,'1978','#898781');
-  P.label(1500,-ALPHA_STAR*1500-90,'2026','#008300');
-  const factor=Math.pow(2,(ALPHA_STAR-KL_EXPONENT)*D);
-  document.getElementById('dv').textContent=D;
-  document.getElementById('out').textContent=
-    'dimension                '+D+'\n'+
-    'the new bound is         '+factor.toFixed(1)+' times smaller\n'+
-    '1978 exponent            '+KL_EXPONENT.toFixed(8)+'\n'+
-    '2026 exponent            '+ALPHA_STAR.toFixed(8);
-}
-d.addEventListener('input',draw);draw();
-""",
-     "Both lines are straight because each bound shrinks by a fixed factor per "
-     "dimension. The steeper line is the stronger bound."),
-
     (8, "08-balancing", "Stretch until the two agree",
      "A certificate and its Fourier transform. The slider stretches the "
      "certificate.",
@@ -558,44 +527,6 @@ R.addEventListener('input',draw);draw();
      "gives. The rate of that curve is chosen for legibility and is not the "
      "constant from the paper."),
 
-    (10, "10-the-witness", "Move the Gaussian onto the wall",
-     "A Gaussian starts in the wrong place. The slider switches on the "
-     "deformation that moves it.",
-     "Switch the deformation fully on. The radius lands on one over pi exactly, "
-     "not nearly, and the number that takes it there is Wallis's integral.",
-     slider("t", "how much of the deformation is on", 0, 1, 0.01, 0),
-     r"""
-const cv=document.getElementById('c');
-const T=document.getElementById('t');
-const GAUSS=1/Math.sqrt(2*Math.PI);
-function radius(t){ return GAUSS*Math.exp(-t*0.5*Math.log(Math.PI/2)); }
-function draw(){
-  const t=parseFloat(T.value);
-  const P=Plot(cv,0,1.05,0.28,0.44);
-  P.clear();P.axes('how much of the deformation is switched on',
-                   'radius, per square root of the dimension');
-  P.hline(GAUSS,'#c3c2b7',[4,4]); P.hline(SIGN_RADIUS,'#4a3aa7',[4,4]);
-  P.label(0.03,GAUSS+0.006,'where a plain Gaussian sits','#898781');
-  P.label(0.03,SIGN_RADIUS-0.012,'the wall: one over pi','#4a3aa7');
-  P.ctx.strokeStyle='#008300';P.ctx.lineWidth=3;P.ctx.beginPath();
-  for(let i=0;i<=200;i++){const x=t*i/200;
-    if(i===0)P.ctx.moveTo(P.X(x),P.Y(radius(x)));else P.ctx.lineTo(P.X(x),P.Y(radius(x)));}
-  P.ctx.stroke();
-  P.ctx.beginPath();P.ctx.arc(P.X(t),P.Y(radius(t)),5,0,7);
-  P.ctx.fillStyle='#008300';P.ctx.fill();
-  document.getElementById('tv').textContent=t.toFixed(2);
-  const landed=Math.abs(radius(t)-SIGN_RADIUS)<1e-6;
-  document.getElementById('out').innerHTML=
-    'radius now   '+radius(t).toFixed(7)+'\n'+
-    'the wall     '+SIGN_RADIUS.toFixed(7)+'\n'+
-    (landed?'<span class="verdict-ok">landed exactly on the wall</span>'
-           :'still above the wall');
-}
-T.addEventListener('input',draw);draw();
-""",
-     "The movement is the log of pi over two, halved. That is why the answer "
-     "contains pi rather than a number nobody recognises."),
-
     (11, "11-they-meet", "Watch the two halves close",
      "One direction rules every certificate out below a rate. The other builds "
      "one that reaches it. The slider raises the dimension.",
@@ -633,37 +564,6 @@ d.addEventListener('input',draw);draw();
      "real error terms are the ones the theorem writes as vanishing "
      "corrections."),
 
-    (12, "12-what-it-means", "What is settled, and what is not",
-     "The ceiling on the method, against the packings anyone can actually "
-     "build. The slider raises the dimension.",
-     "Raise the dimension and watch the two apart. The method now has a known "
-     "ceiling; the packing problem does not.",
-     slider("d", "dimension", 8, 256, 1, 24),
-     r"""
-const cv=document.getElementById('c');
-const d=document.getElementById('d');
-function draw(){
-  const D=parseInt(d.value);
-  const P=Plot(cv,8,256,-170,0);
-  P.clear();P.axes('dimension','how many halvings');
-  P.curve(x=>-ALPHA_STAR*x,'#008300');
-  P.curve(x=>-x,'#2a78d6');
-  P.vline(D,'#4a3aa7',[4,4]);
-  P.label(150,-ALPHA_STAR*150+14,'proved impossible beyond this','#008300');
-  P.label(150,-150-14,'a simple construction reaches about this','#2a78d6','center');
-  document.getElementById('dv').textContent=D;
-  document.getElementById('out').textContent=
-    'dimension                     '+D+'\n'+
-    'the bound is                  2^-'+(ALPHA_STAR*D).toFixed(1)+'\n'+
-    'simple constructions give     2^-'+D.toFixed(1)+'\n'+
-    'the two are still exponentially far apart, and closing\n'+
-    'that gap is what remains open';
-}
-d.addEventListener('input',draw);draw();
-""",
-     "The lower line stands for the kind of density a straightforward "
-     "construction gives, one over two to the dimension. It is drawn to show "
-     "the size of the gap, not as a record."),
 ]
 
 

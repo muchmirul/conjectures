@@ -16,8 +16,6 @@ At each step, the size is multiplied by roughly the current number of colours. R
 
 Later refinements reduce the fixed amount in front of the factorial without changing this overall shape. The best published multiplier is called e minus one sixth, where e is a standard fixed number of about 2.72. No known upper-bound argument has replaced factorial growth with a fundamentally smaller kind of growth.
 
-**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/06.html)** to sort the connections and build the upper-limit staircase.
-
 ---
 
 [← Multiply](../05-multiply/README.md)  ·  [The gap →](../07-the-gap/README.md)  ·  [the whole article on one page](../../ARTICLE.md)

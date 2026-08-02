@@ -25,8 +25,6 @@ A good example proves what the method can achieve. A limit that applies to every
 
 In 2020, Afkhami-Jeddi, Cohn, Hartman, de Laat and Tajdini calculated the rate they expected and stated it as a conjecture. In 2026, both required statements were proved.
 
-**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/07.html)** to let the small difference between the two rates build across many dimensions.
-
 ---
 
 [← What certificates actually prove](../06-best-so-far/README.md)  ·  [The balancing trick →](../08-balancing/README.md)  ·  [the whole article on one page](../../ARTICLE.md)

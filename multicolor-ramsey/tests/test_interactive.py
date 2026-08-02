@@ -36,10 +36,15 @@ def run_js(snippet: str):
 # --- structure -------------------------------------------------------------
 
 def test_every_chapter_has_a_playable_page():
-    """The rule is one page per part of the progression, so all thirteen."""
-    assert len(build_interactive.CHAPTERS) == 13
+    """One page per part of the progression, except the three removed by
+    request: chapters 6, 7 and 11 have no simulation page."""
+    assert len(build_interactive.CHAPTERS) == 10
+    assert {n for n, *_ in build_interactive.CHAPTERS} == \
+        {0, 1, 2, 3, 4, 5, 8, 9, 10, 12}
     for num, *_ in build_interactive.CHAPTERS:
         assert (PLAY / f"{num:02d}.html").exists()
+    for gone in (6, 7, 11):
+        assert not (PLAY / f"{gone:02d}.html").exists()
     assert (PLAY / "index.html").exists()
 
 
@@ -66,7 +71,7 @@ def test_the_built_page_embeds_every_simulation():
     for num, *_ in build_interactive.CHAPTERS:
         assert f'<iframe src="play/{num:02d}.html?embed"' in page
         assert f'<a href="play/{num:02d}.html">' in page
-    assert page.count("<iframe") == 13
+    assert page.count("<iframe") == 10
 
 
 def test_the_embedded_pages_hide_their_own_chrome():

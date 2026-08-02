@@ -16,8 +16,6 @@ It fails. The orderings ABC, BAC and CAB all first differ from one another at th
 
 Addition patterns on number circles face another version of the same difficulty. Every colour, viewed alone, must contain no triangle. Simple methods achieve that by keeping each colour in a restricted part of the construction. To make the people-per-colour score grow, many different rooms must be able to reuse the same colours without letting the reused pieces join into a triangle. The 2026 construction provides a fixed global rule that makes this reuse safe.
 
-**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/07.html)** to test the ordering shortcut and watch its first failure.
-
 ---
 
 [← The ceiling](../06-the-ceiling/README.md)  ·  [Palettes →](../08-palettes/README.md)  ·  [the whole article on one page](../../ARTICLE.md)
