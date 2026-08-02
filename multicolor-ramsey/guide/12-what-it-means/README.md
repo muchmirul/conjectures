@@ -1,42 +1,47 @@
 # 12 · What it means, and what it does not
 
-The theorem, in the words of this article: for every color count from two upward, there is a safe table whose people-per-color rate is at least a fixed constant times the cube root of the color count divided by its logarithm. The rate climbs without bound. Erdős's 100-dollar question, whether the rate approaches something finite, is answered: it does not. His 250-dollar question, what it approaches, is answered the same way: it grows forever.
+The 2026 theorem can now be stated in the guide's plain language. For every colour count from two upward, there is a safe table whose people-per-colour score is at least one fixed positive constant times the cube root of the colour count, divided by its logarithm. The same constant works for every colour count.
 
-Combined with the factorial ceiling of chapter 6, the forcing size is now boxed in tightly in shape: it is the color count raised to a power that is itself proportional to the color count.
+That score grows without bound. Erdős's 100-dollar question asked whether the long-term score was finite, and the answer is no. His 250-dollar question asked what it approaches, and the answer is infinity.
 
-![After 2026 both the floor and the ceiling grow the same way, with only the multiple open](sandwich.png)
+Combine this construction with the factorial upper limit from section 6. The forcing size now has the same broad shape from both sides: the colour count is raised to a power proportional to the colour count. The lower result gives roughly one third of the colour count in that power, apart from slowly growing corrections. The upper result gives roughly the full colour count.
 
-Be equally clear about what was not settled.
+![The 2026 lower growth shape and the factorial upper growth shape, with the space between them still open](sandwich.png)
 
-```
-    settled                                  still open
-    -------                                  ----------
-    the rate climbs without bound            the multiple: the floor gets a third,
-    the forcing size is the color count      the ceiling gets one, and the truth
-      to the power of about the color count  is somewhere between
-    the four-color forcing size is           still somewhere between 51 and 62
-```
-
-And be clear about scale. The theorem's explicit constant is enormous, deliberately so, because the authors optimized the argument's shape rather than its constants. With that constant, the new bound does not overtake the old 3.28-per-color recipe until around ten to the sixtieth colors, and below 342 colors it says nothing at all. At every size a person will ever draw, the older constructions give bigger tables. What changed is not any record at small sizes; it is the answer to what kind of growth is possible.
-
-There is a payoff outside the game. A safe table is secretly a code for talking over a noisy channel. Here is the classic small example of the phenomenon, re-checked by this repository's tests.
-
-![The noisy five-symbol channel, and the five two-letter codewords that beat single letters](channel.png)
-
-Five symbols, each confusable with its neighbours. Any three symbols include a confusable pair, so single-letter messages stop at two safe words; but there are five two-letter words that pairwise differ safely somewhere, which is more per letter. Capacity is about long words, not single letters. A safe table with many colors performs the same trick at scale: its people become symbols, its colors become letter positions, and the sixteen-fold or larger table gives that many words, all mutually safe. Because the rate now climbs without bound, there are channels in which any three symbols contain a confusable pair and yet whose capacity is as large as you like. Before this result, it was not known whether such channels exist at all.
+This chart compares the shapes of the two limits rather than exact values at a particular colour count. The result settles the type of growth, but not every detail.
 
 ```
-    1955  Greenwood and Gleason: two colors force at six, three at seventeen
-    1971  Erdős, McEliece and Taylor connect the game to channel capacity
-    1973  Chung: four colors force at fifty one or more
+    now known                              still open
+    ---------                              ----------
+    the people-per-colour score has        where the true power lies between
+    no fixed ceiling                       the lower result's one third and the
+    the forcing size has the colour        upper result's one
+    count raised to a multiple of the      the four-colour forcing size remains
+    colour count                           between 51 and 62
+```
+
+The scale of the theorem also matters. Its printed constant is extremely small because its denominator is enormous. The authors focused on proving the long-term shape rather than improving that number. With the printed constant, the new construction does not beat the old 3.28 score until around ten to the sixtieth colours. Below 342 colours, its numerical bound says nothing beyond the trivial fact that a safe group exists. At every size anyone could draw or compute directly, the older constructions give bigger tables. The advance is about what eventually becomes possible, not a new small-colour record.
+
+The result also answers a question about sending messages through noise. The next picture begins with five symbols arranged in a ring. Neighbouring symbols can be confused with each other.
+
+![Five noisy symbols and five two-letter codewords that carry more safe messages than single symbols](channel.png)
+
+With one use of this channel, at most two symbols can be chosen so that every pair is clearly distinguishable. With two uses, five two-letter words can be chosen so that every pair differs safely in at least one position. Five messages over two uses is a better rate per use than two messages over one use.
+
+The **capacity** of a noisy channel asks for the best message rate when words can be very long. Safe colourings and these channel codes are two forms of the same structure: people correspond to messages, and colours provide positions where pairs can be told apart. The 2026 result therefore creates channels in which every three symbols include a pair that may be confused, while the long-word capacity can still be as large as desired. Before this result, nobody knew whether such channels existed.
+
+```
+    1955  Greenwood and Gleason settle the two- and three-colour cases
+    1971  Erdős, McEliece and Taylor connect the game with channel capacity
+    1973  Chung proves that four colours can keep at least fifty people safe
     1983  Chung and Grinstead's survey records Erdős's prizes
     1990  Graham, Rothschild and Spencer record the growth question
     1995  Alon and Orlitsky make the channel connection explicit
-    2021  Schur-type recipes reach the best fixed rate, about 3.28
-    2026  the rate is proved to climb without bound
+    2021  addition-based recipes reach the best fixed score, about 3.28
+    2026  the people-per-colour score is proved to grow without bound
 ```
 
-**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/12.html)** and turn the idea over yourself.
+**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/12.html)** to compare the old and new rates and explore the noisy-channel example.
 
 ---
 

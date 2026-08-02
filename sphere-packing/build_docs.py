@@ -194,9 +194,9 @@ def embed_simulations(body: str) -> str:
         n = m.group(1)
         return (f'<figure class="sim">'
                 f'<iframe src="play/{n}.html?embed" loading="lazy"'
-                f' title="Simulation for chapter {int(n)}"></iframe>'
-                f'<figcaption>Move the controls above. '
-                f'<a href="play/{n}.html">Open this simulation on its own page</a>'
+                f' title="Interactive picture for chapter {int(n)}"></iframe>'
+                f'<figcaption>Use the controls to change the picture. '
+                f'<a href="play/{n}.html">Open the activity on its own page</a>'
                 f'</figcaption></figure>')
     body = PLAY_URL.sub(one, body)
     # any remaining link to a play page becomes relative, so the built page
@@ -211,7 +211,7 @@ TEMPLATE = """<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Stacking Balls, from Zero</title>
-<meta name="description" content="An illustrated guide, starting from zero, to sphere packing and the Cohn-Elkies certificate method: how one function bounds every packing at once, and how 2026 pinned the exact limit of that method.">
+<meta name="description" content="A beginner-friendly visual guide to packing equal balls, how one carefully chosen function can limit every packing, and what researchers proved about this method in 2026.">
 <script>
 MathJax = {
   tex: { inlineMath: [['$', '$'], ['\\\\(', '\\\\)']],
@@ -282,10 +282,10 @@ MathJax = {
 BODY
 
 <footer>
-<p>Written July 2026. One topic inside <a href="../">conjectures</a>. Every figure is
-generated from the <a href="REPO">repository</a>: <code>make figures</code> rebuilds
-every one, and <code>make test</code> re-verifies every mathematical claim in exact
-arithmetic. Math is rendered with MathJax.</p>
+<p>Written July 2026. This is one topic in <a href="../">conjectures</a>. Every figure
+is generated from the <a href="REPO">repository</a>: <code>make figures</code> rebuilds
+the pictures, and <code>make test</code> checks the calculated numbers used in the
+guide.</p>
 </footer>
 </main>
 <script>

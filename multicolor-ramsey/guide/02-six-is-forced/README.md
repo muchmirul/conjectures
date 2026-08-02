@@ -1,22 +1,24 @@
 # 2 · Six is forced
 
-Five people can be kept safe with two colors. Six cannot. This is the one theorem this article proves completely, and the proof fits in a picture.
+Five people can stay safe with two colours. Six people cannot. This is the one theorem proved completely in this guide, and every step can be seen in the animation.
 
-Sit six people down, pick one of them, and look at her five strings. Five strings, two colors: some color appears on at least three of them. Say it is red, going to three particular people.
+Choose one of the six people and look at the five connections leading from that person. There are only two colours available. At least three of those five connections must have the same colour, because two connections of each colour would account for only four. Suppose three of them are red.
 
-![The pigeonhole proof playing out: three same-colored strings force a triangle either way](pigeonhole.gif)
+![Three same-coloured connections from one person forcing a red or blue triangle](pigeonhole.gif)
 
-Now watch those three people. If any two of them are joined by a red string, that string plus their two red strings back to the first person close a red triangle. So all three of their mutual strings must avoid red, which means all three are blue, and that is a blue triangle. A one-color triangle appears in either case.
+Now focus on the three people at the other ends of those red connections. If any pair among them is joined in red, that connection and the two red connections back to the first person make a red triangle. To avoid that outcome, all three connections among those people would have to be blue. But those three blue connections make a blue triangle instead.
 
-Nothing about the argument used which coloring was chosen, so every coloring of six people fails. Machines agree: this repository's tests walk through all 32768 ways to two-color the fifteen strings of a six-person group, and not one is safe. The sweep finds a little more than the proof promised.
+A one-colour triangle appears in either case. The first counting step is often called the **pigeonhole principle**: when more objects are placed into fewer groups, one group must receive several objects.
 
-![The census of all 32768 colorings of six people, counted by how many one-color triangles each contains](census.png)
+The argument did not depend on how the connections were coloured, so it covers every possible two-colouring of six people. The computer tests check the same claim another way. Six people have fifteen connections, with two choices for each connection, giving 32768 complete colourings. The tests inspect all of them and find that none is safe.
 
-The bar at zero is empty, which is the theorem. The bar at one is also empty: the luckiest colorings of six contain exactly two one-color triangles, never just one. That refinement is a 1959 observation of Goodman, rediscovered here by brute force.
+![All 32768 two-colourings of six people grouped by their number of one-colour triangles](census.png)
 
-So the story of two colors is complete: five people can be kept safe and six cannot. Call six the **forcing size** for two colors: the group size at which a one-color triangle becomes unavoidable.
+The empty bar at zero confirms that every colouring contains a one-colour triangle. The bar at one is empty too. Even the best six-person colourings contain exactly two one-colour triangles, never only one. Goodman recorded this stronger observation in 1959, and the exhaustive test finds it again.
 
-**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/02.html)** and turn the idea over yourself.
+The two-colour story is now complete: five people can stay safe, while six force a loss. We will call six **the forcing size** for two colours, meaning the first group size at which a one-colour triangle is unavoidable.
+
+**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/02.html)** to try colouring six people and see which triangle becomes unavoidable.
 
 ---
 

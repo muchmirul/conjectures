@@ -1,18 +1,22 @@
 # 6 · The ceiling
 
-The other guardrail comes from the six-person argument of chapter 2, which generalizes to any number of colors. Pick one person at a big table and sort everyone else by the color of their string to her.
+The argument from section 2 can be extended to any number of colours. Choose one person and sort everyone else into groups according to the colour of their connection to that person.
 
-![One person's fifteen connections in the sixteen-person table, sliding into three color groups](sort.gif)
+![The fifteen connections from one person in the sixteen-person group sorting into three colour groups](sort.gif)
 
-With three colors and fifteen strings, some group holds at least five people. Inside that group, its own color is now poison: any string of that color between two members would close a triangle with the person at the center. So the group is a smaller table effectively playing with one color fewer, and the same move can be made again inside it, and again, until the colors run out and a bare triangle is forced.
+The picture uses the safe sixteen-person colouring. The chosen person has fifteen connections, so at least one of the three colour groups contains five people. Inside that group, its sorting colour cannot be used. If two people there were joined in that colour, they would complete a one-colour triangle with the chosen person. The group must therefore survive using only the other two colours, and five is exactly the largest size that can do so.
 
-Run the argument in reverse and it says: a table safe for one color holds at most 2 people, so a table safe for two colors holds at most a group small enough that sorting works out, and so on. The forcing sizes it proves are 3, 6, 17, 66, 327, and onward, each step multiplying by roughly the number of colors.
+This also explains why a seventeenth person cannot be added. From one person there would be sixteen connections in three colours, so one colour group would contain at least six people. That group must avoid its sorting colour, leaving only two colours. Section 2 showed that six people cannot survive with two colours.
 
-![The staircase of forcing sizes next to plain factorials on a growth chart](staircase.png)
+The same sorting step works again with more colours. Each step removes one available colour and leaves a smaller group. Starting with the one-colour case and working upward gives the forcing sizes 3, 6, 17, 66, 327, and then continues in the same way. These are upper limits: once a group reaches the listed size, the sorting argument guarantees a one-colour triangle.
 
-Multiplying by the color count at every step is exactly what a factorial does, so the ceiling grows like a factorial. The staircase happens to be exactly right at two colors and at three, where 6 and 17 are the true answers. At four colors it says 66 while the truth is at most 62; the best refinement in the literature trims such constants, reaching about e minus one sixth times the factorial, but no refinement has ever changed the factorial shape.
+![The forcing-size staircase compared with factorial growth](staircase.png)
 
-**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/06.html)** and turn the idea over yourself.
+At each step, the size is multiplied by roughly the current number of colours. Repeatedly multiplying by each whole number up to the colour count is called a **factorial**, so this upper limit has factorial growth. The simple staircase gives the exact answers for one, two and three colours. At four colours it gives 66, while stronger work proves the answer is no more than 62.
+
+Later refinements reduce the fixed amount in front of the factorial without changing this overall shape. The best published multiplier is called e minus one sixth, where e is a standard fixed number of about 2.72. No known upper-bound argument has replaced factorial growth with a fundamentally smaller kind of growth.
+
+**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/06.html)** to sort the connections and build the upper-limit staircase.
 
 ---
 

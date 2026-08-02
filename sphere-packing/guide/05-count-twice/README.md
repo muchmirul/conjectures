@@ -1,26 +1,28 @@
 # 5 · Counting twice
 
-Take any packing and any certificate. Add up the certificate's value over every pair of ball centres.
+The key idea is to calculate one total in two different ways. To keep the picture simple, first imagine a packing that repeats. The full argument handles a non-repeating packing by looking at larger and larger regions.
 
-![Adding over pairs of centres, then over frequencies instead](two_counts.gif)
+Take the centres of the balls and, for every pair of centres, use their distance as the input to the certificate. Add all the returned values.
 
-Do the sum in the ordinary way, over pairs of centres, and rule one takes over. Two different centres are always at least distance one apart, because the balls do not overlap. Out there the certificate is at or below zero. So every pair except a centre with itself can only drag the total down.
+![The same total being counted first with pairs of centres and then with waves](two_counts.gif)
 
-Now do the same sum in the other view, over frequencies. This is where the Fourier transform earns its place: there is an identity, Poisson summation, that says the sum over centres and the sum over frequencies are the same number. In that view rule two takes over, every term is at or above zero, and the total can only be pushed up.
+First count by pairs of centres. Two different centres are at least distance one apart because the balls have diameter one and cannot overlap. Rule one says every such pair contributes zero or a negative number. Only a centre paired with itself has distance zero. The different-centre pairs can therefore only pull the total downward.
+
+Now count the same total through the Fourier view, which describes the waves in the packing. A standard result called **Poisson summation** says that these two counts give the same number. Rule two says every contribution in the Fourier count is zero or positive, so this view can only push the total upward.
 
 ```
-    pairs of centres  --->   one total   <---  frequencies
-    push it down                              push it up
+    count pairs of centres  --->  the same total  <---  count waves
+    this gives an upper side                         this gives a lower side
 
-    the packing is caught between them,
-    and that trap is the density bound
+    the packing must fit between the two sides,
+    which creates a limit on its density
 ```
 
-One number, squeezed from both sides. Rearranging the squeeze gives a ceiling on the density, and that ceiling depends only on the certificate, never on the packing. That is the Gorbachev and Cohn-Elkies bound, from 2000 and 2003.
+The two counts squeeze one total from opposite sides. When the number of centres is separated out, the result is an upper limit on density. The limit depends on the certificate, not on the particular packing, so it applies to every packing. This is the bound introduced by Gorbachev and by Cohn and Elkies in work from 2000 and 2003.
 
-The word "linear program" in the title of the source paper is the name for this kind of setup: a best value being hunted subject to a list of constraints that are all of this simple sign type.
+The source paper calls this a **linear program**. In plain terms, it means searching for the best possible value while obeying a set of simple restrictions. Here, the restrictions are the two sign rules.
 
-**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/05.html)** and turn the idea over yourself.
+**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/05.html)** to follow the two counts and see how they trap the density.
 
 ---
 

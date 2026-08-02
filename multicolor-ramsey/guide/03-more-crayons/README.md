@@ -1,20 +1,20 @@
 # 3 · More crayons
 
-A third color changes the scale of the game. The record safe group jumps from five to sixteen, and the sixteen-person coloring is the one the opening animation drew. Here it is taken apart, one color at a time.
+Adding a third colour makes a much larger safe group possible. The best safe size jumps from five people to sixteen. The opening animation showed the full colouring; the next picture separates its three colours so that each can be checked on its own.
 
-![The record three-color table split into its three one-color nets, each triangle-free](layers.png)
+![The sixteen-person colouring separated into three colour layers, none of which contains a triangle](layers.png)
 
-Each panel is one color's net. Every person is joined to exactly five others in each color, and each net, seen on its own, contains no triangle at all. A net with no triangle can never hold a one-color one, so the whole table is safe. The construction comes from Greenwood and Gleason in 1955; this repository rebuilds it from their recipe and re-checks all 560 triangles.
+Each panel contains the connections of one colour. Every person has five connections in each panel, but no panel contains a triangle. A one-colour triangle would have to appear entirely inside one of these panels, so the full three-colour pattern is safe. Greenwood and Gleason created this pattern in 1955. This repository rebuilds it from their instructions and checks all 560 groups of three.
 
-Greenwood and Gleason also proved the matching failure: seventeen people cannot be kept safe with three colors. That direction is far beyond checking case by case, since the colorings of seventeen people outnumber atoms, so this article quotes it rather than verifying it.
+They also proved that seventeen people cannot stay safe with three colours. A direct computer sweep would require considering three choices on each of 136 connections, which is far beyond the case-by-case checks in this project. The guide therefore quotes their theorem rather than claiming to verify it.
 
-Then the exact answers stop.
+After three colours, no exact forcing size is known.
 
-![What is known for one, two, three and four colors, with the four-color range still open](records.png)
+![The exact answers for one, two and three colours, followed by the open range for four colours](records.png)
 
-For four colors the forcing size is known to be somewhere between 51 and 62, a range that has stood for decades. For five colors the uncertainty is wider still. Nobody knows the answer for any color count past three, and it is not for lack of computers: the case-by-case approach dies immediately, and everything since has been about finding arguments instead.
+For four colours, the forcing size is known to be somewhere between 51 and 62. In other words, a safe colouring of fifty people is known, and every colouring of sixty-two people is known to fail, but the exact point between them remains open. The uncertainty is even wider for five colours. No exact answer is known for any colour count above three. The number of possible colourings grows too quickly for a simple search, so progress depends on general arguments and constructions.
 
-**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/03.html)** and turn the idea over yourself.
+**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/03.html)** to compare the known small cases and the first open range.
 
 ---
 

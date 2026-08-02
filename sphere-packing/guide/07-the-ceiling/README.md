@@ -1,32 +1,31 @@
 # 7 · Is there a ceiling on the method?
 
-Every bound of this kind shrinks by a fixed factor for each dimension you add. The honest picture of such a bound is a row of squares, each square a fixed fraction of the area of the one before. The next figure draws one row for the 1978 rule and one for the 2026 rule.
+In high dimensions, these density limits are compared by how quickly they shrink as the dimension grows. Once the dimension is very large, the main part of each limit behaves like multiplying by the same fraction whenever another dimension is added. The next picture represents that repeated shrinking with squares. Each square has a fixed fraction of the area of the previous one.
 
-![Two rows of shrinking squares, one for the 1978 rule and one for the 2026 rule, too alike for the eye to separate](exponents.png)
+![Two models of repeatedly shrinking limits, using the rates from 1978 and 2026](exponents.png)
 
-The two rows look identical, and that is the honest first impression. Because the factor is fixed, the natural way to compare two bounds is to ask how many halvings each is worth per dimension, and bigger is better, because it means the bound shrinks faster. The 1978 figure was 0.59906 halvings per dimension, from Kabatianskii and Levenshtein. It stood for forty eight years.
+At first glance, the two rows look the same. A useful way to compare them is to ask how much of a halving happens per added dimension. A larger number is better because it means the upper limit becomes smaller more quickly. Kabatianskii and Levenshtein obtained 0.59906 halvings per dimension in 1978. That rate remained the best general result for forty-eight years.
 
-A difference in the fourth decimal place sounds like nothing. It is a difference in a rate, so it compounds, and the next animation lets it. The gray disc is the 1978 ceiling held at a fixed size for comparison; the green disc is the 2026 ceiling drawn to scale beside it, area for area, as the dimension climbs.
+The difference made in 2026 begins only in the fourth decimal place, but it is repeated across every dimension. The animation lets that repeated difference build up. The grey disc keeps the 1978 value at a fixed display size. The green disc shows the 2026 value at the same scale as the dimension rises.
 
-![The 2026 ceiling shrinking against the fixed 1978 one as the dimension counter climbs to one thousand](advantage.gif)
+![The 2026 rate becoming smaller than the 1978 rate as the dimension rises to one thousand](advantage.gif)
 
-By dimension one thousand the new bound is about 40.6 times smaller than the old one.
+If we use only these long-term rates to compare dimension one thousand, the 2026 value is about 40.6 times smaller than the 1978 value.
 
-Now the question this article has been building towards. Certificates can be improved, and people had been improving them for twenty years. Is there a best one? And if there is, what does it prove?
+This leads to the main question behind the 2026 work. Researchers had found increasingly good certificates for about twenty years, but could the method keep improving forever? Answering that requires two separate results.
 
 ```
-    find one certificate         shows the method can reach the rate
-    rule out every certificate   shows the method can do no better
+    build one certificate near a rate   shows the method can reach that rate
+    rule out all better certificates    shows the method cannot pass that rate
 
-    only both together say what the method is worth
-    the second is the hard half, and it is what 2026 added
+    the exact limit is known only when both statements meet
 ```
 
-Finding one good certificate shows the method can reach some rate. Ruling out every certificate shows it can do no better. The second half is where all the difficulty is, because it has to say something about functions nobody has written down.
+A good example proves what the method can achieve. A limit that applies to every possible certificate proves what the method cannot achieve. The second task is especially difficult because it must cover functions that nobody has found or written down.
 
-In 2020 Afkhami-Jeddi, Cohn, Hartman, de Laat and Tajdini worked out what they believed the answer was and conjectured it. In 2026 both halves were proved.
+In 2020, Afkhami-Jeddi, Cohn, Hartman, de Laat and Tajdini calculated the rate they expected and stated it as a conjecture. In 2026, both required statements were proved.
 
-**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/07.html)** and turn the idea over yourself.
+**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/07.html)** to let the small difference between the two rates build across many dimensions.
 
 ---
 

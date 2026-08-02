@@ -1,20 +1,28 @@
 # 5 · Multiply
 
-The classical tool takes two safe tables and multiplies them. Watch it act on two copies of the pentagon.
+A classical construction combines two safe tables to make a larger safe table. The animation applies it to two copies of the five-person pattern.
 
-![Each of five people becoming a room of five, keeping outer colors between rooms and fresh colors inside](blowup.gif)
+![Each of five people expanding into a room of five, with old colours between rooms and fresh colours inside](blowup.gif)
 
-Each of the original five people becomes a **room** holding a full copy of the other table. A string between two rooms keeps the color the two original people used. A string inside a room uses the inner table's coloring, in fresh colors that nothing else touches.
+Begin with five outer people. Replace each person with a **room** containing a complete copy of the second safe group. Connections inside a room use the second group's colours. These colours are fresh, meaning they are not used between rooms. Every connection between two rooms uses the colour that joined the corresponding two people in the outer group.
 
-The result is safe, and the reason splits cleanly in two. A triangle with all three corners in one room is a triangle of the inner table, and the inner table was safe. A triangle touching more than one room cannot use any inside color, so all its strings run between rooms; but two corners in one room lead outward in strings that copy the *same* original person's colors, so the triangle's colors trace a triangle of the outer table, and the outer table was safe. The tests do not take this on faith: they verify the 25-person, four-color product cold, all 2300 triangles, and an 80-person, five-color product as well.
+To see why the result is safe, consider the three possible locations of a triangle.
 
-So safe tables multiply: sizes multiply, color counts add. Repeat forever and five people at two colors become 25 at four, 125 at six, and so on without end.
+1. If all three people are in one room, their triangle belongs to the safe inner colouring.
+2. If two people are in one room and the third is in another, the two cross-room connections have the same outer colour. The connection inside the room has a fresh inner colour, so all three cannot match.
+3. If the three people are in three different rooms, their colours copy a triangle in the safe outer colouring.
 
-![Repeated products of the pentagon and of the sixteen table, straight lines on a growth chart](tower.png)
+This covers every triangle, so the combined group is safe. The tests check all 2300 triangles in the resulting 25-person, four-colour group. They also check an 80-person, five-colour group made by combining the sixteen-person and five-person patterns.
 
-Both lines are straight on this chart, and straight means stuck. Multiplying the pentagon forever earns exactly 2.24 people per color at every step, and the sixteen-person table earns exactly 2.52, because each round adds the same colors and multiplies by the same factor. A fixed recipe, repeated, can never make the rate climb. Whatever answers the question of chapter 4 has to spend its colors in a genuinely new way.
+The rule is simple: group sizes multiply, while colour counts add. Repeating the five-person construction gives 25 people with four colours, 125 with six colours, and so on.
 
-**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/05.html)** and turn the idea over yourself.
+![Repeated products shown on a scale where a fixed people-per-colour score makes a straight line](tower.png)
+
+The vertical scale compresses repeated multiplication, so a fixed score appears as a straight line. Repeating the five-person pattern always scores 2.24 people per colour. Repeating the sixteen-person pattern always scores 2.52. The groups become enormous, but the score never changes because every round spends the same number of colours for the same multiplying gain.
+
+The ability to combine any two safe groups also guarantees that the best possible score has a well-defined long-term destination rather than bouncing forever. What remained unknown was whether that destination was a fixed number or infinity. Repeating one fixed construction can never answer infinity, because its score stays fixed at every round.
+
+**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/05.html)** to combine two safe groups and follow the three triangle cases.
 
 ---
 

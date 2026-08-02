@@ -1,20 +1,22 @@
 # 9 · The trap
 
-The dangerous triangle has two corners inside one room and one corner outside. The color on its strings is one the room actively uses, so the room contains strings of that color, and an outsider connected in by two same-colored strings might land exactly on two people the room has already joined in that color.
+Consider two people in one room and a third person outside it. Suppose both incoming connections use red. A red triangle appears if the two people inside the room are also connected in red. The construction must prevent the two incoming connections from landing on such a pair.
 
-The defense starts by looking at one color's net inside the room. Here is the red net of the pentagon room, with its people badged into **teams**.
+Look at the red connections already inside the room. Split the people into **teams** so that no red connection has both ends in one team. In the five-person room, the red connections form a ring, and the next picture shows a split into three teams.
 
-![The red net inside the pentagon room, with three teams and no red string inside any team](teams.png)
+![The red ring inside a five-person room split into three teams, with no red connection within a team](teams.png)
 
-The teams are chosen so that no red string stays inside one team; every red string crosses between teams. Three teams suffice for the pentagon's red net. Now the rule that disarms the trap: all red strings arriving from any one outsider must land inside a single team.
+Now impose the landing rule: all red connections coming from the same outside person must end within one team. Since no two teammates are joined in red, those arrivals cannot complete a red triangle.
 
-![The trap springing when the rule is broken, and failing to spring when it is obeyed](trap.gif)
+![An outside person's arrivals making a triangle when the team rule is ignored and staying safe when it is followed](trap.gif)
 
-Watch both halves. Rule ignored, the outsider's two red strings land on two people who are red-connected, and the triangle snaps shut. Rule obeyed, the outsider's red strings land on teammates only, teammates are never red-connected, and no red triangle can involve that outsider. Strings that the rule turns away are colored instead with a color the room's palette forbids inside, which is harmless for the room automatically: a triangle needs an inside string of its color, and there are none. The tests verify both endings on exactly the colorings drawn here.
+The first half of the animation breaks the rule. The two red arrivals land on people who are connected in red, so the triangle closes. In the second half, both arrivals land in one team, where no red connection exists, and the triangle cannot close.
 
-This is the point of palettes beyond the parity trick of chapter 8. A palette does not just say which colors a room avoids. It splits every arriving color into two safety cases: colors the room misses are safe by emptiness, and colors the room holds are safe by teams, provided the landing rule is enforced. Enforcing it for every pair of rooms at once, without spending new colors, is the job of the referee.
+There is a second safe case. If red appears on the room's palette, then red is not used anywhere inside that room. Incoming red connections are automatically harmless because the triangle would need a red internal connection too. Thus every incoming colour is protected in one of two ways: it is absent inside the room, or its arrivals are confined to one safe team.
 
-**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/09.html)** and turn the idea over yourself.
+The animation is a small demonstration of why the team rule matters. The real construction does not choose each arrival by hand. It needs one fixed procedure that enforces the rule for every pair of rooms without adding new colours. That procedure is the referee in the next section.
+
+**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/09.html)** to compare a broken landing rule with a safe one.
 
 ---
 

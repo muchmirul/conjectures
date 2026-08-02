@@ -1,25 +1,30 @@
 # 6 · What certificates actually prove
 
-This repository contains a small search that hunts for good certificates. Starting from an easy one and nudging it at random, it finds these. In the picture, space is a tube being filled from the floor: blue is how full the best known packing really makes it, and everything above the certificate's ceiling is proved unreachable.
+This repository includes a small computer search for useful certificates. It begins with a function that passes both rules, makes small random changes, and keeps changes that improve the density limit. The picture treats space like a container filling from the bottom. Blue shows the density reached by the best known packing, while the line above it shows the candidate certificate’s limit.
 
-![Space drawn as a tube being filled, with the thin unknown sliver between what is reached and what is impossible magnified beside it](gap.png)
+![Packing density in blue, a candidate certificate limit above it, and the small gap enlarged](gap.png)
 
-In the plane it proves that no packing of circles beats 91.16 percent. The staggered rows reach 90.69 percent. Those two numbers are less than half a percentage point apart, a sliver too thin to see at true scale, which is why the picture magnifies it. Everything that is still unknown about circle packing lives inside that sliver.
+For the plane, the search finds a candidate limit of 91.16 percent. If its two sign rules held at every distance, it would prove that no circle packing could be denser than that. Staggered rows reach 90.69 percent, leaving less than half a percentage point between the two numbers.
 
-Two honest notes about that. The sign rules here are checked by sampling a fine grid, not proved symbolically, so this is a numerical certificate rather than a formal proof. And it is much weaker than what specialists get: they use semidefinite programming and force the function to have roots in chosen places, and none of that is implemented here.
+That narrow gap is a limit of this numerical certificate, not an unsolved gap in the two-dimensional packing problem. Section 1 already noted that a separate theorem proves 90.69 percent is the exact answer. The enlarged sliver shows only what this candidate certificate has not ruled out.
 
-The search also fails in an instructive way. Its starting family of functions stops existing before dimension six, so in dimension eight it cannot even begin. Dimension eight is exactly where Viazovska's function lives, and building it took the mathematics of modular forms.
+There is another important limit. The program checks the two sign rules at a very fine set of sample points, rather than proving them at every possible point. The result is therefore a **numerical certificate**, not a formal proof. Specialists use a stronger kind of search called semidefinite programming and deliberately place zero points in the function. Neither technique is included here.
+
+The small search also shows why the choice of starting function matters. Its starting family stops qualifying before dimension six, so the search cannot even start in dimension eight. Viazovska’s exact certificate for dimension eight comes from a much more advanced family of functions called modular forms.
 
 ```
-    dimensions 8 and 24     the certificate is known exactly, and it is sharp
-    dimensions 1, 2, 3      the best packing is known, the certificate is not sharp
-    every other dimension   neither the best packing nor the best certificate is known
-    as the dimension grows  the best certificate is now known: the 2026 result
+    dimensions 8 and 24     exact certificates meet the exact packing densities
+    dimensions 1, 2 and 3   other proofs give the exact packing densities;
+                            the simple certificates here leave a gap
+    most other dimensions   neither the exact packing nor the exact best
+                            certificate is known
+    very large dimensions   the best possible long-term certificate rate
+                            is known because of the 2026 result
 ```
 
-In dimensions eight and twenty four the best certificate is known and it is exactly right, which is why those two dimensions are settled. Everywhere else there is a gap between what can be built and what can be proved impossible.
+Only in dimensions eight and twenty-four do known exact certificates meet the known packing density and settle the problem through this method. In most other dimensions, there is still a gap between the density people can build and the density certificates can rule out.
 
-**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/06.html)** and turn the idea over yourself.
+**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/06.html)** to compare a known packing with the limit from a candidate certificate.
 
 ---
 

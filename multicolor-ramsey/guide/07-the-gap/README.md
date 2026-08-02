@@ -1,22 +1,22 @@
 # 7 · The gap
 
-Put the two guardrails on one chart and the problem stares back.
+The lower and upper limits can now be placed on the same chart.
 
-![The exponential floor and the factorial ceiling, with the widening unknown band shaded](gap.png)
+![The safe groups known from constructions below and the factorial upper limit above, with the unknown region between them](gap.png)
 
-The floor in the chart is what multiplying the record tables honestly proves at each color count. It grows like a fixed number raised to the color count. The ceiling grows like the factorial of the color count, which is what you get when the multiplying factor itself keeps growing. These are different kinds of growth, and the band between them widens without end. Fifty years of work lived inside that band, moving the floor's fixed rate from 2.24 toward 3.28 without ever changing its character.
+The lower edge shows group sizes that can actually be kept safe by multiplying known examples. It grows through repeated multiplication by a fixed amount. The upper edge comes from the sorting argument and grows like a factorial, whose multiplying amount rises with every colour. The two kinds of growth move farther apart as more colours are added. Decades of work improved the fixed lower score from 2.24 toward 3.28, but the broad gap remained.
 
-Shortcuts were tried. Here is the most tempting one, sunk by a computation you can watch.
+Several attractive shortcuts failed. One of the simplest uses different orderings of the same items.
 
-There are lots of orderings of a handful of items, factorially many, and any two orderings first disagree at some position. Color each pair of orderings by that position. Factorially many tables from a handful of colors would smash the question. With three items there are six orderings and only two possible colors, and if the trick worked it would beat the pentagon.
+Take every ordering of a small set of letters. For each pair of orderings, find the first position where they differ and use that position as the connection's colour. Three letters have six orderings, but only the first two positions can be the first difference. If this idea worked, it would keep six people safe with two colours and beat the five-person limit.
 
-![Six orderings colored by first disagreement, with a one-color triangle found and flashed](orderings.gif)
+![Six letter orderings coloured by their first difference until a one-colour triangle appears](orderings.gif)
 
-It does not work. The orderings ABC, BAC and CAB pairwise first-disagree at the very same position, the first letter, so their triangle is one-colored. Nothing about three items is special; the same collision happens at every size, and the tests exhibit it. Patching the color to record more information avoids the collision only by spending far more colors, which puts you back where you started.
+It fails. The orderings ABC, BAC and CAB all first differ from one another at the first letter. Their three connections therefore receive the same colour. The same collision can be built with any larger number of items. Recording more detail in each colour can prevent this particular collision, but it also uses so many extra colours that the hoped-for advantage disappears.
 
-Other routes fail for their own reasons. Building tables from addition on a number circle turns out to be the same problem wearing different clothes, not an easier one. What every failure has in common is this: each color's net must stay triangle-free, and the cheap ways to guarantee that all quarantine every color inside its own private region. The winning idea has to let many rooms *reuse* the same color, while some global mechanism guarantees the reused pieces can never assemble a triangle. Finding that mechanism took until 2026, and it is the next three chapters.
+Addition patterns on number circles face another version of the same difficulty. Every colour, viewed alone, must contain no triangle. Simple methods achieve that by keeping each colour in a restricted part of the construction. To make the people-per-colour score grow, many different rooms must be able to reuse the same colours without letting the reused pieces join into a triangle. The 2026 construction provides a fixed global rule that makes this reuse safe.
 
-**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/07.html)** and turn the idea over yourself.
+**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/07.html)** to test the ordering shortcut and watch its first failure.
 
 ---
 

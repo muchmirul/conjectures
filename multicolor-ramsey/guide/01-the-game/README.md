@@ -1,20 +1,22 @@
 # 1 · The game
 
-Take a group of people and connect every pair with a string. Now color every string. You lose the moment three people are joined to each other by three strings of the same color. Call such a threesome a **one-color triangle**, and call a finished coloring with no one-color triangle **safe**.
+Start with a group of people and draw a connection between every pair. Give every connection a colour. Any choice of three people forms a triangle because each pair among them is connected. You lose if all three connections in one of those triangles have the same colour.
 
-![A four-person group colored two ways, one with a one-color triangle and one safe](rules.png)
+We will call this a **one-colour triangle**. A completed colouring with no one-colour triangle will be called **safe**. A group together with a safe colouring is a **safe table**.
 
-The left group is lost: the thick triangle has all three of its strings in the first color. The right group is safe: every one of its four possible triangles wears two colors.
+![Two colourings of four people, with a one-colour triangle on the left and a safe result on the right](rules.png)
 
-With two colors, five people can be kept safe, and there is essentially one way to do it. Put the five in a circle. Color the ring of neighbouring pairs with the first color and the star of skipping pairs with the second.
+The thick triangle on the left uses one colour on all three sides, so that colouring loses. Four people contain four possible groups of three. On the right, each of those four triangles uses at least two colours, so the colouring is safe.
 
-![The five-person table being colored, then all ten triangles checked one by one](pentagon.gif)
+With two colours, a group of five can be kept safe. Apart from renaming the people or swapping the colours, there is only one way to do it. Place the five people around a circle. Use the first colour for neighbouring pairs around the outside, then use the second colour for the five connections that skip across the circle.
 
-The sweep at the end is the point. A safe coloring is not a vague impression, it is a finite list of checks: this table has ten possible triangles, and all ten mix their colors. The test suite of this repository performs exactly that sweep.
+![The ten connections among five people being coloured, followed by a check of all ten triangles](pentagon.gif)
 
-Why it works is worth one sentence. Each color's strings form a ring of five on their own, and a ring has no triangle of any kind, so it certainly has no one-color one.
+The final sweep checks every possible group of three. There are ten of them, and every one uses both colours. Safety is therefore not based on how the picture looks. It comes from checking a short, complete list. The tests in this repository perform the same check.
 
-**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/01.html)** and turn the idea over yourself.
+There is also a quick way to understand the pattern. Look at either colour by itself. Its five connections form a ring, and a ring contains no triangle. Since neither colour can make a triangle on its own, the combined colouring is safe.
+
+**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/01.html)** to colour the five-person group and check each triangle.
 
 ---
 

@@ -1,20 +1,24 @@
 # 11 · The tower
 
-All three parts are on the table. What remains is assembly, and one piece of bookkeeping that turns the assembly into a growing rate.
+The palette rule protects triangles across three rooms. The team rule protects triangles that use two rooms. The referee enforces the team rule everywhere at once. The construction now repeats these parts over several floors.
 
-The construction is a tower of floors. The ground floor is one person. Each new floor takes a batch of fresh colors and builds many rooms, each room holding a complete copy of the floor below with its colors relabeled. Every room's palette is chosen from the enlarged pool, sized so that the colors a room holds are exactly as many as the floor below needs. Strings between rooms are colored by the referee, whose single fixed table serves every floor and every pair of rooms.
+The ground floor contains one person. On each new floor, many rooms are created. Every room contains a complete copy of the floor below, with its internal colours renamed to match the colours allowed by that room's palette. Different rooms receive palettes that differ in many places, ensuring that the referee always has enough cross-room colours from which to choose. The same fixed referee rule colours every connection between rooms.
 
-![Floors of rooms of rooms, with later floors multiplying by more than earlier ones](tower.gif)
+![Several floors of rooms inside larger rooms, with the multiplying gain increasing on later floors](tower.gif)
 
-The diagram is a cartoon of the shape, not a portrait of the size; the real floors are astronomically wide. The bookkeeping that matters is this. Palettes on floor after floor are drawn from a growing pool of colors, and the number of usably different palettes grows with the pool. So the number of rooms a floor can support grows as the tower rises. Each floor multiplies the table size by more than the floor before, and that is precisely the behaviour no fixed product could ever have.
+The animation shows the nesting pattern, not the true number of rooms. Even the first full-scale floors are far too wide to draw. The important change is that the available colour pool grows from one floor to the next. A larger pool provides many more sufficiently different palettes, so a later floor can contain more rooms than an earlier floor. Each floor multiplies the group size by a larger amount than the floor before it.
 
-Two constraints fight over the tower's height. Any two rooms on one floor must have palettes different enough that each room holds plenty of colors the other one is missing, or the referee has too few candidate colors to pick from; that forces palettes to be large, which spends colors. Colors, in turn, are what the final score divides by. Balancing the two, a tower of some height spends about the cube of that height in colors (times smaller logarithmic factors) and pays out about that height in people per color. Undo the cube: a table built with some number of colors earns a rate of about the *cube root* of its color count, divided by a logarithm.
+This is exactly what fixed products could not do. In section 5, every round used the same number of rooms and kept the score flat. Here, the number of rooms rises with the floor, so the people-per-colour score rises too.
 
-![Flat rates of the fixed recipes against the climbing rate shape of the 2026 construction](base.png)
+There is a trade-off. Palettes must differ in many colours so that the referee has enough choices, which makes each palette large and spends more colours. Making the tower taller creates more multiplying gains, but also increases that cost. After balancing the two, first multiply the tower height by a slowly growing logarithmic factor and then cube the result. That is roughly how many colours the tower uses. Its people-per-colour score grows roughly like the height.
 
-The flat lines are the whole world before 2026. The curve climbs past every one of them and keeps going. At the smallest full-scale size, the numbers are: a referee's card of 57 rows, palettes of 114 colors per floor, three floors, 342 colors in all. This repository computes those parameters from the paper's recipe and the tests pin them.
+Turning that relationship around gives the final rate: for a given colour count, the score is about the cube root of the colour count, divided by its logarithm. A logarithm is a slow-growing way to record repeated multiplication. It grows much more slowly than a cube root, so the score eventually keeps increasing.
 
-**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/11.html)** and turn the idea over yourself.
+![The fixed scores of older recipes compared with the rising shape of the 2026 score](base.png)
+
+The rising curve shows the long-term shape without the theorem's tiny fixed multiplier. It is not a plot of useful values at small colour counts. For the smallest full-scale stage, the referee's card has 57 rows. Each floor uses palettes containing 114 colors, and three floors use 342 colours altogether. This repository recalculates those parameters from the paper's instructions.
+
+**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/11.html)** to add floors and compare a fixed product with the growing tower.
 
 ---
 

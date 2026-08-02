@@ -1,24 +1,28 @@
 # 10 · The referee
 
-Here is the enforcement problem, stripped down. A string runs from person u in one room to person v in another. The rule of chapter 9 says the team it lands on must be determined by the sender, not chosen freely. But the string's color must also be held on exactly one side, per chapter 8, and there are many candidate colors, and this must work for every pair of rooms in the construction simultaneously, using no information beyond the two endpoints themselves.
+Every connection between two rooms needs two choices: a colour allowed by the palettes, and a team on which it may safely land. These choices cannot be improvised for one pair and changed for the next. A single rule must work for every pair of people in every pair of rooms.
 
-The solution is a single fixed card of symbols, written down once, before any rooms or people exist. This article calls it the **referee's card**. Here is a real one, at toy size, found and fully verified by this repository.
+The construction begins by fixing a card filled with symbols before any people or rooms are considered. We will call it **the referee's card**. The next animation shows a genuine small example found and checked by this repository.
 
-![The referee's card at toy size, with every choice of four columns containing a row that shows both symbols](referee.gif)
+![A small referee's card being checked so that every four selected columns show both symbols in some row](referee.gif)
 
-The card's one promise: choose any four of its columns, and some row shows every symbol within those four columns. Thirteen rows of coin flips are enough to make that hold for all seventy ways of picking four columns out of eight, and the tests check all seventy. At this toy size the promise is easy and almost any random card passes; at the sizes the real construction needs, nothing could be checked case by case, and the existence of a valid card is guaranteed instead by two counting arguments layered on top of each other. What matters downstream is only this: the card is fixed once and works for every situation at once.
+This card has thirteen rows and eight columns, and every entry is one of two symbols. Its promise is simple: choose any four columns, and there is at least one row in which both symbols appear among those four entries. There are seventy ways to choose the four columns, and the tests check all seventy.
 
-Why insist that the card come first? Because a rule invented after seeing a particular pair of words could always be bent to fit that pair, and an agreement arranged after the fact guarantees nothing about the next pair. The promise has force precisely because one card, written blind, must serve every pair of rooms on every floor, forever.
+At this small size, most randomly filled cards already pass. That does not show that the full construction is easy. At the real sizes, direct checking is impossible. Two counting arguments prove that at least one card works for all column choices at once. The rest of the construction needs only that promise, not a case-by-case search.
 
-From the card come two fixed answer lists, one for each direction of the conversation. Each person's teams, across the relevant colors, spell out a word. When two words meet, the promise of the card guarantees a position where one word agrees with the answer list of the other.
+The card must be fixed first. If a new rule could be invented after seeing each pair of people, it could always be adjusted to make that one pair work. Such an adjustment would say nothing about any other pair. One card chosen in advance has to handle every future pair, which is what gives the promise its force.
 
-![Two words and the two fixed answer lists, scanned until the guaranteed agreement appears](meeting.gif)
+Here is how the card guides a connection. For each candidate colour, a person's team number is written as one symbol in a word. The fixed card produces **the two answer lists**, one for each direction between the two people. More precisely, it gives two fixed rules for producing those lists. For any pair of words, at least one position is guaranteed to contain an agreement between one person's team symbol and the answer produced from the other person's word.
 
-That agreeing position picks the string's color, and it does so in exactly the shape chapter 9 demanded: the landing team at the receiving end is read off from the sender's word. Two red strings from the same outsider therefore land on the same team, always, and the trap never springs. The tests verify the meeting promise exhaustively at toy size: all 8192 possible words on one side, every possible word on the other, no pair escapes.
+![Two team words and their answer lists being scanned until a guaranteed agreement is found](meeting.gif)
 
-One honest caveat. The toy is real and fully checked, but its size is chosen for the eye. The real construction's smallest card has 57 rows, and the words are 57 symbols long. Nothing conceptual changes with the size; only the counting arguments do.
+The agreeing position selects a candidate colour. It also selects the receiving team in the way section 9 requires: that team is determined from the sender's word. If the same outsider sends two connections of the same colour into a room, both must therefore land on the same team. The dangerous triangle cannot form.
 
-**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/10.html)** and turn the idea over yourself.
+At the small size, each word contains thirteen two-choice symbols, so there are 8192 possible words. The tests verify the meeting promise for every word on one side and every word on the other. This is a complete check of the toy version.
+
+The toy is drawn small enough to read. The smallest card used by the full construction has 57 rows, and each word has 57 symbols. The rule is the same, but the proof that such a card exists depends on the counting arguments rather than exhaustive checking.
+
+**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/10.html)** to choose card columns and follow the search for an agreeing position.
 
 ---
 

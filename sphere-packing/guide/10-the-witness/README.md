@@ -1,35 +1,31 @@
 # 10 · Building the witness
 
-Ruling everything out is only half. Someone still has to produce a certificate that actually reaches the wall.
+In this chapter, a **witness** simply means a concrete example. Proving that no certificate can cross the limit gives only one half of the result. The other half requires a family of certificates that gets all the way to that limit as the dimension grows.
 
-The natural place to start is a Gaussian, the bell curve, because it is its own Fourier transform. The symmetry the argument needs is free. The trouble is that its radius sits at one over the square root of two pi, which is about 0.399, and the wall is at one over pi, about 0.318. The Gaussian is in the wrong place.
+A natural starting point is the familiar bell curve, also called a Gaussian. Its Fourier transform has the same shape, so the needed symmetry is already present. However, after measuring the radius per square root of the dimension, the Gaussian gives about 0.399. The limit is one over pi, about 0.318, so the unmodified Gaussian does not reach it.
 
-So the construction multiplies it by a carefully chosen even deformation, which moves the radius without disturbing the symmetry.
+The construction changes the bell curve with a carefully chosen left-right symmetric adjustment. Mathematicians call this an even deformation. It moves the radius while preserving the Fourier symmetry.
 
-![The radius sliding from the Gaussian's value down onto the wall](moving_radius.gif)
+![A symmetric adjustment moving the Gaussian radius from about 0.399 toward 0.318](moving_radius.gif)
 
-How far it moves is given by a single integral. An **integral** is an area being gathered up piece by piece, and this one can be watched doing it: the region under the curve fills in from the left, and the jar on the right fills with the total gathered so far. The jar settles on an exact closed value, the logarithm of pi over two. It is an old identity of Wallis.
+The amount of movement comes from one **integral**. An integral gathers many thin pieces into a total; in this picture, that total is the area under the curve. The animation fills the area from left to right while the container beside it shows how much has been collected. The final amount is exactly the logarithm of pi over two. A logarithm measures repeated multiplication in the way an ordinary difference measures addition. This old result is known as Wallis’s identity.
 
-![The area under the curve being gathered up from the left, and a jar filling to exactly the log of pi over two](wallis.gif)
+![Area being collected under a curve until it reaches the Wallis value](wallis.gif)
 
-Put the two together and the Gaussian's 0.399 becomes exactly 0.318. The construction lands on the wall, not near it. That is the second half of the theorem.
+Combining that amount with the Gaussian moves the limiting radius from about 0.399 to exactly one over pi, about 0.318. The construction reaches the same long-term limit that the first half said no certificate could pass.
 
-Two more pieces are needed to make it work, and both are repairs rather than ideas.
+Two extra parts repair side effects of the adjustment. They do not change the central idea.
 
 ```
-    a Gaussian                   already its own Fourier transform,
-                                 so the symmetry is free
-    an even deformation          slides the radius onto the wall
-                                 without breaking that symmetry
-    a tiny bump far away         restores the damping the deformation
-                                 destroys at huge radii
-    a pair of polynomial factors fixes the signs near the origin, where
-                                 the estimates say nothing
+    the bell curve               already has the required Fourier symmetry
+    a symmetric adjustment       moves its radius to the limit
+    a tiny distant bump          makes the curve fade properly far away again
+    two simple curve factors     correct the signs close to the centre
 ```
 
-The deformation, left alone, destroys the damping that keeps the function well behaved at enormous radii, so a tiny positive bump is added far away to restore it. And the estimates that control the signs are useless near the origin, so a pair of polynomial factors is included to handle that stretch separately.
+Without the adjustment, the bell curve fades quickly at great distances. The adjustment spoils some of that fading, so a tiny positive bump far away restores it. The broad checks also do not control the signs near the centre, so two polynomial factors—simple curves built from powers—are added to handle that short range separately.
 
-**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/10.html)** and turn the idea over yourself.
+**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/10.html)** to move the Gaussian radius toward the limiting value.
 
 ---
 

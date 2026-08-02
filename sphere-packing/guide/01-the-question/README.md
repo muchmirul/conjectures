@@ -1,24 +1,24 @@
 # 1 · The question
 
-Take equal balls and pack them without overlapping. The **density** is the fraction of space they fill. Higher is better.
+Pack equal balls together without letting them overlap. The **density** tells us how much of the available space is inside the balls. A density of 100 percent would leave no gaps, so a larger density means a tighter packing.
 
-In the plane, "balls" are circles. Line them up in rows and columns and they fill a little over 78 percent. Then push alternate rows sideways so each circle nestles into the dip between two others, and pull the rows closer.
+On a flat surface, the “balls” are circles. Put their centres in straight rows and columns and the circles cover a little over 78 percent of the surface. Now slide every other row sideways. Each circle can settle into the dip between two circles in the row below, allowing the rows to move closer together.
 
-![Circles sliding from square rows into staggered rows while the covered fraction rises](rearrange.gif)
+![Equal circles sliding from straight rows into tighter staggered rows](rearrange.gif)
 
-Nothing was added and nothing shrank. The same circles now cover 90.69 percent. That staggered arrangement is the best possible in the plane, which Thue argued in 1910 and Fejes Toth proved completely in 1943.
+The number and size of the circles have not changed. Only their positions have changed, yet they now cover 90.69 percent of the surface. This staggered arrangement is the best possible packing in two dimensions. Thue gave an argument in 1910, and Fejes Toth completed the proof in 1943.
 
-![The gaps left by square rows and by staggered rows](waste.png)
+![The larger gaps between straight rows compared with the smaller gaps between staggered rows](waste.png)
 
-There are exactly five dimensions where the best packing is known. The next picture cuts space into one hundred equal pieces for each of them and colours the pieces the best known packing fills.
+A dimension is simply an independent direction in which something can move. A line has one direction, a flat surface has two, and ordinary space has three. Although we cannot directly see eight or twenty-four dimensions, the same packing question still makes sense there. The exact best packing is known in only five dimensions. The next picture divides the available space into one hundred equal parts and colours the amount filled in each known case.
 
-![The five known best packings, each drawn as one hundred equal pieces of space with the filled pieces coloured](known.png)
+![The filled share of space for the five dimensions whose best packing is known](known.png)
 
-One dimension is trivial: segments on a line leave no gaps. Two is the staggered rows. Three is the greengrocer's stack, guessed by Kepler in 1611 and proved by Hales in 1998. Eight and twenty four were settled in 2017, by Viazovska for dimension eight and by Cohn, Kumar, Miller, Radchenko and Viazovska for dimension twenty four.
+In one dimension, the “balls” are line segments, and they can touch end to end with no gaps. In two dimensions, staggered rows give the answer. In three dimensions, the answer is the fruit-shop stack: Kepler proposed it in 1611, and Hales proved it in 1998. The eight-dimensional case was settled by Viazovska in 2017. In the same year, Cohn, Kumar, Miller, Radchenko and Viazovska settled the twenty-four-dimensional case.
 
-Look at the last two panels. Dimension eight keeps twenty five pieces out of the hundred. Dimension twenty four keeps less than a fifth of a single piece. The density does not drift down as dimensions are added; it falls off a cliff.
+The last two panels show how quickly the filled share can become small. In dimension eight, the balls fill about twenty-five of the one hundred parts. In dimension twenty-four, they fill less than one fifth of a single part. Extra dimensions do not simply add more room for balls; they also create far more room between them.
 
-**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/01.html)** and turn the idea over yourself.
+**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/01.html)** to compare the known densities and rearrange the circles yourself.
 
 ---
 

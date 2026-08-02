@@ -1,30 +1,33 @@
 # Start here
 
-*A step by step guide to a question about stacking balls that has been open since 1611, and to what was proved about it in 2026. No mathematical background is assumed. Every idea arrives as a picture first.*
+*A step-by-step visual guide to packing equal balls, a question first asked in 1611, and to a major result proved in 2026. You do not need a maths background. Each new idea begins with a picture.*
 
-![Balls packed in the greengrocer's stack, turning so the depth is visible](hero.gif)
+![Equal balls in a tightly packed fruit-shop stack, rotating so you can see its depth](hero.gif)
 
-Those are equal balls, packed as tightly as anyone knows how. They fill a little under 75 percent of the space they sit in. The rest is gaps.
+Every ball in this stack is the same size, and none of them overlap. This familiar fruit-shop arrangement fills a little under 75 percent of the surrounding space. The remaining space is made of gaps between the balls.
 
-In two dimensions the same question has a clean answer, and in three dimensions it took nearly four hundred years to settle. In high dimensions nobody knows the answer, and nobody expects to know it soon. What people do instead is prove that no packing can beat a certain figure. In 2026 the exact limit of the main method for doing that was worked out, and the best general figure since 1978 was replaced.
+For circles on a flat surface, the best arrangement is known. For balls in ordinary three-dimensional space, finding the answer took almost four hundred years. In most higher dimensions, the exact answer is still unknown and is expected to remain difficult. Researchers therefore also ask a more manageable question: how dense could any packing possibly be? In 2026, they found the exact long-term limit of the main method used to answer that question. The result improved a general limit that had stood since 1978.
 
-This article explains the whole story from zero. Each section is one small idea with a picture, and each one has a [page you can play with](https://muchmirul.github.io/conjectures/sphere-packing/play/index.html) where every number in it is a control you can move.
+This guide develops that story one small step at a time. Every numbered section also has a [page you can play with](https://muchmirul.github.io/conjectures/sphere-packing/play/index.html), where you can change the main quantities and watch the picture respond.
 
-The code for every figure is in this repository, along with a test suite that recomputes each number. Where a claim is somebody else's theorem rather than something computed here, the text says so.
+The code that makes each figure is included in this repository. The tests recalculate the numbers used in the guide. When a statement comes from an existing theorem rather than from those calculations, the text says so.
 
 ```
-    the setting        1  the question        2  the room runs out
-                       3  why you cannot just check
-    the method         4  the certificate     5  counting twice
-                       6  what certificates prove
-                       7  is there a ceiling
-    the 2026 answer    8  the balancing trick 9  the wall
-                      10  building the witness
-                      11  the two halves meet
-                      12  what it means, and what it does not
+    first, the problem       1  what are we trying to find?
+                             2  why balls lose space
+                             3  why examples are not enough
+    next, the method         4  one useful function
+                             5  one total counted two ways
+                             6  what the method can show
+                             7  can the method be improved forever?
+    finally, the 2026 result 8  balancing the two views
+                             9  the limit no function can cross
+                            10  building a function that reaches it
+                            11  why the two parts give an exact answer
+                            12  what is settled and what remains open
 ```
 
-**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/00.html)** and turn the idea over yourself.
+**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/00.html)** to rotate the opening stack and see why its depth matters.
 
 ---
 

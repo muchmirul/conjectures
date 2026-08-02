@@ -1,40 +1,44 @@
 # 12 · What it means, and what it does not
 
-Be careful about what was settled. The method now has a known ceiling. The packing problem does not.
+The 2026 result settles the limit of one method. It does not settle the sphere-packing problem in most dimensions.
 
 ```
-    settled                                still open
-    -------                                ----------
-    the exact rate of the method           the true densest packing in
-    the best exponent since 1978 replaced  most dimensions
-    both sign uncertainty constants        whether any method beats this
-                                           exponent
-                                           the gap between what is built
-                                           and what is proved
+    now known                              still unknown
+    ---------                              -------------
+    the exact long-term rate of this       the densest packing in most
+    certificate method                     dimensions
+    the improved general upper-limit rate  whether a different method can give
+    that replaces the 1978 rate            a better long-term upper limit
+    the two related Fourier sign limits    how to close the gap between packings
+                                           we can build and limits we can prove
 ```
 
-Nobody has found a packing in high dimensions that comes anywhere near the new bound, and the gap between the best construction and the best bound is still exponentially wide. What changed is that one particular route is now fully mapped: we know exactly how far it goes, so improving on it requires a different idea.
+No known high-dimensional packing comes close to the new upper limit. The gap between the best construction and the best proven limit is still exponentially wide, which means their ratio grows by repeated factors as dimensions are added. The advance maps one route completely: we now know exactly how far this certificate method can go, so a better long-term rate will need a different idea.
 
 ```
-    1611  Kepler guesses the greengrocer's stack cannot be beaten
-    1978  Kabatianskii and Levenshtein prove the exponent 0.59905576
-    2000  Gorbachev, and independently Cohn, write down the method
-    2003  Cohn and Elkies publish it and compute with it
-    2005  Hales's proof of the Kepler conjecture appears in print
-    2014  Cohn and Zhao: the method is at least as strong as the 1978 bound
+    1611  Kepler proposes that the fruit-shop stack cannot be beaten
+    1978  Kabatianskii and Levenshtein obtain the rate 0.59905576
+    2000  Gorbachev publishes the Fourier certificate method
+    2002  Cohn independently develops the same method
+    2003  Cohn and Elkies publish it together and calculate new limits
+    2005  Hales’s proof of Kepler’s three-dimensional claim appears in print
+    2014  Cohn and Zhao show the method is at least as strong as the 1978 rate
     2017  Viazovska settles dimension 8; with Cohn, Kumar, Miller and
-          Radchenko, dimension 24
-    2020  Afkhami-Jeddi, Cohn, Hartman, de Laat and Tajdini conjecture the rate
-    2026  the rate is proved, and 0.6044005442916777 replaces the 1978 exponent
+          Radchenko, she also helps settle dimension 24
+    2020  Afkhami-Jeddi, Cohn, Hartman, de Laat and Tajdini predict the exact rate
+    2026  a proof establishes the rate, and 0.6044005442916777 replaces the
+          1978 exponent
 ```
 
-The same proof settles two other questions, about how early a Fourier eigenfunction can settle down to a fixed sign. There are two versions, one for functions that transform into themselves and one for functions that transform into minus themselves. Both were conjectured to have the same limit, and the proof confirms it: both are one over pi, times the square root of the dimension.
+The proof also answers two closely related questions about functions and their Fourier transforms. Some special functions turn into themselves under the Fourier transform; others turn into their own negative. These are the plus and minus versions of a **Fourier eigenfunction**. For each version, ask how far from the centre we must go before the function settles to one fixed sign and never changes sign again.
 
-![The two radii drawn as circles closing on the shared dashed limit circle, the plus one always inside; the spacing sketches the trend rather than exact values](two_radii.png)
+Both versions were expected to approach the same radius in high dimensions. The proof confirms this. For each one, the limiting radius is one over pi times the square root of the dimension.
 
-The source also observes something the limit hides. In every single dimension the two radii are different, and the plus version is always the smaller. Their limits agree; the quantities themselves never do.
+![The plus and minus radii approaching the same dashed limit, with the plus radius always smaller; the spacing shows the trend rather than exact values](two_radii.png)
 
-**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/12.html)** and turn the idea over yourself.
+The shared limit does not mean the two radii are equal in any particular dimension. The source shows that the plus radius is smaller in every finite dimension. Their difference becomes small compared with the square root of the dimension, so only their long-term limits agree.
+
+**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/12.html)** to compare the two radii as they move toward their shared limit.
 
 ---
 

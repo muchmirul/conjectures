@@ -1,30 +1,30 @@
 # 2 · The room runs out
 
-A ball in a box seems to fill most of it. Turn the box and count the corners.
+To see why high dimensions behave so differently, begin with one ball inside the smallest box that can hold it. The ball may look as if it fills most of the box, but the corners tell a different story.
 
-![A ball inside the box that just holds it, turning so all eight corners are visible](ball_in_box.gif)
+![A ball inside its smallest cube, rotating until all eight untouched corners are visible](ball_in_box.gif)
 
-In the plane a square has four corners the circle cannot reach. In space a cube has eight. The number of corners doubles with every dimension you add, and the ball never grows to meet them.
+On a flat surface, a circle inside a square cannot reach the square’s four corners. In ordinary space, a ball inside a cube cannot reach its eight corners. Each new dimension doubles the number of corners, while the round ball still curves away from all of them.
 
-The next animation replays that, one dimension at a time, on a single flat box. Each red mark stands for one corner of the higher dimensional box, so the marks double at every step, and the blue disc is drawn with exactly the share of the box the ball still holds.
+The next animation represents every dimension inside one flat frame. Each red mark stands for a corner of the box in that dimension, so the number of marks doubles at every step. The blue disc does not show the ball’s literal shape in those dimensions. Its area shows the exact fraction of the box that the ball fills.
 
-![The corner marks doubling while the ball's share of the box collapses, one dimension at a time](corners.gif)
+![Red corner marks doubling as the blue share filled by the ball becomes smaller](corners.gif)
 
-By dimension ten a ball fills a quarter of one percent of its box. By dimension thirty it is about two parts in a hundred trillion. Almost all of a high dimensional box is corner.
+By dimension ten, the ball fills only about one quarter of one percent of its box. By dimension thirty, it fills about two parts in a hundred trillion. Nearly all the box’s volume lies away from the ball, toward its many corners.
 
-A stranger fact hides in the same collapse. Keep the radius fixed at one and ask how big the ball itself is. In the next picture every ball is drawn at its true relative size, so nothing needs to be read off an axis: the balls swell for a while, and then they stop.
+There is another surprising effect. Keep the ball’s radius fixed at one and compare its own volume from one dimension to the next. In the next picture, the sizes represent those volumes directly. They grow at first, reach a largest value, and then begin to shrink.
 
-![Balls of radius one drawn at their true relative sizes, swelling to dimension five and then shrinking away](volume_peak.png)
+![Unit-radius balls shown at their true relative sizes, growing through dimension five and then shrinking](volume_peak.png)
 
-The biggest ball of radius one lives in dimension five. After that, adding a dimension makes the ball smaller.
+Among balls with radius one, the numerical value of the volume is largest in dimension five. From dimension six onward, adding another dimension makes that value smaller.
 
-The fourth dimension cannot be drawn honestly, so the next picture draws a shadow of it instead, and turns the object in a direction that involves the fourth axis. Watch the corners swing out and back.
+We cannot draw a four-dimensional object directly. Instead, the next animation shows its three-dimensional shadow and turns it partly through the fourth direction. The changing shadow is much like the changing flat shadow of an ordinary object as you rotate it.
 
-![A four dimensional cube turning in four dimensions, shown as its three dimensional shadow](four_d.gif)
+![A four-dimensional cube rotating, shown through its changing three-dimensional shadow](four_d.gif)
 
-The swelling is the fourth direction making itself felt. Every dimension you add gives the corners somewhere further to go.
+The corners swing outward and back because the turn uses a direction that is not present in ordinary space. Every added direction gives the box more corners and gives those corners more ways to lie far from the round centre.
 
-**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/02.html)** and turn the idea over yourself.
+**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/02.html)** to change the dimension and watch the ball’s share of its box disappear.
 
 ---
 

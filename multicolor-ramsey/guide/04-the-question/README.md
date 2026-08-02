@@ -1,20 +1,22 @@
 # 4 · The question
 
-Line up what the records so far actually cost. Two colors bought a table of five. Three colors bought a table of sixteen. The natural currency is not the table size itself but the table size *per color spent*, measured so that the arithmetic comes out fair: a recipe that turns each color into the same multiplying factor should score that factor.
+To compare constructions that use different numbers of colours, we need a fair score. Suppose a safe table uses a certain number of colours. Ask for the number that, when multiplied by itself once for each colour, gives the group size. We will call that score **people per colour**. This is the usual root of the group size, but the repeated-multiplication picture is all we need here.
 
-Two colors for five people scores about 2.24, because 2.24 times itself is five. Three colors for sixteen scores about 2.52, because 2.52 times itself, twice over, is sixteen. The best recipe known before 2026, built from addition tricks on number circles, approaches a score of about 3.28 as the color count grows. It only approaches it: the recipe loses a fixed slice at every round, so no single small table actually reaches that rate, and at five colors, for example, a table big enough to score 3.28 outright is already impossible.
+Five people with two colours score about 2.24, because multiplying 2.24 by itself gives about five. Sixteen people with three colours score about 2.52, because multiplying 2.52 by itself three times gives about sixteen. A larger score means that each colour contributes a larger multiplying effect.
 
-![The people-per-color rate of the known constructions, climbing slowly toward an open question](rate.png)
+Before 2026, the best long-term recipe was based on addition patterns around number circles. As the number of colours grows, its score approaches about 3.28. This does not mean there is a literal five-colour safe group with that score. Such a group would need 380 people, while the simple upper argument in section 6 already forces a triangle by 327 people. The recipe reaches 3.28 only as a long-term rate after its small losses are spread over more and more colours.
 
-The bars creep upward. The question the rest of this article answers is the obvious one about that creep.
+![The people-per-colour scores of known constructions rising toward the old long-term rate](rate.png)
 
-> As the number of colors grows without limit, does the people-per-color rate climb without limit too, or does it level off at some fixed ceiling?
+The known scores rose slowly, which led to the central question.
 
-Erdős offered 250 dollars for determining what the rate approaches and 100 dollars for merely deciding whether it is finite. The question was recorded in the standard Ramsey theory reference in 1990, and it stayed open, in both directions, until the result this article describes.
+> As the number of colours grows without limit, does the people-per-colour score also grow without limit, or does it settle below one fixed ceiling?
 
-It is worth feeling why both answers were plausible. Each new color is a whole extra dimension of freedom, so perhaps tables can grow faster and faster per color forever. On the other hand every construction anyone had ever written down got a fixed rate and no more, as the next chapter shows.
+Erdős offered 250 dollars for determining the long-term answer and 100 dollars for simply deciding whether that answer was finite. The prizes were recorded in a 1983 survey, and the growth question appeared in the standard Ramsey theory reference in 1990. Both possibilities remained open until 2026.
 
-**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/04.html)** and turn the idea over yourself.
+Either answer seemed possible. Every new colour gives the construction another choice, which might allow the score to keep rising. However, every known recipe produced only a fixed long-term score. The next sections explain why the old tools naturally behaved that way.
+
+**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/04.html)** to compare group size, colour count, and the resulting score.
 
 ---
 

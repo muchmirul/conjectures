@@ -1,26 +1,25 @@
 # 3 · Why you cannot just check
 
-You might hope to settle the question by trying arrangements. You cannot.
+Trying many arrangements can help us find a good packing, but it can never confirm that we have found the best one.
 
-![Six different arrangements of circles, none of them settling anything](many_packings.png)
+![Six possible circle arrangements that show how many different choices there are](many_packings.png)
 
-There is no end to the arrangements, and they are not even a list you could work through one at a time. Worse, an arrangement can only ever show that some density **is** reachable. To prove no arrangement does better you need a statement about all of them at once.
+There are endlessly many ways to place the balls, and there is no checklist that contains them all. One arrangement can show that a particular density can be reached. This is called a lower bound. It cannot show that every other arrangement is worse. For that, we need an upper bound: one statement that applies to all possible packings at once.
 
-That is what the rest of this article is about: a single object that says something true about every packing there is.
+The rest of the guide explains how a single number-making rule can provide such a statement.
 
 ```
-    checking arrangements            one certificate
-    ---------------------            ---------------
-    one arrangement                  a single function
-    another one                      obeying two sign rules
-    another one
-    and so on                        bounds every arrangement
-    never finishes                   at once
+    trying arrangements one by one      using one certificate
+    --------------------------------    ---------------------
+    test one arrangement                choose one function
+    test another                        make it pass two rules
+    keep testing
+    there is no final test              get a limit for every packing at once
 ```
 
-We will call that object a **certificate**. The name is ours; the standard term is in the glossary at the end.
+We will call this function a **certificate**, because passing its two rules certifies a density limit. The usual mathematical name appears in the glossary near the end.
 
-**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/03.html)** and turn the idea over yourself.
+**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/03.html)** to compare what examples can show with what a certificate can show.
 
 ---
 

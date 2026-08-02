@@ -1,29 +1,33 @@
 # Start here
 
-*A step by step guide to a coloring game that has been studied since 1955, to a question about it that Erdős put money on, and to the 2026 result that answered it. No mathematical background is assumed. Every idea arrives as a picture first.*
+*A step-by-step visual guide to a colouring game studied since 1955, a question for which Erdős offered prize money, and the 2026 result that answered it. You do not need a maths background. Each new idea begins with a picture.*
 
-![All 120 connections among sixteen people being colored with three colors, ending safe](hero.gif)
+![All 120 connections between sixteen people receiving one of three colours without making a one-colour triangle](hero.gif)
 
-Sixteen people, every pair connected, every connection given one of three colors. Watch to the end: no three people have all three of their mutual connections in a single color. That is the whole game, and sixteen is the largest group that can win it with three colors. It has been since 1955, and nobody has beaten it.
+The animation shows sixteen people with a connection between every pair. That makes 120 connections, and each one receives one of three colours. When the colouring is complete, there is no group of three people whose three mutual connections all have the same colour. Sixteen is the largest group for which this is possible with three colours. Greenwood and Gleason built this example and proved that seventeen is impossible in 1955.
 
-The question this article builds toward is what happens when you have many colors. With more colors you can protect a bigger group. How much bigger, per color? Erdős offered cash for the answer in the 1980s, the standard reference book recorded the question in 1990, and until recently the honest summary was that the two known guardrails were absurdly far apart. In 2026 the question was answered.
+This guide asks what happens when many more colours are available. More colours let us keep a larger group safe, but how much larger can the group become for each added colour? Erdős offered cash prizes for answering that question. For decades, the best construction and the best limit were so far apart that researchers did not even know whether the long-term rate stopped at a fixed number. A result in 2026 showed that it never stops growing.
 
-This article explains the whole story from zero. Each section is one small idea with a picture, and each one has a [page you can play with](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/index.html) where the numbers in it are controls you can move.
+The guide develops the result in small steps. Every numbered section also has a [page you can play with](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/index.html), where you can change the main choices and watch the picture respond.
 
-The code for every figure is in this repository, along with a test suite that recomputes each number. Where a claim is somebody else's theorem rather than something computed here, the text says so.
+The code that creates every figure is included in this repository. The tests recalculate the numbers and check the small colourings shown here. When a statement comes from an existing theorem rather than those tests, the text says so.
 
 ```
-    the game           1  the game            2  six is forced
-                       3  more crayons
-    the question       4  the question
-    the old tools      5  multiply            6  the ceiling
-                       7  the gap
-    the 2026 answer    8  palettes            9  the trap
-                      10  the referee        11  the tower
-                      12  what it means, and what it does not
+    first, learn the game     1  the rule
+                              2  why six people cannot stay safe
+                              3  what an extra colour changes
+    then, find the question   4  how to compare different colour counts
+    see why old tools stall   5  multiplying safe groups
+                              6  a general upper limit
+                              7  the wide gap between them
+    build the 2026 idea       8  which colours each room omits
+                              9  keeping arrivals on safe teams
+                             10  one fixed referee for every choice
+                             11  stacking the rooms into a tower
+                             12  what the result settles
 ```
 
-**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/00.html)** and turn the idea over yourself.
+**[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/00.html)** to colour the opening group and inspect the finished pattern.
 
 ---
 

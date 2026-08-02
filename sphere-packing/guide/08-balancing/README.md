@@ -1,24 +1,24 @@
 # 8 · The balancing trick
 
-Nothing new is needed from here on. The rest of this article uses the two sign rules from section 4, the Fourier transform from the same section, and the idea of a radius. What changes is that we stop asking what a particular certificate proves and start asking what any certificate must look like.
+The final sections do not require a new starting idea. They reuse the two sign rules and the Fourier transform from section 4, together with the familiar idea of a radius. Until now, we asked what one chosen certificate could prove. We will now ask what every possible certificate is forced to look like.
 
-Start with a certificate. Stretch it, like adjusting the zoom on a photograph. Stretching a function makes its transform shrink by the same factor and grow taller, so there is exactly one amount of stretch that makes the function and its transform agree at the centre. Apply that stretch, then subtract one from the other.
+Begin with any certificate and stretch its graph, as though changing the zoom on a picture. When the original graph becomes wider, its Fourier view becomes narrower and changes height. There is one amount of stretching for which the original function and its Fourier view have the same value at the centre. Make that adjustment, and then subtract the stretched function from its Fourier view.
 
-![Subtracting the stretched certificate from its own transform](balancing.gif)
+![A stretched certificate being subtracted from its Fourier view to make a balanced function](balancing.gif)
 
-Call the result the **balanced function**. Two things are now true about it, and both come for free.
+We will call the result the **balanced function**. The way it was made immediately gives it two useful features.
 
-It is zero at the centre, because that is what the stretch was for.
+First, its value at the centre is zero because the two values there were made equal before the subtraction.
 
-And it turns into minus itself under the Fourier transform. Subtracting swapped the two roles, so taking the transform swaps them back and flips the sign. A function that transforms into minus itself is a rare thing, and it is rigid enough to be attacked.
+Second, taking its Fourier transform changes it into its own negative. The transform swaps the two parts of the subtraction, so their order reverses. This strong symmetry leaves the balanced function much less freedom to change shape.
 
-Here is why that matters. A function that transforms into minus itself has total zero, so exactly half of its weight is negative. And rule one, translated through the subtraction, says the balanced function is never negative beyond a certain radius.
+To see why that helps, look at the area above and below the zero line. Count the area above as positive and the area below as negative. For the balanced function, those two amounts cancel and leave a total of zero, so they must be equal. If all the area is then counted without a sign, exactly half of it lies below zero. The original sign rules also ensure that the balanced function cannot be negative beyond a certain radius.
 
-![Half the weight is negative, and all of it is trapped inside one radius](trapped.png)
+![The negative half of a balanced function contained inside one marked radius](trapped.png)
 
-So the entire negative half is trapped inside one ball. The radius of that ball is the number that decides how good the certificate was: the smaller the radius, the better the certificate. The packing question has turned into a question about how far in you can push a radius.
+All of the negative half must therefore fit inside one ball. The size of this ball records the strength of the original certificate: a smaller radius leads to a stronger density limit. The packing problem has now become a simpler-looking question about how small that radius can be.
 
-**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/08.html)** and turn the idea over yourself.
+**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/08.html)** to stretch the two views until their centre values balance.
 
 ---
 

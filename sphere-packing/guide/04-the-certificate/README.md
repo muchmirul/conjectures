@@ -1,34 +1,36 @@
 # 4 · The certificate
 
-A certificate is one function. Feed it a distance and it hands back a number, and it has to obey two rules.
+Before defining a certificate, choose the unit of distance so that every ball has diameter one. Resizing the whole packing does not change the fraction of space it fills. With that choice made, a certificate is a function: give it the distance between two ball centres, and it returns a number.
 
-**Rule one.** From distance one outward, the number it hands back is never above zero.
+The function must pass two rules.
 
-**Rule two.** Its **Fourier transform** is never below zero, anywhere.
+**Rule one.** At distance one and beyond, its value must always be zero or negative.
 
-The Fourier transform is the second character in this story, so here is what it is. Any function can be built by adding up waves of different frequencies. The Fourier transform is the recipe: it tells you how much of each frequency you need. A function and its transform are two views of one object, the way a chord and its list of notes are two views of one sound.
+**Rule two.** A second view of the function, called its **Fourier transform**, must always be zero or positive.
 
-![A certificate: the function on the left, its transform on the right, with both rules drawn](rules.png)
+The name “Fourier transform” can sound more difficult than the picture. A changing curve can be described as a mixture of simple waves. The Fourier transform tells us how much of each wave is present. The original curve and this list of waves are two views of the same information, just as a musical chord and the notes inside it describe the same sound.
 
-The left panel is the function. The shaded band is where rule one applies, and the curve dips below zero exactly where it must. The right panel is the transform, which stays at or above zero the whole way.
+![A certificate shown as its original curve on the left and its Fourier view on the right](rules.png)
 
-Both rules are easy on their own. A function that is negative from distance one out is easy to write. A function whose transform is never negative is easy to write. The difficulty is that the Fourier transform pushes back: making a function drop sharply in one view makes it spread out and wobble in the other. Getting both at once is the entire game.
+The left panel shows the original function. In the shaded region, which begins at distance one, the curve stays on or below the zero line. That is rule one. The right panel shows its Fourier transform staying on or above the zero line. That is rule two.
 
-Here is the simplest thing that obeys both.
+Either rule is easy to satisfy by itself. It is easy to draw a curve that stays negative after distance one, and it is easy to draw a curve whose Fourier view stays positive. Satisfying both at the same time is difficult. A sharp change in one view usually spreads out and produces ripples in the other, so improving one side can break the other.
 
-![The simplest certificate: one minus the distance squared, times a bell curve](simple.png)
+The next picture shows a basic function that passes both rules.
 
-It obeys both rules, and it is nearly worthless. In the plane the number it hands back is above one, and every density is below one anyway, so it says nothing. It only starts saying something true in dimensions four and five, and it stops existing entirely at dimension seven, where its transform can no longer be kept positive.
+![A basic certificate made from a simple curve that fades away like a bell](simple.png)
 
-Turn one dial on a working certificate and watch what happens.
+This function qualifies as a certificate in dimensions one through six, but it gives useful information only in dimensions four and five. In the plane, for example, its density limit is greater than 100 percent. We already know that no packing can fill more than 100 percent, so that limit tells us nothing new. In dimension seven, its Fourier view becomes negative and the function no longer qualifies as a certificate.
 
-![Turning a dial until the transform dips below zero and the certificate stops proving anything](tuning.gif)
+The next animation changes one part of a working certificate. Watch the Fourier view as the control moves.
 
-Past a point the transform goes negative, rule two breaks, and the certificate proves nothing at all.
+![A control changing the function until its Fourier view crosses below zero](tuning.gif)
 
-Once you have a function obeying both rules, it hands you a number, and no packing in that dimension can be denser than that number. The next section says why.
+Once any part of the Fourier view falls below zero, rule two fails. Even a small failure means the function can no longer prove a density limit.
 
-**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/04.html)** and turn the idea over yourself.
+A function that passes both rules produces a number that no packing in that dimension can exceed. The next section explains where that number comes from.
+
+**[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/04.html)** to adjust a certificate and see exactly when one of its rules breaks.
 
 ---
 
