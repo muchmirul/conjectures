@@ -346,6 +346,7 @@ The source uses a letter R with a colour-count label for the forcing size. It de
 ## Where to go next
 
 - The main source is chapter 9 of *Ten Advances in Mathematics and Theoretical Computer Science*, together with its reasoning walkthrough. Both files are in `docs/ten-proofs/09-multicolor-ramsey/`.
+- The published collection of reasoning walkthroughs the source belongs to: [cdn.openai.com/pdf/reasoning-walkthroughs.pdf](https://cdn.openai.com/pdf/reasoning-walkthroughs.pdf).
 - For the five-person and sixteen-person colourings, see Greenwood and Gleason, “Combinatorial relations and chromatic graphs,” published in *Canadian Journal of Mathematics* 7 (1955).
 - For current small-colour records, see Radziszowski, “Small Ramsey numbers,” a survey that is updated as results improve.
 - For the channel connection, see Alon and Orlitsky, “Repeated communication and Ramsey graphs,” published in *IEEE Transactions on Information Theory* 41 (1995).
