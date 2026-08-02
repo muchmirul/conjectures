@@ -136,69 +136,6 @@ def draw_grid(ax, f=None, lines=None, color=BLUE, lw=1.2, alpha=0.9,
                 zorder=zorder, solid_capstyle="round")
 
 
-def draw_unit_square(ax, f=None, corner=(0.0, 0.0), size=1.0, color=YELLOW,
-                     alpha=0.45, samples=60, zorder=4):
-    """Shade the image of a small square: the guide's 'patch of paint'."""
-    cx, cy = corner
-    s = np.linspace(0, size, samples)
-    xx, yy = np.meshgrid(cx + s, cy + s)
-    if f is not None:
-        xx, yy = f(xx, yy)
-    ax.pcolormesh(xx, yy, np.ones((samples - 1, samples - 1)),
-                  color=color, alpha=alpha, shading="flat", zorder=zorder,
-                  edgecolors="none")
-
-
-# --- ready-made figures ----------------------------------------------------
-
-def before_after(F, variables, xlim=(-2, 2), ylim=(-2, 2), spacing=0.5,
-                 titles=("before", "after"), square=None, figsize=(9.6, 4.6),
-                 out_lims=None):
-    """Two panels: the blue grid, and its green image under F."""
-    f = lambdify_map(F, variables)
-    fig, (axL, axR) = plt.subplots(1, 2, figsize=figsize)
-    style_axes(axL, xlim, ylim)
-    style_axes(axR, out_lims[0] if out_lims else xlim,
-               out_lims[1] if out_lims else ylim)
-    draw_grid(axL, None, xlim=xlim, ylim=ylim, spacing=spacing, color=BLUE)
-    draw_grid(axR, f, xlim=xlim, ylim=ylim, spacing=spacing, color=GREEN)
-    if square is not None:
-        draw_unit_square(axL, None, corner=square)
-        draw_unit_square(axR, f, corner=square)
-    axL.set_title(titles[0], color=INK2, fontsize=12)
-    axR.set_title(titles[1], color=INK2, fontsize=12)
-    fig.tight_layout()
-    return fig
-
-
-def det_heatmap(F, variables, xlim=(-2, 2), ylim=(-2, 2), n=400,
-                title=None, figsize=(6.4, 5.4), signed=True, vmax=None):
-    """Heatmap of det JF over the plane (diverging: red < 0 < blue)."""
-    from .core import jacobian_det
-    d = jacobian_det(F, variables)
-    dfun = sp.lambdify(variables, d, "numpy")
-    xs = np.linspace(*xlim, n)
-    ys = np.linspace(*ylim, n)
-    xx, yy = np.meshgrid(xs, ys)
-    zz = np.broadcast_to(np.asarray(dfun(xx, yy), float), xx.shape)
-    fig, ax = plt.subplots(figsize=figsize)
-    if signed:
-        m = vmax or np.nanmax(np.abs(zz)) or 1
-        im = ax.pcolormesh(xx, yy, zz, cmap=DIV_CMAP, vmin=-m, vmax=m,
-                           shading="auto")
-    else:
-        im = ax.pcolormesh(xx, yy, zz, cmap=SEQ_CMAP, vmin=0,
-                           vmax=vmax or np.nanmax(zz), shading="auto")
-    style_axes(ax, xlim, ylim)
-    cb = fig.colorbar(im, ax=ax, shrink=0.85)
-    cb.outline.set_visible(False)
-    cb.ax.tick_params(color=MUTED, labelcolor=INK2)
-    if title:
-        ax.set_title(title, color=INK2, fontsize=12)
-    fig.tight_layout()
-    return fig
-
-
 # --- animation -------------------------------------------------------------
 
 def _ease(t):

@@ -69,7 +69,6 @@ src/kakeya_guide/         core.py (exact sliver geometry), finite.py (grids and
                           Dvir), shapes.py (disc/triangle/deltoid), dimension.py
                           (box counting), examples.py, plotting.py
 src/viz/                  per-chapter figure scripts (chNN_*.py), runnable standalone
-manim/                    optional Manim scenes (fancier renders)
 tests/                    every claim about a computable object
 notes/                    research + this design doc
 Makefile                  `make figures` / `make chNN_x` re-render media, `make test`

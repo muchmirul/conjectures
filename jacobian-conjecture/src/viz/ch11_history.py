@@ -10,8 +10,7 @@ import sympy as sp
 from common import bare_axes, out_dir
 from jacobian_guide.examples import PINCHUK_DET_IDENTITY, VARS
 from jacobian_guide.plotting import (BASELINE, BLUE, GOOD, GREEN, INK, INK2,
-                                     MUTED, RED, SEQ_CMAP, VIOLET, save_fig,
-                                     style_axes)
+                                     MUTED, RED, SEQ_CMAP, VIOLET, style_axes)
 
 OUT = out_dir("11-why-it-was-so-hard")
 

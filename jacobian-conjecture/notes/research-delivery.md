@@ -26,11 +26,9 @@ Condensed from a web-research pass (July 2026). URLs at bottom.
   ffmpeg binary (uses pyav wheels). LaTeX only needed for `Tex`/`MathTex`, `Text`/`MarkupText` use Pango, no LaTeX. Headless rendering is the default
   (Cairo). Flags: `-qm` 720p30, `--format=gif`, `-s` last-frame PNG.
 - **ManimPango 0.6.1 ships NO Linux wheels**, Linux builds from source and needs
-  `libpango1.0-dev libcairo2-dev pkg-config python3-dev`. (This machine has no
-  sudo ⇒ manim scenes ship as optional code, all committed media rendered with
-  matplotlib.)
-- Nonlinear warp in manim: `plane.prepare_for_nonlinear_transform()` then
-  `plane.animate.apply_function(lambda p: ...)`.
+  `libpango1.0-dev libcairo2-dev pkg-config python3-dev`. This machine has no
+  sudo, so Manim cannot be installed here at all ⇒ it was dropped and every
+  figure in the repo is rendered with matplotlib.
 - **matplotlib**: PillowWriter is the one animation writer with no external
   dependency → GIFs via `FuncAnimation` + `PillowWriter`. Morph animation =
   interpolate `(1−t)·p + t·F(p)`. Heatmaps of det J: `pcolormesh` with a

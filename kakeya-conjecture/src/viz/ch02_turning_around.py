@@ -3,11 +3,10 @@
 import math
 
 import matplotlib.pyplot as plt
-import numpy as np
 
-from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED,
-                    VIOLET, YELLOW, end_pad, needle_line, out_dir, place,
-                    readout, save_anim, save_fig, style_axes, title)
+from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED, VIOLET,
+                    end_pad, needle_line, out_dir, place, save_anim, save_fig,
+                    style_axes, title)
 from kakeya_guide.plotting import shade
 from kakeya_guide.shapes import (DELTOID_AREA, DISC_AREA, TRIANGLE_AREA,
                                  deltoid, deltoid_tangent_chord, disc,

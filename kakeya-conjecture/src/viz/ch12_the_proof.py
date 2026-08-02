@@ -12,9 +12,8 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
-from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED, VIOLET,
-                    YELLOW, out_dir, readout, save_fig, style_axes, title)
-from kakeya_guide.core import extrusion_holds_direction, union_area
+from common import BLUE, GREEN, INK2, VIOLET, out_dir
+from kakeya_guide.core import union_area
 from kakeya_guide.examples import tree
 from kakeya_guide.plotting import axes_3d, compass_3d, spin_gif
 

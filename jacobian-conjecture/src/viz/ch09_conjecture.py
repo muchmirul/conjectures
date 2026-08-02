@@ -10,7 +10,7 @@ from common import bare_axes, out_dir
 from jacobian_guide.examples import TANGLED, VARS
 from jacobian_guide.plotting import (BLUE, GOOD, GREEN, INK, INK2, MUTED,
                                      VIOLET, YELLOW, grid_polylines,
-                                     lambdify_map, save_fig, style_axes)
+                                     lambdify_map, style_axes)
 
 OUT = out_dir("09-the-conjecture")
 

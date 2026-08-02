@@ -8,9 +8,8 @@ from matplotlib.animation import FuncAnimation, PillowWriter
 from common import out_dir
 from jacobian_guide.examples import (CRUSH, FOLD, SHEAR_RIGHT, SHEAR_UP,
                                      TANGLED, VARS)
-from jacobian_guide.plotting import (BLUE, GREEN, INK2, RED, VIOLET,
-                                     animate_map, grid_polylines,
-                                     lambdify_map, style_axes)
+from jacobian_guide.plotting import (BLUE, GREEN, INK2, RED, animate_map,
+                                     grid_polylines, lambdify_map, style_axes)
 
 OUT = out_dir("06-bending-the-grid")
 

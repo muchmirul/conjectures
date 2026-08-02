@@ -61,7 +61,6 @@ click-through navigation; media lives beside the text that uses it):
 guide/NN-slug/README.md   one chapter per folder, PNG/GIF assets alongside
 src/jacobian_guide/       core.py (sympy math), examples.py, plotting.py (matplotlib)
 src/viz/                  per-chapter figure scripts (chNN_*.py), runnable standalone
-manim/                    flagship manim scenes (optional, fancier renders)
 tests/                    symbolic sanity tests for every claim about the examples
 notes/                    research + this design doc
 Makefile                  `make figures` / `make ch04` re-render media, `make test`
@@ -78,8 +77,10 @@ and spaces touching `$` in inline math, no math inside tables.
 
 - **matplotlib + Pillow GIFs** are the workhorse: render everywhere, embed inline on
   GitHub, no LaTeX needed.
-- **manim (Community Edition)** for the flagship scenes (grid morphs, zoom); use
-  `Text` (Pango) rather than `Tex` to avoid a LaTeX dependency. ffmpeg is available.
+- **manim (Community Edition)** was considered for the flagship scenes and
+  dropped: ManimPango ships no Linux wheel, so installing it needs system dev
+  packages this machine cannot add. Every figure is matplotlib. See
+  `research-delivery.md`.
 - **sympy** computes every Jacobian, determinant and inverse that the guide claims, tests assert them, so the guide can't drift from the math.
 - GitHub markdown renders `$…$` math; keep formulas few and small anyway.
 

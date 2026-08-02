@@ -60,7 +60,6 @@ src/
   jacobian_guide/   core.py (sympy: Jacobians, dets, inverses)  examples.py  plotting.py
   viz/              one figure script per chapter
 tests/      symbolic verification of everything the guide asserts
-manim/      optional Manim CE scenes (fancier renders; not required)
 notes/      research notes: content, sources, Pinchuk data, curriculum design
 ```
 

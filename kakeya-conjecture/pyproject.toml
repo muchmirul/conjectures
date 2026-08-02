@@ -6,13 +6,11 @@ requires-python = ">=3.10"
 dependencies = [
     "numpy",
     "matplotlib",
-    "sympy",
     "pillow",
 ]
 
 [project.optional-dependencies]
 dev = ["pytest"]
-manim = ["manim>=0.18"]
 
 [build-system]
 requires = ["setuptools>=68"]

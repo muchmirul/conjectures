@@ -64,7 +64,6 @@ src/
                   dimension.py (box counting)  examples.py  plotting.py
   viz/            one figure script per chapter
 tests/      exact verification of everything the guide asserts
-manim/      optional Manim CE scenes (fancier renders; not required)
 notes/      research notes: content and sources, the Perron scan, delivery
 build_docs.py   turns ARTICLE.md into ../docs/kakeya-conjecture/index.html
 ```

@@ -1,14 +1,12 @@
 """Figures for chapter 12, the 2026 counterexample: collision card + GIF."""
 
 import numpy as np
-import matplotlib.colors
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
 
-from common import arrow, bare_axes, draw_machine, out_dir
+from common import arrow, bare_axes, out_dir
 from jacobian_guide.plotting import (BASELINE, BLUE, GREEN, GRIDLINE, INK,
-                                     INK2, MUTED, RED, SURFACE, VIOLET,
-                                     save_fig)
+                                     INK2, MUTED, RED, SURFACE, VIOLET)
 
 OUT = out_dir("12-the-fall")
 

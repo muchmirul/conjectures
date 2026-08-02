@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
 
 from common import animate_1d, arrow, bare_axes, number_line, out_dir
-from jacobian_guide.plotting import (BLUE, GREEN, INK2, MUTED, RED, VIOLET)
+from jacobian_guide.plotting import BLUE, GREEN, INK2, MUTED, RED
 
 OUT = out_dir("02-the-undo-machine")
 

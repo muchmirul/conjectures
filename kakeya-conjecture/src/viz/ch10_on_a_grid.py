@@ -4,10 +4,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED, VIOLET,
-                    YELLOW, out_dir, readout, save_fig, style_axes, title)
+                    YELLOW, out_dir, save_fig, style_axes, title)
 from kakeya_guide.finite import (directions, dvir_bound, greedy_kakeya_set,
-                                 grid, kakeya_table, line, min_kakeya_size,
-                                 tangent_line_kakeya)
+                                 grid, kakeya_table, line, min_kakeya_size)
 from kakeya_guide.plotting import axes_3d, spin_gif
 
 OUT = out_dir("10-on-a-grid")

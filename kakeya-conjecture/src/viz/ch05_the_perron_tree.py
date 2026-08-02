@@ -3,12 +3,10 @@
 from fractions import Fraction
 
 import matplotlib.pyplot as plt
-import numpy as np
 
-from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED,
-                    VIOLET, YELLOW, add_slivers, ease, end_pad,
-                    morph_slivers, out_dir, readout, save_anim, save_fig,
-                    style_axes, title)
+from common import (BASELINE, GREEN, GRIDLINE, INK2, MUTED, RED, VIOLET,
+                    add_slivers, ease, end_pad, morph_slivers, out_dir,
+                    readout, save_anim, save_fig, style_axes, title)
 from kakeya_guide.core import (perron_stages, perron_tree, ramped_alphas,
                                union_area)
 from kakeya_guide.examples import steady_area, tree

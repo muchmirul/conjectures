@@ -4,11 +4,10 @@ import math
 from fractions import Fraction
 
 import matplotlib.pyplot as plt
-import numpy as np
 
 from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED, VIOLET,
-                    YELLOW, out_dir, readout, save_fig, style_axes, title)
-from kakeya_guide.dimension import (box_count, box_count_2d, box_dimension,
+                    out_dir, save_fig, style_axes, title)
+from kakeya_guide.dimension import (box_count, box_dimension,
                                     cantor_intervals, cantor_length,
                                     similarity_dimension)
 

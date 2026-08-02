@@ -5,9 +5,9 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
-from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, VIOLET,
-                    YELLOW, end_pad, needle_line, out_dir, place, readout,
-                    save_anim, style_axes, title)
+from common import (BLUE, GREEN, GRIDLINE, MUTED, VIOLET, end_pad,
+                    needle_line, out_dir, place, readout, save_anim,
+                    style_axes, title)
 
 OUT = out_dir("01-the-needle")
 

@@ -380,19 +380,6 @@ def perron_areas(k_max: int, alpha=Fraction(2, 3), **kw) -> list[Fraction]:
     return [union_area(perron_tree(k, alpha, **kw)) for k in range(k_max + 1)]
 
 
-def best_alpha(k: int, candidates: Sequence[Fraction] | None = None,
-               **kw) -> tuple[Fraction, Fraction]:
-    """The (alpha, area) pair with the smallest area at order k.
-
-    Scans numerically, then recomputes the winner exactly.
-    """
-    if candidates is None:
-        candidates = [Fraction(i, 48) for i in range(24, 48)]
-    best = min(candidates,
-               key=lambda a: union_area_numeric(perron_tree(k, a, **kw)))
-    return best, union_area(perron_tree(k, best, **kw))
-
-
 def direction_cover(slivers: Sequence[Sliver]) -> list[tuple[Fraction, Fraction]]:
     """Merge the direction intervals of the slivers into maximal runs.
 

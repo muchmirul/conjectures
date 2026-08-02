@@ -3,13 +3,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from common import (BLUE, GREEN, GRIDLINE, INK, INK2, MUTED, RED, SURFACE,
-                    VIOLET, YELLOW, add_slivers, ease, end_pad, needle_at,
-                    needle_line, out_dir, place, readout, save_anim,
-                    save_fig, style_axes, turn_schedule)
+from common import (BLUE, GREEN, INK, INK2, SURFACE, add_slivers, end_pad,
+                    needle_at, needle_line, out_dir, place, readout,
+                    save_anim, style_axes, turn_schedule)
 from kakeya_guide.core import union_area
 from kakeya_guide.examples import tree
-from kakeya_guide.shapes import DISC_AREA, disc
 
 OUT = out_dir("00-start-here")
 

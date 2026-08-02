@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
 import matplotlib.colors
@@ -11,8 +10,7 @@ import numpy as np
 from matplotlib.animation import FuncAnimation, PillowWriter
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 
-from jacobian_guide.plotting import (BASELINE, BLUE, GREEN, INK, INK2, MUTED,
-                                     RED, SURFACE, VIOLET, YELLOW, save_fig)
+from jacobian_guide.plotting import BASELINE, BLUE, GREEN, INK, INK2, MUTED
 
 GUIDE = Path(__file__).resolve().parents[2] / "guide"
 

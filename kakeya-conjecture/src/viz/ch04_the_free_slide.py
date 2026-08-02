@@ -5,9 +5,9 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
-from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED,
-                    VIOLET, YELLOW, end_pad, needle_line, out_dir, place,
-                    readout, save_anim, save_fig, style_axes, title)
+from common import (BASELINE, BLUE, GRIDLINE, INK2, MUTED, RED, end_pad,
+                    needle_line, out_dir, place, readout, save_anim, save_fig,
+                    style_axes, title)
 from kakeya_guide.shapes import pal_join_area, pal_join_travel, sector_area
 
 OUT = out_dir("04-the-free-slide")

@@ -1,15 +1,13 @@
 """Figures for chapter 8, locally fine everywhere, globally broken."""
 
-import matplotlib.colors
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
 
 from common import out_dir
 from jacobian_guide.examples import VARS, Z_SQUARED
-from jacobian_guide.plotting import (BLUE, GREEN, INK2, MUTED, RED, SEQ_CMAP,
-                                     VIOLET, lambdify_map, save_fig,
-                                     style_axes)
+from jacobian_guide.plotting import (BLUE, INK2, MUTED, RED, SEQ_CMAP, VIOLET,
+                                     lambdify_map, style_axes)
 
 OUT = out_dir("08-local-vs-global")
 

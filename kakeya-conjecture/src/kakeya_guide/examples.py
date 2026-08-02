@@ -10,8 +10,8 @@ from __future__ import annotations
 
 from fractions import Fraction
 
-from .core import (elementary_slivers, holds_every_direction, perron_tree,
-                   ramped_alphas, sliver, union_area)
+from .core import (elementary_slivers, perron_tree, ramped_alphas, sliver,
+                   union_area)
 
 # --- the triangle everything is cut from -----------------------------------
 
@@ -67,11 +67,6 @@ RAMPED_AREAS_DECIMAL = {
     0: 0.500000, 1: 0.468750, 2: 0.393125, 3: 0.315521, 4: 0.244289,
     5: 0.197952, 6: 0.166697, 7: 0.145032, 8: 0.129469, 9: 0.118088,
 }
-
-
-def holds_the_fan(figure) -> bool:
-    """Does this pile of slivers still hold a needle in every direction?"""
-    return holds_every_direction(figure, *FAN)
 
 
 def area(figure) -> Fraction:

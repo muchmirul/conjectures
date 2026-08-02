@@ -11,6 +11,8 @@ animations, its own code, and its own tests. Pick one and start reading.
 |---|---|---|
 | [jacobian-conjecture](jacobian-conjecture/) | A question from 1939 about polynomial machines that can be undone. It stayed open for 87 years and then fell in July 2026. | [chapters](jacobian-conjecture/guide/00-start-here/README.md) · [one page](https://muchmirul.github.io/conjectures/jacobian-conjecture/) |
 | [kakeya-conjecture](kakeya-conjecture/) | A question from 1917 about the smallest room you can turn a needle around in. There is no smallest room, and the sequel question fell in three dimensions in February 2025. | [chapters](kakeya-conjecture/guide/00-start-here/README.md) · [one page](https://muchmirul.github.io/conjectures/kakeya-conjecture/) |
+| [sphere-packing](sphere-packing/) | How densely equal balls can fill space, and the one method that bounds every packing at once. In 2026 the exact strength of that method was determined. | [chapters](sphere-packing/guide/00-start-here/README.md) · [one page](https://muchmirul.github.io/conjectures/sphere-packing/) |
+| [multicolor-ramsey](multicolor-ramsey/) | A coloring game about avoiding one-color triangles, and a growth question Erdős put money on. In 2026 the answer arrived: the rate climbs forever. | [chapters](multicolor-ramsey/guide/00-start-here/README.md) · [one page](https://muchmirul.github.io/conjectures/multicolor-ramsey/) |
 
 ## How a topic is laid out
 
@@ -56,6 +58,27 @@ make figures
 2. Create `docs/<topic>/` for its web version.
 3. Add the topic to `TOPICS` in the root [Makefile](Makefile), to the table above,
    and to the landing page in [docs/index.html](docs/index.html).
+
+## Why this repo exists
+
+**To pull the essence of a piece of mathematics out to a wider audience.** The
+point is intuition first: a reader should be able to see what a problem is
+about before meeting any of its machinery. The more people who engage with an
+idea, the more people there are who can play with it, and the further the
+mathematics itself can travel. Some of it looks impossibly hard and some of it
+looks trivially small, but either kind can find a use in the real world once it
+reaches the one person who can internalise it and recognise where it fits.
+
+**Why start with the hardest problems?** Because a hard problem tends to reach
+the parts of a person's imagination that nothing else asks for. A question that
+has stayed open for a century is a question that has already resisted every
+obvious way of thinking, so meeting it means going somewhere new.
+
+**Abductive thinking, human and machine together.** A human guesses at the
+explanation that would make the picture make sense, and works backwards from
+there. Pairing that habit with what an AI can do, holding a whole codebase at
+once, checking every claim, drawing every figure, makes a collaboration that is
+hard to beat.
 
 ## The ethos
 

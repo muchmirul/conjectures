@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED,
-                    VIOLET, add_slivers, end_pad, needle_at, needle_line,
-                    out_dir, place, readout, save_anim, save_fig, style_axes,
-                    title, turn_schedule)
-from kakeya_guide.core import union_area, union_area_numeric
+                    add_slivers, end_pad, needle_at, needle_line, out_dir,
+                    place, readout, save_anim, save_fig, style_axes, title,
+                    turn_schedule)
+from kakeya_guide.core import union_area
 from kakeya_guide.examples import RAMPED_AREAS_DECIMAL, tree
 
 OUT = out_dir("06-area-zero")

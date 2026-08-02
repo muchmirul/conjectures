@@ -12,7 +12,6 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest"]
-manim = ["manim>=0.18"]
 
 [build-system]
 requires = ["setuptools>=68"]

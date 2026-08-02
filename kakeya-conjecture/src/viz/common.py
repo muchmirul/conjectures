@@ -9,11 +9,7 @@ matching guide/ chapter:
 from __future__ import annotations
 
 import math
-from fractions import Fraction
 from pathlib import Path
-
-import matplotlib.pyplot as plt
-import numpy as np
 
 from kakeya_guide.plotting import (BASELINE, BLUE, GRIDLINE, GREEN, INK, INK2,
                                    MUTED, RED, SURFACE, VIOLET, YELLOW, ease,

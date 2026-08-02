@@ -14,17 +14,12 @@ near-white surface so they read on both light and dark GitHub themes.
 
 from __future__ import annotations
 
-import math
-from typing import Iterable, Sequence
-
 import matplotlib
 
 matplotlib.use("Agg")
 
 import matplotlib.pyplot as plt
-import numpy as np
 from matplotlib.animation import FuncAnimation, PillowWriter
-from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, Polygon
 
 # --- palette ---------------------------------------------------------------
@@ -39,16 +34,8 @@ BASELINE = "#c3c2b7"
 BLUE = "#2a78d6"     # the needle
 GREEN = "#008300"    # a region that works
 RED = "#d03b3b"      # wasted area
-GOOD = "#0ca30c"
 VIOLET = "#4a3aa7"   # highlighted direction
 YELLOW = "#eda100"   # area under the spotlight
-
-#: sequential blue ramp, light -> dark
-SEQ_BLUE = ["#cde2fb", "#b7d3f6", "#9ec5f4", "#86b6ef", "#6da7ec", "#5598e7",
-            "#3987e5", "#2a78d6", "#256abf", "#1c5cab", "#184f95", "#104281",
-            "#0d366b"]
-
-SEQ_CMAP = LinearSegmentedColormap.from_list("guide_seq", SEQ_BLUE)
 
 plt.rcParams.update({
     "figure.facecolor": SURFACE,
@@ -97,17 +84,6 @@ def sliver_patch(s, color=GREEN, alpha=0.32, lw=0.0, zorder=3, edge=None):
                    edgecolor=edge or color, lw=lw, zorder=zorder)
 
 
-def draw_slivers(ax, slivers, color=GREEN, alpha=0.3, lw=0.0, zorder=3,
-                 edge=None):
-    for s in slivers:
-        ax.add_patch(sliver_patch(s, color, alpha, lw, zorder, edge))
-
-
-def sliver_shadow(ax, slivers, color=GRIDLINE, alpha=1.0, zorder=2):
-    """The untouched original triangle, drawn as faint scaffolding."""
-    draw_slivers(ax, slivers, color=color, alpha=alpha, zorder=zorder)
-
-
 def outline(ax, pts, color=INK2, lw=1.4, zorder=5, ls="-"):
     xs = [p[0] for p in pts] + [pts[0][0]]
     ys = [p[1] for p in pts] + [pts[0][1]]
@@ -117,34 +93,6 @@ def outline(ax, pts, color=INK2, lw=1.4, zorder=5, ls="-"):
 def shade(ax, pts, color=GREEN, alpha=0.25, zorder=2, edge_lw=0.0):
     ax.add_patch(Polygon(pts, closed=True, facecolor=color, alpha=alpha,
                          edgecolor=color, lw=edge_lw, zorder=zorder))
-
-
-# --- needles ---------------------------------------------------------------
-
-def draw_needle(ax, center, angle, length=1.0, color=BLUE, lw=3.0, zorder=8,
-                caps=True):
-    """The needle itself: a segment with optional round ends."""
-    cx, cy = center
-    dx, dy = math.cos(angle) * length / 2, math.sin(angle) * length / 2
-    line, = ax.plot([cx - dx, cx + dx], [cy - dy, cy + dy], color=color,
-                    lw=lw, solid_capstyle="round", zorder=zorder)
-    dots = None
-    if caps:
-        dots, = ax.plot([cx - dx, cx + dx], [cy - dy, cy + dy], "o", ms=lw * 1.6,
-                        color=color, zorder=zorder + 1)
-    return line, dots
-
-
-def set_needle(line, dots, p, q):
-    line.set_data([p[0], q[0]], [p[1], q[1]])
-    if dots is not None:
-        dots.set_data([p[0], q[0]], [p[1], q[1]])
-
-
-def needle_from(center, angle, length=1.0):
-    cx, cy = center
-    dx, dy = math.cos(angle) * length / 2, math.sin(angle) * length / 2
-    return (cx - dx, cy - dy), (cx + dx, cy + dy)
 
 
 # --- labels and cards ------------------------------------------------------

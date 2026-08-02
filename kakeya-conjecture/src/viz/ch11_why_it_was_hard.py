@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED, VIOLET,
-                    YELLOW, out_dir, readout, save_fig, style_axes, title)
+                    out_dir, save_fig, title)
 from kakeya_guide.plotting import axes_3d, spin_gif
 
 OUT = out_dir("11-why-it-was-hard")

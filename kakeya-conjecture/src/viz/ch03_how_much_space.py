@@ -3,11 +3,10 @@
 from fractions import Fraction
 
 import matplotlib.pyplot as plt
-import numpy as np
 
-from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED,
-                    VIOLET, YELLOW, add_slivers, ease, end_pad, out_dir,
-                    readout, save_anim, sliver_xy, style_axes, title)
+from common import (BASELINE, GREEN, GRIDLINE, INK2, MUTED, RED, VIOLET,
+                    add_slivers, end_pad, out_dir, readout, save_anim,
+                    sliver_xy, style_axes, title)
 from kakeya_guide.core import merged_pair_area, sliver, union_area, width_at
 from kakeya_guide.plotting import area_curve
 

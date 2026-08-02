@@ -1,7 +1,6 @@
 """Figures for chapter 0, the hook and the roadmap (all animated)."""
 
 import matplotlib.pyplot as plt
-import numpy as np
 from matplotlib.animation import FuncAnimation, PillowWriter
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 

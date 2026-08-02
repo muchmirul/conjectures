@@ -100,18 +100,6 @@ def degree(F: Sequence[sp.Expr], variables: Sequence[sp.Symbol]) -> int:
 # Constructors for the elementary ("shear") maps the guide leans on.
 # ---------------------------------------------------------------------------
 
-def shear_up(p: sp.Expr, variables: Sequence[sp.Symbol]) -> Map:
-    """(x, y) -> (x, y + p(x)): slide each vertical line up by p(x)."""
-    x, y = variables
-    return (x, y + sp.sympify(p))
-
-
-def shear_right(p: sp.Expr, variables: Sequence[sp.Symbol]) -> Map:
-    """(x, y) -> (x + p(y), y): slide each horizontal line right by p(y)."""
-    x, y = variables
-    return (x + sp.sympify(p), y)
-
-
 def linear_map(a, b, c, d, variables: Sequence[sp.Symbol]) -> Map:
     """(x, y) -> (a x + b y, c x + d y)."""
     x, y = variables

@@ -3,10 +3,8 @@
 import math
 
 import matplotlib.pyplot as plt
-import numpy as np
 
-from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED, VIOLET,
-                    YELLOW, out_dir, readout, save_fig, style_axes, title)
+from common import BLUE, out_dir, save_fig, style_axes, title
 
 OUT = out_dir("09-why-it-matters")
 

@@ -15,8 +15,8 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
-from common import (BASELINE, BLUE, GREEN, GRIDLINE, INK2, MUTED, RED, VIOLET,
-                    out_dir, readout, save_fig, style_axes, title)
+from common import (BASELINE, BLUE, GREEN, INK2, MUTED, RED, VIOLET, out_dir,
+                    save_fig, title)
 from kakeya_guide.dimension import (project_to_3d, rotate_4d,
                                     sphere_directions)
 from kakeya_guide.plotting import axes_3d, save_anim
