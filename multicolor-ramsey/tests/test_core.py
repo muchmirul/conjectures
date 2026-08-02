@@ -184,6 +184,19 @@ def test_the_first_difference_shortcut_makes_a_one_color_triangle():
     assert a[d] != b[d] and b[d] != c[d] and a[d] != c[d]
 
 
+# --- triangle-free nets are not simple ------------------------------------------
+
+def test_the_eleven_person_net_has_no_triangle_but_needs_four_teams():
+    """The exhibit that sank the levels-off route: triangle-free does not
+    mean simple.  Checked by exhaustion over all 177147 three-team splits."""
+    g = C.groetzsch_graph()
+    assert (g != C.NO_EDGE).sum() // 2 == 20          # the classical 20 edges
+    assert C.is_triangle_free(g)
+    assert C.proper_team_split(g, 3) is None
+    four = C.proper_team_split(g, 4)
+    assert four is not None and len(set(four)) == 4
+
+
 # --- the saturated matrix and the meeting guarantee --------------------------------
 
 @pytest.fixture(scope="module")

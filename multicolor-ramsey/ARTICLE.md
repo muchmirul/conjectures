@@ -12,19 +12,21 @@ The guide develops the result in small steps. Most numbered sections also have a
 
 The code that creates every figure is included in this repository. The tests recalculate the numbers and check the small colourings shown here. When a statement comes from an existing theorem rather than those tests, the text says so.
 
+The 2026 sources come as a pair: a proof document, and a reasoning walkthrough that records how its ideas came together, including the routes that failed. Sections 5 to 7 of this guide follow the reasoning, sections 8 to 11 follow the proof, and a map near the end lists which part of each document every section covers.
+
 ```
     first, learn the game     1  the rule
                               2  why six people cannot stay safe
                               3  what an extra colour changes
     then, find the question   4  how to compare different colour counts
-    see why old tools stall   5  multiplying safe groups
-                              6  a general upper limit
+    the reasoning: why the    5  multiplying safe groups
+    old tools stall           6  a general upper limit
                               7  the wide gap between them
-    build the 2026 idea       8  which colours each room omits
-                              9  keeping arrivals on safe teams
+    the proof: the 2026       8  which colours each room omits
+    construction              9  keeping arrivals on safe teams
                              10  one fixed referee for every choice
                              11  stacking the rooms into a tower
-                             12  what the result settles
+    what it settles          12  what the result settles
 ```
 
 **[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/00.html)** to colour the opening group and inspect the finished pattern.
@@ -111,6 +113,8 @@ Either answer seemed possible. Every new colour gives the construction another c
 
 ## 5 · Multiply
 
+**The reasoning begins here.** This section and the next two follow the reasoning walkthrough: what the classical tools achieve, and exactly why none of them could answer the question.
+
 A classical construction combines two safe tables to make a larger safe table. The animation applies it to two copies of the five-person pattern.
 
 ![Each of five people expanding into a room of five, with old colours between rooms and fresh colours inside](guide/05-multiply/blowup.gif)
@@ -137,6 +141,8 @@ The ability to combine any two safe groups also guarantees that the best possibl
 
 ## 6 · The ceiling
 
+**The reasoning, continued.** The second classical guardrail, and the reason it grows the way it does.
+
 The argument from section 2 can be extended to any number of colours. Choose one person and sort everyone else into groups according to the colour of their connection to that person.
 
 ![The fifteen connections from one person in the sixteen-person group sorting into three colour groups](guide/06-the-ceiling/sort.gif)
@@ -155,6 +161,8 @@ Later refinements reduce the fixed amount in front of the factorial without chan
 
 ## 7 · The gap
 
+**The reasoning, concluded.** The walkthrough clears away the tempting shortcuts, in both directions, before the construction begins.
+
 The lower and upper limits can now be placed on the same chart.
 
 ![The safe groups known from constructions below and the factorial upper limit above, with the unknown region between them](guide/07-the-gap/gap.png)
@@ -169,9 +177,17 @@ Take every ordering of a small set of letters. For each pair of orderings, find 
 
 It fails. The orderings ABC, BAC and CAB all first differ from one another at the first letter. Their three connections therefore receive the same colour. The same collision can be built with any larger number of items. Recording more detail in each colour can prevent this particular collision, but it also uses so many extra colours that the hoped-for advantage disappears.
 
+Attempts in the opposite direction, proving that the score must settle below a ceiling, also failed. One tempting plan gave each colour's connections a compact summary and multiplied the summaries together. The plan needed every triangle-free pattern to be simple, and in particular to split into a fixed handful of teams, meaning groups of people with no connection inside any one of them; section 9 returns to teams. Triangle-free patterns refuse to be that simple. The next picture shows the classical example this repository rebuilds and checks by exhaustion: eleven people, no triangle anywhere, and no split into three teams can work.
+
+![Eleven people with no triangle at all, whose people still cannot be split into three connection-free teams](guide/07-the-gap/groetzsch.png)
+
+Four teams are needed here, and taller versions of the same construction need five, six, or any number you name. Triangle-free does not mean simple, and the summary plan collapsed with that hope.
+
 Addition patterns on number circles face another version of the same difficulty. Every colour, viewed alone, must contain no triangle. Simple methods achieve that by keeping each colour in a restricted part of the construction. To make the people-per-colour score grow, many different rooms must be able to reuse the same colours without letting the reused pieces join into a triangle. The 2026 construction provides a fixed global rule that makes this reuse safe.
 
 ## 8 · Palettes
+
+**The proof begins here.** Sections 8 to 11 follow the proof document itself, one moving part per section, with the walkthrough's account of how each part was found told alongside.
 
 The next three sections reuse ideas already introduced: rooms, colours, and the need to prevent one-colour triangles. Each section adds one simple rule. The first rule decides which colours may be used in each room.
 
@@ -191,6 +207,8 @@ The figure shows all eight possible patterns, and the tests check every one. No 
 
 ## 9 · The trap
 
+**The proof, part two of four.** The remaining kind of triangle, and the rule that disarms it.
+
 Consider two people in one room and a third person outside it. Suppose both incoming connections use red. A red triangle appears if the two people inside the room are also connected in red. The construction must prevent the two incoming connections from landing on such a pair.
 
 Look at the red connections already inside the room. Split the people into **teams** so that no red connection has both ends in one team. In the five-person room, the red connections form a ring, and the next picture shows a split into three teams.
@@ -205,11 +223,15 @@ The first half of the animation breaks the rule. The two red arrivals land on pe
 
 There is a second safe case. If red appears on the room's palette, then red is not used anywhere inside that room. Incoming red connections are automatically harmless because the triangle would need a red internal connection too. Thus every incoming colour is protected in one of two ways: it is absent inside the room, or its arrivals are confined to one safe team.
 
+How many teams should a colour be allowed? The walkthrough records that the obvious wish, two teams for every colour everywhere, is too rigid. Keeping every colour's connections split into two fixed sides across every room of every floor would cost about as much as buying fresh colours, which is the failure of section 5 all over again. The construction relaxes the demand by exactly one team per floor. When a new floor is added, every room that uses a colour keeps the teams that colour already had inside the room, and all the rooms that omit the colour are pooled together as one extra team. The team count therefore never outgrows the number of floors, and that slow growth is what keeps the referee's symbol alphabet small.
+
 The animation is a small demonstration of why the team rule matters. The real construction does not choose each arrival by hand. It needs one fixed procedure that enforces the rule for every pair of rooms without adding new colours. That procedure is the referee in the next section.
 
 **[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/09.html)** to compare a broken landing rule with a safe one.
 
 ## 10 · The referee
+
+**The proof, part three of four.** The fixed object that enforces the team rule everywhere at once.
 
 Every connection between two rooms needs two choices: a colour allowed by the palettes, and a team on which it may safely land. These choices cannot be improvised for one pair and changed for the next. A single rule must work for every pair of people in every pair of rooms.
 
@@ -221,6 +243,8 @@ This card has thirteen rows and eight columns, and every entry is one of two sym
 
 At this small size, most randomly filled cards already pass. That does not show that the full construction is easy. At the real sizes, direct checking is impossible. Two counting arguments prove that at least one card works for all column choices at once. The rest of the construction needs only that promise, not a case-by-case search.
 
+The two counting arguments do different jobs, and the walkthrough is careful to separate them. The first asks how likely one row of random symbols is to show every symbol within one particular handful of columns. For that, the handful must be a little larger than the collector's number: how many random draws it takes before every symbol has appeared at least once. The second argument stacks enough independent rows that the rare failures can be paid for across every possible handful at once. One argument sizes the handfuls, the other sets the height of the card.
+
 The card must be fixed first. If a new rule could be invented after seeing each pair of people, it could always be adjusted to make that one pair work. Such an adjustment would say nothing about any other pair. One card chosen in advance has to handle every future pair, which is what gives the promise its force.
 
 Here is how the card guides a connection. For each candidate colour, a person's team number is written as one symbol in a word. The fixed card produces **the two answer lists**, one for each direction between the two people. More precisely, it gives two fixed rules for producing those lists. For any pair of words, at least one position is guaranteed to contain an agreement between one person's team symbol and the answer produced from the other person's word.
@@ -228,6 +252,8 @@ Here is how the card guides a connection. For each candidate colour, a person's 
 ![Two team words and their answer lists being scanned until a guaranteed agreement is found](guide/10-the-referee/meeting.gif)
 
 The agreeing position selects a candidate colour. It also selects the receiving team in the way section 9 requires: that team is determined from the sender's word. If the same outsider sends two connections of the same colour into a room, both must therefore land on the same team. The dangerous triangle cannot form.
+
+The two answer lists split the work unevenly, and the split is where the card's promise is spent. One list answers for your word by reading its opening symbols as the address of a card column and copying that column out. If my word matches that column in any row, we are done, and almost every opening works this way against almost every word. The rare exceptions are openings whose entire column dodges my word in every row. The card's promise is exactly what keeps those exceptions few, and my answer list serves them by spending one reserved position on each. The tests count them at toy size: against any word, at most three openings dodge the whole card.
 
 At the small size, each word contains thirteen two-choice symbols, so there are 8192 possible words. The tests verify the meeting promise for every word on one side and every word on the other. This is a complete check of the toy version.
 
@@ -237,13 +263,17 @@ The toy is drawn small enough to read. The smallest card used by the full constr
 
 ## 11 · The tower
 
+**The proof, part four of four.** The assembly, the count, and the final rate.
+
 The palette rule protects triangles across three rooms. The team rule protects triangles that use two rooms. The referee enforces the team rule everywhere at once. The construction now repeats these parts over several floors.
 
-The ground floor contains one person. On each new floor, many rooms are created. Every room contains a complete copy of the floor below, with its internal colours renamed to match the colours allowed by that room's palette. Different rooms receive palettes that differ in many places, ensuring that the referee always has enough cross-room colours from which to choose. The same fixed referee rule colours every connection between rooms.
+The ground floor contains one person. On each new floor, many rooms are created. Every room contains a complete copy of the floor below, with its internal colours renamed to match the colours allowed by that room's palette. Different rooms receive palettes that differ in many places, ensuring that the referee always has enough cross-room colours from which to choose. The same fixed referee rule colours every connection between rooms. Every kind of triangle is now covered: a triangle inside a single room is a triangle of the floor below, already ruled out one floor down, and the palette and team rules dispose of the triangles that touch two or three rooms.
 
 ![Several floors of rooms inside larger rooms, with the multiplying gain increasing on later floors](guide/11-the-tower/tower.gif)
 
 The animation shows the nesting pattern, not the true number of rooms. Even the first full-scale floors are far too wide to draw. The important change is that the available colour pool grows from one floor to the next. A larger pool provides many more sufficiently different palettes, so a later floor can contain more rooms than an earlier floor. Each floor multiplies the group size by a larger amount than the floor before it.
+
+Why must many sufficiently different palettes exist at all? The proof chooses them greedily: keep any new palette that differs enough from every palette already kept, and stop only when nothing more can be added. At that point, every possible palette sits close to one of the kept ones. Palettes close to any single kept palette are rare compared with the vastness of all palettes, so covering everything requires an enormous number of kept ones. Counting that cover is the entire existence argument, and it is where each floor's room count comes from.
 
 This is exactly what fixed products could not do. In section 5, every round used the same number of rooms and kept the score flat. Here, the number of rooms rises with the floor, so the people-per-colour score rises too.
 
@@ -254,6 +284,8 @@ Turning that relationship around gives the final rate: for a given colour count,
 ![The fixed scores of older recipes compared with the rising shape of the 2026 score](guide/11-the-tower/base.png)
 
 The rising curve shows the long-term shape without the theorem's tiny fixed multiplier. It is not a plot of useful values at small colour counts. For the smallest full-scale stage, the referee's card has 57 rows. Each floor uses palettes containing 114 colors, and three floors use 342 colours altogether. This repository recalculates those parameters from the paper's instructions.
+
+One further step deserves a mention, because without it the theorem would be weaker than it sounds. Towers exist only at special colour counts: 342, then the next full height, and so on. For a colour count that falls between two towers, the proof uses the tallest tower below it and simply never touches the leftover colours. Neighbouring tower sizes are close enough that this wastes only a fixed fraction of the score. The final statement therefore holds at every colour count from two upward, not only at the special ones.
 
 ## 12 · What it means, and what it does not
 
@@ -300,6 +332,21 @@ The **capacity** of a noisy channel asks for the best message rate when words ca
 
 **[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/12.html)** to compare the old and new rates and explore the noisy-channel example.
 
+## Where the proof and the reasoning live
+
+The source folder `docs/ten-proofs/09-multicolor-ramsey/` holds two documents. **The proof** is the chapter titled "Super-exponential lower bounds for R(3, ..., 3)". **The reasoning** is its walkthrough chapter, "Multicolor Ramsey Theory", which records how the ideas came together, including the routes that failed. This guide covers both, and the map below says where.
+
+| this guide | in the proof document | in the reasoning walkthrough |
+|---|---|---|
+| 5, multiplying safe groups | the introduction: the product rule and the long-term score it defines | part 10.1, why fixed products could never settle the problem |
+| 6, the ceiling | the introduction: the factorial upper limit | part 10.1, the sorting recursion |
+| 7, the gap | the introduction: the records before 2026 | part 10.1, the failed shortcuts in both directions |
+| 8, palettes | section 3, the cross-room colour rule and the three-room case | part 10.2, the missing invariant behind palette gluing |
+| 9, the trap | section 3, the two-room case and the team invariant | part 10.2, why two teams were too rigid and one new team per floor is enough |
+| 10, the referee | section 2, the saturated matrix and the two fixed maps | part 10.3, the card and its exceptions, and part 10.5, the cross-room rule |
+| 11, the tower | sections 2 and 3, packing the palettes, the recursion, and the final count | parts 10.4 and 10.6, packing enough palettes, the bookkeeping behind the cube root, and the in-between colour counts |
+| 12, what it means | section 1, the theorem and the channel consequence | part 10.6, the explicit constant and where it starts to say something |
+
 ## What you can check yourself
 
 The calculations and figures can be rebuilt from this repository. The commands below require Python and a command line, but no advanced mathematics.
@@ -319,6 +366,7 @@ Among other checks, the tests:
 - rebuild the upper staircase 3, 6, 17, 66, 327 and compare its four-colour step with the known range from 51 to 62
 - find the referee's card at toy size, check all seventy choices of columns, and check the meeting promise for every pair of words
 - check all eight palette patterns across three rooms and both outcomes of the team trap
+- rebuild the eleven-person triangle-free pattern and confirm by exhaustion that three teams cannot split it while four can
 - recalculate the full construction's first parameters: 57 rows, 114 colors in each floor's palettes, and 342 colours in total
 - estimate that the printed bound first overtakes the older recipes around ten to the sixtieth colours
 

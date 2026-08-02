@@ -1,5 +1,7 @@
 # 11 · The two halves meet
 
+**The proof, completed.** The two halves are combined, and the exact rate falls out.
+
 One part of the proof says that no certificate can have a better long-term radius than the limit. The other part builds certificates whose radii approach that same limit. Either statement alone leaves room for a gap. Together, they show that the limit is exact.
 
 ![The impossible side and the constructed side closing on the same limiting number](closing.gif)

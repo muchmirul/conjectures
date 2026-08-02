@@ -470,6 +470,43 @@ def stage_colors(H: int) -> int:
     return H * s * math.ceil(math.log(H))
 
 
+# --- a triangle-free net that needs many teams -----------------------------------
+
+def groetzsch_graph() -> np.ndarray:
+    """Eleven people, no triangle anywhere, and three teams are not enough.
+
+    The classical Mycielski construction applied to the five-ring: an outer
+    ring of five, an inner five each connected to the outer neighbours of its
+    twin, and one hub connected to all five inner people.  It contains no
+    triangle, yet its people cannot be split into three teams with no
+    connection inside any team; four teams are needed.  Taller versions of
+    the same construction push that number as high as you like, which is
+    what sank the hope that triangle-free nets are simple.
+    """
+    g = empty_coloring(11)
+    for i in range(5):
+        color_edge(g, i, (i + 1) % 5, 0)              # the outer ring
+        color_edge(g, 5 + i, (i + 1) % 5, 0)          # twin to ring neighbours
+        color_edge(g, 5 + i, (i - 1) % 5, 0)
+        color_edge(g, 10, 5 + i, 0)                   # the hub
+    return g
+
+
+def proper_team_split(graph: np.ndarray, teams: int) -> tuple | None:
+    """Some split of the people into that many connection-free teams, or None.
+
+    Brute force over every assignment, so it is only run on small nets.  A
+    split is proper when no connection stays inside one team.
+    """
+    n = len(graph)
+    for assignment in itertools.product(range(teams), repeat=n):
+        if all(assignment[i] != assignment[j]
+               for i in range(n) for j in range(i + 1, n)
+               if graph[i, j] != NO_EDGE):
+            return assignment
+    return None
+
+
 # --- the failed permutation shortcut --------------------------------------------
 
 def first_difference_coloring(n: int) -> tuple[list, np.ndarray]:

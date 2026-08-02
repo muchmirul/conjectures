@@ -1,5 +1,7 @@
 # 9 · The wall
 
+**The proof, first half concluded.** This section is the impossible direction: the limit that no certificate, found or unfound, can cross.
+
 Making the radius smaller makes the requirement harder to meet. The negative amount remains exactly half of the total, but it has less space in which to fit.
 
 ![A radius shrinking until there is not enough room for the required negative half](wall.gif)
@@ -17,6 +19,10 @@ The appearance of pi comes from a specific step in the proof. The argument first
 That final curve produces the factor one over pi. This repository does not reproduce the proof, but it does recalculate several of its ingredients. The tests confirm that the reflection step changes direction without changing size along the required line. They also confirm that the limiting curve has total area one and the stated Fourier view. A separate check recovers the exact average used by the proof.
 
 One small-looking detail affects the final number. At an earlier stage, the edge weights do not add up to one. Turning them into percentages too soon would change the result, so the proof must keep their original total until the correct step.
+
+The reasoning walkthrough also records the route that was tried first, because its failure shaped the proof. That route measured the balanced function only through overall totals: how much weight it carries in all, against how much room a ball of the given radius offers. Totals of this kind do prove a wall, but a weaker one, sitting well inside the true position. The obstacle was not a constant that better bookkeeping could repair. A total forgets where the negative half actually sits, and there are functions with perfectly reasonable totals whose negative half sits nowhere near the forbidden region. To find the true wall, the proof had to track the location of the weight and not only its amount, and the strip picture above is exactly the tool that does that.
+
+The wall also has a second form, which the sources note briefly. There is a single positive object that certifies the wall against every certificate at once, a mirror image of the way one certificate limits every packing at once. Nothing later in this guide depends on it, but it shows the wall is not the accident of one calculation: the same threshold appears whether it is approached through the functions themselves or through this dual object.
 
 **[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/09.html)** to reduce the radius and compare its capacity with the fixed negative half.
 

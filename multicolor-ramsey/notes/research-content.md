@@ -80,6 +80,26 @@ astronomically small there. The two union bounds earn their keep at the real
 sizes, where nothing could ever be checked case by case. The article says
 this plainly rather than pretending the toy search is dramatic.
 
+| ingredient | bucket | test |
+|---|---|---|
+| the eleven-person triangle-free net needs four teams, not three | [computed]; the construction is classical (Mycielski 1955; the eleven-person case is known as the Grötzsch graph) | `test_the_eleven_person_net_has_no_triangle_but_needs_four_teams` |
+
+## The reasoning walkthrough's account, quoted in sections 5 to 12
+
+These claims come from the reasoning walkthrough (its parts 10.1 to 10.6)
+and are quoted, not re-derived, except where a test is named. The article's
+closing map table points each of its sections at the walkthrough part it
+covers.
+
+| claim | bucket | where it appears |
+|---|---|---|
+| a summary-multiplication route to a fixed ceiling needed triangle-free graphs to be simple, and they are not (unbounded chromatic and orthogonal complexity) | [classical] premise refuted; the chromatic half is [computed] via the Grötzsch net | section 7 |
+| demanding two teams (bipartite colour graphs) everywhere is too rigid; allowing one new team per floor is the crucial relaxation | [recent] walkthrough part 10.2 | section 9 |
+| the two union bounds have different roles: coupon-collector length against simultaneous coverage | [recent] walkthrough part 10.3 | section 10 |
+| the two answer maps split the work: openings looked up in the card against one reserved position per exceptional opening | [recent] walkthrough part 10.3; the exception count is [computed] at toy size | section 10 |
+| separated palettes exist by a greedy maximal choice and a covering count | [recent] walkthrough part 10.4 | section 11 |
+| interpolation between tower sizes costs only a constant and is genuinely needed for an all-count statement | [recent] walkthrough part 10.6 | section 11 |
+
 ## What the 2026 chapter proves, quoted not verified
 
 - The forcing size at k colors is at least (c times the cube root of k, over

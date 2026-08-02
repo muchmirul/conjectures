@@ -273,6 +273,8 @@ MathJax = {
   nav.toc a:hover { color: var(--blue); }
   h3 { font-size: 1.15rem; margin: 2rem 0 0.6rem; color: var(--ink); }
   figure img.missing { outline: 2px dashed var(--red); padding: 1rem; }
+  figure.sim iframe { width: 100%; height: 650px; border: 1px solid var(--line);
+                      border-radius: 10px; background: #fff; }
   @media (max-width: 600px) { nav.toc { columns: 1; } h1 { font-size: 1.7rem; } }
 </style>
 </head>

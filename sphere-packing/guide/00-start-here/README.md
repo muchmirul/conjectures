@@ -10,6 +10,8 @@ For circles on a flat surface, the best arrangement is known. For balls in ordin
 
 This guide develops that story one small step at a time. Most numbered sections also have a [page you can play with](https://muchmirul.github.io/conjectures/sphere-packing/play/index.html), where you can change the main quantities and watch the picture respond.
 
+The 2026 sources come as a pair: a proof document, and a reasoning walkthrough that records how its ideas came together, including the routes that failed. Sections 8 to 11 of this guide follow the proof, the surrounding sections carry the reasoning, and a map near the end lists which part of each document every section covers.
+
 The code that makes each figure is included in this repository. The tests recalculate the numbers used in the guide. When a statement comes from an existing theorem rather than from those calculations, the text says so.
 
 ```
@@ -20,7 +22,7 @@ The code that makes each figure is included in this repository. The tests recalc
                              5  one total counted two ways
                              6  what the method can show
                              7  can the method be improved forever?
-    finally, the 2026 result 8  balancing the two views
+    finally, the 2026 proof  8  balancing the two views
                              9  the limit no function can cross
                             10  building a function that reaches it
                             11  why the two parts give an exact answer

@@ -1,5 +1,7 @@
 # 8 · Palettes
 
+**The proof begins here.** Sections 8 to 11 follow the proof document itself, one moving part per section, with the walkthrough's account of how each part was found told alongside.
+
 The next three sections reuse ideas already introduced: rooms, colours, and the need to prevent one-colour triangles. Each section adds one simple rule. The first rule decides which colours may be used in each room.
 
 As in section 5, divide the people into rooms. Give every room a **palette**, meaning a list of colours that are not allowed on connections inside that room. All colours outside the list may be used internally. In the pictures, a room is said to “hold” a colour when that colour is on its palette, even though holding it means keeping it out of the room.

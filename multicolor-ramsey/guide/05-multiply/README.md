@@ -1,5 +1,7 @@
 # 5 · Multiply
 
+**The reasoning begins here.** This section and the next two follow the reasoning walkthrough: what the classical tools achieve, and exactly why none of them could answer the question.
+
 A classical construction combines two safe tables to make a larger safe table. The animation applies it to two copies of the five-person pattern.
 
 ![Each of five people expanding into a room of five, with old colours between rooms and fresh colours inside](blowup.gif)

@@ -69,6 +69,19 @@ article describes the pieces correctly.
 | the Gaussian radius times that displacement is exactly one over pi | [computed] | `test_the_gaussian_radius_moves_exactly_to_one_over_pi` |
 | the pieces multiply to the stated rate | [computed] | `test_the_pieces_multiply_to_the_stated_rate` |
 
+## The reasoning walkthrough's account, quoted in sections 8 to 12
+
+These claims come from the reasoning walkthrough (its parts 1.1 to 1.9) and
+are quoted, not re-derived. The article's closing map table points each of
+its sections at the walkthrough part it covers.
+
+| claim | bucket | where it appears |
+|---|---|---|
+| the first route measured only totals and reached a weaker wall; totals forget where the negative half sits | [recent] walkthrough part 1.2 | section 9 |
+| the wall has a positive dual form certifying it against every certificate at once | [recent] walkthrough part 1.5 | section 9 |
+| the distant bump is spread over a stretch of distances so no single wave can resonate with it | [recent] walkthrough part 1.7 | section 10 |
+| the proof document's sections: introduction, preliminaries, the universal lower bound, the primal upper bound, and the sign-constant appendix | [recent] the proof document's contents page | the closing map |
+
 ## This repository's own certificates
 
 | claim | bucket | test |

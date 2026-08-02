@@ -1,5 +1,7 @@
 # 8 · The balancing trick
 
+**The proof of the 2026 result begins here.** This section and the next follow its first half, which rules every certificate out beyond a line. Section 10 follows its second half, which builds a certificate that reaches the line, and section 11 puts the halves together. Alongside the proof, these sections also carry the reasoning walkthrough's account of how each step was found.
+
 The final sections do not require a new starting idea. They reuse the two sign rules and the Fourier transform from section 4, together with the familiar idea of a radius. Until now, we asked what one chosen certificate could prove. We will now ask what every possible certificate is forced to look like.
 
 Begin with any certificate and stretch its graph, as though changing the zoom on a picture. When the original graph becomes wider, its Fourier view becomes narrower and changes height. There is one amount of stretching for which the original function and its Fourier view have the same value at the centre. Make that adjustment, and then subtract the stretched function from its Fourier view.

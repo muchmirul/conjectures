@@ -9,7 +9,8 @@ from common import (BLUE, EDGE_COLORS, GREEN, INK2, MUTED, RED, VIOLET,
                     note_below, out_dir, plot_axes, ring_positions, save_anim,
                     save_fig, style_axes, title)
 from ramsey_guide.core import (best_product_lower, first_difference_coloring,
-                               monochromatic_triangles, upper_staircase)
+                               groetzsch_graph, monochromatic_triangles,
+                               proper_team_split, upper_staircase)
 
 OUT = out_dir("07-the-gap")
 
@@ -99,7 +100,41 @@ def gap_png():
     save_fig(fig, OUT / "gap.png")
 
 
+def groetzsch_png():
+    """The net that sank the hope that triangle-free means simple.
+
+    Eleven people, twenty connections, not a triangle anywhere, and the
+    badge colors show the best that can be done: four teams.  The tests
+    prove by exhaustion that three teams cannot work.  Taller versions of
+    the same construction need any number of teams.
+    """
+    g = groetzsch_graph()
+    teams = proper_team_split(g, 4)
+    assert teams is not None
+    outer = ring_positions(5, radius=1.05)
+    inner = ring_positions(5, radius=0.52)
+    pos = outer + inner + [(0.0, 0.0)]
+    badge = ["#7fb0ea", "#f2c063", "#b9a6e8", "#9fd6a0"]
+
+    fig, ax = plt.subplots(figsize=(6.0, 5.9))
+    style_axes(ax, (-1.45, 1.45), (-1.4, 1.4))
+    title(ax, "no triangle anywhere, and three teams are not enough")
+    for i in range(11):
+        for j in range(i + 1, 11):
+            if g[i, j] >= 0:
+                draw_edge(ax, pos, i, j, MUTED, lw=1.6, alpha=0.6)
+    for i, (x, y) in enumerate(pos):
+        ax.add_patch(plt.Circle((x, y), 0.10, fc=badge[teams[i]], ec=INK2,
+                                lw=1.3, zorder=8))
+        ax.text(x, y, str(teams[i] + 1), ha="center", va="center",
+                fontsize=9, zorder=9)
+    ax.text(0, -1.32, "badges are teams: no connection stays inside one",
+            ha="center", fontsize=10, color=INK2)
+    save_fig(fig, OUT / "groetzsch.png")
+
+
 if __name__ == "__main__":
     orderings_gif()
     gap_png()
+    groetzsch_png()
     print("wrote", OUT)

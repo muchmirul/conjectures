@@ -10,6 +10,8 @@ For circles on a flat surface, the best arrangement is known. For balls in ordin
 
 This guide develops that story one small step at a time. Most numbered sections also have a [page you can play with](https://muchmirul.github.io/conjectures/sphere-packing/play/index.html), where you can change the main quantities and watch the picture respond.
 
+The 2026 sources come as a pair: a proof document, and a reasoning walkthrough that records how its ideas came together, including the routes that failed. Sections 8 to 11 of this guide follow the proof, the surrounding sections carry the reasoning, and a map near the end lists which part of each document every section covers.
+
 The code that makes each figure is included in this repository. The tests recalculate the numbers used in the guide. When a statement comes from an existing theorem rather than from those calculations, the text says so.
 
 ```
@@ -20,7 +22,7 @@ The code that makes each figure is included in this repository. The tests recalc
                              5  one total counted two ways
                              6  what the method can show
                              7  can the method be improved forever?
-    finally, the 2026 result 8  balancing the two views
+    finally, the 2026 proof  8  balancing the two views
                              9  the limit no function can cross
                             10  building a function that reaches it
                             11  why the two parts give an exact answer
@@ -219,6 +221,8 @@ In 2020, Afkhami-Jeddi, Cohn, Hartman, de Laat and Tajdini calculated the rate t
 
 ## 8 · The balancing trick
 
+**The proof of the 2026 result begins here.** This section and the next follow its first half, which rules every certificate out beyond a line. Section 10 follows its second half, which builds a certificate that reaches the line, and section 11 puts the halves together. Alongside the proof, these sections also carry the reasoning walkthrough's account of how each step was found.
+
 The final sections do not require a new starting idea. They reuse the two sign rules and the Fourier transform from section 4, together with the familiar idea of a radius. Until now, we asked what one chosen certificate could prove. We will now ask what every possible certificate is forced to look like.
 
 Begin with any certificate and stretch its graph, as though changing the zoom on a picture. When the original graph becomes wider, its Fourier view becomes narrower and changes height. There is one amount of stretching for which the original function and its Fourier view have the same value at the centre. Make that adjustment, and then subtract the stretched function from its Fourier view.
@@ -241,6 +245,8 @@ All of the negative half must therefore fit inside one ball. The size of this ba
 
 ## 9 · The wall
 
+**The proof, first half concluded.** This section is the impossible direction: the limit that no certificate, found or unfound, can cross.
+
 Making the radius smaller makes the requirement harder to meet. The negative amount remains exactly half of the total, but it has less space in which to fit.
 
 ![A radius shrinking until there is not enough room for the required negative half](guide/09-the-wall/wall.gif)
@@ -259,9 +265,15 @@ That final curve produces the factor one over pi. This repository does not repro
 
 One small-looking detail affects the final number. At an earlier stage, the edge weights do not add up to one. Turning them into percentages too soon would change the result, so the proof must keep their original total until the correct step.
 
+The reasoning walkthrough also records the route that was tried first, because its failure shaped the proof. That route measured the balanced function only through overall totals: how much weight it carries in all, against how much room a ball of the given radius offers. Totals of this kind do prove a wall, but a weaker one, sitting well inside the true position. The obstacle was not a constant that better bookkeeping could repair. A total forgets where the negative half actually sits, and there are functions with perfectly reasonable totals whose negative half sits nowhere near the forbidden region. To find the true wall, the proof had to track the location of the weight and not only its amount, and the strip picture above is exactly the tool that does that.
+
+The wall also has a second form, which the sources note briefly. There is a single positive object that certifies the wall against every certificate at once, a mirror image of the way one certificate limits every packing at once. Nothing later in this guide depends on it, but it shows the wall is not the accident of one calculation: the same threshold appears whether it is approached through the functions themselves or through this dual object.
+
 **[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/09.html)** to reduce the radius and compare its capacity with the fixed negative half.
 
 ## 10 · Building the witness
+
+**The proof, second half.** This section is the construction: one concrete family of certificates that reaches the wall.
 
 In this chapter, a **witness** simply means a concrete example. Proving that no certificate can cross the limit gives only one half of the result. The other half requires a family of certificates that gets all the way to that limit as the dimension grows.
 
@@ -286,9 +298,11 @@ Two extra parts repair side effects of the adjustment. They do not change the ce
     two simple curve factors     correct the signs close to the centre
 ```
 
-Without the adjustment, the bell curve fades quickly at great distances. The adjustment spoils some of that fading, so a tiny positive bump far away restores it. The broad checks also do not control the signs near the centre, so two polynomial factors—simple curves built from powers—are added to handle that short range separately.
+Without the adjustment, the bell curve fades quickly at great distances. The adjustment spoils some of that fading, so a tiny positive bump far away restores it. The bump is spread across a whole stretch of distances rather than placed at one point, so that no single wave can line up with it exactly and escape its effect. The broad checks also do not control the signs near the centre, so two polynomial factors—simple curves built from powers—are added to handle that short range separately.
 
 ## 11 · The two halves meet
+
+**The proof, completed.** The two halves are combined, and the exact rate falls out.
 
 One part of the proof says that no certificate can have a better long-term radius than the limit. The other part builds certificates whose radii approach that same limit. Either statement alone leaves room for a gap. Together, they show that the limit is exact.
 
@@ -351,6 +365,21 @@ Both versions were expected to approach the same radius in high dimensions. The 
 ![The plus and minus radii approaching the same dashed limit, with the plus radius always smaller; the spacing shows the trend rather than exact values](guide/12-what-it-means/two_radii.png)
 
 The shared limit does not mean the two radii are equal in any particular dimension. The source shows that the plus radius is smaller in every finite dimension. Their difference becomes small compared with the square root of the dimension, so only their long-term limits agree.
+
+## Where the proof and the reasoning live
+
+The source folder `docs/ten-proofs/01-sphere-packing-linear-program/` holds two documents. **The proof** is the chapter titled "Exponential Growth Rate of the Cohn-Elkies Sphere Packing Linear Program". **The reasoning** is its walkthrough, "High-Dimensional Sphere Packing and the Euclidean Linear Program", which records how the ideas came together, including the routes that failed. This guide covers both, and the map below says where.
+
+| this guide | in the proof document | in the reasoning walkthrough |
+|---|---|---|
+| 4 and 5, the certificate and the double count | the introduction: how a packing question becomes a program about one function | part 1.1, how a packing becomes a Fourier linear program |
+| 8, the balancing trick | the preliminaries: every certificate is turned into a balanced function | part 1.2, balancing the origin, and the totals-only route that had to be abandoned |
+| 9, the wall | section 3, the universal Cohn-Elkies lower bound, which is this guide's wall | parts 1.3 to 1.5: the reflection view, the strip and its bell-shaped limiting weights, and the wall's positive dual form |
+| 10, building the witness | section 4, the admissible primal upper bound, which is this guide's witness | parts 1.6 to 1.8: the bell curve, Wallis's amount, the distant bump, and the sign repairs |
+| 11, the two halves meet | the main theorem, combining sections 3 and 4 | part 1.9, the exact threshold |
+| 12, the two sign questions | appendix A, comparing the two sign-uncertainty constants | part 1.9, both uncertainty signs |
+
+One naming note, so the documents can be read after this guide. The proof document works with the density limit itself, where the wall appears as a *lower* bound: it says the method's limit cannot be pushed below a certain size. This guide tells the same fact from the certificate's side, as a ceiling on how strong a certificate can be. They are one statement.
 
 ## What you can check yourself
 
