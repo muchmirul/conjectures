@@ -10,7 +10,7 @@ For circles on a flat surface, the best arrangement is known. For balls in ordin
 
 This guide develops that story one small step at a time. Most numbered sections also have a [page you can play with](https://muchmirul.github.io/conjectures/sphere-packing/play/index.html), where you can change the main quantities and watch the picture respond.
 
-The 2026 sources come as a pair: a proof document, and a reasoning walkthrough that records how its ideas came together, including the routes that failed. Sections 8 to 11 of this guide follow the proof, the surrounding sections carry the reasoning, and a map near the end lists which part of each document every section covers.
+The 2026 result is presented in two documents. The first gives the finished proof. The second is a behind-the-scenes guide that explains how the main ideas were found, including earlier attempts that did not work. Sections 8 to 11 explain the finished proof. The other sections provide the surrounding story. A table near the end shows where each idea appears in the two source documents.
 
 The code that makes each figure is included in this repository. The tests recalculate the numbers used in the guide. When a statement comes from an existing theorem rather than from those calculations, the text says so.
 

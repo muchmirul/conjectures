@@ -1,8 +1,6 @@
 # 6 · The ceiling
 
-**The reasoning, continued.** The second classical guardrail, and the reason it grows the way it does.
-
-The argument from section 2 can be extended to any number of colours. Choose one person and sort everyone else into groups according to the colour of their connection to that person.
+The other side of the old gap is a general upper limit. It extends the six-person argument from section 2 to any number of colours. Choose one person and sort everyone else into groups according to the colour of their connection to that person.
 
 ![The fifteen connections from one person in the sixteen-person group sorting into three colour groups](sort.gif)
 

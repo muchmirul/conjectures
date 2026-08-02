@@ -8,9 +8,9 @@ For the plane, the search finds a candidate limit of 91.16 percent. If its two s
 
 That narrow gap is a limit of this numerical certificate, not an unsolved gap in the two-dimensional packing problem. Section 1 already noted that a separate theorem proves 90.69 percent is the exact answer. The enlarged sliver shows only what this candidate certificate has not ruled out.
 
-There is another important limit. The program checks the two sign rules at a very fine set of sample points, rather than proving them at every possible point. The result is therefore a **numerical certificate**, not a formal proof. Specialists use a stronger kind of search called semidefinite programming and deliberately place zero points in the function. Neither technique is included here.
+There is another important limit. The program checks the two rules at many closely spaced sample points, but it does not check every possible distance. The result is therefore a **numerical certificate**, not a formal proof. Researchers can make stronger searches with a method called semidefinite programming. They also design the curve so that it touches zero at carefully chosen distances. This project does neither.
 
-The small search also shows why the choice of starting function matters. Its starting family stops qualifying before dimension six, so the search cannot even start in dimension eight. Viazovska’s exact certificate for dimension eight comes from a much more advanced family of functions called modular forms.
+The small search also shows why its starting point matters. Its starting family stops working before dimension six, so the search cannot even begin in dimension eight. Viazovska’s exact certificate for dimension eight needed a family of highly structured functions known as modular forms.
 
 ```
     dimensions 8 and 24     exact certificates meet the exact packing densities

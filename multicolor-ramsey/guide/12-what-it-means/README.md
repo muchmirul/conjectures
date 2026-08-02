@@ -13,11 +13,12 @@ This chart compares the shapes of the two limits rather than exact values at a p
 ```
     now known                              still open
     ---------                              ----------
-    the people-per-colour score has        where the true power lies between
-    no fixed ceiling                       the lower result's one third and the
-    the forcing size has the colour        upper result's one
-    count raised to a multiple of the      the four-colour forcing size remains
-    colour count                           between 51 and 62
+    the people-per-colour score has        how quickly the true power grows;
+    no fixed ceiling                       the lower result gives about one third
+    the forcing size has the colour        of the colour count, while the upper
+    count raised to a power that grows     result allows the full colour count
+    along with the colour count            the four-colour forcing size remains
+                                           between 51 and 62
 ```
 
 The scale of the theorem also matters. Its printed constant is extremely small because its denominator is enormous. The authors focused on proving the long-term shape rather than improving that number. With the printed constant, the new construction does not beat the old 3.28 score until around ten to the sixtieth colours. Below 342 colours, its numerical bound says nothing beyond the trivial fact that a safe group exists. At every size anyone could draw or compute directly, the older constructions give bigger tables. The advance is about what eventually becomes possible, not a new small-colour record.

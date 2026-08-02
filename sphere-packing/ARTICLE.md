@@ -10,7 +10,7 @@ For circles on a flat surface, the best arrangement is known. For balls in ordin
 
 This guide develops that story one small step at a time. Most numbered sections also have a [page you can play with](https://muchmirul.github.io/conjectures/sphere-packing/play/index.html), where you can change the main quantities and watch the picture respond.
 
-The 2026 sources come as a pair: a proof document, and a reasoning walkthrough that records how its ideas came together, including the routes that failed. Sections 8 to 11 of this guide follow the proof, the surrounding sections carry the reasoning, and a map near the end lists which part of each document every section covers.
+The 2026 result is presented in two documents. The first gives the finished proof. The second is a behind-the-scenes guide that explains how the main ideas were found, including earlier attempts that did not work. Sections 8 to 11 explain the finished proof. The other sections provide the surrounding story. A table near the end shows where each idea appears in the two source documents.
 
 The code that makes each figure is included in this repository. The tests recalculate the numbers used in the guide. When a statement comes from an existing theorem rather than from those calculations, the text says so.
 
@@ -174,9 +174,9 @@ For the plane, the search finds a candidate limit of 91.16 percent. If its two s
 
 That narrow gap is a limit of this numerical certificate, not an unsolved gap in the two-dimensional packing problem. Section 1 already noted that a separate theorem proves 90.69 percent is the exact answer. The enlarged sliver shows only what this candidate certificate has not ruled out.
 
-There is another important limit. The program checks the two sign rules at a very fine set of sample points, rather than proving them at every possible point. The result is therefore a **numerical certificate**, not a formal proof. Specialists use a stronger kind of search called semidefinite programming and deliberately place zero points in the function. Neither technique is included here.
+There is another important limit. The program checks the two rules at many closely spaced sample points, but it does not check every possible distance. The result is therefore a **numerical certificate**, not a formal proof. Researchers can make stronger searches with a method called semidefinite programming. They also design the curve so that it touches zero at carefully chosen distances. This project does neither.
 
-The small search also shows why the choice of starting function matters. Its starting family stops qualifying before dimension six, so the search cannot even start in dimension eight. Viazovska’s exact certificate for dimension eight comes from a much more advanced family of functions called modular forms.
+The small search also shows why its starting point matters. Its starting family stops working before dimension six, so the search cannot even begin in dimension eight. Viazovska’s exact certificate for dimension eight needed a family of highly structured functions known as modular forms.
 
 ```
     dimensions 8 and 24     exact certificates meet the exact packing densities
@@ -221,7 +221,7 @@ In 2020, Afkhami-Jeddi, Cohn, Hartman, de Laat and Tajdini calculated the rate t
 
 ## 8 · The balancing trick
 
-**The proof of the 2026 result begins here.** This section and the next follow its first half, which rules every certificate out beyond a line. Section 10 follows its second half, which builds a certificate that reaches the line, and section 11 puts the halves together. Alongside the proof, these sections also carry the reasoning walkthrough's account of how each step was found.
+From this section through section 11, the guide follows the 2026 proof. The proof has two jobs. Sections 8 and 9 show that no certificate can pass a particular long-term limit. Section 10 builds certificates that approach that limit. Section 11 combines the two results. The companion behind-the-scenes document explains how these ideas were found, and we include that context where it helps.
 
 The final sections do not require a new starting idea. They reuse the two sign rules and the Fourier transform from section 4, together with the familiar idea of a radius. Until now, we asked what one chosen certificate could prove. We will now ask what every possible certificate is forced to look like.
 
@@ -245,7 +245,7 @@ All of the negative half must therefore fit inside one ball. The size of this ba
 
 ## 9 · The wall
 
-**The proof, first half concluded.** This section is the impossible direction: the limit that no certificate, found or unfound, can cross.
+Sections 8 and 9 form the first half of the proof. They show that no certificate, including one nobody has discovered yet, can have a better long-term radius.
 
 Making the radius smaller makes the requirement harder to meet. The negative amount remains exactly half of the total, but it has less space in which to fit.
 
@@ -257,7 +257,7 @@ The 2026 proof shows that there is a long-term limit. As dimensions grow, a radi
 
 Finite dimensions can differ slightly from this simple description. The statement is about the rate as the dimension becomes large: after the radius is divided by the square root of the dimension, those smaller differences disappear. This is the part of the proof that places a ceiling on the certificate method.
 
-The appearance of pi comes from a specific step in the proof. The argument first changes to a view in which the Fourier transform acts like a reflection. It then studies a strip-shaped region. A standard result says that values along the two edges control what can happen between them; this result is called the maximum principle. It gives a weight to each wave. At the decisive edge of the strip, those weights approach one particular bell-shaped curve.
+The number pi comes from one particular step. The proof changes how the function is viewed until the Fourier transform acts like a mirror. It then looks at a strip, meaning the region between two parallel edges. A standard rule called the maximum principle says that values on those edges limit what can happen between them. This rule gives a weight to each wave. Near the important edge, the weights settle into one bell-shaped curve.
 
 ![The proof’s changing weights settling into the bell-shaped curve that fixes the limit](guide/09-the-wall/ingredients.png)
 
@@ -265,15 +265,15 @@ That final curve produces the factor one over pi. This repository does not repro
 
 One small-looking detail affects the final number. At an earlier stage, the edge weights do not add up to one. Turning them into percentages too soon would change the result, so the proof must keep their original total until the correct step.
 
-The reasoning walkthrough also records the route that was tried first, because its failure shaped the proof. That route measured the balanced function only through overall totals: how much weight it carries in all, against how much room a ball of the given radius offers. Totals of this kind do prove a wall, but a weaker one, sitting well inside the true position. The obstacle was not a constant that better bookkeeping could repair. A total forgets where the negative half actually sits, and there are functions with perfectly reasonable totals whose negative half sits nowhere near the forbidden region. To find the true wall, the proof had to track the location of the weight and not only its amount, and the strip picture above is exactly the tool that does that.
+The behind-the-scenes document describes an earlier idea that failed. It compared only two totals: all the negative weight and all the room available inside the ball. This does give a limit, but not the correct one. A total says how much weight exists, but it forgets where that weight sits. Two functions can have similar totals while placing their negative parts in very different places. The successful proof had to keep track of location as well as amount. The strip method above does that.
 
-The wall also has a second form, which the sources note briefly. There is a single positive object that certifies the wall against every certificate at once, a mirror image of the way one certificate limits every packing at once. Nothing later in this guide depends on it, but it shows the wall is not the accident of one calculation: the same threshold appears whether it is approached through the functions themselves or through this dual object.
+The sources also give a second way to express the same wall. One fixed object, built from nonnegative weights, can check every certificate at once. Mathematicians call this a dual witness. The rest of the guide does not use it, but it is useful confirmation: this different viewpoint reaches the same limit.
 
 **[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/09.html)** to reduce the radius and compare its capacity with the fixed negative half.
 
 ## 10 · Building the witness
 
-**The proof, second half.** This section is the construction: one concrete family of certificates that reaches the wall.
+Section 10 supplies the second half of the proof. It builds a concrete family of certificates that approaches the wall.
 
 In this chapter, a **witness** simply means a concrete example. Proving that no certificate can cross the limit gives only one half of the result. The other half requires a family of certificates that gets all the way to that limit as the dimension grows.
 
@@ -298,11 +298,11 @@ Two extra parts repair side effects of the adjustment. They do not change the ce
     two simple curve factors     correct the signs close to the centre
 ```
 
-Without the adjustment, the bell curve fades quickly at great distances. The adjustment spoils some of that fading, so a tiny positive bump far away restores it. The bump is spread across a whole stretch of distances rather than placed at one point, so that no single wave can line up with it exactly and escape its effect. The broad checks also do not control the signs near the centre, so two polynomial factors—simple curves built from powers—are added to handle that short range separately.
+The original bell curve fades quickly at great distances, but the adjustment weakens that fading. A tiny positive bump far away restores it. The bump covers a range of distances rather than one exact distance. If it sat at only one point, a wave could line up with that point and avoid the correction. Spreading the bump removes that opening. The broad checks also miss what happens near the centre, so two simple curve factors built from powers handle that short range separately.
 
 ## 11 · The two halves meet
 
-**The proof, completed.** The two halves are combined, and the exact rate falls out.
+Section 11 combines the two halves and turns their shared radius into the exact long-term density rate.
 
 One part of the proof says that no certificate can have a better long-term radius than the limit. The other part builds certificates whose radii approach that same limit. Either statement alone leaves room for a gap. Together, they show that the limit is exact.
 
@@ -358,28 +358,28 @@ No known high-dimensional packing comes close to the new upper limit. The gap be
           1978 exponent
 ```
 
-The proof also answers two closely related questions about functions and their Fourier transforms. Some special functions turn into themselves under the Fourier transform; others turn into their own negative. These are the plus and minus versions of a **Fourier eigenfunction**. For each version, ask how far from the centre we must go before the function settles to one fixed sign and never changes sign again.
+The proof also answers two related questions about a curve and its Fourier view. Some special curves look unchanged after moving to the Fourier view. Others return upside down. Mathematicians call these the plus and minus versions of a **Fourier eigenfunction**. For each version, we can ask how far from the centre the curve must travel before it stops crossing the zero line.
 
-Both versions were expected to approach the same radius in high dimensions. The proof confirms this. For each one, the limiting radius is one over pi times the square root of the dimension.
+Researchers expected the two versions to approach the same radius in high dimensions. The proof confirms this. For both, the long-term radius is one over pi times the square root of the dimension.
 
 ![The plus and minus radii approaching the same dashed limit, with the plus radius always smaller; the spacing shows the trend rather than exact values](guide/12-what-it-means/two_radii.png)
 
 The shared limit does not mean the two radii are equal in any particular dimension. The source shows that the plus radius is smaller in every finite dimension. Their difference becomes small compared with the square root of the dimension, so only their long-term limits agree.
 
-## Where the proof and the reasoning live
+## Where to find each idea in the sources
 
-The source folder `docs/ten-proofs/01-sphere-packing-linear-program/` holds two documents. **The proof** is the chapter titled "Exponential Growth Rate of the Cohn-Elkies Sphere Packing Linear Program". **The reasoning** is its walkthrough, "High-Dimensional Sphere Packing and the Euclidean Linear Program", which records how the ideas came together, including the routes that failed. This guide covers both, and the map below says where.
+The folder `docs/ten-proofs/01-sphere-packing-linear-program/` contains two documents. The chapter named “Exponential Growth Rate of the Cohn-Elkies Sphere Packing Linear Program” gives the finished proof. The walkthrough named “High-Dimensional Sphere Packing and the Euclidean Linear Program” explains how the proof was found, including ideas that failed along the way. This table helps you find the matching passages.
 
-| this guide | in the proof document | in the reasoning walkthrough |
+| this guide | in the finished proof | in the behind-the-scenes walkthrough |
 |---|---|---|
-| 4 and 5, the certificate and the double count | the introduction: how a packing question becomes a program about one function | part 1.1, how a packing becomes a Fourier linear program |
-| 8, the balancing trick | the preliminaries: every certificate is turned into a balanced function | part 1.2, balancing the origin, and the totals-only route that had to be abandoned |
-| 9, the wall | section 3, the universal Cohn-Elkies lower bound, which is this guide's wall | parts 1.3 to 1.5: the reflection view, the strip and its bell-shaped limiting weights, and the wall's positive dual form |
-| 10, building the witness | section 4, the admissible primal upper bound, which is this guide's witness | parts 1.6 to 1.8: the bell curve, Wallis's amount, the distant bump, and the sign repairs |
-| 11, the two halves meet | the main theorem, combining sections 3 and 4 | part 1.9, the exact threshold |
-| 12, the two sign questions | appendix A, comparing the two sign-uncertainty constants | part 1.9, both uncertainty signs |
+| sections 4 and 5, the certificate and the two counts | the opening pages turn the packing problem into a search for one function | part 1.1 explains the same change of viewpoint |
+| section 8, balancing the two views | the early setup turns each certificate into a balanced function | part 1.2 explains the balancing step and the first approach that failed |
+| section 9, the wall | section 3 proves that no certificate can have a better radius | parts 1.3 to 1.5 explain the mirror view, the strip, the bell-shaped weights, and the second form of the wall |
+| section 10, building the witness | section 4 builds certificates that approach the wall | parts 1.6 to 1.8 explain the bell curve, the amount from Wallis, the distant bump, and the repairs near the centre |
+| section 11, the two halves meet | the main result combines sections 3 and 4 | part 1.9 explains why the shared limit is exact |
+| section 12, the two related sign questions | appendix A compares the two radii | part 1.9 discusses both versions |
 
-One naming note, so the documents can be read after this guide. The proof document works with the density limit itself, where the wall appears as a *lower* bound: it says the method's limit cannot be pushed below a certain size. This guide tells the same fact from the certificate's side, as a ceiling on how strong a certificate can be. They are one statement.
+The two documents use “lower limit” and “ceiling” for what may look like opposite ideas. There is no disagreement. The proof studies the density limit and shows that it cannot be pushed lower. This guide studies the strength of a certificate and says that its strength cannot rise past a ceiling. These are two views of the same fact.
 
 ## What you can check yourself
 
@@ -417,7 +417,7 @@ These calculations do not prove that the five known packings are best; that come
 | the symmetric adjustment | the Mellin envelope multiplier |
 | stretching a function | dilation |
 
-The source shortens “linear program” to LP. It also gives an exact description of the new decimal exponent: one half of the base-two logarithm of two pi divided by e.
+The source shortens “linear program” to LP. It also writes the decimal rate in a shorter exact form using pi, e, and a base-two logarithm. The decimal value given in section 11 is enough to follow this guide.
 
 ## Where to go next
 

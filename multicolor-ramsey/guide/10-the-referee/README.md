@@ -1,6 +1,6 @@
 # 10 · The referee
 
-**The proof, part three of four.** The fixed object that enforces the team rule everywhere at once.
+The third part is one fixed referee that enforces the team rule everywhere at once.
 
 Every connection between two rooms needs two choices: a colour allowed by the palettes, and a team on which it may safely land. These choices cannot be improvised for one pair and changed for the next. A single rule must work for every pair of people in every pair of rooms.
 
@@ -12,7 +12,7 @@ This card has thirteen rows and eight columns, and every entry is one of two sym
 
 At this small size, most randomly filled cards already pass. That does not show that the full construction is easy. At the real sizes, direct checking is impossible. Two counting arguments prove that at least one card works for all column choices at once. The rest of the construction needs only that promise, not a case-by-case search.
 
-The two counting arguments do different jobs, and the walkthrough is careful to separate them. The first asks how likely one row of random symbols is to show every symbol within one particular handful of columns. For that, the handful must be a little larger than the collector's number: how many random draws it takes before every symbol has appeared at least once. The second argument stacks enough independent rows that the rare failures can be paid for across every possible handful at once. One argument sizes the handfuls, the other sets the height of the card.
+The two counting arguments have separate jobs. The first decides how many columns must be examined together. There must be enough entries for one random row to have a good chance of showing every symbol. The second decides how many rows the card needs. It provides enough independent attempts to cover every possible choice of columns at the same time. One count sets the size of each column group; the other sets the height of the card.
 
 The card must be fixed first. If a new rule could be invented after seeing each pair of people, it could always be adjusted to make that one pair work. Such an adjustment would say nothing about any other pair. One card chosen in advance has to handle every future pair, which is what gives the promise its force.
 
@@ -22,7 +22,9 @@ Here is how the card guides a connection. For each candidate colour, a person's 
 
 The agreeing position selects a candidate colour. It also selects the receiving team in the way section 9 requires: that team is determined from the sender's word. If the same outsider sends two connections of the same colour into a room, both must therefore land on the same team. The dangerous triangle cannot form.
 
-The two answer lists split the work unevenly, and the split is where the card's promise is spent. One list answers for your word by reading its opening symbols as the address of a card column and copying that column out. If my word matches that column in any row, we are done, and almost every opening works this way against almost every word. The rare exceptions are openings whose entire column dodges my word in every row. The card's promise is exactly what keeps those exceptions few, and my answer list serves them by spending one reserved position on each. The tests count them at toy size: against any word, at most three openings dodge the whole card.
+The two lists divide the work. The first few symbols of one word identify a column on the card. The first answer list copies that column. Usually the other word matches it in at least one row, and that matching row chooses the colour.
+
+A few column choices may fail to match a particular word anywhere. The card's promise guarantees that there are only a small number of these exceptions. The second answer list gives each exception its own reserved position, so none can escape. At toy size, the tests confirm that any word has at most three exceptional columns.
 
 At the small size, each word contains thirteen two-choice symbols, so there are 8192 possible words. The tests verify the meeting promise for every word on one side and every word on the other. This is a complete check of the toy version.
 

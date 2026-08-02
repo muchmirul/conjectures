@@ -1,6 +1,6 @@
 # 5 · Multiply
 
-**The reasoning begins here.** This section and the next two follow the reasoning walkthrough: what the classical tools achieve, and exactly why none of them could answer the question.
+Sections 5 to 7 explain what the older methods could achieve and why none of them answered the main question. We begin with the most useful old construction.
 
 A classical construction combines two safe tables to make a larger safe table. The animation applies it to two copies of the five-person pattern.
 

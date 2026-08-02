@@ -1,6 +1,6 @@
 # 8 · The balancing trick
 
-**The proof of the 2026 result begins here.** This section and the next follow its first half, which rules every certificate out beyond a line. Section 10 follows its second half, which builds a certificate that reaches the line, and section 11 puts the halves together. Alongside the proof, these sections also carry the reasoning walkthrough's account of how each step was found.
+From this section through section 11, the guide follows the 2026 proof. The proof has two jobs. Sections 8 and 9 show that no certificate can pass a particular long-term limit. Section 10 builds certificates that approach that limit. Section 11 combines the two results. The companion behind-the-scenes document explains how these ideas were found, and we include that context where it helps.
 
 The final sections do not require a new starting idea. They reuse the two sign rules and the Fourier transform from section 4, together with the familiar idea of a radius. Until now, we asked what one chosen certificate could prove. We will now ask what every possible certificate is forced to look like.
 

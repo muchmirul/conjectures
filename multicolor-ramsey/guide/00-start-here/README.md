@@ -12,21 +12,21 @@ The guide develops the result in small steps. Most numbered sections also have a
 
 The code that creates every figure is included in this repository. The tests recalculate the numbers and check the small colourings shown here. When a statement comes from an existing theorem rather than those tests, the text says so.
 
-The 2026 sources come as a pair: a proof document, and a reasoning walkthrough that records how its ideas came together, including the routes that failed. Sections 5 to 7 of this guide follow the reasoning, sections 8 to 11 follow the proof, and a map near the end lists which part of each document every section covers.
+The 2026 work is presented in two documents. One gives the finished proof. The other is a behind-the-scenes guide that explains how the ideas were found, including earlier attempts that failed. Sections 5 to 7 explain why the old methods stalled. Sections 8 to 11 explain the finished construction. A table near the end shows where each idea appears in the two source documents.
 
 ```
-    first, learn the game     1  the rule
-                              2  why six people cannot stay safe
-                              3  what an extra colour changes
-    then, find the question   4  how to compare different colour counts
-    the reasoning: why the    5  multiplying safe groups
-    old tools stall           6  a general upper limit
-                              7  the wide gap between them
-    the proof: the 2026       8  which colours each room omits
-    construction              9  keeping arrivals on safe teams
-                             10  one fixed referee for every choice
-                             11  stacking the rooms into a tower
-    what it settles          12  what the result settles
+    first, learn the game       1  the rule
+                                2  why six people cannot stay safe
+                                3  what an extra colour changes
+    then, find the question     4  how to compare different colour counts
+    why earlier ideas stalled   5  multiplying safe groups
+                                6  a general upper limit
+                                7  the wide gap between them
+    the finished construction   8  which colours each room omits
+                                9  keeping arrivals on safe teams
+                               10  one fixed referee for every choice
+                               11  stacking the rooms into a tower
+    what the result settles    12  what the result settles
 ```
 
 **[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/00.html)** to colour the opening group and inspect the finished pattern.

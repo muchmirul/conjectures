@@ -30,9 +30,9 @@ No known high-dimensional packing comes close to the new upper limit. The gap be
           1978 exponent
 ```
 
-The proof also answers two closely related questions about functions and their Fourier transforms. Some special functions turn into themselves under the Fourier transform; others turn into their own negative. These are the plus and minus versions of a **Fourier eigenfunction**. For each version, ask how far from the centre we must go before the function settles to one fixed sign and never changes sign again.
+The proof also answers two related questions about a curve and its Fourier view. Some special curves look unchanged after moving to the Fourier view. Others return upside down. Mathematicians call these the plus and minus versions of a **Fourier eigenfunction**. For each version, we can ask how far from the centre the curve must travel before it stops crossing the zero line.
 
-Both versions were expected to approach the same radius in high dimensions. The proof confirms this. For each one, the limiting radius is one over pi times the square root of the dimension.
+Researchers expected the two versions to approach the same radius in high dimensions. The proof confirms this. For both, the long-term radius is one over pi times the square root of the dimension.
 
 ![The plus and minus radii approaching the same dashed limit, with the plus radius always smaller; the spacing shows the trend rather than exact values](two_radii.png)
 

@@ -1,6 +1,6 @@
 # 10 · Building the witness
 
-**The proof, second half.** This section is the construction: one concrete family of certificates that reaches the wall.
+Section 10 supplies the second half of the proof. It builds a concrete family of certificates that approaches the wall.
 
 In this chapter, a **witness** simply means a concrete example. Proving that no certificate can cross the limit gives only one half of the result. The other half requires a family of certificates that gets all the way to that limit as the dimension grows.
 
@@ -25,7 +25,7 @@ Two extra parts repair side effects of the adjustment. They do not change the ce
     two simple curve factors     correct the signs close to the centre
 ```
 
-Without the adjustment, the bell curve fades quickly at great distances. The adjustment spoils some of that fading, so a tiny positive bump far away restores it. The bump is spread across a whole stretch of distances rather than placed at one point, so that no single wave can line up with it exactly and escape its effect. The broad checks also do not control the signs near the centre, so two polynomial factors—simple curves built from powers—are added to handle that short range separately.
+The original bell curve fades quickly at great distances, but the adjustment weakens that fading. A tiny positive bump far away restores it. The bump covers a range of distances rather than one exact distance. If it sat at only one point, a wave could line up with that point and avoid the correction. Spreading the bump removes that opening. The broad checks also miss what happens near the centre, so two simple curve factors built from powers handle that short range separately.
 
 ---
 

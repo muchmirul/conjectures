@@ -1,6 +1,6 @@
 # 9 · The trap
 
-**The proof, part two of four.** The remaining kind of triangle, and the rule that disarms it.
+This is the second part of the construction. It handles the remaining danger: a triangle that uses two rooms.
 
 Consider two people in one room and a third person outside it. Suppose both incoming connections use red. A red triangle appears if the two people inside the room are also connected in red. The construction must prevent the two incoming connections from landing on such a pair.
 
@@ -16,7 +16,7 @@ The first half of the animation breaks the rule. The two red arrivals land on pe
 
 There is a second safe case. If red appears on the room's palette, then red is not used anywhere inside that room. Incoming red connections are automatically harmless because the triangle would need a red internal connection too. Thus every incoming colour is protected in one of two ways: it is absent inside the room, or its arrivals are confined to one safe team.
 
-How many teams should a colour be allowed? The walkthrough records that the obvious wish, two teams for every colour everywhere, is too rigid. Keeping every colour's connections split into two fixed sides across every room of every floor would cost about as much as buying fresh colours, which is the failure of section 5 all over again. The construction relaxes the demand by exactly one team per floor. When a new floor is added, every room that uses a colour keeps the teams that colour already had inside the room, and all the rooms that omit the colour are pooled together as one extra team. The team count therefore never outgrows the number of floors, and that slow growth is what keeps the referee's symbol alphabet small.
+It would be convenient to use only two teams for every colour, but that rule is too strict. Keeping the same two sides lined up across every room and every floor would cost almost as much as giving each room fresh colours. The new construction lets the number of teams grow slowly instead. When a floor is added, rooms that use a colour keep their existing teams. All rooms that omit that colour form one extra team together. The number of teams therefore rises by only one on each floor. This keeps the referee's set of symbols small enough to manage.
 
 The animation is a small demonstration of why the team rule matters. The real construction does not choose each arrival by hand. It needs one fixed procedure that enforces the rule for every pair of rooms without adding new colours. That procedure is the referee in the next section.
 

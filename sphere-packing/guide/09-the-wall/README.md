@@ -1,6 +1,6 @@
 # 9 · The wall
 
-**The proof, first half concluded.** This section is the impossible direction: the limit that no certificate, found or unfound, can cross.
+Sections 8 and 9 form the first half of the proof. They show that no certificate, including one nobody has discovered yet, can have a better long-term radius.
 
 Making the radius smaller makes the requirement harder to meet. The negative amount remains exactly half of the total, but it has less space in which to fit.
 
@@ -12,7 +12,7 @@ The 2026 proof shows that there is a long-term limit. As dimensions grow, a radi
 
 Finite dimensions can differ slightly from this simple description. The statement is about the rate as the dimension becomes large: after the radius is divided by the square root of the dimension, those smaller differences disappear. This is the part of the proof that places a ceiling on the certificate method.
 
-The appearance of pi comes from a specific step in the proof. The argument first changes to a view in which the Fourier transform acts like a reflection. It then studies a strip-shaped region. A standard result says that values along the two edges control what can happen between them; this result is called the maximum principle. It gives a weight to each wave. At the decisive edge of the strip, those weights approach one particular bell-shaped curve.
+The number pi comes from one particular step. The proof changes how the function is viewed until the Fourier transform acts like a mirror. It then looks at a strip, meaning the region between two parallel edges. A standard rule called the maximum principle says that values on those edges limit what can happen between them. This rule gives a weight to each wave. Near the important edge, the weights settle into one bell-shaped curve.
 
 ![The proof’s changing weights settling into the bell-shaped curve that fixes the limit](ingredients.png)
 
@@ -20,9 +20,9 @@ That final curve produces the factor one over pi. This repository does not repro
 
 One small-looking detail affects the final number. At an earlier stage, the edge weights do not add up to one. Turning them into percentages too soon would change the result, so the proof must keep their original total until the correct step.
 
-The reasoning walkthrough also records the route that was tried first, because its failure shaped the proof. That route measured the balanced function only through overall totals: how much weight it carries in all, against how much room a ball of the given radius offers. Totals of this kind do prove a wall, but a weaker one, sitting well inside the true position. The obstacle was not a constant that better bookkeeping could repair. A total forgets where the negative half actually sits, and there are functions with perfectly reasonable totals whose negative half sits nowhere near the forbidden region. To find the true wall, the proof had to track the location of the weight and not only its amount, and the strip picture above is exactly the tool that does that.
+The behind-the-scenes document describes an earlier idea that failed. It compared only two totals: all the negative weight and all the room available inside the ball. This does give a limit, but not the correct one. A total says how much weight exists, but it forgets where that weight sits. Two functions can have similar totals while placing their negative parts in very different places. The successful proof had to keep track of location as well as amount. The strip method above does that.
 
-The wall also has a second form, which the sources note briefly. There is a single positive object that certifies the wall against every certificate at once, a mirror image of the way one certificate limits every packing at once. Nothing later in this guide depends on it, but it shows the wall is not the accident of one calculation: the same threshold appears whether it is approached through the functions themselves or through this dual object.
+The sources also give a second way to express the same wall. One fixed object, built from nonnegative weights, can check every certificate at once. Mathematicians call this a dual witness. The rest of the guide does not use it, but it is useful confirmation: this different viewpoint reaches the same limit.
 
 **[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/09.html)** to reduce the radius and compare its capacity with the fixed negative half.
 
