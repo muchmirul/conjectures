@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Turn the stack, and open the gaps · sphere packing</title>
+
+<!-- tldraw is a React SDK, so this page loads React and tldraw from a CDN.
+     That is the one thing the pages under play/ deliberately never do, which
+     is why this experiment lives in its own folder and is not embedded in the
+     article. -->
+<link rel="stylesheet" href="https://esm.sh/tldraw@5.2.5/tldraw.css">
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.3.1",
+    "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime",
+    "react-dom": "https://esm.sh/react-dom@18.3.1?external=react",
+    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client?external=react",
+    "tldraw": "https://esm.sh/tldraw@5.2.5?external=react,react-dom"
+  }
+}
+</script>
+
+<style>
+ :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+       --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;--violet:#4a3aa7;}
+ @media (prefers-color-scheme: dark){
+   :root{--surface:#15150f;--ink:#f2f1ea;--ink2:#c9c7bd;--muted:#8d8b82;--line:#33322c;}
+ }
+ *{box-sizing:border-box}
+ body{margin:0;padding:28px 20px 56px;background:var(--surface);color:var(--ink);
+   font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif;}
+ main{max-width:980px;margin:0 auto}
+ .back{font-size:14px;color:var(--muted);text-decoration:none}
+ .back:hover{color:var(--blue)}
+ h1{font-size:24px;line-height:1.25;margin:14px 0 6px}
+ .lede{color:var(--ink2);margin:0 0 22px}
+ .try{border-left:3px solid var(--blue);padding:8px 0 8px 14px;margin:0 0 22px;
+   color:var(--ink2);font-size:15px}
+ #stage{position:relative;width:100%;height:min(70vh,620px);min-height:420px;
+   border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+ .controls{margin:18px 0 0}
+ .row{display:flex;align-items:center;gap:12px;margin:10px 0;flex-wrap:wrap}
+ .row label{flex:0 0 190px;font-size:14px;color:var(--ink2)}
+ input[type=range]{flex:1;min-width:170px;accent-color:var(--blue)}
+ .val{flex:0 0 96px;text-align:right;font-family:ui-monospace,monospace;font-size:13px}
+ input[type=number]{font:inherit;font-size:14px;width:110px;padding:5px 8px;
+   border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--ink)}
+ button{font:inherit;font-size:14px;padding:6px 12px;border:1px solid var(--line);
+   border-radius:7px;background:var(--surface);color:var(--ink2);cursor:pointer}
+ button:hover{border-color:var(--blue);color:var(--blue)}
+ button[aria-pressed=true]{border-color:var(--blue);color:var(--blue);font-weight:600}
+ .readout{margin-top:18px;padding:14px 16px;border:1px solid var(--line);border-radius:8px;
+   font-family:ui-monospace,monospace;font-size:14px;white-space:pre-line}
+ .verdict-ok{color:var(--green)}
+ .note{margin-top:26px;font-size:13.5px;color:var(--muted)}
+ .note strong{color:var(--ink2)}
+ .nav{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-size:14px}
+ .nav a{color:var(--blue);text-decoration:none}
+ .nav a:hover{text-decoration:underline}
+ #fallback{display:none;padding:20px;font-size:15px;color:var(--ink2)}
+ #fallback code{background:rgba(128,128,128,0.14);padding:0.1em 0.4em;border-radius:4px}
+ #loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+   color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="../index.html">back to the article</a>
+<h1>Turn the stack, and open the gaps</h1>
+<p class="lede">The same stack as <a href="../play/00.html">chapter 0's page</a>: one ball and the twelve that touch it. Here you can turn it with the two dials, and pull the balls apart to see what that costs.</p>
+
+<p class="try"><strong>Try this.</strong> Leave the separation at 1.00 and turn the stack right round. Twelve balls touch the middle one from every angle, and the gaps never close: even packed as tightly as possible, this arrangement fills only 74.05 percent of space. Then type a smaller number into the percentage box and watch the balls drift apart to match it.</p>
+
+<div id="stage"><div id="loading">loading the canvas…</div></div>
+
+<div id="fallback">
+  <p><strong>The canvas could not load.</strong> This page fetches React and the
+  tldraw SDK from a CDN, so it needs a network connection, and some browsers
+  refuse to load modules from a page opened directly as a file.</p>
+  <p>To run it locally, serve the folder over HTTP instead of double-clicking
+  the file:</p>
+  <p><code>cd docs/sphere-packing/tldraw &amp;&amp; python3 -m http.server 8000</code></p>
+  <p>then open <code>http://localhost:8000/</code>.</p>
+  <p>Everything in <a href="../play/index.html">the play pages</a> works offline
+  with no libraries; only this experiment needs the network.</p>
+</div>
+
+<div class="controls">
+  <div class="row">
+    <label for="az">turn (left and right)</label>
+    <input type="range" id="az" min="0" max="360" step="1" value="34">
+    <span class="val" id="azv">34°</span>
+  </div>
+  <div class="row">
+    <label for="el">tilt (up and down)</label>
+    <input type="range" id="el" min="-80" max="80" step="1" value="20">
+    <span class="val" id="elv">20°</span>
+  </div>
+  <div class="row">
+    <label for="sep">centre separation</label>
+    <input type="range" id="sep" min="1" max="2" step="0.01" value="1">
+    <span class="val" id="sepv">1.00 ×</span>
+  </div>
+  <div class="row">
+    <label for="pct">share of space filled</label>
+    <input type="number" id="pct" min="9" max="74.05" step="0.01" value="74.05">
+    <span class="val">percent</span>
+    <button id="best">back to the tightest</button>
+  </div>
+  <div class="row">
+    <label>arrangement</label>
+    <button id="a-fcc" aria-pressed="true">greengrocer's stack</button>
+    <button id="a-sc">plain rows and columns</button>
+    <button id="spin">spin</button>
+    <button id="fit">fit to view</button>
+  </div>
+</div>
+
+<div class="readout" id="out"></div>
+
+<p class="note">The separation is measured in ball diameters, so 1.00 means the
+balls touch and nothing can be pushed closer. Above that, every centre moves
+apart by the same factor, and the share of space filled falls with the cube of
+it. Pulling the centres a quarter further apart takes the tightest stack from
+74.05 percent down to 37.91, which is very nearly half thrown away for a gap
+you can barely see. The percentage box works the other way round, solving for
+the separation that would give the figure you type.</p>
+
+<p class="note">Two arrangements are drawn. The greengrocer's stack puts twelve
+balls against the middle one and fills 74.05 percent of space; plain rows and
+columns put six against it and fill 52.36 percent. Kepler guessed in 1611 that
+nothing beats the first, and Hales proved it in 1998.</p>
+
+<p class="note"><strong>What the percentage describes.</strong> The thirteen or
+twenty-seven balls on the canvas are a fragment. The figure is the share of
+space filled by the endless arrangement they are cut from, not by the handful
+you can see, which would depend on where you drew the boundary. Both figures
+are computed on this page from the ball size and the spacing, and both agree
+with the values the article quotes.</p>
+
+<p class="note"><strong>About the SDK.</strong> tldraw is not open source. It is
+free to use in development, which includes this page opened locally, and a
+licence key is required in production. A free hobby licence covers
+non-commercial use and shows a "made with tldraw" watermark on the canvas; the
+commercial licence is paid. See
+<a href="https://tldraw.dev/sdk-features/license-key">tldraw's licence key
+documentation</a>. Nothing else in this repository depends on it.</p>
+
+<div class="nav">
+  <a href="../play/00.html">the original chapter 0 page</a>  ·
+  <a href="../index.html">the article</a>  ·
+  <a href="../play/index.html">all the play pages</a>
+</div>
+</main>
+
+<script type="module">
+// --- the mathematics ---------------------------------------------------------
+
+// The greengrocer's stack: every point whose three whole-number coordinates
+// add up to an even number.  Taking the ones inside a 3 by 3 by 3 block gives
+// the middle ball and exactly the twelve that touch it.
+function fccPoints() {
+  const out = [];
+  for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (let k = -1; k <= 1; k++)
+    if ((i + j + k) % 2 === 0) out.push([i, j, k]);
+  return out;
+}
+// Plain rows and columns: every whole-number point.  Six balls touch the middle.
+function cubicPoints() {
+  const out = [];
+  for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (let k = -1; k <= 1; k++)
+    out.push([i, j, k]);
+  return out;
+}
+
+// Densest possible share of space for each arrangement, with the balls
+// touching.  Both are computed here rather than quoted.
+const FCC_MAX = Math.PI / Math.sqrt(18);      // 0.7404804896930611
+const CUBIC_MAX = Math.PI / 6;                // 0.5235987755982988
+
+const ARRANGEMENTS = {
+  fcc: { name: "greengrocer's stack", points: fccPoints(), touching: 12,
+         max: FCC_MAX, step: Math.SQRT2 },
+  sc:  { name: 'plain rows and columns', points: cubicPoints(), touching: 6,
+         max: CUBIC_MAX, step: 1 },
+};
+
+// Balls have diameter one and the centres are `sep` diameters apart, so every
+// cell of the arrangement is scaled by `sep` in each of the three directions
+// and its volume by the cube of it.  The balls themselves never change size.
+function density(kind, sep) {
+  return ARRANGEMENTS[kind].max / (sep * sep * sep);
+}
+// and the other way round, for the editable percentage
+function separationFor(kind, share) {
+  return Math.cbrt(ARRANGEMENTS[kind].max / share);
+}
+
+// the same projection the chapter 0 page uses: turn, then tilt, then flatten
+function project(p, az, el, scale) {
+  const ca = Math.cos(az), sa = Math.sin(az);
+  const ce = Math.cos(el), se = Math.sin(el);
+  const x = p[0] * ca - p[1] * sa;
+  const y = p[0] * sa + p[1] * ca;
+  const z = p[2];
+  return { x: x * scale, y: -(z * ce - y * se) * scale, depth: y * ce + z * se };
+}
+
+// --- the canvas --------------------------------------------------------------
+
+const stage = document.getElementById('stage');
+const fallback = document.getElementById('fallback');
+const azEl = document.getElementById('az'), azv = document.getElementById('azv');
+const elEl = document.getElementById('el'), elv = document.getElementById('elv');
+const sepEl = document.getElementById('sep'), sepv = document.getElementById('sepv');
+const pctEl = document.getElementById('pct');
+const outEl = document.getElementById('out');
+
+function showFallback(err) {
+  stage.style.display = 'none';
+  fallback.style.display = 'block';
+  if (err) console.error('[tldraw experiment]', err);
+}
+
+const SCALE = 120;          // screen units per ball diameter
+const R = SCALE / 2;        // every ball has diameter one, so this never changes
+
+let editor = null, mod = null;
+let kind = 'fcc';
+let ballIds = [];
+let depthKeys = [];   // one stacking key per ball, handed out by depth each frame
+let spinTimer = null;
+
+function readAz() { return Number(azEl.value) * Math.PI / 180; }
+function readEl() { return Number(elEl.value) * Math.PI / 180; }
+function readSep() { return Number(sepEl.value); }
+
+function report() {
+  const a = ARRANGEMENTS[kind], sep = readSep();
+  const share = density(kind, sep);
+  const tightest = Math.abs(sep - 1) < 1e-9;
+  azv.textContent = azEl.value + '°';
+  elv.textContent = elEl.value + '°';
+  sepv.textContent = sep.toFixed(2) + ' ×';
+  outEl.textContent =
+    'arrangement            ' + a.name + '\n' +
+    'balls touching the middle one   ' + (tightest ? a.touching : 0) + '\n' +
+    'centre separation      ' + sep.toFixed(2) + ' ball diameters\n' +
+    'share of space filled  ' + (share * 100).toFixed(2) + ' %' +
+    (tightest ? '\nas tight as this arrangement can be' : '');
+  outEl.className = 'readout' + (tightest ? ' verdict-ok' : '');
+}
+
+// build the balls once; rotating only moves them
+function buildBalls() {
+  if (!editor || !mod) return;
+  const { createShapeId } = mod;
+  const run = editor.run ? editor.run.bind(editor) : editor.batch.bind(editor);
+  run(() => {
+    const existing = editor.getCurrentPageShapes().map((s) => s.id);
+    if (existing.length) editor.deleteShapes(existing);
+    ballIds = [];
+    const pts = ARRANGEMENTS[kind].points;
+    const shapes = pts.map((p, i) => {
+      const id = createShapeId(kind + '-ball-' + i);
+      ballIds.push(id);
+      const middle = p[0] === 0 && p[1] === 0 && p[2] === 0;
+      return { id, type: 'geo', x: 0, y: 0,
+               props: { geo: 'ellipse', w: 2 * R, h: 2 * R, size: 's',
+                        color: middle ? 'violet' : 'blue',
+                        fill: 'solid', dash: 'solid' } };
+    });
+    editor.createShapes(shapes);
+  });
+  // One stacking key per ball, in order from back to front.  These are handed
+  // out by depth on every turn of the stack, which is what makes the near
+  // balls cover the far ones.  `bringToFront` cannot do this job: it returns
+  // early when every shape on the page is being moved, which is exactly the
+  // case here, and it would ignore the order they were passed in anyway.
+  depthKeys = mod.getIndices(ballIds.length).slice(0, ballIds.length);
+  place();
+  if (editor.zoomToFit) editor.zoomToFit();
+}
+
+// move every ball to where the current angles and spacing put it
+function place() {
+  if (!editor || !ballIds.length) return;
+  const a = ARRANGEMENTS[kind];
+  const az = readAz(), el = readEl(), sep = readSep();
+  // a lattice step is `a.step` units long, and we want neighbouring centres
+  // to sit `sep` ball diameters apart
+  const unit = SCALE * sep / a.step;
+
+  const placed = a.points.map((p, i) => {
+    const q = project(p, az, el, unit);
+    return { id: ballIds[i], depth: q.depth, x: q.x, y: q.y };
+  });
+  placed.sort((u, v) => u.depth - v.depth);      // far balls first
+
+  const run = editor.run ? editor.run.bind(editor) : editor.batch.bind(editor);
+  run(() => {
+    editor.updateShapes(placed.map((b, rank) => {
+      const update = {
+        id: b.id, type: 'geo', x: b.x - R, y: b.y - R,
+        opacity: 0.55 + 0.45 * (b.depth + 2) / 4,   // nearer reads as more solid
+      };
+      // rank 0 is the furthest ball, so it takes the lowest stacking key
+      if (depthKeys[rank]) update.index = depthKeys[rank];
+      return update;
+    }));
+  });
+  report();
+}
+
+// --- wire it up ---------------------------------------------------------------
+
+function syncPercentFromSep() {
+  pctEl.value = (density(kind, readSep()) * 100).toFixed(2);
+}
+function applyPercent() {
+  const a = ARRANGEMENTS[kind];
+  let share = Number(pctEl.value) / 100;
+  if (!isFinite(share) || share <= 0) return;
+  share = Math.min(share, a.max);              // nothing can beat touching
+  const sep = Math.min(2, Math.max(1, separationFor(kind, share)));
+  sepEl.value = String(sep);
+  pctEl.value = (density(kind, sep) * 100).toFixed(2);
+  place();
+}
+
+try {
+  const [{ createElement }, { createRoot }, tldraw] = await Promise.all([
+    import('react'), import('react-dom/client'), import('tldraw'),
+  ]);
+  mod = tldraw;
+
+  const loading = document.getElementById('loading');
+  if (loading) loading.remove();
+
+  createRoot(stage).render(
+    createElement(mod.Tldraw, {
+      onMount: (ed) => {
+        editor = ed;
+        try { buildBalls(); syncPercentFromSep(); }
+        catch (err) { showFallback(err); }
+      },
+    })
+  );
+
+  azEl.addEventListener('input', place);
+  elEl.addEventListener('input', place);
+  sepEl.addEventListener('input', () => { place(); syncPercentFromSep(); });
+  pctEl.addEventListener('change', applyPercent);
+
+  document.getElementById('best').addEventListener('click', () => {
+    sepEl.value = '1'; place(); syncPercentFromSep();
+  });
+  document.getElementById('fit').addEventListener('click', () => {
+    if (editor && editor.zoomToFit) editor.zoomToFit();
+  });
+
+  const spinBtn = document.getElementById('spin');
+  spinBtn.addEventListener('click', () => {
+    if (spinTimer) {
+      clearInterval(spinTimer); spinTimer = null;
+      spinBtn.setAttribute('aria-pressed', 'false');
+    } else {
+      spinBtn.setAttribute('aria-pressed', 'true');
+      spinTimer = setInterval(() => {
+        azEl.value = String((Number(azEl.value) + 3) % 361);
+        place();
+      }, 90);
+    }
+  });
+
+  const fccBtn = document.getElementById('a-fcc'), scBtn = document.getElementById('a-sc');
+  const choose = (k) => {
+    kind = k;
+    fccBtn.setAttribute('aria-pressed', String(k === 'fcc'));
+    scBtn.setAttribute('aria-pressed', String(k === 'sc'));
+    pctEl.max = String((ARRANGEMENTS[k].max * 100).toFixed(2));
+    try { buildBalls(); syncPercentFromSep(); }
+    catch (err) { console.error('[tldraw experiment]', err); }
+  };
+  fccBtn.addEventListener('click', () => choose('fcc'));
+  scBtn.addEventListener('click', () => choose('sc'));
+} catch (err) {
+  showFallback(err);
+}
+
+report();
+</script>
+</body>
+</html>
