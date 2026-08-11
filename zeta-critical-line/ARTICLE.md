@@ -1,4 +1,4 @@
-# The Critical Line, from Zero
+# Two Thirds of the Zeros, from Zero
 
 *A step-by-step visual guide to the Riemann zeta function, the most famous unsolved problem in mathematics, and the 2026 paper that proved two thirds of the function's zeros sit exactly where Riemann said they should. You do not need a maths background. Each new idea begins with a picture.*
 
@@ -53,7 +53,7 @@ In 1859 Bernhard Riemann sent the Berlin Academy an eight-page memoir on how man
 
 ![A rotating three-dimensional view of the zeta landscape over the critical strip, with the floor touched only along the critical line](guide/02-riemanns-map/landscape.gif)
 
-The camera circles so that the shape is genuinely three-dimensional: two directions of the floor are the two coordinates of the input point, and the height is the size of zeta there. What matters is where the landscape touches the floor, because floor level means the value is exactly zero. There are some easy touchdowns far to the left of the picture, at a neat row of evenly spaced points on the real axis; they are called the trivial zeros, they are completely understood, and this guide sets them aside now and does not mention them again. Every other touchdown lies inside a vertical band called **the strip**: the band of points whose first coordinate is between zero and one. These are the zeros that control the prime wobble of chapter 1, and in the picture every one of them sits at first coordinate exactly one half, on the vertical line down the middle of the strip. That middle line is **the line** of this guide's title: the critical line.
+The camera circles so that the shape is genuinely three-dimensional: two directions of the floor are the two coordinates of the input point, and the height is the size of zeta there. What matters is where the landscape touches the floor, because floor level means the value is exactly zero. There are some easy touchdowns far to the left of the picture, at a neat row of evenly spaced points on the real axis; they are called the trivial zeros, they are completely understood, and this guide sets them aside now and does not mention them again. Every other touchdown lies inside a vertical band called **the strip**: the band of points whose first coordinate is between zero and one. These are the zeros that control the prime wobble of chapter 1, and in the picture every one of them sits at first coordinate exactly one half, on the vertical line down the middle of the strip. That middle line is what this guide calls **the line**: the critical line, the place the paper's two thirds refers to.
 
 ![A flat map of the strip with the first thirty zeros marked on the critical line, and the mirror symmetry indicated](guide/02-riemanns-map/strip.png)
 

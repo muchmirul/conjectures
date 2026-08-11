@@ -1,4 +1,4 @@
-# The Critical Line, from Zero
+# Two Thirds of the Zeros, from Zero
 
 A visual guide to the Riemann zeta function, its zeros, and the 2026 paper
 proving that at least two thirds of them are simple and on the critical line,

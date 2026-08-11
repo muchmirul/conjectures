@@ -211,7 +211,7 @@ TEMPLATE = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Critical Line, from Zero</title>
+<title>Two Thirds of the Zeros, from Zero</title>
 <meta name="description" content="A beginner-friendly visual guide to the Riemann zeta function, its zeros, and the 2026 proof that at least two thirds of them are simple and on the critical line.">
 <script>
 MathJax = {
