@@ -18,4 +18,4 @@ One honesty note the paper itself insists on ([Remark 5.9, page 19](https://www-
 
 ---
 
-[← Two thirds](../10-two-thirds/README.md)  ·  [What it means, and what it does not →](../12-what-it-means/README.md)  ·  [the whole article on one page](../../ARTICLE.md)
+[← Two thirds](../10-two-thirds/README.md)  ·  [Where things stand →](../12-what-it-means/README.md)  ·  [the whole article on one page](../../ARTICLE.md)

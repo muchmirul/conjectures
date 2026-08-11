@@ -24,7 +24,7 @@ The code that creates every figure is included in this repository. The tests rec
                                 9  the whole-number trick, upgraded
     the result                 10  assembling two thirds
                                11  the checks: numbers, Lean, and the story
-                               12  what it settles, and what it does not
+                               12  where things stand
 ```
 
 **[Play with this](https://muchmirul.github.io/conjectures/zeta-critical-line/play/00.html)** to steer the zeta path yourself and watch it strike the centre.

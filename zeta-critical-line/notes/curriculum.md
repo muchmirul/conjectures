@@ -53,7 +53,7 @@ last says honestly what is and is not settled.
 11. **The checks** (11) covers the paper's section 8 numerics re-run here at
     toy height, the synthetic adversarial configurations, the Lean
     formalisation, and the Appendix C account of how the argument was found.
-12. **What it means** (12) carries section 1.5 and Remark 1.1: no bearing on
+12. **Where things stand** (12) carries section 1.5 and Remark 1.1: no bearing on
     RH, lower bounds only, a hard ceiling of 0.68185 for this kind of
     certificate, the slow convergence, and the extensions (Dirichlet
     L-functions, the derivative of the completed zeta).

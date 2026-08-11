@@ -1,4 +1,4 @@
-# 12 · What it means, and what it does not
+# 12 · Where things stand
 
 The paper spends a full section, [1.5, page 5](https://www-cdn.anthropic.com/564f962e60643842f5fcb4a17c9dbc8f608f1c37.pdf#page=5), stating what its results are not, and any honest account must lead with the same.
 

@@ -34,7 +34,7 @@ CHAPTERS = {
     9: ("09-the-whole-number-trick", "The whole-number trick"),
     10: ("10-two-thirds", "Two thirds"),
     11: ("11-the-checks", "The checks"),
-    12: ("12-what-it-means", "What it means, and what it does not"),
+    12: ("12-what-it-means", "Where things stand"),
 }
 
 

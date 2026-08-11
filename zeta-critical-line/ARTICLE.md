@@ -24,7 +24,7 @@ The code that creates every figure is included in this repository. The tests rec
                                 9  the whole-number trick, upgraded
     the result                 10  assembling two thirds
                                11  the checks: numbers, Lean, and the story
-                               12  what it settles, and what it does not
+                               12  where things stand
 ```
 
 **[Play with this](https://muchmirul.github.io/conjectures/zeta-critical-line/play/00.html)** to steer the zeta path yourself and watch it strike the centre.
@@ -253,7 +253,7 @@ One honesty note the paper itself insists on ([Remark 5.9, page 19](https://www-
 
 **The story.** The paper's [Appendix C](https://www-cdn.anthropic.com/564f962e60643842f5fcb4a17c9dbc8f608f1c37.pdf#page=30) recounts how the argument was found, and it is unusual reading for a mathematics paper. The session began with a user instruction to resume work on the Riemann hypothesis itself. The model declined to promise that, on the record, and instead dispatched twenty-three parallel search agents down deliberately different roads, each ordered to test its line against control problems where the analogue of RH is false. Most lines ended quickly at known obstacles. The line that survived had a different target: an agent labelled E2, sent to bound a quantity from above, reported that its intended bound was empty but that the dual bookkeeping, counting positive directions instead of negative ones, appeared to certify half the zeros unconditionally. The model's own recorded reaction was disbelief, followed by three hostile reviews it commissioned against itself, each assigned a specific way the result should fail. The claim survived, a further exchange upgraded one half to two thirds by the rank-trace lemma, and referee instances later noticed that the same lemma gives the simple and distinct refinements. After ten independent review passes the model judged that more of its own checking added no information, and the work was handed to human analytic number theorists: the problem was posed by Jarred Sumner, whom the paper credits as its human co-author in every meaningful sense; Ralph Furman and Levent Alpöge studied the result, placed it in the literature, and took responsibility for its communication; Brian Conrey and Daniel Goldston read the manuscript; Eric Easley orchestrated the Lean formalisation. The acknowledgments close by recording the paper's debt to the mathematicians whose work supplied every analytic ingredient, Baluyot, Goldston, Suriajaya and Turnage-Butterbaugh above all.
 
-## 12 · What it means, and what it does not
+## 12 · Where things stand
 
 The paper spends a full section, [1.5, page 5](https://www-cdn.anthropic.com/564f962e60643842f5fcb4a17c9dbc8f608f1c37.pdf#page=5), stating what its results are not, and any honest account must lead with the same.
 
@@ -281,7 +281,7 @@ The question itself remains where Riemann left it. Two thirds of the wobble's fr
 
 **[Play with this](https://muchmirul.github.io/conjectures/zeta-critical-line/play/12.html)** to walk the proportion line and see what each mark would take to move.
 
-## Where to find each idea in the paper
+## How this guide lines up with the paper
 
 The paper is kept in this repository at `docs/zeta-critical-line/paper/more-than-two-thirds.pdf` and published at [www-cdn.anthropic.com](https://www-cdn.anthropic.com/564f962e60643842f5fcb4a17c9dbc8f608f1c37.pdf). This table points each of this guide's sections at the passages it retells.
 
@@ -298,9 +298,9 @@ The paper is kept in this repository at `docs/zeta-critical-line/paper/more-than
 | section 9, the whole-number trick | Lemmas 3.2 and 3.3, and the discussion after Proposition 4.4 |
 | section 10, the assembly and the constants | section 6, proofs of Theorems A to C; section 7.1, Theorem D; sections 7.2 to 7.3, Theorem E and the derivative |
 | section 11, the checks | section 8, numerical illustrations; Appendix B, Lean and symbolic verification; Appendix C, the discovery account |
-| section 12, what it does not mean | section 1.5, what the results are not; Remark 1.1 and section 7.5, limits of the method; Remark 5.9, effectivity |
+| section 12, where things stand | section 1.5, what the results are not; Remark 1.1 and section 7.5, limits of the method; Remark 5.9, effectivity |
 
-## What you can check yourself
+## Checking it yourself
 
 The calculations and figures can be rebuilt from this repository. The commands below require Python and a command line, but no advanced mathematics.
 
@@ -327,7 +327,7 @@ Among other checks, the tests:
 
 The full theorem is described, not implemented: its statement lives at the limit of ever-larger stretches, where no finite table reaches. The tests verify the toy models, the constants, and every number this article quotes. The research notes identify which statements are calculated here and which are quoted from the paper or the literature.
 
-## The plain words, and the real ones
+## Glossary
 
 | this guide's plain phrase | the standard mathematical term |
 |---|---|
@@ -358,7 +358,7 @@ The full theorem is described, not implemented: its statement lives at the limit
 
 The paper's own shorthand for the four counters appears in its equation 1.1; its dial is the letter lambda, and its shape function for the certified proportion is the H of equation 1.3. This guide's "two thirds" is always the limiting proportion of the full count, over stretches from a height to its double.
 
-## Where to go next
+## Further reading
 
 - The paper itself: "More than two thirds of the zeros of the Riemann zeta function lie on the critical line", Claude (Anthropic), August 2026, in `docs/zeta-critical-line/paper/` and at [www-cdn.anthropic.com](https://www-cdn.anthropic.com/564f962e60643842f5fcb4a17c9dbc8f608f1c37.pdf). Appendix C, the account of the discovery, is readable with no mathematics at all.
 - The Lean formalisation the paper describes: [github.com/anthropics/zeta-23-lean](https://github.com/anthropics/zeta-23-lean).

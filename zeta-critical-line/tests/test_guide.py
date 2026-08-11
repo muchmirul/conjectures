@@ -109,7 +109,7 @@ def test_the_article_credits_the_ancestry():
 
 def test_the_glossary_names_every_invented_word():
     text = ARTICLE.read_text()
-    glossary = text.split("The plain words, and the real ones")[1]
+    glossary = text.split("## Glossary")[1]
     for invented in ("the line", "the strip", "a clean pin", "a mirror pair",
                      "a microphone", "the window", "the dial", "the table",
                      "a bowl", "a saddle", "the see-saw law", "the count",
