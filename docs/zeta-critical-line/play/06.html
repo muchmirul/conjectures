@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Walk the proportion line · the critical line</title>
+<title>Slide a zero along the array · the critical line</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;--violet:#4a3aa7;}
@@ -41,14 +41,14 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>12 · Walk the proportion line</h1>
-<p class="lede">The line from zero to one, with every landmark: the old record, the new constants, the method's ceiling, and the untouched hypothesis.</p>
-<p class="try"><strong>Try this.</strong> Slide the hypothetical future bandwidth. The paper says what pair-correlation reach would be needed for 0.70, 0.80, 0.90; nobody can prove any bandwidth past one today, and no bandwidth short of infinity settles the hypothesis.</p>
+<h1>6 · Slide a zero along the array</h1>
+<p class="lede">Seven microphones of the toy array, and one zero you can move. Each microphone's share changes; the array's total does not.</p>
+<p class="try"><strong>Try this.</strong> Park the zero on a microphone, then exactly between two. The shares redistribute completely, and the total printed below never moves. This fair sharing is why the table's diagonal counts every zero once, wherever it sits.</p>
 <canvas id="c" width="720" height="380"></canvas>
-<div class="controls"><div class="row"><label for="bw">hypothetical future bandwidth</label><input type="range" id="bw" min="1.0" max="1.8" step="0.01" value="1.0"><span class="val" id="bwv"></span></div></div>
+<div class="controls"><div class="row"><label for="zp">the zero's position, in spacings</label><input type="range" id="zp" min="0" max="6" step="0.02" value="1.5"><span class="val" id="zpv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The green region is what is now certified unconditionally. The ceiling at 0.68185 binds this method's kind of certificate, not mathematics as a whole; a proof of the hypothesis would need inputs of a different nature entirely.</p>
-<div class="nav"><a href="10.html">← previous</a>  ·  <a href="index.html">all of them</a></div>
+<p class="note">The window and spacing are the toy family's, the same ones the figures and tests use, and the identity is the paper's Lemma 2.2. The total drifts from one only when the zero approaches the ends of a finite array, which is the edge effect the paper bounds.</p>
+<div class="nav"><a href="05.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="07.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -191,49 +191,56 @@ function Plot(canvas,xlo,xhi,ylo,yhi,pad){
 
 
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
-const bw=document.getElementById('bw');
-// the paper's anchors: bandwidth needed for each proportion (Remark 1.1)
-const ANCHORS=[[1.0,0.67250],[1.04,0.70],[1.26,0.80],[1.70,0.90]];
-function propAt(b){
-  if(b<=ANCHORS[0][0])return ANCHORS[0][1];
-  for(let i=1;i<ANCHORS.length;i++){
-    const [b0,p0]=ANCHORS[i-1],[b1,p1]=ANCHORS[i];
-    if(b<=b1)return p0+(p1-p0)*(b-b0)/(b1-b0);
-  }
-  return 0.90;
-}
+const zp=document.getElementById('zp');
+const SHOW=7,peak=toyResponse(0);
+// the bump curves never change, so they are sampled once
+const rlo=-2.5,rhi=6*TOY_H+2.5,NPT=200;
+const CURVES=[...Array(SHOW)].map((_,k)=>
+  [...Array(NPT+1)].map((_,i)=>{
+    const r=rlo+(rhi-rlo)*i/NPT;
+    return toyResponse(r-k*TOY_H)/peak;
+  }));
 function draw(){
-  const b=parseFloat(bw.value);
-  const P=Plot(cv,0.35,1.05,0,1,{l:30,r:20,t:30,b:60});
-  P.clear();
-  // the proportion bar
-  const y=0.5;
-  P.ctx.fillStyle='rgba(0,131,0,0.25)';
-  P.ctx.fillRect(P.X(0.35),P.Y(0.62),P.X(2/3)-P.X(0.35),P.Y(0.38)-P.Y(0.62));
-  const marks=[[5/12,'5/12: the record until 2026','#2a78d6',0.78],
-               [2/3,'2/3: 2026, flat window','#008300',0.20],
-               [0.67250,'0.6725: best window','#008300',0.86],
-               [0.68185,'0.68185: the method\'s ceiling','#d03b3b',0.08],
-               [1.0,'1: the hypothesis, open','#52514e',0.78]];
-  for(const [x,lab,color,ty] of marks){
-    P.vline(x,color);
-    P.ctx.fillStyle=color;P.ctx.font='11.5px system-ui';P.ctx.textAlign='center';
-    P.ctx.fillText(lab,Math.min(Math.max(P.X(x),70),cv.width-90),P.Y(ty));
+  const pos=parseFloat(zp.value)*TOY_H;
+  ctx.clearRect(0,0,cv.width,cv.height);
+  // the bumps, drawn across the top half
+  const x0=40,x1=680,y0=120,amp=78;
+  const X=r=>x0+(r-rlo)/(rhi-rlo)*(x1-x0);
+  for(let k=0;k<SHOW;k++){
+    ctx.strokeStyle=k%2?'#00787a':'#2a78d6';ctx.lineWidth=1.3;ctx.beginPath();
+    for(let i=0;i<=NPT;i++){
+      const r=rlo+(rhi-rlo)*i/NPT;
+      const x=X(r),y=y0-CURVES[k][i]*amp;
+      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
   }
-  const p=propAt(b);
-  P.dots([p],[y],'#0b0b0b',6);
-  P.ctx.fillStyle='#52514e';P.ctx.font='12px system-ui';P.ctx.textAlign='center';
-  P.ctx.fillText('what bandwidth '+b.toFixed(2)+' would certify',P.X(p),P.Y(0.44));
-  bwv.textContent=b.toFixed(2);
-  const out=document.getElementById('out');
-  out.textContent='bandwidth '+b.toFixed(2)+
-    '  would certify about  '+p.toFixed(3)+'\n'+
-    (b<1.01?'bandwidth one is where knowledge ends today':
-     'no bandwidth is provable past one today; the anchors 1.04, 1.26, 1.70\n'+
-     'are the paper\'s, the line between them only guides the eye');
-  out.className='readout '+(b<1.01?'verdict-ok':'');
+  ctx.strokeStyle='#d03b3b';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(X(pos),18);ctx.lineTo(X(pos),y0+26);ctx.stroke();
+  // the shares, as bars across the bottom half
+  let total=0;
+  for(let k=-40;k<=46;k++){const v=toyResponse(pos-k*TOY_H);total+=v*v;}
+  total/=TOY_AL2;
+  for(let k=0;k<SHOW;k++){
+    const share=Math.pow(toyResponse(pos-k*TOY_H),2)/TOY_AL2;
+    const bx=70+k*88,bh=share*160;
+    ctx.fillStyle=k%2?'#00787a':'#2a78d6';
+    ctx.fillRect(bx,330-bh,52,Math.max(1.5,bh));
+    ctx.fillStyle='#52514e';ctx.font='11px system-ui';ctx.textAlign='center';
+    ctx.fillText('mic '+k,bx+26,348);
+    ctx.fillText(share.toFixed(2),bx+26,326-bh);
+  }
+  ctx.strokeStyle='#008300';ctx.setLineDash([5,4]);ctx.beginPath();
+  ctx.moveTo(55,330-160);ctx.lineTo(690,330-160);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle='#008300';ctx.font='11px system-ui';ctx.textAlign='right';
+  ctx.fillText('one whole zero',688,330-166);
+  zpv.textContent=parseFloat(zp.value).toFixed(2);
+  document.getElementById('out').textContent=
+    'total over the whole array  '+total.toFixed(4)+'  (constant)\n'+
+    'the sampling identity behind the count of chapter 8';
+  document.getElementById('out').className='readout verdict-ok';
 }
-bw.addEventListener('input',draw);draw();
+zp.addEventListener('input',draw);draw();
 
 </script>
 </body>

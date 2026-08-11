@@ -83,6 +83,68 @@ def listen_gif(fps=12):
     save_anim(fig, update, frames, OUT / "listen.gif", fps=fps)
 
 
+def fairshare_gif(fps=12):
+    """The sampling identity (the paper's Lemma 2.2), watched directly.
+
+    A zero slides along the array.  Each microphone's squared response
+    rises and falls, but the total over the whole grid never moves: at
+    this exact spacing the array shares every zero fairly, wherever it
+    sits.  The total is computed over a grid wide enough that the
+    truncation error is far below the drawn precision.
+    """
+    h = FAM.h
+    show = 7                                   # microphones drawn as bars
+    grid = np.arange(-40, 47) * h              # the (effectively) full grid
+    us = np.linspace(-FAM.L / 2, FAM.L / 2, 4001)
+    aL2 = float(np.trapezoid(FAM.window(us) ** 2, us)) * FAM.L
+
+    fig, (ax1, ax2) = plt.subplots(
+        2, 1, figsize=(8.6, 5.6), gridspec_kw={"height_ratios": [1, 1.5]})
+    fig.subplots_adjust(bottom=0.14, hspace=0.45)
+
+    rs = np.linspace(-3, (show - 1) * h + 3, 500)
+    peak = float(FAM.response(np.array([0.0]))[0])
+    for k in range(show):
+        ax1.plot(rs, FAM.response(rs - k * h) / peak,
+                 color=TEAL if k % 2 else BLUE, lw=1.3, alpha=0.8)
+    zline = ax1.axvline(0, color=RED, lw=2.0)
+    ax1.set_ylim(-0.35, 1.15)
+    ax1.set_yticks([])
+    plot_axes(ax1, xlabel="height axis (the red line is the zero)")
+
+    bars = ax2.bar(range(show), np.zeros(show),
+                   color=[TEAL if k % 2 else BLUE for k in range(show)],
+                   width=0.7)
+    total_line = ax2.axhline(1.0, color=GREEN, lw=1.6, ls="--")
+    ax2.text(show - 0.4, 1.03, "the array's total, constant", color=GREEN,
+             fontsize=9, ha="right")
+    ax2.set_ylim(0, 1.15)
+    ax2.set_xticks(range(show))
+    ax2.set_xticklabels([f"mic {k}" for k in range(show)], fontsize=8)
+    plot_axes(ax2, ylabel="share of the zero's weight")
+    note = note_below(fig, x=0.5, ha="center", fontsize=11.5)
+    fig.suptitle("the array shares every zero fairly, wherever it sits",
+                 color=INK2, fontsize=12)
+
+    path = np.linspace(0.8 * h, 5.2 * h, 80)
+
+    def update(i):
+        g = path[min(i, len(path) - 1)]
+        zline.set_xdata([g, g])
+        shares = np.array([float(FAM.response(np.array([g - k * h]))[0]) ** 2
+                           for k in range(show)]) / aL2
+        for bar, s in zip(bars, shares):
+            bar.set_height(s)
+        total = float(np.sum(FAM.response(g - grid) ** 2)) / aL2
+        note.set_text(f"total over the whole array: {total:.4f} "
+                      "of one zero's weight")
+        note.set_color(GREEN)
+        return []
+
+    frames = len(path) + end_pad(fps)
+    save_anim(fig, update, frames, OUT / "fairshare.gif", fps=fps)
+
+
 def table_png():
     """The real 44-by-44 table from the zeros near the toy stretch."""
     zeros = FAM.real_zero_config(40, 400)

@@ -14,6 +14,8 @@ Two refinements complete the paper's headline numbers.
 
 ![The certified proportion as the dial turns, for on-line, distinct and the weaker certificate, peaking at dial one](dial.png)
 
+The chart carries a third, dashed curve, and it deserves a sentence. The paper keeps two ways of reading the same two totals: the sharper rank-trace route of chapter 9, and a simpler one-step reading ([Lemma 3.3, page 10](https://www-cdn.anthropic.com/564f962e60643842f5fcb4a17c9dbc8f608f1c37.pdf#page=10)) that squares the count and divides by the energy. The simpler reading is weaker near dial one, but below dial 0.55 it is the only one that says anything, so the distinct-zero curve follows whichever of the two is better at each setting.
+
 **The window matters, a little.** The bump shape of chapter 6 was flat-topped for simplicity. Optimising the shape instead ([section 7.1, page 20](https://www-cdn.anthropic.com/564f962e60643842f5fcb4a17c9dbc8f608f1c37.pdf#page=20)) leads to a gently curved cosine profile, and the constants improve to 0.6725 on the line and simple, and 0.83625 distinct. The optimal shape was already known: Montgomery and Taylor found the same test function in 1975 for the conditional version of this problem, and the paper proves that the 2026 machine reaches their constant without their hypothesis. This repository recomputes the optimising shape's score numerically and checks that nearby shapes do worse.
 
 ![The flat window and the optimised cosine window, with the constants each one certifies](window_race.png)

@@ -102,6 +102,29 @@ function mtConstant(){ const t=Math.tan(1/Math.SQRT2);
 function charge(m){ return m*m; }
 function floor3(m){ return 3*m-2; }
 
+// the toy family's window transform (stretch 100 to 200, dial one), the
+// same recipe as zeta_guide.core.ToyFamily.response, by direct integration
+const TOY_L=Math.log(100/(2*Math.PI)),TOY_W=0.2*TOY_L/2,TOY_H=2*Math.PI/TOY_L;
+function rampProfile(x){ x=Math.min(1,Math.max(0,x));
+  return x-Math.sin(2*Math.PI*x)/(2*Math.PI); }
+function toyResponse(r){
+  const n=1500,du=(TOY_L/2)/n;let s=0;
+  for(let i=0;i<=n;i++){
+    const u=i*du,v=rampProfile((TOY_L/2-u)/TOY_W)*Math.cos(r*u);
+    s+=(i===0||i===n)?v/2:v;
+  }
+  return 2*s*du;
+}
+// the array's constant total (the sampling identity's right-hand side)
+const TOY_AL2=(function(){
+  const n=1500,du=(TOY_L/2)/n;let s=0;
+  for(let i=0;i<=n;i++){
+    const u=i*du,p=rampProfile((TOY_L/2-u)/TOY_W);
+    s+=(i===0||i===n)?p*p/2:p*p;
+  }
+  return 2*s*du*TOY_L;
+})();
+
 // eigenvalues of a symmetric 2x2 table [[a,b],[b,c]]
 function eig2(a,b,c){
   const t=(a+c)/2,d=Math.sqrt(((a-c)/2)**2+b*b);
@@ -293,6 +316,46 @@ xmax.addEventListener('input',draw);draw();
      "under the guess; Littlewood proved the sign nevertheless flips "
      "infinitely often, unimaginably far out."),
 
+    (2, "02-riemanns-map", "Slice the landscape",
+     "The size of zeta along one vertical slice of the strip. The slider "
+     "moves the slice sideways.",
+     "Start away from the middle and watch the valley floor: it dips but "
+     "never touches zero. Slide to one half and every dip lands exactly on "
+     "the floor, at the marked heights. As far as anyone has ever computed, "
+     "the touching happens only there.",
+     slider("sig", "the slice's first coordinate", 0, 1, 0.01, 0.2),
+     r"""
+const cv=document.getElementById('c');
+const sig=document.getElementById('sig');
+const marks=ZEROS.filter(g=>g<=50);
+function draw(){
+  const s=parseFloat(sig.value);
+  const P=Plot(cv,2,50,0,4.2);
+  P.clear();P.axes('height along the slice','size of zeta');
+  for(const g of marks)P.vline(g,'#f0b5b5');
+  let mn=1e9;
+  P.curve(t=>{
+    const z=zetaEM(s,t),v=Math.hypot(z[0],z[1]);
+    if(t>3&&v<mn)mn=v;
+    return Math.min(v,4.2);
+  },'#2a78d6',1.8,700);
+  sigv.textContent=s.toFixed(2);
+  const onLine=Math.abs(s-0.5)<0.005;
+  const out=document.getElementById('out');
+  out.textContent='slice at first coordinate  '+s.toFixed(2)+'\n'+
+    'lowest point of the curve  '+mn.toFixed(4)+'\n'+
+    (onLine?'on the critical line: the dips reach zero, at the marked heights'
+           :'off the line: the curve dips but never reaches zero');
+  out.className='readout '+(onLine?'verdict-ok':'');
+}
+sig.addEventListener('input',draw);draw();
+""",
+     "Zeta is computed live along the slice, by the same recipe as the "
+     "repository's Python library, and the marked heights come from the "
+     "shipped zero table. That the touching happens only at one half is "
+     "the Riemann hypothesis, verified here only as far as the picture "
+     "reaches."),
+
     (3, "03-the-music", "Add the waves yourself",
      "The prime staircase, and the explicit formula's rebuild from the "
      "first zero-waves.",
@@ -386,6 +449,72 @@ draw();
      "Doubled pins and mirror pairs are synthetic: every zero anyone has "
      "computed is clean and on the line. The counters here move exactly the "
      "way the paper's four counting functions do."),
+
+    (6, "06-the-microphones", "Slide a zero along the array",
+     "Seven microphones of the toy array, and one zero you can move. Each "
+     "microphone's share changes; the array's total does not.",
+     "Park the zero on a microphone, then exactly between two. The shares "
+     "redistribute completely, and the total printed below never moves. "
+     "This fair sharing is why the table's diagonal counts every zero "
+     "once, wherever it sits.",
+     slider("zp", "the zero's position, in spacings", 0, 6, 0.02, 1.5),
+     r"""
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+const zp=document.getElementById('zp');
+const SHOW=7,peak=toyResponse(0);
+// the bump curves never change, so they are sampled once
+const rlo=-2.5,rhi=6*TOY_H+2.5,NPT=200;
+const CURVES=[...Array(SHOW)].map((_,k)=>
+  [...Array(NPT+1)].map((_,i)=>{
+    const r=rlo+(rhi-rlo)*i/NPT;
+    return toyResponse(r-k*TOY_H)/peak;
+  }));
+function draw(){
+  const pos=parseFloat(zp.value)*TOY_H;
+  ctx.clearRect(0,0,cv.width,cv.height);
+  // the bumps, drawn across the top half
+  const x0=40,x1=680,y0=120,amp=78;
+  const X=r=>x0+(r-rlo)/(rhi-rlo)*(x1-x0);
+  for(let k=0;k<SHOW;k++){
+    ctx.strokeStyle=k%2?'#00787a':'#2a78d6';ctx.lineWidth=1.3;ctx.beginPath();
+    for(let i=0;i<=NPT;i++){
+      const r=rlo+(rhi-rlo)*i/NPT;
+      const x=X(r),y=y0-CURVES[k][i]*amp;
+      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+  }
+  ctx.strokeStyle='#d03b3b';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(X(pos),18);ctx.lineTo(X(pos),y0+26);ctx.stroke();
+  // the shares, as bars across the bottom half
+  let total=0;
+  for(let k=-40;k<=46;k++){const v=toyResponse(pos-k*TOY_H);total+=v*v;}
+  total/=TOY_AL2;
+  for(let k=0;k<SHOW;k++){
+    const share=Math.pow(toyResponse(pos-k*TOY_H),2)/TOY_AL2;
+    const bx=70+k*88,bh=share*160;
+    ctx.fillStyle=k%2?'#00787a':'#2a78d6';
+    ctx.fillRect(bx,330-bh,52,Math.max(1.5,bh));
+    ctx.fillStyle='#52514e';ctx.font='11px system-ui';ctx.textAlign='center';
+    ctx.fillText('mic '+k,bx+26,348);
+    ctx.fillText(share.toFixed(2),bx+26,326-bh);
+  }
+  ctx.strokeStyle='#008300';ctx.setLineDash([5,4]);ctx.beginPath();
+  ctx.moveTo(55,330-160);ctx.lineTo(690,330-160);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle='#008300';ctx.font='11px system-ui';ctx.textAlign='right';
+  ctx.fillText('one whole zero',688,330-166);
+  zpv.textContent=parseFloat(zp.value).toFixed(2);
+  document.getElementById('out').textContent=
+    'total over the whole array  '+total.toFixed(4)+'  (constant)\n'+
+    'the sampling identity behind the count of chapter 8';
+  document.getElementById('out').className='readout verdict-ok';
+}
+zp.addEventListener('input',draw);draw();
+""",
+     "The window and spacing are the toy family's, the same ones the "
+     "figures and tests use, and the identity is the paper's Lemma 2.2. "
+     "The total drifts from one only when the zero approaches the ends of "
+     "a finite array, which is the edge effect the paper bounds."),
 
     (7, "07-bowls-and-saddles", "Mix a bowl with a saddle",
      "A two-microphone table: a bowl from an on-line zero, plus an "

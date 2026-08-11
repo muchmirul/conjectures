@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Walk the proportion line · the critical line</title>
+<title>Slice the landscape · the critical line</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;--violet:#4a3aa7;}
@@ -41,14 +41,14 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>12 · Walk the proportion line</h1>
-<p class="lede">The line from zero to one, with every landmark: the old record, the new constants, the method's ceiling, and the untouched hypothesis.</p>
-<p class="try"><strong>Try this.</strong> Slide the hypothetical future bandwidth. The paper says what pair-correlation reach would be needed for 0.70, 0.80, 0.90; nobody can prove any bandwidth past one today, and no bandwidth short of infinity settles the hypothesis.</p>
+<h1>2 · Slice the landscape</h1>
+<p class="lede">The size of zeta along one vertical slice of the strip. The slider moves the slice sideways.</p>
+<p class="try"><strong>Try this.</strong> Start away from the middle and watch the valley floor: it dips but never touches zero. Slide to one half and every dip lands exactly on the floor, at the marked heights. As far as anyone has ever computed, the touching happens only there.</p>
 <canvas id="c" width="720" height="380"></canvas>
-<div class="controls"><div class="row"><label for="bw">hypothetical future bandwidth</label><input type="range" id="bw" min="1.0" max="1.8" step="0.01" value="1.0"><span class="val" id="bwv"></span></div></div>
+<div class="controls"><div class="row"><label for="sig">the slice's first coordinate</label><input type="range" id="sig" min="0" max="1" step="0.01" value="0.2"><span class="val" id="sigv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The green region is what is now certified unconditionally. The ceiling at 0.68185 binds this method's kind of certificate, not mathematics as a whole; a proof of the hypothesis would need inputs of a different nature entirely.</p>
-<div class="nav"><a href="10.html">← previous</a>  ·  <a href="index.html">all of them</a></div>
+<p class="note">Zeta is computed live along the slice, by the same recipe as the repository's Python library, and the marked heights come from the shipped zero table. That the touching happens only at one half is the Riemann hypothesis, verified here only as far as the picture reaches.</p>
+<div class="nav"><a href="01.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="03.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -190,50 +190,30 @@ function Plot(canvas,xlo,xhi,ylo,yhi,pad){
 }
 
 
-const cv=document.getElementById('c'),ctx=cv.getContext('2d');
-const bw=document.getElementById('bw');
-// the paper's anchors: bandwidth needed for each proportion (Remark 1.1)
-const ANCHORS=[[1.0,0.67250],[1.04,0.70],[1.26,0.80],[1.70,0.90]];
-function propAt(b){
-  if(b<=ANCHORS[0][0])return ANCHORS[0][1];
-  for(let i=1;i<ANCHORS.length;i++){
-    const [b0,p0]=ANCHORS[i-1],[b1,p1]=ANCHORS[i];
-    if(b<=b1)return p0+(p1-p0)*(b-b0)/(b1-b0);
-  }
-  return 0.90;
-}
+const cv=document.getElementById('c');
+const sig=document.getElementById('sig');
+const marks=ZEROS.filter(g=>g<=50);
 function draw(){
-  const b=parseFloat(bw.value);
-  const P=Plot(cv,0.35,1.05,0,1,{l:30,r:20,t:30,b:60});
-  P.clear();
-  // the proportion bar
-  const y=0.5;
-  P.ctx.fillStyle='rgba(0,131,0,0.25)';
-  P.ctx.fillRect(P.X(0.35),P.Y(0.62),P.X(2/3)-P.X(0.35),P.Y(0.38)-P.Y(0.62));
-  const marks=[[5/12,'5/12: the record until 2026','#2a78d6',0.78],
-               [2/3,'2/3: 2026, flat window','#008300',0.20],
-               [0.67250,'0.6725: best window','#008300',0.86],
-               [0.68185,'0.68185: the method\'s ceiling','#d03b3b',0.08],
-               [1.0,'1: the hypothesis, open','#52514e',0.78]];
-  for(const [x,lab,color,ty] of marks){
-    P.vline(x,color);
-    P.ctx.fillStyle=color;P.ctx.font='11.5px system-ui';P.ctx.textAlign='center';
-    P.ctx.fillText(lab,Math.min(Math.max(P.X(x),70),cv.width-90),P.Y(ty));
-  }
-  const p=propAt(b);
-  P.dots([p],[y],'#0b0b0b',6);
-  P.ctx.fillStyle='#52514e';P.ctx.font='12px system-ui';P.ctx.textAlign='center';
-  P.ctx.fillText('what bandwidth '+b.toFixed(2)+' would certify',P.X(p),P.Y(0.44));
-  bwv.textContent=b.toFixed(2);
+  const s=parseFloat(sig.value);
+  const P=Plot(cv,2,50,0,4.2);
+  P.clear();P.axes('height along the slice','size of zeta');
+  for(const g of marks)P.vline(g,'#f0b5b5');
+  let mn=1e9;
+  P.curve(t=>{
+    const z=zetaEM(s,t),v=Math.hypot(z[0],z[1]);
+    if(t>3&&v<mn)mn=v;
+    return Math.min(v,4.2);
+  },'#2a78d6',1.8,700);
+  sigv.textContent=s.toFixed(2);
+  const onLine=Math.abs(s-0.5)<0.005;
   const out=document.getElementById('out');
-  out.textContent='bandwidth '+b.toFixed(2)+
-    '  would certify about  '+p.toFixed(3)+'\n'+
-    (b<1.01?'bandwidth one is where knowledge ends today':
-     'no bandwidth is provable past one today; the anchors 1.04, 1.26, 1.70\n'+
-     'are the paper\'s, the line between them only guides the eye');
-  out.className='readout '+(b<1.01?'verdict-ok':'');
+  out.textContent='slice at first coordinate  '+s.toFixed(2)+'\n'+
+    'lowest point of the curve  '+mn.toFixed(4)+'\n'+
+    (onLine?'on the critical line: the dips reach zero, at the marked heights'
+           :'off the line: the curve dips but never reaches zero');
+  out.className='readout '+(onLine?'verdict-ok':'');
 }
-bw.addEventListener('input',draw);draw();
+sig.addEventListener('input',draw);draw();
 
 </script>
 </body>

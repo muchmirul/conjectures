@@ -219,6 +219,19 @@ def test_the_trace_tracks_the_zero_count(toy):
     assert float(np.trace(Gz)) == pytest.approx(a * fam.L * n, rel=0.04)
 
 
+def test_the_array_shares_every_zero_fairly(toy):
+    """The sampling identity (the paper's Lemma 2.2): summed over the whole
+    microphone grid, the squared responses to a zero total the same
+    constant, wherever the zero sits between microphones."""
+    fam, _ = toy
+    us = np.linspace(-fam.L / 2, fam.L / 2, 4001)
+    aL2 = float(np.trapezoid(fam.window(us) ** 2, us)) * fam.L
+    grid = np.arange(-60, 61) * fam.h
+    for frac in (0.0, 0.17, 0.33, 0.5, 0.71, 0.94):
+        total = float(np.sum(fam.response(frac * fam.h - grid) ** 2))
+        assert total == pytest.approx(aL2, rel=1e-4), frac
+
+
 def test_an_on_line_zero_makes_a_bowl(toy):
     fam, _ = toy
     one = fam.table_from_zeros([(150.0 + 0j, 1)])

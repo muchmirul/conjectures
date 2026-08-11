@@ -10,6 +10,8 @@ The camera circles so that the shape is genuinely three-dimensional: two directi
 
 The flat map shows the same region from above, with the first thirty zeros marked as pins. Two symmetries are worth carrying forward. The zeros come in top-bottom pairs, so it is enough to look above the horizontal axis, and everyone measures a zero by its **height**: the first sits at height 14.13, the second at 21.02, and so on, forever upward. Less obviously, the landscape obeys a left-right mirror rule across the line: if a zero ever sat off the line, its mirror image through the line would also be a zero. Off-line zeros could only appear as symmetric pairs, one on each side at the same height. We will call such a hypothetical couple a **mirror pair**, and no such pair has ever been found.
 
+**[Play with this](https://muchmirul.github.io/conjectures/zeta-critical-line/play/02.html)** to slide a slice across the strip and watch the valley touch zero only at one half.
+
 ---
 
 [← The primes](../01-the-primes/README.md)  ·  [The music of the primes →](../03-the-music/README.md)  ·  [the whole article on one page](../../ARTICLE.md)

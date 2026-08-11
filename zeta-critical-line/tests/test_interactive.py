@@ -37,14 +37,14 @@ def run_js(snippet: str):
 # --- structure -------------------------------------------------------------
 
 def test_every_chapter_has_a_playable_page():
-    """One page per part of the progression, except the four that are pure
-    reading: chapters 2, 4, 6 and 11 have no simulation page."""
-    assert len(build_interactive.CHAPTERS) == 9
+    """One page per part of the progression, except the two that are pure
+    reading: chapters 4 and 11 have no simulation page."""
+    assert len(build_interactive.CHAPTERS) == 11
     assert {n for n, *_ in build_interactive.CHAPTERS} == \
-        {0, 1, 3, 5, 7, 8, 9, 10, 12}
+        {0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 12}
     for num, *_ in build_interactive.CHAPTERS:
         assert (PLAY / f"{num:02d}.html").exists()
-    for gone in (2, 4, 6, 11):
+    for gone in (4, 11):
         assert not (PLAY / f"{gone:02d}.html").exists()
     assert (PLAY / "index.html").exists()
 
@@ -72,7 +72,7 @@ def test_the_built_page_embeds_every_simulation():
     for num, *_ in build_interactive.CHAPTERS:
         assert f'<iframe src="play/{num:02d}.html?embed"' in page
         assert f'<a href="play/{num:02d}.html">' in page
-    assert page.count("<iframe") == 9
+    assert page.count("<iframe") == 11
 
 
 def test_the_embedded_pages_hide_their_own_chrome():
@@ -168,6 +168,33 @@ def test_the_pages_prime_terms_match_the_library():
     assert [n for n, _ in got] == [n for n, _ in ours]
     for (_, wj), (_, wp) in zip(got, ours):
         assert wj == pytest.approx(wp, rel=1e-12)
+
+
+@pytest.mark.skipif(NODE is None, reason="node is not installed")
+def test_the_pages_microphone_response_matches_the_library():
+    fam = C.ToyFamily(T=100.0, dial=1.0)
+    got = run_js("console.log(JSON.stringify("
+                 "[toyResponse(0),toyResponse(1.1),toyResponse(2.3),"
+                 "toyResponse(4.0),TOY_AL2]))")
+    for js, r in zip(got[:4], (0.0, 1.1, 2.3, 4.0)):
+        ours = float(fam.response(np.array([r]))[0])
+        assert js == pytest.approx(ours, abs=1e-5)
+    us = np.linspace(-fam.L / 2, fam.L / 2, 4001)
+    aL2 = float(np.trapezoid(fam.window(us) ** 2, us)) * fam.L
+    assert got[4] == pytest.approx(aL2, rel=1e-5)
+
+
+@pytest.mark.skipif(NODE is None, reason="node is not installed")
+def test_the_pages_array_total_is_constant():
+    """The sampling identity, as the page computes it."""
+    got = run_js(
+        "const out=[];"
+        "for(const f of [0.1,0.5,0.9]){"
+        "let t=0;for(let k=-40;k<=46;k++){"
+        "const v=toyResponse((2+f)*TOY_H-k*TOY_H);t+=v*v;}"
+        "out.push(t/TOY_AL2);}console.log(JSON.stringify(out))")
+    for total in got:
+        assert total == pytest.approx(1.0, rel=1e-4)
 
 
 @pytest.mark.skipif(NODE is None, reason="node is not installed")

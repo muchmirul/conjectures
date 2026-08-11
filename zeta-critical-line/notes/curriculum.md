@@ -90,8 +90,8 @@ last says honestly what is and is not settled.
   three-dimensional, so nothing else pretends to be.
 - **A picture made only of words is not a picture.** Word-only comparisons
   (the record table, the now-known/still-open box) are plain quoted blocks.
-- **Playable pages.** Chapters 0, 1, 3, 5, 7, 8, 9, 10 and 12 each get a
-  self-contained page under `docs/zeta-critical-line/play/`, built by
+- **Playable pages.** Chapters 0, 1, 2, 3, 5, 6, 7, 8, 9, 10 and 12 each
+  get a self-contained page under `docs/zeta-critical-line/play/`, built by
   `build_interactive.py`, no libraries, no network. The flagship is chapter
   3, where the reader adds zero-waves one at a time and watches the prime
   staircase assemble itself. The JavaScript re-implements parts of

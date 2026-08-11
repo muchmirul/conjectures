@@ -10,11 +10,17 @@ The next step is to spread microphones evenly across the stretch of heights bein
 
 ![A zero sliding between two microphones while both sensitivity bumps respond, and the pair's table entry updates](listen.gif)
 
-The animation shows the principle on two microphones: as a zero slides across, each microphone's response follows its bump, and the product of the two responses is what lands in the table. The next picture shows the real table for our toy stretch, computed from the actual 196 zeros this repository holds near the stretch:
+The animation shows the principle on two microphones: as a zero slides across, each microphone's response follows its bump, and the product of the two responses is what lands in the table. One property of this arrangement will carry chapter 8, and the next animation shows it. The microphones are spaced at exactly the right density for the window, and at that spacing the array shares every zero fairly: as a zero slides along, one microphone's share falls while its neighbours' shares rise, and the total of all the squared responses never changes ([Lemma 2.2, page 8](https://www-cdn.anthropic.com/564f962e60643842f5fcb4a17c9dbc8f608f1c37.pdf#page=8)). Because of this, the table registers every zero with the same total weight wherever it happens to sit between the microphones; only zeros near the two ends of the stretch are read partially, and the paper bounds that edge effect once and for all. The tests check the constant total numerically.
+
+![A zero sliding along the microphone array while individual shares rise and fall and the total of all squared responses stays constant](fairshare.gif)
+
+The next picture shows the real table for our toy stretch, computed from the actual 196 zeros this repository holds near the stretch:
 
 ![The forty-four by forty-four table computed from real zeros, bright along the diagonal band and quiet away from it](table.png)
 
 The table is big along its diagonal, where a microphone is paired with itself or a close neighbour, and fades away from it, because distant microphones share almost nothing. It is also perfectly symmetric, thanks to the mirror symmetries of chapter 2. Everything after this point works with this grid alone: the zeros built it, and the next three chapters extract from it everything the theorems need. A reader who wants the standard name can know it as a Gram matrix of Weil's Hermitian form; the glossary at the end collects such names.
+
+**[Play with this](https://muchmirul.github.io/conjectures/zeta-critical-line/play/06.html)** to slide a zero along the array and watch the shares move while the total stays fixed.
 
 ---
 

@@ -77,7 +77,8 @@ and state, as we repeat, that no theorem in the paper depends on them.
 
 | ingredient | bucket | test |
 |---|---|---|
-| the matrix built from zeros equals the matrix built from primes (the paper's section 8 item (1), which reports agreement 10^-6 to 10^-8; our toy height reaches a few parts in 10^5) | [computed] at toy height, I = [100, 300] | `test_prime_side_equals_zero_side_at_toy_height` |
+| the matrix built from zeros equals the matrix built from primes (the paper's section 8 item (1), which reports agreement 10^-6 to 10^-8; our toy height reaches the same order) | [computed] at toy height, stretch 100 to 200 | `test_prime_side_equals_zero_side_at_toy_height` |
+| the sampling identity (Lemma 2.2, page 8): summed over the whole microphone grid, the squared responses to a zero total the same constant wherever the zero sits | [computed] numerically at toy scale, in Python and in the page's JavaScript | `test_the_array_shares_every_zero_fairly`, `test_the_pages_array_total_is_constant` |
 | the trace of the matrix is close to the zero count N, whatever the window | [computed] | same test, plus `test_the_trace_tracks_the_zero_count` |
 | the rank-trace inequality (Lemma 3.2, equation (3.1), page 9) on random instances | [computed]: random P, Q plus the stated equality case | `test_the_rank_trace_inequality_on_random_instances` |
 | the thresholded Cauchy-Schwarz count (Lemma 3.3, page 10) on random instances | [computed] | `test_the_cauchy_schwarz_count_on_random_instances` |
@@ -104,6 +105,11 @@ and state, as we repeat, that no theorem in the paper depends on them.
 - Remark 7.3 (page 23): applied to the derivative of the completed zeta
   function, the same machine gives 0.85838 simple-and-on-the-line and 0.92919
   distinct, unconditionally (0.86864 and 0.93432 with a quartic window).
+- Section 7.5 (f), (g) (pages 24-25): conditional side-results, quoted in the
+  article's section 12: under RH the distinct proportion rises to 0.85082,
+  and hypothetical higher-moment laws would push the certified proportion
+  toward one. None of the stronger inputs is proven; the paper records these
+  as measurements of the remaining distance.
 - The inputs are: Weil's explicit formula, the functional equation, mean
   values of Dirichlet polynomials of length up to T (Montgomery's first and
   second moments in the unconditional form of [BGSTB24]), and linear algebra.
