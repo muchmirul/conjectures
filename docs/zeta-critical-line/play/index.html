@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Play with it · the critical line</title>
+<style>
+ :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+        --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;--violet:#4a3aa7;}
+ @media (prefers-color-scheme: dark){
+   :root{--surface:#15150f;--ink:#f2f1ea;--ink2:#c9c7bd;--muted:#8d8b82;--line:#33322c;}
+ }
+ *{box-sizing:border-box}
+ body{margin:0;padding:28px 20px 56px;background:var(--surface);color:var(--ink);
+   font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif;}
+ main{max-width:760px;margin:0 auto}
+ .back{font-size:14px;color:var(--muted);text-decoration:none}
+ .back:hover{color:var(--blue)}
+ h1{font-size:24px;line-height:1.25;margin:14px 0 6px}
+ .lede{color:var(--ink2);margin:0 0 22px}
+ .try{border-left:3px solid var(--blue);padding:8px 0 8px 14px;margin:0 0 22px;
+   color:var(--ink2);font-size:15px}
+ canvas{width:100%;height:auto;display:block;border-radius:8px;background:var(--surface)}
+ .controls{margin:18px 0 0}
+ .row{display:flex;align-items:center;gap:12px;margin:10px 0}
+ .row label{flex:0 0 190px;font-size:14px;color:var(--ink2)}
+ input[type=range]{flex:1;accent-color:var(--blue)}
+ .val{flex:0 0 90px;text-align:right;font-family:ui-monospace,monospace;font-size:13px}
+ .readout{margin-top:18px;padding:14px 16px;border:1px solid var(--line);border-radius:8px;
+   font-family:ui-monospace,monospace;font-size:14px;white-space:pre-line}
+ .verdict-ok{color:var(--green)} .verdict-no{color:var(--red)}
+ .nav{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-size:14px}
+ .nav a{color:var(--blue);text-decoration:none} .nav a:hover{text-decoration:underline}
+ .note{margin-top:26px;font-size:13.5px;color:var(--muted)}
+ /* embedded in the article: drop the chrome the article already provides */
+ body.embed{padding:14px 16px 18px}
+ body.embed .back, body.embed h1, body.embed .lede, body.embed .nav{display:none}
+ body.embed .try{margin-top:0}
+.list{list-style:none;padding:0;margin:0}.list li{padding:12px 0;border-bottom:1px solid var(--line)}.list a{display:block;color:var(--blue);text-decoration:none;font-size:16px}.list span{display:block;color:var(--muted);font-size:13.5px;margin-top:2px}</style>
+</head>
+<body>
+<main>
+<a class="back" href="../index.html">back to the article</a>
+<h1>Play with it</h1>
+<p class="lede">One page per chapter. Every number in the article is a control on one of these.</p>
+
+
+<ul class="list"><li><a href="00.html">0 · Steer the zeta path</a><span>The value of zeta along the critical line, drawn as a path in the plane. The slider is the height.</span></li>
+<li><a href="01.html">1 · Walk the staircase</a><span>The prime count climbing, against the smooth curve Gauss guessed at fifteen.</span></li>
+<li><a href="03.html">3 · Add the waves yourself</a><span>The prime staircase, and the explicit formula's rebuild from the first zero-waves.</span></li>
+<li><a href="05.html">5 · Tally a stretch four ways</a><span>Eight pin slots on a stretch of the strip. Click a slot to cycle it: clean on the line, doubled, or a mirror pair.</span></li>
+<li><a href="07.html">7 · Mix a bowl with a saddle</a><span>A two-microphone table: a bowl from an on-line zero, plus an adjustable amount of saddle from a mirror pair.</span></li>
+<li><a href="08.html">8 · Find the zeros with primes</a><span>The prime-built density over the heights 100 to 140, with the true zero heights marked.</span></li>
+<li><a href="09.html">9 · Expose the doubles with energy</a><span>Ten pin locations; the slider doubles some of them. The energy is measured, the count is measured, and the trick deduces a floor on the clean pins.</span></li>
+<li><a href="10.html">10 · Turn the dial</a><span>Every constant in the paper, as the dial (the bandwidth) turns and the window switches.</span></li>
+<li><a href="12.html">12 · Walk the proportion line</a><span>The line from zero to one, with every landmark: the old record, the new constants, the method's ceiling, and the untouched hypothesis.</span></li></ul>
+
+<p class="note">Each page is self contained: no libraries and no network, so they work offline and from a file.</p>
+<div class="nav"><a href="../index.html">back to the article</a></div>
+</main>
+<script>
+if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
+
+
+</script>
+</body>
+</html>

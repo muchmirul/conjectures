@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tally a stretch four ways · the critical line</title>
+<style>
+ :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+        --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;--violet:#4a3aa7;}
+ @media (prefers-color-scheme: dark){
+   :root{--surface:#15150f;--ink:#f2f1ea;--ink2:#c9c7bd;--muted:#8d8b82;--line:#33322c;}
+ }
+ *{box-sizing:border-box}
+ body{margin:0;padding:28px 20px 56px;background:var(--surface);color:var(--ink);
+   font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif;}
+ main{max-width:760px;margin:0 auto}
+ .back{font-size:14px;color:var(--muted);text-decoration:none}
+ .back:hover{color:var(--blue)}
+ h1{font-size:24px;line-height:1.25;margin:14px 0 6px}
+ .lede{color:var(--ink2);margin:0 0 22px}
+ .try{border-left:3px solid var(--blue);padding:8px 0 8px 14px;margin:0 0 22px;
+   color:var(--ink2);font-size:15px}
+ canvas{width:100%;height:auto;display:block;border-radius:8px;background:var(--surface)}
+ .controls{margin:18px 0 0}
+ .row{display:flex;align-items:center;gap:12px;margin:10px 0}
+ .row label{flex:0 0 190px;font-size:14px;color:var(--ink2)}
+ input[type=range]{flex:1;accent-color:var(--blue)}
+ .val{flex:0 0 90px;text-align:right;font-family:ui-monospace,monospace;font-size:13px}
+ .readout{margin-top:18px;padding:14px 16px;border:1px solid var(--line);border-radius:8px;
+   font-family:ui-monospace,monospace;font-size:14px;white-space:pre-line}
+ .verdict-ok{color:var(--green)} .verdict-no{color:var(--red)}
+ .nav{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-size:14px}
+ .nav a{color:var(--blue);text-decoration:none} .nav a:hover{text-decoration:underline}
+ .note{margin-top:26px;font-size:13.5px;color:var(--muted)}
+ /* embedded in the article: drop the chrome the article already provides */
+ body.embed{padding:14px 16px 18px}
+ body.embed .back, body.embed h1, body.embed .lede, body.embed .nav{display:none}
+ body.embed .try{margin-top:0}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="../index.html">back to the article</a>
+<h1>5 · Tally a stretch four ways</h1>
+<p class="lede">Eight pin slots on a stretch of the strip. Click a slot to cycle it: clean on the line, doubled, or a mirror pair.</p>
+<p class="try"><strong>Try this.</strong> Make a few pins doubled and a few into mirror pairs, and watch which counters move apart. The theorems bound three of the counters against the first.</p>
+<canvas id="c" width="720" height="380"></canvas>
+<div class="controls"></div>
+<div class="readout" id="out"></div>
+<p class="note">Doubled pins and mirror pairs are synthetic: every zero anyone has computed is clean and on the line. The counters here move exactly the way the paper's four counting functions do.</p>
+<div class="nav"><a href="03.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="07.html">next →</a></div>
+</main>
+<script>
+if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
+
+// the first fifty zero heights, from the repository's shipped table
+const ZEROS=[14.134725141735,21.022039638772,25.010857580146,30.424876125860,32.935061587739,37.586178158826,40.918719012147,43.327073280915,48.005150881167,49.773832477672,52.970321477714,56.446247697063,59.347044002602,60.831778524610,65.112544048082,67.079810529494,69.546401711174,72.067157674482,75.704690699084,77.144840068875,79.337375020249,82.910380854086,84.735492980517,87.425274613125,88.809111207635,92.491899270559,94.651344040520,95.870634228245,98.831194218194,101.317851005731,103.725538040478,105.446623052326,107.168611184276,111.029535543170,111.874659176993,114.320220915453,116.226680320858,118.790782865976,121.370125002421,122.946829293553,124.256818554346,127.516683879596,129.578704199956,131.087688530933,133.497737202998,134.756509753374,138.116042054533,139.736208952121,141.123707404021,143.111845807621];
+
+// complex helpers: numbers are [re, im]
+function cadd(a,b){ return [a[0]+b[0],a[1]+b[1]]; }
+function cmul(a,b){ return [a[0]*b[0]-a[1]*b[1],a[0]*b[1]+a[1]*b[0]]; }
+function cdiv(a,b){ const d=b[0]*b[0]+b[1]*b[1];
+  return [(a[0]*b[0]+a[1]*b[1])/d,(a[1]*b[0]-a[0]*b[1])/d]; }
+// n^(-s) for real n>0: exp(-s ln n)
+function npow(n,s){ const ln=Math.log(n),m=Math.exp(-s[0]*ln),t=-s[1]*ln;
+  return [m*Math.cos(t),m*Math.sin(t)]; }
+
+// zeta by Euler-Maclaurin, the same recipe as zeta_guide.core.zeta_em
+function zetaEM(sre,sim){
+  const s=[sre,sim],N=Math.max(60,Math.floor(1.3*Math.abs(sim))+20);
+  let out=[0,0];
+  for(let n=1;n<N;n++) out=cadd(out,npow(n,s));
+  out=cadd(out,cdiv(npow(N,[s[0]-1,s[1]]),[s[0]-1,s[1]]));
+  out=cadd(out,cmul([0.5,0],npow(N,s)));
+  out=cadd(out,cmul(cdiv(s,[12,0]),npow(N,[s[0]+1,s[1]])));
+  const s12=cmul(s,cmul([s[0]+1,s[1]],[s[0]+2,s[1]]));
+  out=cadd(out,cmul(cdiv(s12,[-720,0]),npow(N,[s[0]+3,s[1]])));
+  const s34=cmul(s12,cmul([s[0]+3,s[1]],[s[0]+4,s[1]]));
+  out=cadd(out,cmul(cdiv(s34,[30240,0]),npow(N,[s[0]+5,s[1]])));
+  return out;
+}
+
+// primes and prime powers, as in zeta_guide.core
+function primesUpTo(x){
+  const s=new Array(x+1).fill(true);s[0]=s[1]=false;
+  for(let p=2;p*p<=x;p++)if(s[p])for(let q=p*p;q<=x;q+=p)s[q]=false;
+  const out=[];for(let n=2;n<=x;n++)if(s[n])out.push(n);
+  return out;
+}
+function vmTerms(x){
+  const out=[];
+  for(const p of primesUpTo(x)){let q=p;while(q<=x){out.push([q,Math.log(p)]);q*=p;}}
+  return out.sort((a,b)=>a[0]-b[0]);
+}
+function psiStair(x,terms){
+  let s=0;for(const [n,w] of terms)if(n<=x)s+=w;return s;
+}
+
+// the explicit formula's rebuild from the first K zero-waves
+function psiWaves(x,K){
+  let out=x-Math.log(2*Math.PI)-0.5*Math.log1p(-Math.pow(x,-2));
+  const lx=Math.log(x);
+  for(let k=0;k<K;k++){
+    const g=ZEROS[k],r=Math.hypot(0.5,g),ang=Math.atan2(g,0.5);
+    out-=2*Math.sqrt(x)/r*Math.cos(g*lx-ang);
+  }
+  return out;
+}
+
+// the prime-built density pointing back at the zeros
+function primeDensity(tau,xcut){
+  let out=Math.log(tau/(2*Math.PI))/(2*Math.PI);
+  for(const [n,w] of vmTerms(xcut))
+    out-=w/(Math.PI*Math.sqrt(n))*Math.cos(tau*Math.log(n));
+  return out;
+}
+
+// the paper's shape functions and constants (equation 1.3 and section 7.1)
+function shapeH(lam){ return 2-1/lam-lam/3; }
+function shapeHd(lam){ return (1+shapeH(lam))/2; }
+function shapeF(lam){ return lam/(1+lam*lam/3); }
+function energyPerCount(lam){ return 1/lam+lam/3; }
+function mtConstant(){ const t=Math.tan(1/Math.SQRT2);
+  return 2*t/(Math.SQRT2+t); }
+
+// the whole-number trick
+function charge(m){ return m*m; }
+function floor3(m){ return 3*m-2; }
+
+// eigenvalues of a symmetric 2x2 table [[a,b],[b,c]]
+function eig2(a,b,c){
+  const t=(a+c)/2,d=Math.sqrt(((a-c)/2)**2+b*b);
+  return [t-d,t+d];
+}
+
+// --- a very small plotting helper -----------------------------------------
+function Plot(canvas,xlo,xhi,ylo,yhi,pad){
+  const ctx=canvas.getContext('2d'), W=canvas.width, H=canvas.height;
+  pad=pad||{l:52,r:16,t:16,b:38};
+  const X=x=>pad.l+(x-xlo)/(xhi-xlo)*(W-pad.l-pad.r);
+  const Y=y=>H-pad.b-(y-ylo)/(yhi-ylo)*(H-pad.t-pad.b);
+  return {ctx,X,Y,W,H,pad,
+    clear(){ctx.clearRect(0,0,W,H);},
+    axes(xlabel,ylabel){
+      ctx.strokeStyle='#c3c2b7';ctx.lineWidth=1;ctx.beginPath();
+      ctx.moveTo(pad.l,pad.t);ctx.lineTo(pad.l,H-pad.b);ctx.lineTo(W-pad.r,H-pad.b);ctx.stroke();
+      ctx.fillStyle='#898781';ctx.font='12px system-ui';ctx.textAlign='center';
+      if(xlabel)ctx.fillText(xlabel,(pad.l+W-pad.r)/2,H-8);
+      if(ylabel){ctx.save();ctx.translate(13,(pad.t+H-pad.b)/2);ctx.rotate(-Math.PI/2);
+        ctx.fillText(ylabel,0,0);ctx.restore();}
+    },
+    curve(f,color,lw,n){n=n||400;ctx.strokeStyle=color;ctx.lineWidth=lw||2.2;ctx.beginPath();
+      for(let i=0;i<=n;i++){const x=xlo+(xhi-xlo)*i/n,y=f(x);
+        if(i===0)ctx.moveTo(X(x),Y(y));else ctx.lineTo(X(x),Y(y));}ctx.stroke();},
+    line(xs,ys,color,lw){ctx.strokeStyle=color;ctx.lineWidth=lw||2;ctx.beginPath();
+      for(let i=0;i<xs.length;i++){if(i===0)ctx.moveTo(X(xs[i]),Y(ys[i]));
+        else ctx.lineTo(X(xs[i]),Y(ys[i]));}ctx.stroke();},
+    dots(xs,ys,color,r){ctx.fillStyle=color;
+      for(let i=0;i<xs.length;i++){ctx.beginPath();ctx.arc(X(xs[i]),Y(ys[i]),r||3.4,0,7);ctx.fill();}},
+    hline(y,color,dash){ctx.save();ctx.strokeStyle=color;ctx.setLineDash(dash||[]);
+      ctx.beginPath();ctx.moveTo(pad.l,Y(y));ctx.lineTo(W-pad.r,Y(y));ctx.stroke();ctx.restore();},
+    vline(x,color,dash){ctx.save();ctx.strokeStyle=color;ctx.setLineDash(dash||[]);
+      ctx.beginPath();ctx.moveTo(X(x),pad.t);ctx.lineTo(X(x),H-pad.b);ctx.stroke();ctx.restore();},
+    label(x,y,text,color,align){ctx.fillStyle=color;ctx.font='12px system-ui';
+      ctx.textAlign=align||'left';ctx.fillText(text,X(x),Y(y));}
+  };
+}
+
+
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+const N=8,kinds=new Array(N).fill(0); // 0 clean, 1 doubled, 2 pair
+const hs=[...Array(N)].map((_,i)=>50+i*38);
+function draw(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  const x0=250,x1=470,mid=(x0+x1)/2;
+  ctx.fillStyle='rgba(180,175,160,0.15)';ctx.fillRect(x0,20,x1-x0,340);
+  ctx.strokeStyle='#2a78d6';ctx.lineWidth=2.4;
+  ctx.beginPath();ctx.moveTo(mid,20);ctx.lineTo(mid,360);ctx.stroke();
+  let full=0,dist=0,online=0,clean=0;
+  kinds.forEach((k,i)=>{
+    const y=hs[i];
+    if(k===0){
+      ctx.fillStyle='#2a78d6';ctx.beginPath();ctx.arc(mid,y,7,0,7);ctx.fill();
+      full+=1;dist+=1;online+=1;clean+=1;
+    }else if(k===1){
+      ctx.strokeStyle='#4a3aa7';ctx.lineWidth=2.4;
+      ctx.beginPath();ctx.arc(mid,y,10,0,7);ctx.stroke();
+      ctx.fillStyle='#4a3aa7';ctx.beginPath();ctx.arc(mid,y,4,0,7);ctx.fill();
+      full+=2;dist+=1;online+=1;
+    }else{
+      ctx.fillStyle='#d03b3b';
+      ctx.beginPath();ctx.arc(mid-60,y,7,0,7);ctx.fill();
+      ctx.beginPath();ctx.arc(mid+60,y,7,0,7);ctx.fill();
+      ctx.strokeStyle='#d03b3b';ctx.setLineDash([3,4]);ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(mid-53,y);ctx.lineTo(mid+53,y);ctx.stroke();
+      ctx.setLineDash([]);
+      full+=2;dist+=2;
+    }
+  });
+  ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
+  ctx.fillText('click a pin to change its kind',30,30);
+  const out=document.getElementById('out');
+  out.textContent=
+    'the full count        '+full+'\n'+
+    'the distinct count    '+dist+'\n'+
+    'the on-line count     '+online+'\n'+
+    'the clean-line count  '+clean+'\n'+
+    'theorems (in the limit): on-line and clean-line at least 2/3 of full,\n'+
+    'distinct at least 5/6 of full';
+}
+cv.addEventListener('click',e=>{
+  const r=cv.getBoundingClientRect();
+  const y=(e.clientY-r.top)*cv.height/r.height;
+  let best=0,bd=1e9;
+  hs.forEach((h,i)=>{const d=Math.abs(y-h);if(d<bd){bd=d;best=i;}});
+  if(bd<26){kinds[best]=(kinds[best]+1)%3;draw();}
+});
+draw();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+[project]
+name = "zeta-critical-line-guide"
+version = "0.1.0"
+description = "Code behind the zero-to-critical-line visual guide"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "matplotlib",
+    "pillow",
+    "mpmath",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+zeta_guide = ["data/*.txt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

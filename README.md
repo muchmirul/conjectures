@@ -13,6 +13,7 @@ animations, its own code, and its own tests. Pick one and start reading.
 | [kakeya-conjecture](kakeya-conjecture/) | A question from 1917 about the smallest room you can turn a needle around in. There is no smallest room, and the sequel question fell in three dimensions in February 2025. | [chapters](kakeya-conjecture/guide/00-start-here/README.md) · [one page](https://muchmirul.github.io/conjectures/kakeya-conjecture/) |
 | [sphere-packing](sphere-packing/) | How densely equal balls can fill space, and the one method that bounds every packing at once. In 2026 the exact strength of that method was determined. | [chapters](sphere-packing/guide/00-start-here/README.md) · [one page](https://muchmirul.github.io/conjectures/sphere-packing/) |
 | [multicolor-ramsey](multicolor-ramsey/) | A coloring game about avoiding one-color triangles, and a growth question Erdős put money on. In 2026 the answer arrived: the rate climbs forever. | [chapters](multicolor-ramsey/guide/00-start-here/README.md) · [one page](https://muchmirul.github.io/conjectures/multicolor-ramsey/) |
+| [zeta-critical-line](zeta-critical-line/) | The Riemann hypothesis, open since 1859, asks whether every zeta zero sits on one line. In 2026 an AI-authored paper proved two thirds of them do, simple and on the line, unconditionally. | [chapters](zeta-critical-line/guide/00-start-here/README.md) · [one page](https://muchmirul.github.io/conjectures/zeta-critical-line/) |
 
 ## How a topic is laid out
 

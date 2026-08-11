@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mix a bowl with a saddle · the critical line</title>
+<style>
+ :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+        --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;--violet:#4a3aa7;}
+ @media (prefers-color-scheme: dark){
+   :root{--surface:#15150f;--ink:#f2f1ea;--ink2:#c9c7bd;--muted:#8d8b82;--line:#33322c;}
+ }
+ *{box-sizing:border-box}
+ body{margin:0;padding:28px 20px 56px;background:var(--surface);color:var(--ink);
+   font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif;}
+ main{max-width:760px;margin:0 auto}
+ .back{font-size:14px;color:var(--muted);text-decoration:none}
+ .back:hover{color:var(--blue)}
+ h1{font-size:24px;line-height:1.25;margin:14px 0 6px}
+ .lede{color:var(--ink2);margin:0 0 22px}
+ .try{border-left:3px solid var(--blue);padding:8px 0 8px 14px;margin:0 0 22px;
+   color:var(--ink2);font-size:15px}
+ canvas{width:100%;height:auto;display:block;border-radius:8px;background:var(--surface)}
+ .controls{margin:18px 0 0}
+ .row{display:flex;align-items:center;gap:12px;margin:10px 0}
+ .row label{flex:0 0 190px;font-size:14px;color:var(--ink2)}
+ input[type=range]{flex:1;accent-color:var(--blue)}
+ .val{flex:0 0 90px;text-align:right;font-family:ui-monospace,monospace;font-size:13px}
+ .readout{margin-top:18px;padding:14px 16px;border:1px solid var(--line);border-radius:8px;
+   font-family:ui-monospace,monospace;font-size:14px;white-space:pre-line}
+ .verdict-ok{color:var(--green)} .verdict-no{color:var(--red)}
+ .nav{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-size:14px}
+ .nav a{color:var(--blue);text-decoration:none} .nav a:hover{text-decoration:underline}
+ .note{margin-top:26px;font-size:13.5px;color:var(--muted)}
+ /* embedded in the article: drop the chrome the article already provides */
+ body.embed{padding:14px 16px 18px}
+ body.embed .back, body.embed h1, body.embed .lede, body.embed .nav{display:none}
+ body.embed .try{margin-top:0}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="../index.html">back to the article</a>
+<h1>7 · Mix a bowl with a saddle</h1>
+<p class="lede">A two-microphone table: a bowl from an on-line zero, plus an adjustable amount of saddle from a mirror pair.</p>
+<p class="try"><strong>Try this.</strong> Slide the saddle in. The up-curving directions never exceed the number of contributions that curled up: one from the bowl, at most one from the saddle. That cap is the see-saw law.</p>
+<canvas id="c" width="720" height="380"></canvas>
+<div class="controls"><div class="row"><label for="w">how much saddle to add</label><input type="range" id="w" min="-1.5" max="1.5" step="0.05" value="0"><span class="val" id="wv"></span></div></div>
+<div class="readout" id="out"></div>
+<p class="note">With no saddle the table has one up-direction and one flat one. However hard the saddle is pushed, the up-count never passes two, and a downward direction appears the moment the saddle wins: counting directions counts contributions.</p>
+<div class="nav"><a href="05.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="08.html">next →</a></div>
+</main>
+<script>
+if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
+
+// the first fifty zero heights, from the repository's shipped table
+const ZEROS=[14.134725141735,21.022039638772,25.010857580146,30.424876125860,32.935061587739,37.586178158826,40.918719012147,43.327073280915,48.005150881167,49.773832477672,52.970321477714,56.446247697063,59.347044002602,60.831778524610,65.112544048082,67.079810529494,69.546401711174,72.067157674482,75.704690699084,77.144840068875,79.337375020249,82.910380854086,84.735492980517,87.425274613125,88.809111207635,92.491899270559,94.651344040520,95.870634228245,98.831194218194,101.317851005731,103.725538040478,105.446623052326,107.168611184276,111.029535543170,111.874659176993,114.320220915453,116.226680320858,118.790782865976,121.370125002421,122.946829293553,124.256818554346,127.516683879596,129.578704199956,131.087688530933,133.497737202998,134.756509753374,138.116042054533,139.736208952121,141.123707404021,143.111845807621];
+
+// complex helpers: numbers are [re, im]
+function cadd(a,b){ return [a[0]+b[0],a[1]+b[1]]; }
+function cmul(a,b){ return [a[0]*b[0]-a[1]*b[1],a[0]*b[1]+a[1]*b[0]]; }
+function cdiv(a,b){ const d=b[0]*b[0]+b[1]*b[1];
+  return [(a[0]*b[0]+a[1]*b[1])/d,(a[1]*b[0]-a[0]*b[1])/d]; }
+// n^(-s) for real n>0: exp(-s ln n)
+function npow(n,s){ const ln=Math.log(n),m=Math.exp(-s[0]*ln),t=-s[1]*ln;
+  return [m*Math.cos(t),m*Math.sin(t)]; }
+
+// zeta by Euler-Maclaurin, the same recipe as zeta_guide.core.zeta_em
+function zetaEM(sre,sim){
+  const s=[sre,sim],N=Math.max(60,Math.floor(1.3*Math.abs(sim))+20);
+  let out=[0,0];
+  for(let n=1;n<N;n++) out=cadd(out,npow(n,s));
+  out=cadd(out,cdiv(npow(N,[s[0]-1,s[1]]),[s[0]-1,s[1]]));
+  out=cadd(out,cmul([0.5,0],npow(N,s)));
+  out=cadd(out,cmul(cdiv(s,[12,0]),npow(N,[s[0]+1,s[1]])));
+  const s12=cmul(s,cmul([s[0]+1,s[1]],[s[0]+2,s[1]]));
+  out=cadd(out,cmul(cdiv(s12,[-720,0]),npow(N,[s[0]+3,s[1]])));
+  const s34=cmul(s12,cmul([s[0]+3,s[1]],[s[0]+4,s[1]]));
+  out=cadd(out,cmul(cdiv(s34,[30240,0]),npow(N,[s[0]+5,s[1]])));
+  return out;
+}
+
+// primes and prime powers, as in zeta_guide.core
+function primesUpTo(x){
+  const s=new Array(x+1).fill(true);s[0]=s[1]=false;
+  for(let p=2;p*p<=x;p++)if(s[p])for(let q=p*p;q<=x;q+=p)s[q]=false;
+  const out=[];for(let n=2;n<=x;n++)if(s[n])out.push(n);
+  return out;
+}
+function vmTerms(x){
+  const out=[];
+  for(const p of primesUpTo(x)){let q=p;while(q<=x){out.push([q,Math.log(p)]);q*=p;}}
+  return out.sort((a,b)=>a[0]-b[0]);
+}
+function psiStair(x,terms){
+  let s=0;for(const [n,w] of terms)if(n<=x)s+=w;return s;
+}
+
+// the explicit formula's rebuild from the first K zero-waves
+function psiWaves(x,K){
+  let out=x-Math.log(2*Math.PI)-0.5*Math.log1p(-Math.pow(x,-2));
+  const lx=Math.log(x);
+  for(let k=0;k<K;k++){
+    const g=ZEROS[k],r=Math.hypot(0.5,g),ang=Math.atan2(g,0.5);
+    out-=2*Math.sqrt(x)/r*Math.cos(g*lx-ang);
+  }
+  return out;
+}
+
+// the prime-built density pointing back at the zeros
+function primeDensity(tau,xcut){
+  let out=Math.log(tau/(2*Math.PI))/(2*Math.PI);
+  for(const [n,w] of vmTerms(xcut))
+    out-=w/(Math.PI*Math.sqrt(n))*Math.cos(tau*Math.log(n));
+  return out;
+}
+
+// the paper's shape functions and constants (equation 1.3 and section 7.1)
+function shapeH(lam){ return 2-1/lam-lam/3; }
+function shapeHd(lam){ return (1+shapeH(lam))/2; }
+function shapeF(lam){ return lam/(1+lam*lam/3); }
+function energyPerCount(lam){ return 1/lam+lam/3; }
+function mtConstant(){ const t=Math.tan(1/Math.SQRT2);
+  return 2*t/(Math.SQRT2+t); }
+
+// the whole-number trick
+function charge(m){ return m*m; }
+function floor3(m){ return 3*m-2; }
+
+// eigenvalues of a symmetric 2x2 table [[a,b],[b,c]]
+function eig2(a,b,c){
+  const t=(a+c)/2,d=Math.sqrt(((a-c)/2)**2+b*b);
+  return [t-d,t+d];
+}
+
+// --- a very small plotting helper -----------------------------------------
+function Plot(canvas,xlo,xhi,ylo,yhi,pad){
+  const ctx=canvas.getContext('2d'), W=canvas.width, H=canvas.height;
+  pad=pad||{l:52,r:16,t:16,b:38};
+  const X=x=>pad.l+(x-xlo)/(xhi-xlo)*(W-pad.l-pad.r);
+  const Y=y=>H-pad.b-(y-ylo)/(yhi-ylo)*(H-pad.t-pad.b);
+  return {ctx,X,Y,W,H,pad,
+    clear(){ctx.clearRect(0,0,W,H);},
+    axes(xlabel,ylabel){
+      ctx.strokeStyle='#c3c2b7';ctx.lineWidth=1;ctx.beginPath();
+      ctx.moveTo(pad.l,pad.t);ctx.lineTo(pad.l,H-pad.b);ctx.lineTo(W-pad.r,H-pad.b);ctx.stroke();
+      ctx.fillStyle='#898781';ctx.font='12px system-ui';ctx.textAlign='center';
+      if(xlabel)ctx.fillText(xlabel,(pad.l+W-pad.r)/2,H-8);
+      if(ylabel){ctx.save();ctx.translate(13,(pad.t+H-pad.b)/2);ctx.rotate(-Math.PI/2);
+        ctx.fillText(ylabel,0,0);ctx.restore();}
+    },
+    curve(f,color,lw,n){n=n||400;ctx.strokeStyle=color;ctx.lineWidth=lw||2.2;ctx.beginPath();
+      for(let i=0;i<=n;i++){const x=xlo+(xhi-xlo)*i/n,y=f(x);
+        if(i===0)ctx.moveTo(X(x),Y(y));else ctx.lineTo(X(x),Y(y));}ctx.stroke();},
+    line(xs,ys,color,lw){ctx.strokeStyle=color;ctx.lineWidth=lw||2;ctx.beginPath();
+      for(let i=0;i<xs.length;i++){if(i===0)ctx.moveTo(X(xs[i]),Y(ys[i]));
+        else ctx.lineTo(X(xs[i]),Y(ys[i]));}ctx.stroke();},
+    dots(xs,ys,color,r){ctx.fillStyle=color;
+      for(let i=0;i<xs.length;i++){ctx.beginPath();ctx.arc(X(xs[i]),Y(ys[i]),r||3.4,0,7);ctx.fill();}},
+    hline(y,color,dash){ctx.save();ctx.strokeStyle=color;ctx.setLineDash(dash||[]);
+      ctx.beginPath();ctx.moveTo(pad.l,Y(y));ctx.lineTo(W-pad.r,Y(y));ctx.stroke();ctx.restore();},
+    vline(x,color,dash){ctx.save();ctx.strokeStyle=color;ctx.setLineDash(dash||[]);
+      ctx.beginPath();ctx.moveTo(X(x),pad.t);ctx.lineTo(X(x),H-pad.b);ctx.stroke();ctx.restore();},
+    label(x,y,text,color,align){ctx.fillStyle=color;ctx.font='12px system-ui';
+      ctx.textAlign=align||'left';ctx.fillText(text,X(x),Y(y));}
+  };
+}
+
+
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+const w=document.getElementById('w');
+function draw(){
+  const W=parseFloat(w.value);
+  // the table: bowl [[1,0],[0,0]] plus W times saddle [[0,1],[1,0]]
+  const a=1,b=W,c=0;
+  ctx.clearRect(0,0,cv.width,cv.height);
+  // left: the sign of the surface strength over all mixing recipes
+  const S=300,x0=30,y0=40;
+  const img=ctx.createImageData(S,S);
+  for(let iy=0;iy<S;iy++)for(let ix=0;ix<S;ix++){
+    const x=-1+2*ix/S,y=1-2*iy/S;
+    const q=a*x*x+2*b*x*y+c*y*y;
+    const k=4*(iy*S+ix);
+    if(q>1e-9){img.data[k]=42;img.data[k+1]=120;img.data[k+2]=214;img.data[k+3]=Math.min(210,40+170*Math.abs(q));}
+    else if(q<-1e-9){img.data[k]=208;img.data[k+1]=59;img.data[k+2]=59;img.data[k+3]=Math.min(210,40+170*Math.abs(q));}
+    else{img.data[k+3]=0;}
+  }
+  ctx.putImageData(img,x0,y0);
+  ctx.strokeStyle='#c3c2b7';ctx.strokeRect(x0,y0,S,S);
+  ctx.fillStyle='#52514e';ctx.font='12px system-ui';ctx.textAlign='center';
+  ctx.fillText('blue: the mix curves up.  red: it curves down.',x0+S/2,y0+S+18);
+  // right: the two eigenvalue bars
+  const ev=eig2(a,b,c);
+  const bx=420,bw=90,base=220;
+  ctx.fillStyle='#52514e';ctx.fillText('the two principal directions',bx+bw+20,52);
+  ev.forEach((v,i)=>{
+    const h=v*80,x=bx+i*(bw+40);
+    ctx.fillStyle=v>1e-9?'#2a78d6':(v<-1e-9?'#d03b3b':'#898781');
+    ctx.fillRect(x,h>0?base-h:base,bw,Math.max(2,Math.abs(h)));
+    ctx.fillStyle='#52514e';
+    ctx.fillText(v.toFixed(2),x+bw/2,base+(h>0?20:-Math.abs(h)-8));
+  });
+  ctx.strokeStyle='#898781';ctx.beginPath();ctx.moveTo(bx-20,base);
+  ctx.lineTo(bx+2*bw+60,base);ctx.stroke();
+  wv.textContent=W.toFixed(2);
+  const up=ev.filter(v=>v>1e-9).length;
+  const out=document.getElementById('out');
+  out.textContent='saddle amount        '+W.toFixed(2)+'\n'+
+    'up-curving directions  '+up+'  (the see-saw law caps this at 2:\n'+
+    'one bowl plus at most one from the saddle)';
+  out.className='readout '+(up<=2?'verdict-ok':'verdict-no');
+}
+w.addEventListener('input',draw);draw();
+
+</script>
+</body>
+</html>
