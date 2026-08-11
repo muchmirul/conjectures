@@ -1,4 +1,4 @@
-# Prime Numbers and Two Thirds of the Zeros, from Zero
+# Prime Numbers and Two Thirds of the Zeros
 
 *A step-by-step visual guide to the Riemann zeta function, the most famous unsolved problem in mathematics, and the 2026 paper that proved two thirds of the function's zeros sit exactly where Riemann said they should. You do not need a maths background. Each new idea begins with a picture.*
 
