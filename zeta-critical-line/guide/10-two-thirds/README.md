@@ -1,6 +1,6 @@
 # 10 · Two thirds
 
-All the parts are on the table, and nothing new is needed: this chapter only adds them up, the way [section 6 of the paper](https://www-cdn.anthropic.com/564f962e60643842f5fcb4a17c9dbc8f608f1c37.pdf#page=19) does.
+All the parts are now available, and nothing new is needed, because this chapter only adds them up, the way [section 6 of the paper](https://www-cdn.anthropic.com/564f962e60643842f5fcb4a17c9dbc8f608f1c37.pdf#page=19) does.
 
 Write the budget in units where the full count of zeros in the stretch is one. The rank-trace inequality of chapter 9 promises: clean on-line pins are at least twice the count, plus a term for the saddle bookkeeping that the see-saw law caps at twice the count again, minus the energy. Chapter 8 measured the count's total (one, in these units, times a factor of two from how the table's slots pair up) and the energy (four thirds). The assembly is three subtractions long:
 
@@ -14,7 +14,7 @@ Two refinements complete the paper's headline numbers.
 
 ![The certified proportion as the dial turns, for on-line, distinct and the weaker certificate, peaking at dial one](dial.png)
 
-**The window matters, a little.** The bump shape of chapter 6 was flat-topped for simplicity. Optimising the shape instead ([section 7.1, page 20](https://www-cdn.anthropic.com/564f962e60643842f5fcb4a17c9dbc8f608f1c37.pdf#page=20)) leads to a gently curved cosine profile, and the constants improve to 0.6725 on the line and simple, and 0.83625 distinct. The optimal shape is not new: it is the test function Montgomery and Taylor found in 1975 for the conditional version of this problem, and the paper proves the 2026 machine reaches their constant without their hypothesis. This repository recomputes the optimising shape's score numerically and checks that nearby shapes do worse.
+**The window matters, a little.** The bump shape of chapter 6 was flat-topped for simplicity. Optimising the shape instead ([section 7.1, page 20](https://www-cdn.anthropic.com/564f962e60643842f5fcb4a17c9dbc8f608f1c37.pdf#page=20)) leads to a gently curved cosine profile, and the constants improve to 0.6725 on the line and simple, and 0.83625 distinct. The optimal shape was already known: Montgomery and Taylor found the same test function in 1975 for the conditional version of this problem, and the paper proves that the 2026 machine reaches their constant without their hypothesis. This repository recomputes the optimising shape's score numerically and checks that nearby shapes do worse.
 
 ![The flat window and the optimised cosine window, with the constants each one certifies](window_race.png)
 

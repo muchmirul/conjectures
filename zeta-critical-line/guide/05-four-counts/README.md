@@ -1,6 +1,6 @@
 # 5 · Four ways to count
 
-The theorems ahead distinguish counts that sound alike, and the difference is where all the care lives. This chapter fixes them with one picture, and nothing in it is difficult.
+The theorems ahead distinguish counts that sound alike, and most of the care in their statements sits in these distinctions. This chapter fixes the counts with one picture, and nothing in it is difficult.
 
 Think of each zero as a pin stuck in the strip at its height. Four counters walk up the strip together through the same stretch of heights.
 
