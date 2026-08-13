@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infinite Sums That Finally Land</title>
+<meta name="description" content="Endless sums are the reason topology was dragged into algebra in the first place. Solid groups are the ones where every such sum has exactly one answer, and their building blocks turn out to be products of copies of the whole numbers.">
+<style>
+  :root {
+    --surface: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+    --line: #e1e0d9; --blue: #2a78d6; --green: #008300; --red: #d03b3b;
+    --violet: #4a3aa7; --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--surface); color: var(--ink);
+    font: 17px/1.65 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  header.hero { text-align: center; margin-bottom: 2.5rem; }
+  .kicker { color: var(--violet); font-size: 0.8rem; letter-spacing: 0.09em;
+            text-transform: uppercase; font-weight: 600; margin: 0 0 0.5rem; }
+  h1 { font-size: 2.1rem; line-height: 1.2; margin: 0 0 0.75rem; }
+  .subtitle { color: var(--ink2); font-style: italic; font-size: 1.05rem;
+              max-width: 40rem; margin: 0 auto; }
+  h2 { font-size: 1.5rem; margin: 3.2rem 0 1rem; padding-top: 1.6rem;
+       border-top: 1px solid var(--line); }
+  h2 .n { color: var(--blue); }
+  h3 { font-size: 1.15rem; margin: 2rem 0 0.6rem; }
+  p { margin: 0.9rem 0; }
+  figure { margin: 1.6rem 0; text-align: center; }
+  figure img { max-width: 100%; height: auto; border-radius: 6px; }
+  figcaption { color: var(--muted); font-size: 0.85rem; margin-top: 0.45rem;
+               line-height: 1.45; }
+  blockquote {
+    margin: 1.4rem 0; padding: 0.85rem 1.1rem; border-left: 4px solid var(--green);
+    background: var(--card); border-radius: 0 6px 6px 0; color: var(--ink);
+  }
+  blockquote p { margin: 0.35rem 0; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+              font-size: 0.9em; }
+  code { background: #f0efec; padding: 0.1em 0.35em; border-radius: 4px; }
+  pre { background: #f6f5f2; border: 1px solid var(--line); border-radius: 8px;
+        padding: 0.9rem 1.1rem; overflow-x: auto; line-height: 1.5; }
+  pre code { background: none; padding: 0; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; margin: 1.2rem auto; }
+  th, td { border: 1px solid var(--line); padding: 0.45rem 0.8rem; text-align: center; }
+  table.words th, table.words td { text-align: left; }
+  th { background: #f6f5f2; }
+  ul, ol { padding-left: 1.4rem; }
+  li { margin: 0.35rem 0; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  footer { margin-top: 4rem; padding-top: 1.4rem; border-top: 1px solid var(--line);
+           color: var(--muted); font-size: 0.9rem; }
+  nav.toc {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 1rem 1.3rem; margin: 1.2rem 0 2rem; font-size: 0.95rem;
+    columns: 2; column-gap: 2rem;
+  }
+  nav.toc a { display: block; padding: 0.12rem 0; color: var(--ink2); }
+  nav.toc a:hover { color: var(--blue); }
+  nav.parts { display: flex; gap: 0.6rem; margin: 2rem 0 0; flex-wrap: wrap; }
+  nav.parts a { flex: 1 1 12rem; border: 1px solid var(--line); border-radius: 10px;
+                padding: 0.7rem 0.9rem; background: var(--card); color: var(--ink2); }
+  nav.parts a:hover { border-color: var(--blue); text-decoration: none; }
+  nav.parts a.here { border-color: var(--violet); background: #f6f5ff; }
+  nav.parts .pn { display: block; font-size: 0.72rem; letter-spacing: 0.08em;
+                  text-transform: uppercase; color: var(--violet); font-weight: 600; }
+  nav.parts .pt { display: block; font-size: 0.9rem; margin-top: 0.15rem; }
+  figure img.missing { outline: 2px dashed var(--red); padding: 1rem; }
+  figure.sim iframe { width: 100%; height: 660px; border: 1px solid var(--line);
+                      border-radius: 10px; background: #fff; }
+  @media (max-width: 600px) { nav.toc { columns: 1; } h1 { font-size: 1.7rem; } }
+</style>
+</head>
+<body>
+<main>
+
+<header class="hero"><p class="kicker">Condensed mathematics, part 2 of 3</p><h1>Infinite Sums That Finally Land</h1>
+<p class="subtitle">Part two of three on condensed mathematics. Endless sums are the reason topology was dragged into algebra in the first place. This part builds the rule that says when an endless sum has exactly one answer, finds the building blocks of everything obeying that rule, and ends by solidifying a doughnut and watching its holes fall out. Part one is assumed, and nothing else.</p></header>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/00-start-here/hero.gif" alt="Weights being handed down a branching probe, splitting between the boxes at every level while the totals keep agreeing" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/00-start-here/hero.gif;../../../condensed-math/parts/condensed-math02/guide/00-start-here/hero.gif"><figcaption>Weights being handed down a branching probe, splitting between the boxes at every level while the totals keep agreeing</figcaption></figure>
+<p>The animation shows the object this part is built on. Take a probe, the branching thing from part one, and put a number on each box. Then refine: split each box and split its number between the pieces, any way you like, as long as the pieces add back up to what the box had. Refine forever. What you are left with is called a <strong>weighting</strong> in this guide, and the surprise of this part is that weightings are the entire answer to a question about infinite sums that took a century to ask properly.</p>
+<p>This is part two of three, covering Lectures IV to VI of Peter Scholze&#x27;s <em>Lectures on Condensed Mathematics</em> (<a href="https://arxiv.org/abs/2605.03658">arXiv:2605.03658</a>, May 2026), joint work with Dustin Clausen. <a href="../condensed-math01/index.html">Part one</a> built probes and answer sheets and is assumed here. Part three carries all of this to rings and geometry.</p>
+<p>Most sections have a <a href="play/index.html">page you can play with</a>.</p>
+<pre><code>    the problem again           1  sums with nowhere to land
+    the answer                  2  weights that agree
+                                3  every function is a stack of steps
+                                4  products in, sums out
+    the rule                    5  the solid rule
+    two consequences            6  where the real line goes
+                                7  the multiplication table
+    the payoff                  8  solidify a shape, get its holes</code></pre>
+<figure class="sim"><iframe src="play/00.html?embed" loading="lazy" title="Interactive picture for chapter 0"></iframe><figcaption>Use the controls to change the picture. <a href="play/00.html">Open the activity on its own page</a></figcaption></figure>
+<nav class="parts"><a href="../condensed-math01/index.html"><span class="pn">Part 1</span><span class="pt">Shapes You Can Only See By Probing Them</span></a><a href="index.html" class="here"><span class="pn">Part 2</span><span class="pt">Infinite Sums That Finally Land</span></a><a href="../condensed-math03/index.html"><span class="pn">Part 3</span><span class="pt">Rings That Know How To Integrate</span></a></nav><nav class="toc"><a href="#s1">1 · Sums with nowhere to land</a><a href="#s2">2 · Weights that agree</a><a href="#s3">3 · Every function is a stack of steps</a><a href="#s4">4 · Products in, sums out</a><a href="#s5">5 · The solid rule</a><a href="#s6">6 · Where the real line goes</a><a href="#s7">7 · The multiplication table</a><a href="#s8">8 · Solidify a shape, get its holes</a><a href="#s9">Where part two leaves you</a><a href="#s10">How this part lines up with the lectures</a><a href="#s11">Checking it yourself</a><a href="#s12">Glossary</a><a href="#s13">Further reading</a></nav>
+<h2 id="s1"><span class="n">1 ·</span> Sums with nowhere to land</h2>
+<p>Part one repaired subtraction. It did not add anything up.</p>
+<p>Consider adding one, then two, then four, then eight, doubling forever. In ordinary arithmetic the running totals are 1, 3, 7, 15, 31, and they run away. There is no answer. Every schoolchild knows this sum has no value.</p>
+<p>Now measure size differently. Say a whole number is <strong>small when it is divisible by a high power of two</strong>: so 16 is smaller than 4, and 1024 is very small indeed. This is a real and consistent notion of size, used constantly in number theory, and it is exactly the size the counting-in-base-two probe from part one carries.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/01-sums-with-nowhere-to-land/padic_walk.gif" alt="The running totals of the doubling sum, drawn twice: running away on the ordinary ruler, and closing in on a single point in the base-two probe" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/01-sums-with-nowhere-to-land/padic_walk.gif;../../../condensed-math/parts/condensed-math02/guide/01-sums-with-nowhere-to-land/padic_walk.gif"><figcaption>The running totals of the doubling sum, drawn twice: running away on the ordinary ruler, and closing in on a single point in the base-two probe</figcaption></figure>
+<p>Under that size the running totals do something else entirely. The gaps between them are 2, 4, 8, 16, each one smaller than the last, and the totals close in on a single point. The animation shows both readings side by side: on the ordinary ruler the totals fly apart, and in the probe they nest into one box after another and converge.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/01-sums-with-nowhere-to-land/distance.png" alt="The distance from each running total to the limit, measured the ordinary way and the base-two way, one climbing and one halving" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/01-sums-with-nowhere-to-land/distance.png;../../../condensed-math/parts/condensed-math02/guide/01-sums-with-nowhere-to-land/distance.png"><figcaption>The distance from each running total to the limit, measured the ordinary way and the base-two way, one climbing and one halving</figcaption></figure>
+<p>The chart is computed in this repository, in exact arithmetic. The ordinary distance doubles at every step. The base-two distance halves at every step, and the point the totals close in on is minus one. Adding an endless string of positive numbers and getting minus one is not a trick: it is what the doubling sum genuinely converges to under this size, and the tests here recompute both columns.</p>
+<p>So the same endless sum has no answer under one notion of size and exactly one answer under another. This is the whole difficulty. An infinite sum is not a property of the numbers being added. It is a property of the numbers plus a decision about what near means, and that decision is precisely the topology that part one had to swallow into the answer sheet.</p>
+<p>The question of this part is therefore: having swallowed the topology, how do we get the infinite sums back out?</p>
+<figure class="sim"><iframe src="play/01.html?embed" loading="lazy" title="Interactive picture for chapter 1"></iframe><figcaption>Use the controls to change the picture. <a href="play/01.html">Open the activity on its own page</a></figcaption></figure>
+<h2 id="s2"><span class="n">2 ·</span> Weights that agree</h2>
+<p>Here is the answer, and it is the animation from the top of this page.</p>
+<p>Take a probe. At the coarsest stage there is one box; give it a number. Split the box; split the number between the two new boxes, however you like, as long as the two add back to the original. Keep going forever. The result is a <strong>weighting</strong>: one number per box at every stage, with the rule that a box&#x27;s number is always the total of the boxes inside it.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/02-weights-that-agree/integral.png" alt="The same function read at a coarse level and at a fine one, with the two totals coming out equal" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/02-weights-that-agree/integral.png;../../../condensed-math/parts/condensed-math02/guide/02-weights-that-agree/integral.png"><figcaption>The same function read at a coarse level and at a fine one, with the two totals coming out equal</figcaption></figure>
+<p>A weighting is exactly what you need to add things up. Suppose someone hands you a value for each box, and you want a single total. Multiply each box&#x27;s value by the box&#x27;s weight, and add. The picture shows the one property that makes this well posed: if you refine, and read the same values on the smaller boxes, the total does not change. This repository computes both readings and the tests check they agree, on the halving probe and on the base-p probe.</p>
+<p>That is genuinely an infinite sum. The probe has infinitely many points, the weighting spreads a finite total across all of them, and the answer is a single number.</p>
+<p>The lectures write the collection of all weightings on a probe as the free solid group on that probe, and build it as exactly this: the limit of the finite pictures, one copy of the whole numbers per box at each stage, fitting together down the levels (<a href="https://arxiv.org/pdf/2605.03658v1#page=33">Definition 5.1, page 33</a>). Its elements are called measures on the probe, which is the ordinary word for a rule that assigns a size to every region.</p>
+<p>Two things about weightings are worth carrying forward.</p>
+<p>First, the simplest weighting is one unit sitting on a single point of the dust, and it is what you get by following one branch all the way down and putting every unit there. This repository builds those, checks the agreement rule holds, and uses them as the starting point of every picture that follows.</p>
+<p>Second, and this is the move the whole part turns on: <strong>a weighting is built entirely out of finite data</strong>. At each stage it is a finite list of whole numbers. Nothing about it requires limits, completeness, convergence, or any of the apparatus that made the original problem hard. The infinite sum has been rebuilt out of finite bookkeeping.</p>
+<figure class="sim"><iframe src="play/02.html?embed" loading="lazy" title="Interactive picture for chapter 2"></iframe><figcaption>Use the controls to change the picture. <a href="play/02.html">Open the activity on its own page</a></figcaption></figure>
+<h2 id="s3"><span class="n">3 ·</span> Every function is a stack of steps</h2>
+<p>To understand weightings, understand what they are weighing.</p>
+<p>A continuous whole-number-valued measurement on a probe is a simple thing. Because the values are whole numbers they cannot drift smoothly, so continuity forces the measurement to be constant on small enough boxes. In other words, every such measurement is decided at some finite stage, and is a plain function on a finite list of boxes.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/03-stacks-of-steps/steps.gif" alt="A whole-number measurement on the branching probe being taken apart into step functions, one basis element at a time" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/03-stacks-of-steps/steps.gif;../../../condensed-math/parts/condensed-math02/guide/03-stacks-of-steps/steps.gif"><figcaption>A whole-number measurement on the branching probe being taken apart into step functions, one basis element at a time</figcaption></figure>
+<p>The animation takes such a measurement apart. Each step function is one box switched on and everything else switched off, or a product of a few such switches, and the original is rebuilt by stacking them with whole-number coefficients. The rebuild uses each step exactly once and needs no fractions.</p>
+<p>That is a stronger statement than it looks, and it is a genuine theorem. The measurements on a probe form a group under addition, and the claim is that this group has a basis: a list of measurements such that everything is a whole-number combination of finitely many of them, in exactly one way. Groups with a basis are called free, and most groups are not.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/03-stacks-of-steps/basis_size.png" alt="The number of basis elements produced by the construction, level by level, matching the number of boxes at that level" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/03-stacks-of-steps/basis_size.png;../../../condensed-math/parts/condensed-math02/guide/03-stacks-of-steps/basis_size.png"><figcaption>The number of basis elements produced by the construction, level by level, matching the number of boxes at that level</figcaption></figure>
+<p>The theorem that this always works is due to Nöbeling, building on Specker, and the lectures give Bergman&#x27;s proof of it (<a href="https://arxiv.org/pdf/2605.03658v1#page=34">Theorem 5.4, page 34</a>). This repository runs that construction: it orders the products of switch functions, keeps each one that is not already a combination of earlier ones, and checks the result is a basis. The chart shows the count coming out equal to the number of boxes at every level, which is what a basis must give.</p>
+<p>One honesty note. At any single finite stage, freeness is automatic and the computation checks only that the <em>construction</em> behaves. The theorem&#x27;s content is entirely in the infinite limit, where it is not automatic and where nothing in this repository can reach. The tests say what they check and no more.</p>
+<figure class="sim"><iframe src="play/03.html?embed" loading="lazy" title="Interactive picture for chapter 3"></iframe><figcaption>Use the controls to change the picture. <a href="play/03.html">Open the activity on its own page</a></figcaption></figure>
+<h2 id="s4"><span class="n">4 ·</span> Products in, sums out</h2>
+<p>Now the shape of a weighting becomes visible, and it is startling.</p>
+<p>Two different ways of having infinitely many whole numbers at once:</p>
+<p>A <strong>product</strong> is an endless row of dials, each set independently, with no restriction at all. Every dial may be nonzero, forever.</p>
+<p>A <strong>sum</strong> is the same endless row, but with a rule: only finitely many dials may be off zero. Everything past some point must be blank.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/04-products-in-sums-out/product_sum.png" alt="An endless row of dials with every dial set, beside the same row where all but a few dials are blank" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/04-products-in-sums-out/product_sum.png;../../../condensed-math/parts/condensed-math02/guide/04-products-in-sums-out/product_sum.png"><figcaption>An endless row of dials with every dial set, beside the same row where all but a few dials are blank</figcaption></figure>
+<p>These are wildly different objects. Now the striking part: they are each other&#x27;s mirror image, and the mirror is the operation of asking for a number.</p>
+<p>Ask an endless product for a single whole number, in a way that respects addition. You might expect that such a question could sample all the dials at once, weighting them somehow. It cannot. Any such question reads only finitely many dials and ignores the rest.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/04-products-in-sums-out/finite_reach.gif" alt="A reader scanning along an endless row of dials and coming to a halt after finitely many, because no legal question can reach further" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/04-products-in-sums-out/finite_reach.gif;../../../condensed-math/parts/condensed-math02/guide/04-products-in-sums-out/finite_reach.gif"><figcaption>A reader scanning along an endless row of dials and coming to a halt after finitely many, because no legal question can reach further</figcaption></figure>
+<p>That is Specker&#x27;s theorem from 1950, and the lectures use it constantly. The shape of the reason is worth a sentence, because it is the shape of section 6 below as well: a legal question is destroyed by divisibility. Settings that live only in the far tail of the row can be made divisible by as high a power of a number as you like, so the answer they force would have to be divisible by every such power, and the only whole number like that is zero. Making that precise is more work than one sentence, and this guide leaves it to the sources.</p>
+<p>Ask an endless sum for a number, and the opposite happens: you may choose an answer for every dial independently, since only finitely many are ever on, so nothing diverges. The questions on a sum form a product.</p>
+<p>Put these together with the previous section and the shape of a weighting falls out. The measurements on a probe form a free group, so they are a sum of copies of the whole numbers. The weightings are exactly the questions one can ask of the measurements. Therefore:</p>
+<blockquote><p>Every collection of weightings on a probe is an endless product of copies of the whole numbers.</p></blockquote>
+<p>That is the lectures&#x27; Corollary 5.5 (<a href="https://arxiv.org/pdf/2605.03658v1#page=34">page 34</a>). It is worth pausing on how blunt it is. Whatever probe you started with, however intricately it branched, the weightings on it are just a row of dials. All the structure has been pushed into how many dials there are.</p>
+<figure class="sim"><iframe src="play/04.html?embed" loading="lazy" title="Interactive picture for chapter 4"></iframe><figcaption>Use the controls to change the picture. <a href="play/04.html">Open the activity on its own page</a></figcaption></figure>
+<h2 id="s5"><span class="n">5 ·</span> The solid rule</h2>
+<p>Everything is now in place to state the rule this part is named for. Nothing new is needed: only weightings, from section 2.</p>
+<p>A group is <strong>solid</strong> when it knows how to be summed against a weighting, and knows it in exactly one way.</p>
+<p>Precisely: take any probe, and any way of placing the probe&#x27;s points into the group. Then there must be exactly one way to extend that placement so that weightings can be integrated against it, agreeing with the placement on single points.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/05-the-solid-rule/extension.gif" alt="A placement of a probe&#x27;s points into a group, and the unique extension that lets weightings be integrated against it" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/05-the-solid-rule/extension.gif;../../../condensed-math/parts/condensed-math02/guide/05-the-solid-rule/extension.gif"><figcaption>A placement of a probe&#x27;s points into a group, and the unique extension that lets weightings be integrated against it</figcaption></figure>
+<p>The animation shows what &quot;exactly one way&quot; buys. Once the extension exists, every weighting has a value, so every infinite sum the probe describes has an answer, and there is no ambiguity about which answer. Existence gives you the sums; uniqueness stops you inventing two different theories of the same sum.</p>
+<p>The lectures state the rule in one line (<a href="https://arxiv.org/pdf/2605.03658v1#page=33">Definition 5.1, page 33</a>) and spend a lecture and a half establishing that it behaves. What comes out is a full toolkit, and this is the central result of this part:</p>
+<blockquote><p>The solid groups form a self-contained setting for algebra, closed under everything one wants to do. Its building blocks are exactly the endless products of copies of the whole numbers. Any group at all can be pushed into a solid one, in a best-possible way, and pushing is compatible with everything else.</p></blockquote>
+<p>That is Theorem 5.8 (<a href="https://arxiv.org/pdf/2605.03658v1#page=35">page 35</a>) together with Corollary 6.1 (<a href="https://arxiv.org/pdf/2605.03658v1#page=42">page 42</a>). The operation of pushing a group into a solid one is called solidification here; the lectures write it with a small square.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/05-the-solid-rule/solid_or_not.png" alt="Which of the sample groups obey the solid rule and which do not, each with the reason" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/05-the-solid-rule/solid_or_not.png;../../../condensed-math/parts/condensed-math02/guide/05-the-solid-rule/solid_or_not.png"><figcaption>Which of the sample groups obey the solid rule and which do not, each with the reason</figcaption></figure>
+<p>The picture sorts the guide&#x27;s stock examples. The whole numbers are solid. Any endless product of copies of them is solid, and by the previous section that is every collection of weightings. The base-p numbers are solid, which is the promise of section 1 kept. Power series in a variable are solid. The real numbers are not, and the next section is about what happens to them.</p>
+<figure class="sim"><iframe src="play/05.html?embed" loading="lazy" title="Interactive picture for chapter 5"></iframe><figcaption>Use the controls to change the picture. <a href="play/05.html">Open the activity on its own page</a></figcaption></figure>
+<h2 id="s6"><span class="n">6 ·</span> Where the real line goes</h2>
+<p>Solidify the real numbers and nothing comes out. Not a small thing: nothing at all.</p>
+<p>That is not a defect being confessed. It is a precise statement in the lectures (<a href="https://arxiv.org/pdf/2605.03658v1#page=42">Corollary 6.1 (iii), page 42</a>), and the reason is visible in one picture.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/06-where-the-real-line-goes/divisible.gif" alt="A real number being halved, thirded, and divided by every whole number in turn, always landing on another real number, while a whole number falls off its lattice immediately" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/06-where-the-real-line-goes/divisible.gif;../../../condensed-math/parts/condensed-math02/guide/06-where-the-real-line-goes/divisible.gif"><figcaption>A real number being halved, thirded, and divided by every whole number in turn, always landing on another real number, while a whole number falls off its lattice immediately</figcaption></figure>
+<p>Every real number can be divided by two, and by three, and by every whole number, and the answer is again a real number. The animation shows a real number surviving division forever while a whole number falls off the lattice at the first step. A group where every element can always be divided like this is called divisible.</p>
+<p>Now the collision. Section 5 said the building blocks of solid groups are rows of dials, and each dial holds a whole number. Ask what a divisible group can send into a single dial. Whatever a real number is sent to must itself be divisible by two, and by three, and by everything, because the sending respects division. The only whole number divisible by everything is zero. So every dial receives zero, and the whole row receives zero.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/06-where-the-real-line-goes/no_map.png" alt="Every homomorphism from the real line into a row of dials collapsing to zero, because the image would have to be divisible" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/06-where-the-real-line-goes/no_map.png;../../../condensed-math/parts/condensed-math02/guide/06-where-the-real-line-goes/no_map.png"><figcaption>Every homomorphism from the real line into a row of dials collapsing to zero, because the image would have to be divisible</figcaption></figure>
+<p>That settles the building blocks, and it is as far as this argument reaches on its own: the real line cannot touch a single one of the pieces solid groups are assembled from. Going from there to the full statement, that the solidification is zero and not merely small, is the lectures&#x27; step and it needs one more input, the computation of Lecture IV (<a href="https://arxiv.org/pdf/2605.03658v1#page=25">Theorem 4.3, page 25</a>). With that in hand the conclusion is exactly what the picture suggests: the real numbers solidify to nothing.</p>
+<p>Two things must be said plainly here, because this is where a reader is most likely to conclude the theory is broken.</p>
+<p><strong>The theory is not claiming the real numbers are unimportant.</strong> It is saying that this particular notion of completion is a nonarchimedean one, tuned to sizes like the base-p size of section 1, where near means divisible by a high power. The real line&#x27;s notion of near is a different kind, and it needs a different completion. The lectures flag this in a footnote at the very moment solidity is defined (<a href="https://arxiv.org/pdf/2605.03658v1#page=33">page 33</a>), and part three of this guide builds the real version.</p>
+<p><strong>The collapse is useful, not merely tolerated.</strong> Because real-valued measurements vanish, they cannot obstruct anything, and calculations that would otherwise carry an unbounded real-valued correction term simply lose it. Section 8 of part one already met this: real-valued hole counting returns nothing above the zeroth. That vanishing is what makes the key computation of Lecture IV go through (<a href="https://arxiv.org/pdf/2605.03658v1#page=25">Theorem 4.3, page 25</a>), and that computation is what everything in this part rests on.</p>
+<figure class="sim"><iframe src="play/06.html?embed" loading="lazy" title="Interactive picture for chapter 6"></iframe><figcaption>Use the controls to change the picture. <a href="play/06.html">Open the activity on its own page</a></figcaption></figure>
+<h2 id="s7"><span class="n">7 ·</span> The multiplication table</h2>
+<p>Solid groups can be multiplied together, in the sense that two of them combine into a third that handles pairs. The combination is called the completed tensor product, and its table is the most quotable thing in the lectures.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/07-the-multiplication-table/tensor_table.png" alt="The completed tensor products of the sample groups, arranged as a grid, with the vanishing entries marked" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/07-the-multiplication-table/tensor_table.png;../../../condensed-math/parts/condensed-math02/guide/07-the-multiplication-table/tensor_table.png"><figcaption>The completed tensor products of the sample groups, arranged as a grid, with the vanishing entries marked</figcaption></figure>
+<p>Read the grid. The base-two numbers combined with the base-three numbers give zero. The base-two numbers combined with themselves give the base-two numbers back. The base-two numbers combined with the real numbers give zero, which section 6 already explains. Power series in one variable combined with power series in another give power series in both.</p>
+<p>The two-and-three entry is the surprising one, and it has a picture.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/07-the-multiplication-table/rulers.gif" alt="Two rulers marked in powers of two and powers of three sliding against each other, with no scale ever lining up" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/07-the-multiplication-table/rulers.gif;../../../condensed-math/parts/condensed-math02/guide/07-the-multiplication-table/rulers.gif"><figcaption>Two rulers marked in powers of two and powers of three sliding against each other, with no scale ever lining up</figcaption></figure>
+<p>The base-two numbers are built by a nesting whose boxes shrink by twos, and the base-three numbers by a nesting whose boxes shrink by threes. Neither nesting can see the other&#x27;s boxes: three is a unit in the base-two world, so dividing by three is harmless there, and two is a unit in the base-three world. Asking the two to agree on anything at all leaves nothing standing, and the product is zero.</p>
+<p>The lectures summarise the pattern in a sentence worth quoting: the completed tensor product asks both sides which nesting they carry, and then keeps all of them (<a href="https://arxiv.org/pdf/2605.03658v1#page=44">Example 6.4, page 44</a>). Two compatible nestings combine, two incompatible ones annihilate.</p>
+<p>The one entry in the grid that this repository derives rather than transcribes is the power series row. Section 4 said a collection of weightings is a row of dials, and the lectures show that combining two such rows gives the row indexed by all pairs (<a href="https://arxiv.org/pdf/2605.03658v1#page=43">Proposition 6.3, page 43</a>). A power series in one variable has one dial per power of that variable, so pairs of dials are pairs of powers, which is exactly a power series in two variables. The tests check that pairing, and mark the rest of the grid as quoted from the lectures.</p>
+<figure class="sim"><iframe src="play/07.html?embed" loading="lazy" title="Interactive picture for chapter 7"></iframe><figcaption>Use the controls to change the picture. <a href="play/07.html">Open the activity on its own page</a></figcaption></figure>
+<h2 id="s8"><span class="n">8 ·</span> Solidify a shape, get its holes</h2>
+<p>The last section of this part is the payoff, and it is a magic trick with a short explanation.</p>
+<p>Take an ordinary shape: a circle, a doughnut surface, a sphere. Turn it into a group the cheapest possible way, by taking formal combinations of its points, with no relations imposed. Then solidify.</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/08-solidify-a-shape/solidify.gif" alt="A rotating three-dimensional doughnut surface with its holes counted off as bars beneath it" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/08-solidify-a-shape/solidify.gif;../../../condensed-math/parts/condensed-math02/guide/08-solidify-a-shape/solidify.gif"><figcaption>A rotating three-dimensional doughnut surface with its holes counted off as bars beneath it</figcaption></figure>
+<p>Out comes the shape&#x27;s holes.</p>
+<p>Not a shadow of them, not something related to them: the hole counts exactly, in every degree, torsion included. Solidification, an operation defined purely to make infinite sums behave, hands back the classical topology of the shape (<a href="https://arxiv.org/pdf/2605.03658v1#page=44">Example 6.5, page 44</a>).</p>
+<figure><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/08-solidify-a-shape/homology_bars.png" alt="The computed hole counts of five shapes, including the two-torsion of the Klein bottle" data-fallbacks="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/08-solidify-a-shape/homology_bars.png;../../../condensed-math/parts/condensed-math02/guide/08-solidify-a-shape/homology_bars.png"><figcaption>The computed hole counts of five shapes, including the two-torsion of the Klein bottle</figcaption></figure>
+<p>The bars are computed in this repository from cell-by-cell boundary data, over the whole numbers, using Smith normal form, so the torsion is genuine and not rounded away. A circle has one hole in degree one. A figure eight has two. A sphere has none in degree one and one in degree two. A doughnut has two and one. A Klein bottle has one hole in degree one plus a piece of order two, which is a hole you have to go round twice to close, and the computation finds it.</p>
+<p>Why this happens is short. Part one, section 8 showed that counting holes with whole numbers is the same whether you count classically or inside the world of answer sheets. Solidification is defined by how it answers questions from rows of dials, and questions asked of a shape&#x27;s formal combinations are exactly whole-number measurements on the shape, which is hole counting. The two descriptions meet, and the lectures make the identification precise in half a page.</p>
+<p>The consequence worth keeping is the direction the information travels. Nobody put topology into the definition of solidity. Solidity was defined by a rule about infinite sums, section 5, and the topology came out anyway. That is the sense in which the subject is not a repackaging: it is one notion that turns out to be several.</p>
+<figure class="sim"><iframe src="play/08.html?embed" loading="lazy" title="Interactive picture for chapter 8"></iframe><figcaption>Use the controls to change the picture. <a href="play/08.html">Open the activity on its own page</a></figcaption></figure>
+<h2 id="s9">Where part two leaves you</h2>
+<p>Infinite sums have a home. A weighting is finite bookkeeping repeated forever; solid groups are the ones where weightings can be integrated, in exactly one way; their building blocks are rows of dials; and the operation that produces them recovers classical topology for free.</p>
+<p>The real numbers are the declared casualty, and part three repairs them.</p>
+<p>Everything so far has been about groups, which is to say about adding. Multiplication has not appeared. Adding a multiplication turns groups into rings, rings into spaces, and this whole apparatus into geometry, which is part three.</p>
+<p><strong><a href="../condensed-math03/index.html">Part three: Rings That Know How To Integrate</a></strong></p>
+<h2 id="s10">How this part lines up with the lectures</h2>
+<div class="scroll"><table class="words"><thead><tr><th>this guide</th><th>in the lectures</th></tr></thead><tbody><tr><td>section 1, sums with nowhere to land</td><td>the motivation opening Lecture V, page 33</td></tr><tr><td>section 2, weights that agree</td><td>Definition 5.1, page 33, the free solid group</td></tr><tr><td>section 3, every function is a stack of steps</td><td>Theorem 5.4, page 34, Nöbeling&#x27;s theorem with Bergman&#x27;s proof</td></tr><tr><td>section 4, products in, sums out</td><td>Corollary 5.5, page 34, and the biduality inside Proposition 5.7, page 35</td></tr><tr><td>section 5, the solid rule</td><td>Definition 5.1, page 33; Theorem 5.8, page 35; Corollary 6.1, page 42</td></tr><tr><td>section 6, where the real line goes</td><td>Corollary 6.1 (iii), page 42; Theorem 4.3, page 25; the footnote on page 33</td></tr><tr><td>section 7, the multiplication table</td><td>Theorem 6.2 and Proposition 6.3, page 43; Example 6.4, page 44</td></tr><tr><td>section 8, solidify a shape</td><td>Example 6.5, page 44</td></tr></tbody></table></div>
+<h2 id="s11">Checking it yourself</h2>
+<pre><code>cd condensed-math
+make venv
+make test
+make figures</code></pre>
+<p>For this part, the tests:</p>
+<ul><li>recompute the running totals of the doubling sum in exact arithmetic and confirm the ordinary distance doubles while the base-two distance halves, converging to minus one</li><li>build weightings on the halving probe and the base-p probe and confirm the agreement rule at every level</li><li>confirm that integrating a measurement read at a coarse level and at a refined one gives the same total</li><li>run Bergman&#x27;s basis construction and confirm the basis size equals the box count at each level</li><li>check the pairing behind the power series row of the multiplication table: the dials of a two-variable series correspond exactly to pairs of dials of one-variable series</li><li>confirm the transcribed multiplication table is symmetric and consistent with the nesting rule the lectures describe</li><li>compute the holes of five shapes from boundary data by Smith normal form over the whole numbers, torsion included, and confirm the Klein bottle&#x27;s piece of order two</li></ul>
+<p>What is quoted rather than computed: Nöbeling&#x27;s theorem in the infinite case, the solid category&#x27;s structure, the vanishing of the solidified real line, and the identification of solidification with hole counting. These are statements about whole categories or genuinely infinite objects, and no finite program reaches them. <code>notes/research-content.md</code> marks each one.</p>
+<h2 id="s12">Glossary</h2>
+<div class="scroll"><table class="words"><thead><tr><th>this guide&#x27;s plain phrase</th><th>the standard mathematical term</th></tr></thead><tbody><tr><td>a weighting</td><td>a measure on a profinite set, an element of the free solid abelian group</td></tr><tr><td>the agreement rule</td><td>compatibility in the inverse limit</td></tr><tr><td>small when divisible by a high power</td><td>the p-adic absolute value</td></tr><tr><td>the base-p numbers</td><td>the p-adic integers</td></tr><tr><td>a row of dials, a product</td><td>a product of copies of the integers</td></tr><tr><td>a sum</td><td>a direct sum of copies of the integers</td></tr><tr><td>a question</td><td>a group homomorphism to the integers</td></tr><tr><td>solid</td><td>solid, in the lectures&#x27; sense</td></tr><tr><td>solidification</td><td>the left adjoint to the inclusion of solid groups</td></tr><tr><td>the completed tensor product</td><td>the solid tensor product</td></tr><tr><td>a nesting</td><td>an adic topology</td></tr><tr><td>divisible</td><td>divisible</td></tr><tr><td>the holes of a shape</td><td>the singular homology groups</td></tr><tr><td>a hole you go round twice</td><td>a torsion class of order two</td></tr><tr><td>the building blocks</td><td>the compact projective generators</td></tr></tbody></table></div>
+<h2 id="s13">Further reading</h2>
+<ul><li>The lectures: Peter Scholze, &quot;Lectures on Condensed Mathematics&quot;, <a href="https://arxiv.org/abs/2605.03658">arXiv:2605.03658</a>, May 2026, joint work with Dustin Clausen. Lectures IV to VI are this part.</li><li>For section 4: E. Specker, &quot;Additive Gruppen von Folgen ganzer Zahlen&quot; (1950), and G. Nöbeling, &quot;Verallgemeinerung eines Satzes von Herrn E. Specker&quot; (1968), both cited in the lectures for Theorem 5.4.</li><li><code>notes/research-content.md</code> marks every claim above as computed here or quoted.</li></ul>
+
+<footer>
+<p>Written August 2026. This is one topic in <a href="../../">conjectures</a>, and
+one part of <a href="../">condensed mathematics</a>. Every figure is generated from
+the <a href="https://github.com/muchmirul/conjectures/tree/main/condensed-math">repository</a>: <code>make figures</code> rebuilds the
+pictures, and <code>make test</code> checks the computed claims.</p>
+<p>This guide retells Peter Scholze's <em>Lectures on Condensed Mathematics</em>
+(<a href="https://arxiv.org/abs/2605.03658">arXiv:2605.03658</a>), joint work with
+Dustin Clausen. It was written with AI assistance and careful human review. Claims
+about finite objects are backed by the test suite; statements about categories are
+quoted from the lectures, and the article says which is which.</p>
+</footer>
+</main>
+<script>
+// Every figure lists the places it might live: GitHub raw, which is the only
+// one the published page can reach, and then the topic folder beside this
+// file, which is the one that works when the page is opened straight from
+// disk.  Try them in order rather than giving up on the first miss, so an
+// animation never silently fails to appear.
+document.querySelectorAll('figure img[data-fallbacks]').forEach(function (img) {
+  var tries = img.getAttribute('data-fallbacks').split(';');
+  var at = 0;
+  function next() {
+    at += 1;
+    if (at < tries.length) { img.src = tries[at]; }
+    else { img.classList.add('missing'); img.alt = 'could not load: ' + img.alt; }
+  }
+  img.addEventListener('error', next);
+  if (img.complete && img.naturalWidth === 0) { next(); }
+});
+</script>
+</body>
+</html>

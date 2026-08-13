@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Play with it · condensed mathematics, part 1</title>
+<style>
+ :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+        --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
+        --violet:#4a3aa7;--teal:#00787a;--brown:#8a5a2c;}
+ @media (prefers-color-scheme: dark){
+   :root{--surface:#15150f;--ink:#f2f1ea;--ink2:#c9c7bd;--muted:#8d8b82;
+         --line:#33322c;}
+ }
+ *{box-sizing:border-box}
+ body{margin:0;padding:28px 20px 56px;background:var(--surface);color:var(--ink);
+   font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif;}
+ main{max-width:760px;margin:0 auto}
+ .back{font-size:14px;color:var(--muted);text-decoration:none}
+ .back:hover{color:var(--blue)}
+ h1{font-size:24px;line-height:1.25;margin:14px 0 6px}
+ .lede{color:var(--ink2);margin:0 0 22px}
+ .try{border-left:3px solid var(--blue);padding:8px 0 8px 14px;margin:0 0 22px;
+   color:var(--ink2);font-size:15px}
+ canvas{width:100%;height:auto;display:block;border-radius:8px;
+   background:var(--surface)}
+ .controls{margin:18px 0 0}
+ .row{display:flex;align-items:center;gap:12px;margin:10px 0}
+ .row label{flex:0 0 200px;font-size:14px;color:var(--ink2)}
+ input[type=range]{flex:1;accent-color:var(--blue)}
+ .val{flex:0 0 120px;text-align:right;font-family:ui-monospace,monospace;
+   font-size:13px}
+ .pick{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+ .pick button{font:inherit;font-size:13.5px;padding:6px 12px;cursor:pointer;
+   border:1px solid var(--line);border-radius:999px;background:transparent;
+   color:var(--ink2)}
+ .pick button:hover{border-color:var(--blue);color:var(--blue)}
+ .pick button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+ .readout{margin-top:18px;padding:14px 16px;border:1px solid var(--line);
+   border-radius:8px;font-family:ui-monospace,monospace;font-size:14px;
+   white-space:pre-line}
+ .verdict-ok{color:var(--green)} .verdict-no{color:var(--red)}
+ .nav{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);
+   font-size:14px}
+ .nav a{color:var(--blue);text-decoration:none}
+ .nav a:hover{text-decoration:underline}
+ .note{margin-top:26px;font-size:13.5px;color:var(--muted)}
+ body.embed{padding:14px 16px 18px}
+ body.embed .back, body.embed h1, body.embed .lede, body.embed .nav{display:none}
+ body.embed .try{margin-top:0}
+.list{list-style:none;padding:0;margin:0}.list li{padding:12px 0;border-bottom:1px solid var(--line)}.list a{display:block;color:var(--blue);text-decoration:none;font-size:16px}.list span{display:block;color:var(--muted);font-size:13.5px;margin-top:2px}</style>
+</head>
+<body>
+<main>
+<a class="back" href="../index.html">back to the article</a>
+<h1>Play with part 1</h1>
+<p class="lede">One page per chapter. Every claim in the article is a control on one of these.</p>
+
+
+<ul class="list"><li><a href="00.html">0 · Build a probe</a><span>A probe is one box, split, and split again, forever. Below the tree is the dust it cuts out: the points you reach by following the splits all the way down.</span></li>
+<li><a href="01.html">1 · The two real lines</a><span>The same numbers twice: as separated grains with no notion of nearness, and as a ruler where nearness is everything. The slider is how closely you look.</span></li>
+<li><a href="02.html">2 · Switch the probe</a><span>The three probes this guide uses. The tree is the stack of finite stages; click any box to light up everything inside it.</span></li>
+<li><a href="03.html">3 · Land a probe without tearing it</a><span>The approaching probe on the left: points marching towards a limit. A target line on the right. You choose where the marching points head, and where the limit point lands.</span></li>
+<li><a href="04.html">4 · Cut, then glue</a><span>Two rules tie an answer sheet together. Cut: a probe in separate pieces is answered piece by piece. Glue: answers on a covering that agree on the overlap come from exactly one answer below.</span></li>
+<li><a href="05.html">5 · Build a ghost</a><span>On the halving probe, choose how much each split shifts the value. The result is a landing the ruler allows and the dust does not, which is one entry of the group with no points.</span></li>
+<li><a href="06.html">6 · The lifting game</a><span>A covering: two copies sit above every point of the probe. Choose one copy per point. On the approaching probe your choices must settle down, or the limit point cannot be lifted.</span></li>
+<li><a href="07.html">7 · The round trip</a><span>Turn a space into its answer sheet, then read a space back out of it. On everything ordinary you get what you started with.</span></li>
+<li><a href="08.html">8 · Count the turns</a><span>A closed path drawn on a ring. The only thing about it that survives wobbling is how many whole turns it makes, and that count is the ring's first hole count.</span></li></ul>
+
+<p class="note">Each page is self contained: no libraries and no network, so they work offline and from a file.</p>
+<div class="nav"><a href="../index.html">back to the article</a></div>
+</main>
+<script>
+if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
+
+
+</script>
+</body>
+</html>

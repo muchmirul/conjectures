@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Condensed Mathematics</title>
+<meta name="description" content="A beginner's visual guide to condensed mathematics, in three parts, with a simulation in every chapter.">
+<style>
+  :root {
+    --surface: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+    --line: #e1e0d9; --blue: #2a78d6; --green: #008300; --red: #d03b3b;
+    --violet: #4a3aa7; --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--surface); color: var(--ink);
+    font: 17px/1.65 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  header.hero { text-align: center; margin-bottom: 2.5rem; }
+  .kicker { color: var(--violet); font-size: 0.8rem; letter-spacing: 0.09em;
+            text-transform: uppercase; font-weight: 600; margin: 0 0 0.5rem; }
+  h1 { font-size: 2.1rem; line-height: 1.2; margin: 0 0 0.75rem; }
+  .subtitle { color: var(--ink2); font-style: italic; font-size: 1.05rem;
+              max-width: 40rem; margin: 0 auto; }
+  h2 { font-size: 1.5rem; margin: 3.2rem 0 1rem; padding-top: 1.6rem;
+       border-top: 1px solid var(--line); }
+  h2 .n { color: var(--blue); }
+  h3 { font-size: 1.15rem; margin: 2rem 0 0.6rem; }
+  p { margin: 0.9rem 0; }
+  figure { margin: 1.6rem 0; text-align: center; }
+  figure img { max-width: 100%; height: auto; border-radius: 6px; }
+  figcaption { color: var(--muted); font-size: 0.85rem; margin-top: 0.45rem;
+               line-height: 1.45; }
+  blockquote {
+    margin: 1.4rem 0; padding: 0.85rem 1.1rem; border-left: 4px solid var(--green);
+    background: var(--card); border-radius: 0 6px 6px 0; color: var(--ink);
+  }
+  blockquote p { margin: 0.35rem 0; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+              font-size: 0.9em; }
+  code { background: #f0efec; padding: 0.1em 0.35em; border-radius: 4px; }
+  pre { background: #f6f5f2; border: 1px solid var(--line); border-radius: 8px;
+        padding: 0.9rem 1.1rem; overflow-x: auto; line-height: 1.5; }
+  pre code { background: none; padding: 0; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; margin: 1.2rem auto; }
+  th, td { border: 1px solid var(--line); padding: 0.45rem 0.8rem; text-align: center; }
+  table.words th, table.words td { text-align: left; }
+  th { background: #f6f5f2; }
+  ul, ol { padding-left: 1.4rem; }
+  li { margin: 0.35rem 0; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  footer { margin-top: 4rem; padding-top: 1.4rem; border-top: 1px solid var(--line);
+           color: var(--muted); font-size: 0.9rem; }
+  nav.toc {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 1rem 1.3rem; margin: 1.2rem 0 2rem; font-size: 0.95rem;
+    columns: 2; column-gap: 2rem;
+  }
+  nav.toc a { display: block; padding: 0.12rem 0; color: var(--ink2); }
+  nav.toc a:hover { color: var(--blue); }
+  nav.parts { display: flex; gap: 0.6rem; margin: 2rem 0 0; flex-wrap: wrap; }
+  nav.parts a { flex: 1 1 12rem; border: 1px solid var(--line); border-radius: 10px;
+                padding: 0.7rem 0.9rem; background: var(--card); color: var(--ink2); }
+  nav.parts a:hover { border-color: var(--blue); text-decoration: none; }
+  nav.parts a.here { border-color: var(--violet); background: #f6f5ff; }
+  nav.parts .pn { display: block; font-size: 0.72rem; letter-spacing: 0.08em;
+                  text-transform: uppercase; color: var(--violet); font-weight: 600; }
+  nav.parts .pt { display: block; font-size: 0.9rem; margin-top: 0.15rem; }
+  figure img.missing { outline: 2px dashed var(--red); padding: 1rem; }
+  figure.sim iframe { width: 100%; height: 660px; border: 1px solid var(--line);
+                      border-radius: 10px; background: #fff; }
+  @media (max-width: 600px) { nav.toc { columns: 1; } h1 { font-size: 1.7rem; } }
+
+  .part { display: block; background: var(--card); border: 1px solid var(--line);
+          border-radius: 10px; overflow: hidden; margin: 1.6rem 0; color: inherit; }
+  .part:hover { border-color: var(--blue); box-shadow: 0 2px 14px rgba(0,0,0,0.06);
+                text-decoration: none; }
+  .part img { display: block; width: 100%; height: auto;
+              border-bottom: 1px solid var(--line); }
+  .part .body { padding: 1.1rem 1.3rem 1.3rem; }
+  .part h3 { margin: 0 0 0.4rem; font-size: 1.25rem; }
+  .part p { margin: 0.4rem 0 0; color: var(--ink2); font-size: 0.97rem; }
+  .part .pn { display: inline-block; font-size: 0.72rem; letter-spacing: 0.08em;
+              text-transform: uppercase; color: var(--violet); font-weight: 600; }
+  .links { margin-top: 0.8rem; font-size: 0.92rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+
+<header class="hero">
+  <h1>Condensed Mathematics</h1>
+  <p class="subtitle">A set with a distance on it is two structures badly glued
+  together, and the glue fails in a way that breaks ordinary algebra. This is the
+  repair, built from nothing, in three parts, with something to move in every
+  chapter.</p>
+</header>
+
+<p>Condensed mathematics replaces a space by everything that space says to
+probes, where a probe is an endlessly refined finite picture. That one change
+makes subtraction work, gives infinite sums a home, and turns a duality theorem
+that used to be built by hand into a single adjoint. This guide retells Peter
+Scholze's <a href="https://arxiv.org/abs/2605.03658"><em>Lectures on Condensed
+Mathematics</em></a>, joint work with Dustin Clausen, from a standing start.</p>
+
+<p>Read the parts in order. Each is self-contained given the one before, and each
+chapter carries a simulation you can move.</p>
+
+<a class="part" href="condensed-math01/"><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math01/guide/00-start-here/hero.gif" alt="Opening animation of part 1"><div class="body"><span class="pn">Part 1 · Lectures I to III</span><h3>Shapes You Can Only See By Probing Them</h3><p>Why a set with a topology is two structures badly glued, what a probe is, and how replacing a space by everything it says to probes makes subtraction work again.</p><p class="links">8 chapters &middot; 8 simulations embedded in the article</p></div></a>
+<a class="part" href="condensed-math02/"><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math02/guide/00-start-here/hero.gif" alt="Opening animation of part 2"><div class="body"><span class="pn">Part 2 · Lectures IV to VI</span><h3>Infinite Sums That Finally Land</h3><p>Endless sums are the reason topology was dragged into algebra in the first place. Solid groups are the ones where every such sum has exactly one answer, and their building blocks turn out to be products of copies of the whole numbers.</p><p class="links">8 chapters &middot; 8 simulations embedded in the article</p></div></a>
+<a class="part" href="condensed-math03/"><img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/condensed-math/parts/condensed-math03/guide/00-start-here/hero.gif" alt="Opening animation of part 3"><div class="body"><span class="pn">Part 3 · Lectures VII to XI</span><h3>Rings That Know How To Integrate</h3><p>Carry the solid rule from whole numbers to rings, and geometry follows: functions near the edge of a space, cohomology with compact support, and a duality that was previously assembled by hand falls out of one adjoint.</p><p class="links">8 chapters &middot; 8 simulations embedded in the article</p></div></a>
+
+<h2>What is checked, and what is quoted</h2>
+
+<p>Condensed mathematics is foundational, so most of its statements are about whole
+categories and no program can check them. This repository computes the finite
+machinery underneath: probes as real inverse systems, measures as compatible integer
+weights, homology by Smith normal form over the integers, the norms and ranks and
+truncations. Every article says, section by section, which of its claims were
+computed here and which are quoted from the lectures, and
+<code>notes/research-content.md</code> lists them all.</p>
+
+<footer>
+  <p>Source, code, and every animation:
+  <a href="https://github.com/muchmirul/conjectures">github.com/muchmirul/conjectures</a>.
+  The lectures themselves are kept in <a href="paper/">paper/</a>.</p>
+</footer>
+
+</main>
+</body>
+</html>

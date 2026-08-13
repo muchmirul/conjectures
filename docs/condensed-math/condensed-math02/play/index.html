@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Play with it · condensed mathematics, part 2</title>
+<style>
+ :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+        --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
+        --violet:#4a3aa7;--teal:#00787a;--brown:#8a5a2c;}
+ @media (prefers-color-scheme: dark){
+   :root{--surface:#15150f;--ink:#f2f1ea;--ink2:#c9c7bd;--muted:#8d8b82;
+         --line:#33322c;}
+ }
+ *{box-sizing:border-box}
+ body{margin:0;padding:28px 20px 56px;background:var(--surface);color:var(--ink);
+   font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif;}
+ main{max-width:760px;margin:0 auto}
+ .back{font-size:14px;color:var(--muted);text-decoration:none}
+ .back:hover{color:var(--blue)}
+ h1{font-size:24px;line-height:1.25;margin:14px 0 6px}
+ .lede{color:var(--ink2);margin:0 0 22px}
+ .try{border-left:3px solid var(--blue);padding:8px 0 8px 14px;margin:0 0 22px;
+   color:var(--ink2);font-size:15px}
+ canvas{width:100%;height:auto;display:block;border-radius:8px;
+   background:var(--surface)}
+ .controls{margin:18px 0 0}
+ .row{display:flex;align-items:center;gap:12px;margin:10px 0}
+ .row label{flex:0 0 200px;font-size:14px;color:var(--ink2)}
+ input[type=range]{flex:1;accent-color:var(--blue)}
+ .val{flex:0 0 120px;text-align:right;font-family:ui-monospace,monospace;
+   font-size:13px}
+ .pick{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+ .pick button{font:inherit;font-size:13.5px;padding:6px 12px;cursor:pointer;
+   border:1px solid var(--line);border-radius:999px;background:transparent;
+   color:var(--ink2)}
+ .pick button:hover{border-color:var(--blue);color:var(--blue)}
+ .pick button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+ .readout{margin-top:18px;padding:14px 16px;border:1px solid var(--line);
+   border-radius:8px;font-family:ui-monospace,monospace;font-size:14px;
+   white-space:pre-line}
+ .verdict-ok{color:var(--green)} .verdict-no{color:var(--red)}
+ .nav{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);
+   font-size:14px}
+ .nav a{color:var(--blue);text-decoration:none}
+ .nav a:hover{text-decoration:underline}
+ .note{margin-top:26px;font-size:13.5px;color:var(--muted)}
+ body.embed{padding:14px 16px 18px}
+ body.embed .back, body.embed h1, body.embed .lede, body.embed .nav{display:none}
+ body.embed .try{margin-top:0}
+.list{list-style:none;padding:0;margin:0}.list li{padding:12px 0;border-bottom:1px solid var(--line)}.list a{display:block;color:var(--blue);text-decoration:none;font-size:16px}.list span{display:block;color:var(--muted);font-size:13.5px;margin-top:2px}</style>
+</head>
+<body>
+<main>
+<a class="back" href="../index.html">back to the article</a>
+<h1>Play with part 2</h1>
+<p class="lede">One page per chapter. Every claim in the article is a control on one of these.</p>
+
+
+<ul class="list"><li><a href="00.html">0 · Hand out the weights</a><span>One number at the top, split down the tree. The only rule is that a box's number is always the total of the boxes inside it.</span></li>
+<li><a href="01.html">1 · The same sum, two sizes</a><span>Adding one, then p, then p squared, and on. On the ordinary ruler the running totals fly apart. Under the base-p size they close in on a single point.</span></li>
+<li><a href="02.html">2 · Read it at two levels</a><span>A weighting on the halving probe, and a measurement to integrate against it. The same measurement can be read on coarse boxes or on fine ones.</span></li>
+<li><a href="03.html">3 · Take a measurement apart</a><span>A whole-number measurement on the probe, and the switch functions it is built from. Each switch is one box on and everything else off.</span></li>
+<li><a href="04.html">4 · How far can a question reach</a><span>An endless row of dials. A question adds up some of them and returns one whole number. The slider is how far the question is allowed to reach.</span></li>
+<li><a href="05.html">5 · Which groups obey the rule</a><span>A group is solid when every placement of a probe's points into it extends, in exactly one way, so that weightings can be integrated. Pick a group and watch the test run.</span></li>
+<li><a href="06.html">6 · Divide forever</a><span>Take a number and divide it, by two, then three, then four, and on without end. Whether you stay inside the group is what decides the previous section's last row.</span></li>
+<li><a href="07.html">7 · The multiplication table</a><span>Two solid groups combined into one that handles pairs. Pick a row and a column, and read off what the combination is.</span></li>
+<li><a href="08.html">8 · Solidify a shape</a><span>A shape, turned into a group the cheapest possible way and then made solid. What falls out is the shape's holes, in every degree, torsion and all.</span></li></ul>
+
+<p class="note">Each page is self contained: no libraries and no network, so they work offline and from a file.</p>
+<div class="nav"><a href="../index.html">back to the article</a></div>
+</main>
+<script>
+if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The lifting game · condensed mathematics, part 1</title>
+<style>
+ :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+        --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
+        --violet:#4a3aa7;--teal:#00787a;--brown:#8a5a2c;}
+ @media (prefers-color-scheme: dark){
+   :root{--surface:#15150f;--ink:#f2f1ea;--ink2:#c9c7bd;--muted:#8d8b82;
+         --line:#33322c;}
+ }
+ *{box-sizing:border-box}
+ body{margin:0;padding:28px 20px 56px;background:var(--surface);color:var(--ink);
+   font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif;}
+ main{max-width:760px;margin:0 auto}
+ .back{font-size:14px;color:var(--muted);text-decoration:none}
+ .back:hover{color:var(--blue)}
+ h1{font-size:24px;line-height:1.25;margin:14px 0 6px}
+ .lede{color:var(--ink2);margin:0 0 22px}
+ .try{border-left:3px solid var(--blue);padding:8px 0 8px 14px;margin:0 0 22px;
+   color:var(--ink2);font-size:15px}
+ canvas{width:100%;height:auto;display:block;border-radius:8px;
+   background:var(--surface)}
+ .controls{margin:18px 0 0}
+ .row{display:flex;align-items:center;gap:12px;margin:10px 0}
+ .row label{flex:0 0 200px;font-size:14px;color:var(--ink2)}
+ input[type=range]{flex:1;accent-color:var(--blue)}
+ .val{flex:0 0 120px;text-align:right;font-family:ui-monospace,monospace;
+   font-size:13px}
+ .pick{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+ .pick button{font:inherit;font-size:13.5px;padding:6px 12px;cursor:pointer;
+   border:1px solid var(--line);border-radius:999px;background:transparent;
+   color:var(--ink2)}
+ .pick button:hover{border-color:var(--blue);color:var(--blue)}
+ .pick button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+ .readout{margin-top:18px;padding:14px 16px;border:1px solid var(--line);
+   border-radius:8px;font-family:ui-monospace,monospace;font-size:14px;
+   white-space:pre-line}
+ .verdict-ok{color:var(--green)} .verdict-no{color:var(--red)}
+ .nav{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);
+   font-size:14px}
+ .nav a{color:var(--blue);text-decoration:none}
+ .nav a:hover{text-decoration:underline}
+ .note{margin-top:26px;font-size:13.5px;color:var(--muted)}
+ body.embed{padding:14px 16px 18px}
+ body.embed .back, body.embed h1, body.embed .lede, body.embed .nav{display:none}
+ body.embed .try{margin-top:0}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="../index.html">back to the article</a>
+<h1>6 · The lifting game</h1>
+<p class="lede">A covering: two copies sit above every point of the probe. Choose one copy per point. On the approaching probe your choices must settle down, or the limit point cannot be lifted.</p>
+<p class="try"><strong>Try this.</strong> Set the pattern to alternate and watch the limit fail: neither copy is what the choices are approaching. Then switch to the unfoldable probe, where nothing converges in the first place, so no choice is ever blocked.</p>
+<canvas id="c" width="720" height="400"></canvas>
+<div class="controls"><div class="row"><label>which probe below</label><div class="pick" id="base" style="flex:1"><button data-v="seq" class="on">approaching</button><button data-v="ed" class="">unfoldable</button></div></div><div class="row"><label for="period">how often the choice flips</label><input type="range" id="period" min="1" max="8" step="1" value="1"><span class="val" id="periodv"></span></div></div>
+<div class="readout" id="out"></div>
+<p class="note">Unfoldable is the guide's word for extremally disconnected, Definition 2.4. The fact that nothing converges in one is Warning 2.6, and it is why the picture on the right looks so unlike anything you would draw.</p>
+<div class="nav"><a href="05.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="07.html">next →</a></div>
+</main>
+<script>
+if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
+
+// ---------------------------------------------------------------------
+// probes, as honest inverse systems of finite sets
+// ---------------------------------------------------------------------
+function cantorProbe(depth){
+  const levels=[[""]],parents=[];
+  for(let i=0;i<depth;i++){
+    const nxt=[];for(const s of levels[i]){nxt.push(s+"0");nxt.push(s+"1");}
+    const par={};for(const s of nxt)par[s]=s.slice(0,-1);
+    parents.push(par);levels.push(nxt);
+  }
+  return {name:"halving",levels:levels,parents:parents};
+}
+function branchProbe(depth,b){
+  const levels=[[""]],parents=[];
+  for(let i=0;i<depth;i++){
+    const nxt=[];for(const s of levels[i])for(let k=0;k<b;k++)nxt.push(s+k);
+    const par={};for(const s of nxt)par[s]=s.slice(0,-1);
+    parents.push(par);levels.push(nxt);
+  }
+  return {name:"branching by "+b,levels:levels,parents:parents};
+}
+function sequenceProbe(depth){
+  const levels=[["oo"]],parents=[];
+  for(let i=0;i<depth;i++){
+    const nxt=[];for(let k=0;k<=i;k++)nxt.push(String(k));nxt.push("oo");
+    const par={};for(let k=0;k<=i;k++)par[String(k)]=(k===i?"oo":String(k));
+    par["oo"]="oo";
+    parents.push(par);levels.push(nxt);
+  }
+  return {name:"approaching",levels:levels,parents:parents};
+}
+function pAdicProbe(p,depth){
+  const levels=[["0"]],parents=[];
+  for(let i=0;i<depth;i++){
+    const n=Math.pow(p,i+1),nxt=[];
+    for(let k=0;k<n;k++)nxt.push(String(k));
+    const par={};for(let k=0;k<n;k++)par[String(k)]=String(k%Math.pow(p,i));
+    parents.push(par);levels.push(nxt);
+  }
+  return {name:"base-"+p,levels:levels,parents:parents};
+}
+function probeSizes(S){ return S.levels.map(l=>l.length); }
+function project(S,label,frm,to){
+  for(let i=frm-1;i>=to;i--) label=S.parents[i][label];
+  return label;
+}
+function fibre(S,label,at,over){
+  return S.levels[at].filter(x=>project(S,x,at,over)===label);
+}
+
+// ---------------------------------------------------------------------
+// measures: one weight per box, a box's weight the total of what is inside
+// ---------------------------------------------------------------------
+function measureFromLeaves(S,leafWeights){
+  const d=S.levels.length-1,weights=[Object.assign({},leafWeights)];
+  for(let i=d-1;i>=0;i--){
+    const coarse={};for(const l of S.levels[i])coarse[l]=0;
+    for(const x of S.levels[i+1])coarse[S.parents[i][x]]+=weights[0][x];
+    weights.unshift(coarse);
+  }
+  return weights;
+}
+function measureOk(S,weights){
+  for(let i=0;i<weights.length-1;i++)
+    for(const l of S.levels[i]){
+      let inner=0;
+      for(const x of S.levels[i+1])if(S.parents[i][x]===l)inner+=weights[i+1][x];
+      if(Math.abs(weights[i][l]-inner)>1e-9)return false;
+    }
+  return true;
+}
+function integrate(S,weights,f,level){
+  let s=0;for(const l of S.levels[level])s+=f[l]*weights[level][l];return s;
+}
+function refineFn(S,f,frm,to){
+  const g={};for(const x of S.levels[to])g[x]=f[project(S,x,to,frm)];return g;
+}
+
+// ---------------------------------------------------------------------
+// the p-adic size, and the doubling sum of part two
+// ---------------------------------------------------------------------
+function pValuation(n,p){ if(n===0)return Infinity;let v=0;
+  while(n%p===0){n/=p;v++;}return v; }
+function pAdicAbsInt(n,p){ return n===0?0:Math.pow(p,-pValuation(n,p)); }
+function geomPartialSums(p,terms){
+  const out=[];let s=0,t=1;
+  for(let n=0;n<terms;n++){s+=t;t*=p;out.push(s);}
+  return out;
+}
+function geomLimitTimes(p){ return 1/(1-p); }   // the value the sums close on
+
+// ---------------------------------------------------------------------
+// measure sizes: why the exponent must not pass one
+// ---------------------------------------------------------------------
+function lpSize(vals,p){
+  let s=0;for(const v of vals)s+=Math.pow(Math.abs(v),p);
+  return Math.pow(s,1/p);
+}
+function mergeBoxes(vals,groups){
+  return groups.map(g=>g.reduce((a,i)=>a+vals[i],0));
+}
+function mergeRatio(vals,groups,p){
+  const before=lpSize(vals,p);
+  return before?lpSize(mergeBoxes(vals,groups),p)/before:0;
+}
+function worstMergeRatio(boxes,p){ return Math.pow(boxes,1-1/p); }
+function lpBallPoint(theta,p){
+  const c=Math.cos(theta),s=Math.sin(theta);
+  const k=Math.pow(Math.pow(Math.abs(c),p)+Math.pow(Math.abs(s),p),1/p);
+  return [c/k,s/k];
+}
+
+// ---------------------------------------------------------------------
+// the completed tensor product of part two, section 7
+// ---------------------------------------------------------------------
+const ADIC={"Z":[],"Z_p":["p"],"Z_l":["l"],"Z[[T]]":["T"],"Z[[U]]":["U"],
+            "Z_p[[T]]":["p","T"],"Z[[T,U]]":["T","U"],"R":null};
+// a prime direction names the base ring; the rest are formal variables
+function nameDirections(dirs){
+  const all=Array.from(dirs).sort();
+  const primes=all.filter(d=>d==="p"||d==="l");
+  const vars=all.filter(d=>d!=="p"&&d!=="l");
+  const base=primes.length?("Z_"+primes[0]):"Z";
+  return vars.length?(base+"[["+vars.join(",")+"]]"):base;
+}
+function solidTensor(a,b){
+  const da=ADIC[a],db=ADIC[b];
+  if(da===null||db===null)return "0";
+  const dirs=new Set(da.concat(db));
+  const primes=Array.from(dirs).filter(d=>d==="p"||d==="l");
+  if(primes.length>1)return "0";
+  return nameDirections(dirs);
+}
+// only these five combinations are stated outright in the lectures
+const QUOTED_TENSOR=[["Z_p","Z_l"],["Z_p","R"],["Z_p","Z_p"],
+                     ["Z_p","Z[[T]]"],["Z[[U]]","Z[[T]]"]];
+function quotedTensor(a,b){
+  return QUOTED_TENSOR.some(pr=>(pr[0]===a&&pr[1]===b)||(pr[0]===b&&pr[1]===a));
+}
+
+// ---------------------------------------------------------------------
+// holes, by Smith normal form over the whole numbers
+// ---------------------------------------------------------------------
+function smith(mat){
+  if(!mat||!mat.length||!mat[0].length)return [];
+  const m=mat.map(r=>r.slice());
+  const rows=m.length,cols=m[0].length,divs=[];
+  let t=0;
+  while(t<rows&&t<cols){
+    let pi=-1,pj=-1,best=Infinity;
+    for(let i=t;i<rows;i++)for(let j=t;j<cols;j++)
+      if(m[i][j]&&Math.abs(m[i][j])<best){best=Math.abs(m[i][j]);pi=i;pj=j;}
+    if(pi<0)break;
+    const tmp=m[t];m[t]=m[pi];m[pi]=tmp;
+    for(const row of m){const v=row[t];row[t]=row[pj];row[pj]=v;}
+    for(let guard=0;guard<400;guard++){
+      for(let i=t+1;i<rows;i++)if(m[i][t]){
+        const q=Math.trunc(m[i][t]/m[t][t]);
+        for(let j=0;j<cols;j++)m[i][j]-=q*m[t][j];
+      }
+      let nz=-1;for(let i=t+1;i<rows;i++)if(m[i][t]){nz=i;break;}
+      if(nz>=0){const s=m[t];m[t]=m[nz];m[nz]=s;continue;}
+      for(let j=t+1;j<cols;j++)if(m[t][j]){
+        const q=Math.trunc(m[t][j]/m[t][t]);
+        for(const row of m)row[j]-=q*row[t];
+      }
+      let nc=-1;for(let j=t+1;j<cols;j++)if(m[t][j]){nc=j;break;}
+      if(nc>=0){for(const row of m){const v=row[t];row[t]=row[nc];row[nc]=v;}continue;}
+      break;
+    }
+    divs.push(Math.abs(m[t][t]));t++;
+  }
+  return divisibilityChain(divs);
+}
+// diagonalising is not quite the normal form: a diagonal 2, 3 describes the
+// same group as 1, 6, so the chain is repaired the same way as in Python
+function gcd(a,b){ while(b){const t=a%b;a=b;b=t;} return Math.abs(a); }
+function divisibilityChain(divs){
+  const d=divs.slice().sort((a,b)=>a-b);
+  let changed=true;
+  while(changed){
+    changed=false;
+    for(let i=0;i<d.length-1;i++){
+      const a=d[i],b=d[i+1];
+      if(b%a){const g=gcd(a,b);d[i]=g;d[i+1]=(a/g)*b;changed=true;}
+    }
+  }
+  return d;
+}
+const SHAPES={
+  "circle":{cells:[1,1],bd:{1:[[0]]}},
+  "figure eight":{cells:[1,2],bd:{1:[[0,0]]}},
+  "sphere":{cells:[1,0,1],bd:{2:[]}},
+  "torus":{cells:[1,2,1],bd:{1:[[0],[0]],2:[[0],[0]]}},
+  "klein bottle":{cells:[1,2,1],bd:{1:[[0],[0]],2:[[0],[2]]}}
+};
+function homology(name){
+  const S=SHAPES[name],out=[];
+  for(let k=0;k<S.cells.length;k++){
+    const n=S.cells[k],dk=S.bd[k],dn=S.bd[k+1];
+    const rankK=dk&&dk.length?smith(dk).length:0;
+    const divs=dn&&dn.length?smith(dn):[];
+    out.push({free:n-rankK-divs.length,torsion:divs.filter(d=>d>1)});
+  }
+  return out;
+}
+function binom(n,k){ let r=1;for(let i=0;i<k;i++)r=r*(n-i)/(i+1);
+  return Math.round(r); }
+function exteriorRanks(n){ const o=[];for(let i=0;i<=n;i++)o.push(binom(n,i));
+  return o; }
+
+// ---------------------------------------------------------------------
+// functions near the edge, of part three
+// ---------------------------------------------------------------------
+function lineEdgeRank(top,tails){ return (top+tails+1)-(top+1); }
+function crossEdgeRank(top,tails){ return 2*(top+tails+1)-(2*(top+1)-1); }
+
+// ---------------------------------------------------------------------
+// a very small plotting helper
+// ---------------------------------------------------------------------
+function Plot(canvas,xlo,xhi,ylo,yhi,pad){
+  const ctx=canvas.getContext('2d'), W=canvas.width, H=canvas.height;
+  pad=pad||{l:54,r:18,t:18,b:40};
+  const X=x=>pad.l+(x-xlo)/(xhi-xlo)*(W-pad.l-pad.r);
+  const Y=y=>H-pad.b-(y-ylo)/(yhi-ylo)*(H-pad.t-pad.b);
+  return {ctx,X,Y,W,H,pad,
+    clear(){ctx.clearRect(0,0,W,H);},
+    axes(xlabel,ylabel){
+      ctx.strokeStyle='#c3c2b7';ctx.lineWidth=1;ctx.beginPath();
+      ctx.moveTo(pad.l,pad.t);ctx.lineTo(pad.l,H-pad.b);
+      ctx.lineTo(W-pad.r,H-pad.b);ctx.stroke();
+      ctx.fillStyle='#898781';ctx.font='12px system-ui';ctx.textAlign='center';
+      if(xlabel)ctx.fillText(xlabel,(pad.l+W-pad.r)/2,H-9);
+      if(ylabel){ctx.save();ctx.translate(14,(pad.t+H-pad.b)/2);
+        ctx.rotate(-Math.PI/2);ctx.fillText(ylabel,0,0);ctx.restore();}
+    },
+    curve(f,color,lw,n){n=n||400;ctx.strokeStyle=color;ctx.lineWidth=lw||2.2;
+      ctx.beginPath();
+      for(let i=0;i<=n;i++){const x=xlo+(xhi-xlo)*i/n,y=f(x);
+        if(i===0)ctx.moveTo(X(x),Y(y));else ctx.lineTo(X(x),Y(y));}
+      ctx.stroke();},
+    line(xs,ys,color,lw){ctx.strokeStyle=color;ctx.lineWidth=lw||2;
+      ctx.beginPath();
+      for(let i=0;i<xs.length;i++){if(i===0)ctx.moveTo(X(xs[i]),Y(ys[i]));
+        else ctx.lineTo(X(xs[i]),Y(ys[i]));}ctx.stroke();},
+    dots(xs,ys,color,r){ctx.fillStyle=color;
+      for(let i=0;i<xs.length;i++){ctx.beginPath();
+        ctx.arc(X(xs[i]),Y(ys[i]),r||3.4,0,7);ctx.fill();}},
+    hline(y,color,dash){ctx.save();ctx.strokeStyle=color;
+      ctx.setLineDash(dash||[]);ctx.beginPath();ctx.moveTo(pad.l,Y(y));
+      ctx.lineTo(W-pad.r,Y(y));ctx.stroke();ctx.restore();},
+    vline(x,color,dash){ctx.save();ctx.strokeStyle=color;
+      ctx.setLineDash(dash||[]);ctx.beginPath();ctx.moveTo(X(x),pad.t);
+      ctx.lineTo(X(x),H-pad.b);ctx.stroke();ctx.restore();},
+    label(x,y,text,color,align){ctx.fillStyle=color;ctx.font='12px system-ui';
+      ctx.textAlign=align||'left';ctx.fillText(text,X(x),Y(y));}
+  };
+}
+
+// draw a probe as a branching diagram; returns the positions used
+function drawTree(ctx,S,depth,box,opts){
+  opts=opts||{};
+  const yStep=(box.h-24)/Math.max(1,depth);
+  const pos={};
+  for(let i=0;i<=depth;i++){
+    const n=S.levels[i].length,step=box.w/n;
+    for(let k=0;k<n;k++)
+      pos[i+"|"+S.levels[i][k]]=[box.x+(k+0.5)*step,box.y+12+i*yStep];
+  }
+  ctx.strokeStyle=opts.edge||'#c3c2b7';ctx.lineWidth=1;
+  for(let i=0;i<depth;i++)
+    for(const l of S.levels[i+1]){
+      const a=pos[(i+1)+"|"+l],b=pos[i+"|"+S.parents[i][l]];
+      ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke();
+    }
+  for(let i=0;i<=depth;i++)
+    for(const l of S.levels[i]){
+      const p=pos[i+"|"+l];
+      ctx.fillStyle=(opts.colour?opts.colour(i,l):null)||'#2a78d6';
+      ctx.beginPath();ctx.arc(p[0],p[1],opts.r||4,0,7);ctx.fill();
+    }
+  return pos;
+}
+
+
+function pick(id,onChange){
+  const box=document.getElementById(id);
+  let cur=box.querySelector('button.on').dataset.v;
+  box.addEventListener('click',e=>{
+    if(e.target.tagName!=='BUTTON')return;
+    box.querySelectorAll('button').forEach(b=>b.classList.remove('on'));
+    e.target.classList.add('on');cur=e.target.dataset.v;onChange(cur);
+  });
+  return {get value(){return cur;}};
+}
+
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+const per=document.getElementById('period');
+let base='seq';
+pick('base',v=>{base=v;draw();});
+function draw(){
+  const P=parseInt(per.value);
+  ctx.clearRect(0,0,cv.width,cv.height);
+  const N=12,x0=60,step=48,yUp=90,yDn=250,yBase=250;
+  ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
+  ctx.fillText('the covering: two copies above every point',20,30);
+  ctx.fillText('the probe below',20,332);
+  const choices=[];
+  for(let k=0;k<N;k++)choices.push(Math.floor(k/P)%2);
+  for(let k=0;k<N;k++){
+    const x=x0+k*step;
+    ctx.fillStyle='#c3c2b7';
+    ctx.beginPath();ctx.arc(x,yUp,5,0,7);ctx.fill();
+    ctx.beginPath();ctx.arc(x,yUp+70,5,0,7);ctx.fill();
+    const y=choices[k]?yUp:yUp+70;
+    ctx.fillStyle='#2a78d6';ctx.beginPath();ctx.arc(x,y,7,0,7);ctx.fill();
+    ctx.strokeStyle='rgba(42,120,214,0.5)';ctx.lineWidth=1.4;
+    ctx.beginPath();ctx.moveTo(x,y+8);ctx.lineTo(x,yBase-8);ctx.stroke();
+    ctx.fillStyle=(base==='seq')?'#4a3aa7':'#8a5a2c';
+    ctx.beginPath();ctx.arc(x,yBase,5,0,7);ctx.fill();
+  }
+  const settles=(P>=N);
+  if(base==='seq'){
+    const lx=x0+N*step+34;
+    ctx.fillStyle='#4a3aa7';ctx.beginPath();ctx.arc(lx,yBase,8,0,7);ctx.fill();
+    ctx.fillStyle='#52514e';ctx.font='12px system-ui';ctx.textAlign='center';
+    ctx.fillText('the limit',lx,yBase+24);
+    if(settles){
+      const y=choices[N-1]?yUp:yUp+70;
+      ctx.fillStyle='#008300';ctx.beginPath();ctx.arc(lx,y,8,0,7);ctx.fill();
+      ctx.strokeStyle='#008300';ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(lx,y+9);ctx.lineTo(lx,yBase-9);ctx.stroke();
+    }else{
+      ctx.strokeStyle='#d03b3b';ctx.lineWidth=2.5;
+      ctx.beginPath();ctx.arc(lx,yUp,9,0,7);ctx.stroke();
+      ctx.beginPath();ctx.arc(lx,yUp+70,9,0,7);ctx.stroke();
+      ctx.fillStyle='#d03b3b';ctx.font='12px system-ui';ctx.textAlign='center';
+      ctx.fillText('neither copy works',lx,yUp+108);
+    }
+  }else{
+    ctx.fillStyle='#8a5a2c';ctx.font='12px system-ui';ctx.textAlign='left';
+    ctx.fillText('nothing converges here, so no limit point can be blocked',
+                 x0,yBase+42);
+  }
+  periodv.textContent=P>=N?'never':('every '+P);
+  const ok=(base==='ed')||settles;
+  const out=document.getElementById('out');
+  out.textContent=(base==='seq'?'approaching probe below\n':'unfoldable probe below\n')+
+    'choices flip   '+(P>=N?'never':'every '+P+' points')+'\n'+
+    (base==='ed'
+      ? 'every covering of an unfoldable probe lifts, whatever you choose'
+      : (settles?'the choices settle, so the limit lifts too'
+                :'the choices never settle, so the limit cannot be lifted'));
+  out.className='readout '+(ok?'verdict-ok':'verdict-no');
+}
+per.addEventListener('input',draw);draw();
+
+</script>
+</body>
+</html>
