@@ -25,7 +25,7 @@ That one number, the area-scaling factor, is the map's **determinant**. For the 
 
 Watch the three dots. When the determinant hits 0, the plane is crushed flat onto a line. Different points crash into the same spot, **collisions**, everywhere. Chapter 2 told you what that means: information destroyed, undo impossible.
 
-And if the determinant is *not* zero? Then a straight map causes no collisions and leaves no gaps, and it has an undo map (also straight). For straight maps, one number decides everything:
+When the determinant is *not* zero, the opposite happens. A straight map then causes no collisions and leaves no gaps, and it has an undo map, which is also straight. For straight maps, one number decides everything:
 
 > **Straight map undoable ⟺ determinant ≠ 0.**
 

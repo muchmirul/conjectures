@@ -6,7 +6,7 @@
 
 Take a straight piece of wire, one unit long. Where the unit comes from does not matter. Call it a **needle**.
 
-A needle in the plane has two facts attached to it: **where** it is, and **which way** it points.
+A needle in the plane has two facts attached to it, which are **where** it is and **which way** it points. Only the second of them will matter.
 
 <img src="position.gif" width="700" alt="Three needles in different places, all rotating together and always pointing the same way">
 
@@ -16,11 +16,11 @@ Three needles, three different places, one direction. For this whole guide, the 
 
 Point the needle east. Now point it west. Nothing changed: a needle has no head and no tail, so those are the same direction.
 
-So the directions of a needle run from 0 degrees up to 180, and then they start repeating.
+The directions of a needle therefore run from 0 degrees up to 180, and then they start repeating. Half a circle already holds all of them.
 
 <img src="directions.gif" width="700" alt="A needle turning through a half circle while a dial on the right fills up, degree by degree, from 0 to 180">
 
-Turning the needle through a half circle takes it through **every direction that exists**. That is what "turning the needle around" means from here on, and it is the whole of Kakeya's question.
+Turning the needle through a half circle takes it through **every direction that exists**. That is what "turning the needle around" means from here on, and it is what Kakeya's question asks about.
 
 ## The two things we will keep asking
 

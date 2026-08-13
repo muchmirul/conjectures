@@ -1,0 +1,462 @@
+[
+ {
+  "file": "jacobian-conjecture/guide/00-start-here/README.md",
+  "claims": [
+   {
+    "before": "Generations of mathematicians attacked it. Many published proofs. **Every single proof turned out to be wrong.**",
+    "after": "Many mathematicians worked on it over the following decades and several of them published proofs, but **every single one of those proofs turned out to be wrong.**",
+    "why": "The quantifier on published proofs was weakened from \"many\" to \"several\". \"Several\" reads as a handful; the sibling copy of the same paragraph in jacobian-conjecture/ARTICLE.md line 11 says \"Many mathematicians published proofs.\" This changes what is asserted about the size of the failed-proof literature and puts the two copies out of sync, which CLAUDE.md forbids. Restore \"many\". (The companion shift from \"Every single proof\" to \"every single one of those proofs\" is not a scope change: the original already referred to the published proofs named in the preceding sentence.)",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "If a sentence feels obvious, good, that is the design, not an accident.",
+    "after": "Sentences that feel obvious to you are meant to feel that way, because every chapter adds only one small step to the one before it.",
+    "why": "A causal claim was added that the original never made. The original said only that the obviousness is intentional; the revision asserts a structural guarantee about the whole guide, that every chapter adds only one small step over its predecessor. Nothing in the file supports the per-chapter version (the bullet says only \"Each chapter is one small idea\"), and CLAUDE.md records the opposite from real readers: \"Two readers said the guide stopped being 'baby' after chapter 10\" and \"The difficulty must not spike.\" The new sentence promises exactly what the guide is documented not to deliver. Drop the \"because\" clause or weaken it to the true statement that each chapter covers one small idea.",
+    "severity": "other"
+   }
+  ],
+  "style": [
+   "\"Nothing. Every idea is built from pictures first, words second, symbols last.\" (unchanged bullet) is the escalating triple CLAUDE.md forbids, and it oversells in a way a reader already complained about: symbols do appear (chapter 1 introduces f(x) = 2x + 1) and not every figure is picture-first. Rewrite as a plain sentence promising what is delivered, e.g. \"Nothing. Each idea starts with a picture, and symbols appear only after the idea has been explained in words.\"",
+   "\"The problem stood for 87 years, and then in July 2026, days before this guide was written, part of it fell, in a way nobody expected.\" keeps the dramatic register the style guide asks to remove (\"fell\", \"in a way nobody expected\"). A direct version carries more information: say that in July 2026 a counterexample was announced for the three-variable case. While rewriting, consider carrying over chapter 12's hedge that there is no peer-reviewed paper yet, since chapter 0 is the only page many readers will see.",
+   "\"The most stubborn piece of it is *still* open.\" uses italics for drama and hides the content behind a vague phrase. ARTICLE.md line 13 names it (\"The original two-dimensional case is *still* open\"). Per the house rule that plain words come with their real names, name the case here and drop the italics.",
+   "The section heading \"The journey\" is a decorative metaphor for what is really a chapter map. \"The chapters\" or \"What each chapter covers\" states it directly.",
+   "\"Sentences that feel obvious to you are meant to feel that way, because ...\" is awkward on its own terms (\"feel ... feel that way\"). Even after the unsupported causal clause is removed, the sentence needs a rewrite, e.g. \"Some sentences will feel obvious, and that is intended.\""
+  ]
+ },
+ {
+  "file": "jacobian-conjecture/guide/01-functions-are-machines/README.md",
+  "claims": [
+   {
+    "before": "Open the script and change `2 * x + 1` to any recipe you like, then watch how *your* machine moves the line.",
+    "after": "Open the script and change `2 * x + 1` to any recipe you like. Running it again redraws both pictures for *your* machine, so you can watch how that one moves the line.",
+    "why": "New claim the original never made, and it is false. In src/viz/ch01_functions.py the editable string `2 * x + 1` occurs only at line 71 inside numberline_gif(). machine_gif() hardcodes EXAMPLES = [(3, 7), (0, 1), (10, 21)] at line 11 and the box label \"double it,\\nthen add 1\" at line 20, and never reads the recipe. So only the number line picture becomes the reader's machine; machine.gif is rewritten identically and then disagrees with the recipe the reader just typed. The original was accurate precisely because it promised only the line. This is the \"do not oversell\" rule and the \"prose must agree with the code\" rule in one sentence.",
+    "severity": "claim-strength"
+   }
+  ],
+  "style": [
+   "Line 22: \"from here it looks like a movement rather than a calculation: a function *moves the whole line*.\" This is the dramatic contrast the style guide forbids (the \"X rather than Y\" version of \"X is not Y. It is Z.\"), and the colon then splices a second idea onto it. Write it plainly: \"The same machine is drawn a different way here. Instead of one number going through it, every number moves at the same time, so a function moves the whole line.\"",
+   "Line 18: \"The rest of this guide rests on one change of viewpoint.\" This is a build-up sentence that withholds the idea for one beat, the same family as the banned \"the key idea is simple\". State the viewpoint first and let its importance follow: \"There is a second way to picture the same machine, and the rest of this guide uses it.\"",
+   "Line 22: \"the chapters that follow use it on bigger stages than a single line.\" The theatre metaphor is carried over from the original and is decorative rather than informative. Say what the bigger settings actually are: \"later chapters use the same picture for maps of the flat plane and of space.\"",
+   "Line 9: \"The machine above works to the recipe *double it, then add 1*\". \"works to the recipe\" is unnatural English for a beginner audience; \"follows the recipe\" reads normally and costs nothing."
+  ]
+ },
+ {
+  "file": "jacobian-conjecture/guide/02-the-undo-machine/README.md",
+  "claims": [
+   {
+    "before": "No collisions and no gaps: then, and only then, every output has exactly one origin, and \"walk back where you came from\" is a well-defined machine.",
+    "after": "When a machine has neither problem, every output has exactly one origin, so the instruction \"walk back where you came from\" describes a single well-defined machine.",
+    "why": "The original states a biconditional (\"then, and only then\"): no collisions and no gaps is both necessary and sufficient. The revision keeps only the sufficient direction (\"When a machine has neither problem, ...\"). This is the central mathematical statement of the chapter, and the necessity half is exactly what makes the two failure modes in the list above it a complete diagnosis rather than two examples. The iff now survives only in the pull-quote at the bottom.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "Feed it \u22123: you get 9. Feed it 3: you also get 9. Now stand at 9 and try to walk back. **Which input did you come from?** You cannot know. The information \"was it negative?\" has been destroyed.",
+    "after": "... because squaring has thrown away the record of whether the number was negative. That missing record is what makes undoing impossible, and the same difficulty shows up in two different forms.",
+    "why": "The clause \"the same difficulty shows up in two different forms\" is a new claim, and it is wrong. It tells the reader that both items in the list that follows (collisions and gaps) are forms of destroyed information. Gaps are not: nothing about \u22124 was recorded and then lost when squaring, the output simply has no origin. The original never linked the two failures to a single cause, it just listed them.",
+    "severity": "other"
+   },
+   {
+    "before": "(no equivalent sentence; the original ended the section at \"... is a well-defined machine.\")",
+    "after": "This is the test that every later chapter measures a machine against, and the next step is to look at machines built out of polynomials.",
+    "why": "New universal claim about the rest of the guide that the original did not make, and it does not hold. Chapters 5, 6 and 7 are about straight maps, bending the grid and the Jacobian as an area factor under a microscope, and chapter 11 is about failed proof strategies. None of them measures a machine against \"no collisions, no gaps\". CLAUDE.md forbids claiming more than the construction gives.",
+    "severity": "other"
+   },
+   {
+    "before": "*By the end of this page you will know exactly when a machine can be undone, and the two ways undoing can fail. This tiny idea is the seed of the whole story.*",
+    "after": "*By the end of this page you will know when a machine can be undone, and the two ways undoing can fail. Everything later in the guide is built on this one idea.*",
+    "why": "Two changes in one line. \"know exactly when\" becomes \"know when\", dropping the same iff modality that was also dropped in the body, so the promised characterisation is weakened in both places at once. Separately, the metaphor \"the seed of the whole story\" becomes the literal, checkable, and overstated \"Everything later in the guide is built on this one idea\", which is the same overreach as the sentence added to the end of the second section.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "You can forget these words, \"no collisions, no gaps\" is all you need.",
+    "after": "Those are the standard names and worth recognising in other books, but \"no collisions, no gaps\" says the same thing and is all you need here.",
+    "why": "The advice to the reader is reversed, not just reworded: the original says the technical words can be discarded, the revision says they are worth carrying. The change happens to agree with CLAUDE.md's rule that plain words must come with their real names, so it is probably an improvement, but it is a content edit made under a prose-style-only remit and should be signed off deliberately rather than slipped in.",
+    "severity": "other"
+   }
+  ],
+  "style": [
+   "The two numbered failure modes are still comma-spliced fragments, unchanged from the original: \"**Collisions**, two different inputs land on the same output.\" and \"**Gaps**, some outputs are never reached, ...\". The house style asks for connected sentences. Use a colon after the bold term, or write \"A collision is when two different inputs land on the same output, as \u22123 and 3 both land on 9.\"",
+   "\"That missing record is what makes undoing impossible, and the same difficulty shows up in two different forms.\" This is a teaser transition of the kind the style guide rules out, and it is also inaccurate. Replace it with the plain statement it is standing in for: squaring loses information because two inputs share an output, and there is a second, separate way undoing can fail."
+  ]
+ },
+ {
+  "file": "jacobian-conjecture/guide/03-polynomials/README.md",
+  "claims": [],
+  "style": [
+   "\"That is what makes the puzzle in this guide so surprising, because it asks a plain question about the *tamest machines we have* and stayed unsolved for 87 years.\" Two problems the revision introduced and did not clean up: the causation is doubled (\"That is what makes ... so surprising, because ...\" states the cause twice), and the tenses clash inside one clause pair (\"it asks\" present, \"and stayed\" past, same subject). The italics on *tamest machines we have* are decorative emphasis the house style asks to drop. I would write: \"This matters because the puzzle in this guide asks a plain question about the tamest machines we have, and it stayed unsolved for 87 years.\""
+  ]
+ },
+ {
+  "file": "jacobian-conjecture/guide/04-maps-of-the-plane/README.md",
+  "claims": [
+   {
+    "before": "In chapter 1 a machine moved the whole number line.",
+    "after": "In chapter 1 a machine moved the whole number line, taking every point of that line somewhere new at the same time.",
+    "why": "New claim, and it is false for the very machine it points back at. Chapter 1's machine is f(x) = 2x + 1, which fixes x = -1 (2(-1)+1 = -1), so not every point goes somewhere new. Chapter 1 itself only claims the machine moves every number *at once* ('Watch it move every number at once'), never that each one lands somewhere different. The original said exactly that and no more.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "A plane map moves the **whole plane**.",
+    "after": "A plane map does the same job one step up, because a single recipe moves every point of the whole plane at once.",
+    "why": "Introduces 'a single recipe', which contradicts the definition three sentences earlier in the same revision ('the machine needs two output slots', each holding 'some recipe in x, y') and contradicts the revision's own closing paragraph, which says 'one pair of recipes'. The figure's own title says 'one rule', not one recipe. The word count of recipes is load-bearing in this chapter, since the whole point is that a plane map is two recipes at once.",
+    "severity": "number-or-name"
+   },
+   {
+    "before": "The plane behaves like a rubber sheet.",
+    "after": "The plane behaves like a rubber sheet, so the painted squares stretch and bend as the sheet is pulled about, and no part of it is ever cut away from its neighbours.",
+    "why": "New claim that a plane map never tears the sheet. At this point in the chapter a plane map is any machine with 'some recipe' in each slot, with no continuity or polynomial restriction yet; the polynomial restriction only arrives two sections later. The original kept the rubber sheet as an analogy and asserted nothing about tearing, so this promises more than the construction gives.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "Slide, turn, grow, lean, these keep the gridlines straight.",
+    "after": "Four of these maps, slide, turn, grow and lean, keep the gridlines straight, so a straight line comes out straight however far it is shifted, tilted or stretched.",
+    "why": "Adds a count the original never made, next to a figure whose own alt text says six panels. PANELS in src/viz/ch04_plane_maps.py is [('the plane, untouched', None), slide, turn, grow, lean, bend]; the untouched panel is the identity, which also keeps gridlines straight, so a reader counting panels gets five, not four. The trailing clause is also new: it generalises from gridlines to every straight line, and its list 'shifted, tilted or stretched' does not cover *turn*, which is a rotation by 35 degrees.",
+    "severity": "number-or-name"
+   },
+   {
+    "before": "The whole rest of this guide lives inside this zoo: polynomial maps of flat space.",
+    "after": "Polynomial maps of flat space are what the whole rest of this guide is about. Every later chapter asks a question about maps of this kind, so it is worth getting used to the idea that one pair of recipes moves an entire plane at once.",
+    "why": "Two new claims. 'Every later chapter' is a universal statement the original did not make, and the gloss after it narrows the scope back down to the plane and to 'one pair of recipes'. Chapter 9 states the conjecture is asked for 3-dimensional space, 4-dimensional space and so on, and over the complex numbers; chapter 12's counterexample is three polynomials in three variables. The original's 'flat space' was deliberately dimension neutral and the revision re-anchors it to two dimensions.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "Which brings us to the club from chapter 3:",
+    "after": "All of the recipes are still built from plus and times, which is the condition that names the club from chapter 3:",
+    "why": "Turns a transition into an assertion about the figure. The assertion mostly holds (slide, turn, grow, lean, bend are all polynomial; turn's cos 35 and sin 35 are constant coefficients, which chapter 3 allows), but the first panel is ('the plane, untouched', None) and has no recipe at all, so 'all of the recipes' silently means five of the six panels shown.",
+    "severity": "other"
+   },
+   {
+    "before": "Change the recipes in `PANELS` and re-run, invent your own warp.",
+    "after": "The list called `PANELS` inside that file holds the recipe for each panel of the gallery.",
+    "why": "New assertion about the code. It is nearly right and is in fact more precise than the original (PANELS is a list, and it drives only the gallery; rubbersheet.gif uses its own hard-coded bend map), but 'the recipe for each panel' is not true of the first entry, whose recipe is None.",
+    "severity": "other"
+   }
+  ],
+  "style": [
+   "\"A plane map does the same job one step up, because a single recipe moves every point of the whole plane at once.\" The 'because' joins two statements that are not cause and effect, so the sentence does not lead the reader anywhere. Something like 'A plane map does the same job one step up: one rule now moves every point of the whole plane at once.'",
+   "\"Every other point of the sheet is doing the same thing at the same moment, and the grid is simply a convenient way of seeing all of them together.\" This is the third time in eight lines that the page says every point moves at once (the heading, then the paragraph above, then this). The house rules ask for repeated ideas to be removed. Cut it and let the heading and the figure carry the point.",
+   "\"...so it is worth getting used to the idea that one pair of recipes moves an entire plane at once.\" A fourth restatement of the same idea, and 'it is worth getting used to' is soft filler that carries no information. The sentence would be stronger saying what the later chapters actually ask about these maps.",
+   "\"so the painted squares stretch and bend as the sheet is pulled about\" reads as decorative rather than informative, and 'pulled about' is vague about who or what is pulling. It also carries the untrue no-tearing clause, so the whole addition can go and the original single sentence stands better."
+  ]
+ },
+ {
+  "file": "jacobian-conjecture/guide/05-straight-maps-and-area/README.md",
+  "claims": [
+   {
+    "before": "*By the end of this page you will own the single most useful number in this story: the **determinant**, how much a map scales area.*",
+    "after": "*This page introduces the number this guide uses most often, the **determinant**, which says how much a map scales area.*",
+    "why": "This is not a rewording, it is a different assertion. The original claims importance (\"the single most useful number in this story\"), matching the parallel copy in jacobian-conjecture/ARTICLE.md line 3, \"It is the most useful number in this story.\" The revision replaces it with a countable frequency claim about the guide, \"the number this guide uses most often\", which nobody has checked and which the rest of the guide does not support anywhere. It also silently desynchronises this chapter from ARTICLE.md, which was not touched in this pass.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "Slide aside, they are the turns, grows, squeezes and leans of the last chapter.",
+    "after": "They are the turns, grows, squeezes and leans of the last chapter, but not the slide, because a slide carries the center point somewhere else and so breaks the last rule.",
+    "why": "New content, not new wording. The original states the exclusion of the slide and gives no reason; the revision adds a causal explanation the original never made. The mathematics happens to be right (a translation moves the origin, so it is not linear) and the pointer \"the last rule\" does land on the fourth listed rule, \"the center point never moves\", so nothing here is false. It is still an added argument in a style-only pass, and it now contradicts the sibling ARTICLE.md, which carries no caveat at all: \"The turns, grows, squeezes, and leans of the last chapter are all straight maps.\"",
+    "severity": "other"
+   },
+   {
+    "before": "Factor zero: the plane is crushed and information dies.",
+    "after": "if it is zero the plane is flattened onto a line and the information needed to undo the map is gone",
+    "why": "The takeaway box now asserts more than it did. The original summary says only that the plane is crushed; the revision adds \"onto a line\", which is false for one determinant-zero straight map, the zero map, which sends the whole plane to a single point rather than a line. The body of both versions already overreaches this way (\"the plane is crushed flat onto a line\" / \"pressed flat onto a line\"), so the error is pre-existing, but the revision promotes it into the one sentence the chapter tells the reader to remember. Safest fix is to keep the summary at \"the plane is flattened\" and leave \"onto a line\" to the squash example, where it is true.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "A remarkable pattern hides here.",
+    "after": "The six panels share a pattern that is worth stating carefully.",
+    "why": "The revision introduces a number the prose never carried. I verified it against the generator: src/viz/ch05_linear_determinant.py builds the gallery with plt.subplots(2, 3) over a six-entry PANELS list (turn, grow, squeeze, lean, mirror, squash), so \"six panels\" is correct today and needs no fix. Flagging it because a style-only pass added a figure-dependent count that will silently go stale if a panel is ever added or removed, and because the chapter's own bullet list has only four lines, so a reader recounting from the text will not find six.",
+    "severity": "number-or-name"
+   }
+  ],
+  "style": [
+   "Heading \"## Determinant zero is a catastrophe\" keeps the dramatic register the rules ask you to remove, and the revision left it untouched while smoothing everything under it. \"What happens when the determinant is zero\" carries the same information. (ARTICLE.md's \"Determinant zero is the disaster case\" has the same problem.)",
+   "The gallery.gif alt text still ends \"ending in the fatal times-zero squash\". Alt text is read aloud, so \"fatal\" is dramatic wording delivered to the readers least able to skip it. \"ending in the squash, which multiplies every area by zero\" says the same thing plainly.",
+   "\"The six panels share a pattern that is worth stating carefully.\" is an announcement that a statement is coming rather than the statement, which is the kind of unnecessary introduction the rules cut. Open with the fact instead: \"In every panel the map scales the yellow patch by some factor, and it scales every other patch of the plane by that same factor.\"",
+   "The pull quote \"**Straight map undoable \u27fa determinant \u2260 0.**\" leaves both symbols unexplained, which breaks the repo rule that a symbol may appear only with explanatory words attached. ARTICLE.md already has the wording: \"A straight map can be undone exactly when its determinant is not zero.\" Use that sentence, or put the words directly under the quote.",
+   "The subtitle now reads \"This page introduces...\" while chapters 3, 4, 6 and 7, revised in the same pass, all still open \"By the end of this page you will...\". Chapter 5 is the only one out of step, so the reader meets a broken pattern in the middle of the guide. Restore the shared opening."
+  ]
+ },
+ {
+  "file": "jacobian-conjecture/guide/06-bending-the-grid/README.md",
+  "claims": [
+   {
+    "before": "But a bent map stretches area differently in different places\u2026 so what plays the role of \"the\" area factor? For that we need a microscope.",
+    "after": "The difficulty is that a bent map stretches area by different amounts in different places, so there is no single number to point at and call the area factor.",
+    "why": "An open question the reader was invited to feel becomes a flat general assertion. It is also contradicted downstream: chapter 7 says the shear (x + y^2, y) has local area factor \"exactly 1 at every point\", and chapter 9 states Keller's question precisely as asking for \"the same nonzero constant at every single point\". For the very maps this guide cares about a single number does exist, and the revision now denies it in general terms the original never used.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "This is a machine for making monsters: stack as many shears and straight maps as you like. The result always looks worse and always stays perfectly undoable.",
+    "after": "The same construction keeps working for longer stacks. You can pile up as many shears and straight maps as you like, and the picture gets more tangled each time, while the map itself stays undoable because every layer can still be peeled off in reverse order.",
+    "why": "The revision adds a mechanism the original did not assert, that every layer can be peeled off. Chapter 5 explicitly presents a straight map that cannot be peeled off, the \"squash\" with \"area \u00d7 0, the entire plane lands on a single line\", and states \"Straight map undoable \u27fa determinant \u2260 0\". The original's bare assertion of undoability had the same gap, but the revision now supplies a stated reason the previous chapter has already shown to be false for one of the allowed layer types.",
+    "severity": "other"
+   },
+   {
+    "before": "stacked shears bend the plane into monsters that are secretly tame, while folds and crushes kill area somewhere and can never be undone.",
+    "after": "stacked shears bend the plane into complicated pictures that are still easy to undo, while folds and crushes squash some region down to zero area and can never be undone.",
+    "why": "\"kill area somewhere\" (vague, and matched by the untouched bullet \"somewhere, area gets squeezed to zero\") becomes \"squash some region down to zero area\", which asserts that a patch carrying area collapses. Neither example does that. Chapter 7 gives the fold's local area factor as 2x, \"zero exactly on the crease\", a single line, and the crush collapses only the line x = 0. Nothing with positive area is squashed to zero by either map.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "$G$ undoes $F$ perfectly, and $G$ is itself a polynomial map. Our first nontrivial **polynomial map with a polynomial undo**.",
+    "after": "$G$ undoes $F$ perfectly, and $G$ is itself a polynomial map. That makes the shear the guide's first nontrivial example of a **polynomial map with a polynomial undo**, and the rest of the chapter builds larger examples out of it.",
+    "why": "New forward-looking claim not in the original. Only the next section builds on the shear; the remaining two thirds of the chapter (the fold (x^2, y), the crush (x, x\u00b7y), and the summary) are not built out of it, so \"the rest of the chapter\" promises more than the page delivers.",
+    "severity": "other"
+   },
+   {
+    "before": "stacked shears bend the plane into monsters that are secretly tame",
+    "after": "stacked shears bend the plane into complicated pictures that are still easy to undo",
+    "why": "\"secretly tame\", meaning undoable, becomes a claim about how hard the undoing is. The same page hands the actual inversion to software, \"in chapter 10 the computer will find it for us\", so \"easy to undo\" asserts slightly more than the chapter supports. ARTICLE.md line 205 already reads \"still easy to undo\", so this may be a deliberate sync rather than drift, but relative to the file under review it is a changed assertion.",
+    "severity": "claim-strength"
+   }
+  ],
+  "style": [
+   "The summary is still a telegraphic two-item list instead of connected prose, and it keeps the slogan register the style rules forbid: \"- Heroes (shear, stacked shears): **bend but never crush** \u2192 undoable, with polynomial undo.\" and \"- Villains (fold, crush): somewhere, area gets **squeezed to zero** \u2192 collisions \u2192 no undo.\" The arrows also stand in for words the reader was never given. I would write both as one paragraph: the shear and the stacked shears bend the plane without ever crushing it, so each has a polynomial undo, while the fold and the crush press area down to zero somewhere, which creates collisions and leaves no undo.",
+   "The section headings keep the dramatic, decorative wording the style rules ask to remove: \"## Stack bends to build monsters\", \"## The villains: folding and crushing\", \"## The pattern worth a fortune\". \"Stacking shears\", \"Folding and crushing\", and \"Why this pattern matters\" say the same thing plainly.",
+   "\"The maps in this section behave differently.\" points at the page layout rather than at the mathematics, so the paragraph opens without a real topic sentence. \"The next two maps press different starting points onto the same landing spot\" states the idea directly and still leads into the two examples."
+  ]
+ },
+ {
+  "file": "jacobian-conjecture/guide/07-the-microscope/README.md",
+  "claims": [
+   {
+    "before": "Point the microscope somewhere else: change `P = (0.5, 0.5)` and re-run.",
+    "after": "Point the microscope somewhere else by changing `P = (0.5, 0.5)` and running the script again. The picture will straighten out around whatever point you pick, and the straight map you end up looking at will usually be a different one.",
+    "why": "The original was an instruction and asserted nothing about the outcome. The revision adds two new claims the original never made: an unrestricted promise that the zoom straightens \"around whatever point you pick\", and a claim that the resulting straight map is \"usually a different one\". They happen to hold for this script's map (src/viz/ch07_jacobian.py sets F = TANGLED, whose det J is identically 1, and whose Jacobian matrix determines the point, so it really does differ at every distinct point), but nothing in the chapter or the tests states either, and the universal \"whatever point you pick\" is exactly the unrestricted promise CLAUDE.md forbids: it is false for the other map on this very page, the fold (x^2, y), whose microscope image on the crease collapses instead of straightening, and the reader has just been invited to edit the script.",
+    "severity": "other"
+   },
+   {
+    "before": "and this simple observation, \"smooth things look straight up close,\" is the whole soul of calculus. That is genuinely all you need to know about calculus today.",
+    "after": "Calculus is built on this one observation, that smooth things look straight up close, and it is also the only piece of calculus this page needs.",
+    "why": "Two shifts. The scope of the promise narrows from the reader's whole session (\"all you need to know about calculus today\", which in this guide covers the later chapters as well) to \"this page\" only; the sibling copy of the same sentence in jacobian-conjecture/ARTICLE.md line 217 still reads \"is all the calculus you need today\", so the two copies now assert different things. And \"the whole soul of calculus\", plainly figurative, becomes \"Calculus is built on this one observation\", a literal and checkable statement that is true of differential calculus but not of calculus as a whole. A prose-only pass should not move the reach of a claim in either direction.",
+    "severity": "claim-strength"
+   }
+  ],
+  "style": [
+   "\"so the place where the map does its damage is marked out by the local area factor itself\" (bullet on the fold). The revision swapped one dramatic image for another: \"crime scene\" became \"does its damage\", which is still informal personification and still decorative. Plain version: \"so the local area factor marks out exactly where the map folds.\"",
+   "\"The computer finds it by a mechanical recipe, a little grid of derivatives with one entry for each pairing of an input with an output, and you will never compute one by hand here because `sympy` does it in chapter 10.\" One sentence carrying three unrelated ideas, joined by \"and ... because\", where the original at least fenced the aside in parentheses. Split it in two. It is also the place where the invented name should be given its real one (matrix of partial derivatives), which CLAUDE.md requires and neither version does.",
+   "\"That local straight map has a name:\" is a one-sentence paragraph used as a lead-in, which the house rules ask to be folded into a neighbour. It reads fine attached to the sentence before it: \"...indistinguishable from a straight map, and that local straight map has a name:\".",
+   "\"Close to the marked point the gridlines come out straight, parallel and evenly spaced, ... **Up close, a bent polynomial map is indistinguishable from a straight map.**\" Expanding the old fragments into a full sentence made the bolded sentence a restatement of the sentence directly before it, so the paragraph now says the same thing twice and ends on a slogan. Keep one of the two."
+  ]
+ },
+ {
+  "file": "jacobian-conjecture/guide/08-local-vs-global/README.md",
+  "claims": [
+   {
+    "before": "**Local health everywhere; global failure.**",
+    "after": "**The map is healthy at every point and still fails when you look at it as a whole.**",
+    "why": "The original is a subjectless label for the general lesson. The revision attaches it to this specific map and asserts, in bold, that F(x,y) = (x^2 - y^2, 2xy) is healthy at every point. Two paragraphs later the same page says the opposite: 'That factor is zero at **one single point**, the center'. ARTICLE.md line 266 makes this exact correction explicit for the same example ('Be careful about what this example proves, though. This map *has* a zero, so it fails the shortcut's own test'), which is the reader-caught error CLAUDE.md warns about. The revision states as fact about the map what the article elsewhere warns is false about it.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "If we want global undoability from a local condition, we need to bet on something extra. Keller's bet: demand the strongest local condition imaginable",
+    "after": "To get global undoability out of a local condition, the local condition has to be made stronger and the maps it applies to have to be narrowed down. Keller proposed doing both at the same time: demand the strongest local condition imaginable",
+    "why": "The original says only that something extra is needed, and calls the two specific demands a bet, that is, a guess with no guarantee. The revision asserts necessity, and necessity of two particular moves at once (strengthen the local condition AND narrow the class of maps). Nothing on the page establishes that both are required; other extra hypotheses could do the job, and narrowing the class of maps alone is a different route. Dropping the word 'bet' also removes the signal that Keller's choice was a guess rather than a forced move.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "that still hit targets infinitely often",
+    "after": "and which still hit some targets infinitely often",
+    "why": "A quantifier was added where the original had none. The narrowed version is the more defensible one (the standard example, the real exponential map, misses the origin and hits every other point infinitely often), but it is still a change to what is asserted rather than to how it is worded, inside a details block the reader will read as a factual aside about non-polynomial maps.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "One bad point out of infinitely many, and the map exploits it to wrap the plane around twice. That is how delicate this game is.",
+    "after": "One bad point out of infinitely many is all it takes for the map to wrap the plane around itself twice, which means a global failure does not need a large region of bad behavior behind it.",
+    "why": "'That is how delicate this game is' is a comment on the example. 'which means a global failure does not need a large region of bad behavior behind it' is a new general conclusion drawn from one map, introduced with 'which means', the kind of inference step CLAUDE.md says to check before writing. As an existence claim it does follow from the single example, so it is not false, but the original made no general statement at all, and a style-only pass should not have added one. 'is all it takes' also reads as a sufficiency claim about one bad point in general, which the example does not support.",
+    "severity": "other"
+   }
+  ],
+  "style": [
+   "\"It is worth asking how much local trouble this map actually has.\" New in the revision, and an unnecessary introduction that only repeats the section heading above it. Delete it and open with \"On the whole plane its local area factor is $4(x^2 + y^2)$\".",
+   "\"**The map is healthy at every point and still fails when you look at it as a whole.**\" A bolded one-line slogan closing the paragraph, built on the dramatic contrast pattern the rules forbid. Fold it into the paragraph as a plain sentence scoped to the ring, for example: \"Every point of the ring passes the local test, and the map still sends two far apart points to the same place.\" That also fixes the accuracy problem listed above.",
+   "\"What it hands you, though, is only a promise about a small patch around each point, and the rest of this page is about what that kind of promise leaves out.\" 'hands you' is informal personification of the theorem, and the second half is roadmap filler about what the page will do rather than information. Replace with a direct statement of the limit, for example: \"The theorem only promises this for a small patch around each point, and says nothing about points that lie far apart.\"",
+   "The heading \"How many bad points caused this?\" is a rhetorical question, which the style rules list under Avoid. It survives from the original, but the revision rewrote the paragraph under it, so it is worth changing to a statement such as \"How much local trouble this map has\"."
+  ]
+ },
+ {
+  "file": "jacobian-conjecture/guide/09-the-conjecture/README.md",
+  "claims": [
+   {
+    "before": "Every hero you met satisfies the hypothesis (local factor \u2261 1) and is undoable.",
+    "after": "Every example in this guide that satisfies the hypothesis (local factor \u2261 1) has turned out to be undoable.",
+    "why": "This is the one real break. The original was scoped to the examples the reader had already met by chapter 9 (shear, monster, stacked shears) and simply listed two properties of them. The revision turns it into a universally quantified conditional over the whole guide: every example in the guide that satisfies the hypothesis is undoable. The guide contradicts that. Chapter 12 (guide/12-the-fall/README.md, line 23 and 33) presents a map whose local volume factor is 'exactly the constant -2 at every point, which is the strongest local condition available and precisely Keller's hypothesis' and whose three inputs all land on (-1/4, 0, 0), so it satisfies the hypothesis and is not undoable. Chapter 11 likewise carries Pinchuk's map, a guide example with a never-zero factor and two colliding points. The narrow reading that saves the sentence is the parenthetical '(local factor \u2261 1)', but chapter 9 itself defines the hypothesis as 'the same nonzero constant at every single point', so a reader applies it to -2 as well. The article copy kept the safe scope ('Every no-crush map we met satisfies the condition, with factor 1 everywhere, and can be undone', ARTICLE.md line 310), so the revision is now both stronger than the construction gives and out of sync with the other copy.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "*By the end of this page you will understand, fully, honestly, with no missing pieces, a problem that made mathematicians miserable for 87 years.*",
+    "after": "*By the end of this page you will understand, fully and honestly, with no missing pieces, a problem that stayed unsolved for 87 years.*",
+    "why": "The original clause said something about how hard the problem was and asserted nothing about its status. The revision asserts a status: it stayed unsolved for 87 years, which tells the reader it stopped being unsolved in 2026. Chapter 12 hedges that resolution twice ('At the time of writing there is no peer-reviewed paper yet' and 'The plane case ... remains open to this day'), and neither hedge exists in chapter 9. Swapping a mood description for a settled-history claim is a change of assertion, not of wording, and it is the exact claim this topic has to keep hedged. 'made mathematicians miserable' is decorative and should go, but the replacement should not assert resolution, for example 'a problem that nobody could settle for 87 years'.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "alt=\"The statement card assembles clause by clause: a polynomial map, constant nonzero local area factor everywhere, must a polynomial undo exist? Believed yes, unproven for 87 years\" ... alt=\"... then the motion reverses under the question: must a polynomial undo always exist?\"",
+    "after": "alt=\"The statement card assembles clause by clause: a polynomial map, constant nonzero local area factor everywhere, must a polynomial undo exist. Believed yes, unproven for 87 years\" ... alt=\"... then the motion reverses under the question: must a polynomial undo always exist.\"",
+    "why": "Both question marks in the alt text were changed to periods, presumably to satisfy the no-rhetorical-questions rule. Alt text is not prose, it is a description of what is on screen, and the frames really do show questions: src/viz/ch09_conjecture.py line 90 draws '\u2026must a polynomial undo map always exist?' and line 42 draws 'with an undo map that is itself polynomial?'. The alt text now describes the animation as making a statement it does not make, and it reads ungrammatically, since 'must a polynomial undo exist.' is an interrogative punctuated as a declarative. The second alt even keeps the words 'under the question' while removing the question mark. Restore both question marks.",
+    "severity": "other"
+   },
+   {
+    "before": "Don't just ask the local area factor to avoid zero.",
+    "after": "Instead of only asking the local area factor to stay away from zero,",
+    "why": "'Avoid zero' means nonzero. 'Stay away from zero' invites the reading 'bounded away from zero', which is a strictly stronger condition and a third distinct hypothesis. This chapter's whole payoff, and the chapter 11 Pinchuk discussion it points at, depends on the reader holding 'never zero' and 'constant' apart cleanly, so introducing a third fuzzy notion at the moment the hypothesis is stated is a real cost. 'never be zero' would keep the smoother sentence without the drift.",
+    "severity": "other"
+   },
+   {
+    "before": "Our pictures are 2D because that is what eyes are for.",
+    "after": "Our pictures stay in 2D because two dimensions are the easiest to see.",
+    "why": "Minor, and the mathematics is untouched, but the reason given to the reader was replaced rather than reworded: the original was a joke about eyesight, the revision is a fresh assertion that two dimensions are the easiest to see. It is also not the true reason, which is that the page is flat, so the sentence now offers a claim that does not quite hold up in a guide whose chapter 12 figures show 3D scenes perfectly readably.",
+    "severity": "other"
+   }
+  ],
+  "style": [
+   "Line 3: 'you will understand, fully and honestly, with no missing pieces' is still an overpromise of the kind CLAUDE.md singles out ('Do not oversell'), and the piled-up modifiers are decorative. 'By the end of this page you will know exactly what the Jacobian Conjecture says' does the same job.",
+   "Line 25 heading: '## The fine print (read once, then relax)' is a chatty aside and an unnecessary metaphor. 'The details' or 'Three details worth knowing' fits the house style.",
+   "Line 30: 'Our real-plane pictures remain honest shadows of the complex story' is poetic wording of the kind the style rules ask to remove; 'shadows' is also doing quiet technical work (real projection of a complex map) that a beginner cannot unpack. Say plainly that the real-plane pictures still show something true about the complex case, then say what.",
+   "Line 36 heading: '## Why it looks so winnable' is a contest metaphor, and the present tense sits badly two chapters before the conjecture is shown to be false. 'Why it looked provable' is plainer and correct in time.",
+   "Line 23: 'That is the **Jacobian Conjecture**. It is called a conjecture rather than a theorem because it stayed a belief that nobody could prove.' is still a stranded two-sentence paragraph carrying the residue of the forbidden 'not X, it is Y' pattern, and 'stayed a belief that nobody could prove' is an awkward tense. Fold it into the paragraph that follows and write it as one statement, for example that the statement is called a conjecture because everyone believed it and nobody could prove it.",
+   "Line 19: 'then the 87-year question mark' is a clever compression rather than plain description. 'then the question that stayed open for 87 years' says it directly."
+  ]
+ },
+ {
+  "file": "jacobian-conjecture/guide/10-kicking-the-tires/README.md",
+  "claims": [
+   {
+    "before": "And a villain, for contrast: the fold $(x^2, y)$ has `jacobian_det` $= 2x$, **not** constant, so it never claimed to satisfy the hypothesis.",
+    "after": "The folding maps fit the same picture. The fold $(x^2, y)$ has `jacobian_det` $= 2x$, which is **not** constant, so it does not satisfy Keller's hypothesis in the first place and the conjecture makes no prediction about it.",
+    "why": "Two assertions moved. (a) The original framed the fold as a contrast, the case that sits outside the conjecture; the revision opens by saying folds \"fit the same picture\", which a reader can take as the fold being another confirming example when it is not an example of the conjecture at all. (b) Singular becomes plural: the chapter exhibits exactly one fold, $(x^2,y)$, and \"the folding maps\" asserts something about an undefined class of maps. Nothing in the chapter or in src/jacobian_guide/examples.py establishes that every folding map has a non-constant local factor.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "The conjecture predicts nothing about it. Consistent.",
+    "after": "Because of this, the fact that the fold cannot be undone leaves the conjecture untouched.",
+    "why": "New prose assertion that the fold cannot be undone. The original stated this only as a \"no\" in the table column and never as a claim in the running text. It is true (tests/test_core.py::test_fold_is_not_injective_hence_no_inverse shows invert(FOLD, VARS) is None and exhibits the collision (2,3) and (-2,3)), so it is not an error, but it is content the style pass added rather than reworded.",
+    "severity": "other"
+   },
+   {
+    "before": "the way you would with a pencil and infinite patience.",
+    "after": "the way you would with a pencil and unlimited patience, so nothing is rounded off and nothing is sampled at a handful of test points.",
+    "why": "A clause of new content about how the computation works. It is correct for sympy's exact polynomial arithmetic, but the original made no claim about rounding or about sampling test points, so this is added assertion, not rewording.",
+    "severity": "other"
+   },
+   {
+    "before": "This repo wraps it in a few helpers. Here is a real session with the monster map",
+    "after": "This repository wraps the library in a few helpers so that the maps from the earlier chapters can be checked directly. The session below runs them on the monster map",
+    "why": "Two changes. A purpose claim is added (\"so that the maps from the earlier chapters can be checked directly\"), which holds since examples.py carries SHEAR_UP, FOLD, CRUSH and Z_SQUARED from chapters 4 to 8. In the other direction the revision drops \"a real session\", the original's assertion that the transcript is genuine output rather than illustrative. The drop is a weakening, not an overclaim, but it is a change in what is asserted.",
+    "severity": "other"
+   },
+   {
+    "before": "A curiosity from the table: in the plane, an undo map always has the *same* degree as the map.",
+    "after": "In the plane, an undo map always has the *same* degree as the map it undoes, which is why the undoable maps listed there show the same number on both sides of the arrow.",
+    "why": "New causal claim that the plane theorem explains the equal degrees in the table's last column. I checked it and it holds: all three undoable rows are plane maps (SHEAR_RIGHT, TANGLED and TANGLED3 are all built over VARS = (x, y) in src/jacobian_guide/examples.py, and tests/test_core.py::test_tangled3_has_polynomial_inverse_same_degree pins 4 and 4). Accurate, but an inference the original did not draw.",
+    "severity": "other"
+   },
+   {
+    "before": "one more hint that higher dimensions play by wilder rules. Remember that hint.",
+    "after": "and that difference is an early sign that higher dimensions do not behave like the plane, which is a point the next chapter returns to.",
+    "why": "A vague nudge becomes a specific cross-reference to chapter 11. The pointer checks out: guide/11-why-it-was-so-hard/README.md ends with \"And one more omen: dimension 3 is stranger\" and argues that three-dimensional space holds maps the plane has no version of. Verified rather than broken, but per the repo's rule on re-checking pointers it is a new checkable claim. The same sentence also softens \"enormously more complicated\" to \"far more complicated\"; both are vague, and the softening does not overstate.",
+    "severity": "other"
+   },
+   {
+    "before": "Everything anyone ever built confirmed the pattern. And theory joined in:",
+    "after": "Every example anyone ever built confirmed this pattern, and the results proved over the same decades pointed the same way:",
+    "why": "Adds a timing claim, that the three cited results were proved over the same decades as the testing. The dates that follow (Wang 1980, Bass-Connell-Wright 1982, Moh 1983) sit inside that span, so the claim holds, but the original placed the theory in no particular period. Note that the attributions themselves, all three names, all three years, \"degree 100\", \"degree 3\", \"degree 2\", the table's 2 to 2 and 4 to 4 entries, and \"four more decades\", are all unchanged, and no hedge was dropped from them. Neither version of this chapter mentions the 2026 counterexample, dimension three and above, or dimension two remaining open, so none of those could be lost here; both versions keep the record of confirmations in the past tense, which stays compatible with the later chapters.",
+    "severity": "other"
+   }
+  ],
+  "style": [
+   "\"This repository wraps the library in a few helpers so that the maps from the earlier chapters can be checked directly. The session below runs them on the monster map H...\" The pronoun \"them\" points at \"the maps from the earlier chapters\" but is meant to be the helpers, and the session in fact runs one map, not several. Name what the session runs.",
+   "\"The folding maps fit the same picture.\" A vague opener that also mis-frames the case (see changedClaims). Replace with a direct sentence, for example \"The fold is the case the conjecture leaves out.\"",
+   "\"Because of this, the fact that the fold cannot be undone leaves the conjecture untouched.\" The \"the fact that X leaves Y untouched\" shape is heavy and abstract where the style file asks for plain wording. Something like \"The fold cannot be undone, and that does not contradict the conjecture, because the conjecture never covered it\" says the same thing more directly.",
+   "\"The last column of the table holds one more piece of information.\" This is the kind of announcement the style file says to delete; start with the fact itself.",
+   "The paragraph at line 54 runs two long sentences that each hang a trailing clause off \"which\" (\"...which is why the undoable maps listed there...\" and \"...which is a point the next chapter returns to\"). Split them so each sentence carries one idea.",
+   "\"the monster map\", \"Build your own monster\": decorative naming that the style rules ask to drop, and it is now out of step with the revised ARTICLE.md, which calls the same object the \"stacked-shear map\" and \"stacked map H\". The guide and the article should use one name.",
+   "\"Every example anyone ever built confirmed this pattern, and the results proved over the same decades pointed the same way\" stacks two participles (\"results proved ... pointed\") and reads as a garden path. Recast as \"...and the theorems proved during those same years pointed the same way\"."
+  ]
+ },
+ {
+  "file": "jacobian-conjecture/guide/11-why-it-was-so-hard/README.md",
+  "claims": [
+   {
+    "before": "So the escape hatch is open, all the interesting action happens \"near infinity\", and that is exactly where every naive argument, starting with Kraus's in 1884, silently leaked.",
+    "after": "Because inputs can escape while their outputs stay put, Hadamard's theorem does not apply here, and the behavior that decides the question sits near infinity rather than anywhere a bounded picture can show it.",
+    "why": "New inference the original never drew. The original only says escape is possible, so Hadamard's hypothesis cannot be assumed. The revision concludes that Hadamard's theorem \"does not apply here\", and draws that from the crush map (x, xy), which is not a Keller map at all (its local factor is x, vanishing on the y-axis). One non-proper example does not make the theorem inapplicable to the conjecture; Hadamard still applies to any Keller map that happens to be proper. This is the \"X fails in one case, therefore the theorem is out\" step CLAUDE.md warns against. The parallel passage in jacobian-conjecture/ARTICLE.md (line 419-425) still carries the original wording, so the two copies now assert different things.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "all the interesting action happens \"near infinity\"",
+    "after": "the behavior that decides the question sits near infinity rather than anywhere a bounded picture can show it",
+    "why": "The clause after \"rather than\" is new. The original claims the action is near infinity; it never claims the deciding behaviour is invisible in a bounded picture. That added claim is contradicted by the guide's own next chapter, where the 2026 counterexample's three colliding inputs are (0, 0, -1/4), (1, -3/2, 13/2) and (-1, 3/2, 13/2), all finite and small enough for any bounded picture. The revision also drops the quotation marks that marked \"near infinity\" as a figure of speech, so it now reads as a literal location.",
+    "severity": "other"
+   },
+   {
+    "before": "In the plane this is genuinely true (every polynomial undo-able map unstacks into shears, a classical theorem).",
+    "after": "In the plane it is genuinely correct, since every polynomial undo-able map unstacks into shears, which is a classical theorem.",
+    "why": "The parenthesis in the original sits beside the claim and states what the classical theorem actually says. The revision's \"since\" turns it into the reason the hope holds in the plane. The hope stated one sentence earlier is that every constant-factor map is secretly a stack of shears; deriving that in the plane from a theorem about maps already known to be undo-able would settle the two-dimensional Jacobian conjecture, which this guide elsewhere still calls open (chapter 12: \"still open in the plane\"; timeline: \"Plane still open\"). A style pass should not have converted a gloss into a derivation here.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "someone announces a proof; the world gets excited; a subtle hole is found",
+    "after": "someone announces a proof, other mathematicians read it, and a subtle hole turns up",
+    "why": "Minor, but content rather than wording: one detail (the excitement) is replaced by a different detail (that other mathematicians read the proof), which the original never asserted. Harmless in substance, still outside the remit of a style-only pass.",
+    "severity": "other"
+   },
+   {
+    "before": "Pinchuk's local area factor obeys an exact algebraic identity: with his auxiliary polynomials $t$ and $f$,",
+    "after": "Pinchuk's local area factor obeys an exact algebraic identity, and that identity is what makes its sign easy to read off. Written with his auxiliary polynomials $t$ and $f$, it says",
+    "why": "Minor added claim about what the identity delivers, and it slightly overshoots the paragraph it introduces: the sum of three squares gives non-negativity only, while never-zero still needs the separate two-line argument about t and f that the same paragraph then supplies.",
+    "severity": "other"
+   }
+  ],
+  "style": [
+   "\"The rest of this page takes them one at a time.\" is a signpost the revision added; the house rules ask to remove unnecessary introductions, and the three trapdoor headings already announce the structure. Cut it.",
+   "\"The conjecture earned a reputation as mathematics' most reliable producer of *almost*-proofs\" is the clever, decorative wording the rules ask to drop. Plainer: \"More failed proofs of this conjecture have been published than of almost any other.\"",
+   "The headings \"A graveyard of proofs\" and \"And one more omen: dimension 3 is stranger\" are dramatic labels. \"Proofs that failed\" and \"A further warning sign: dimension 3 behaves differently\" say the same thing without the theatre.",
+   "\"Every plane monster we built was stacked from shears and straight maps\" keeps the informal personification (\"monster\"). Use the thing itself: \"Every complicated map we built in the plane was stacked from shears and straight maps.\"",
+   "\"His map crushes nothing anywhere and mirror-flips nothing anywhere, and two points still land on top of each other.\" repeats \"nothing anywhere\" twice in one breath and personifies the map. Plainer: \"The map never crushes and never mirror-flips at any point, and two points still land on the same place.\"",
+   "The optional details block still runs a display formula through the middle of a sentence: the prose restarts on the closing fence with \"```, a **sum of three squares**, so it can never be negative; and a two-line argument shows $t$ and $f$ can't vanish together, so it is never zero.\" That is a semicolon splice, uses \"can't\", and puts an equation in running prose, which CLAUDE.md forbids outside a figure. Close the block, then give two plain sentences.",
+   "\"Three-dimensional space therefore holds maps of a kind the plane has no version of, which is worth keeping in mind for what comes next.\" is awkwardly built around \"a kind the plane has no version of\". Plainer: \"So three-dimensional space contains maps that have no counterpart in the plane. This matters for the next chapter.\""
+  ]
+ },
+ {
+  "file": "jacobian-conjecture/guide/12-the-fall/README.md",
+  "claims": [
+   {
+    "before": "Or simply run this repo's test suite: `python -m pytest tests/test_counterexample.py -q`.",
+    "after": "The same two checks also run as part of this repo's test suite. You can start them with `python -m pytest tests/test_counterexample.py -q`, which reports the volume factor and the three outputs without you typing anything else.",
+    "why": "New claim, and it is false. jacobian-conjecture/tests/test_counterexample.py uses bare asserts with no print statements, and pytest captures stdout on passing tests. I ran the exact command: the whole output is `.......  [100%]` and `7 passed in 0.78s`. It never shows -2 or (-1/4, 0, 0). The original promised only that the suite runs; the revision promises output the reader will not see, which is the 'do not oversell' failure CLAUDE.md records. The first half of the sentence is fine, since test_counterexample_satisfies_keller_hypothesis and test_counterexample_is_not_injective do cover both checks.",
+    "severity": "other"
+   },
+   {
+    "before": "Everyone believed \"polynomial + constant factor\" was enough, and the graveyard filled with proofs of it.",
+    "after": "everyone believed that \"polynomial + constant factor\" was enough, so wrong proof after wrong proof of it was published",
+    "why": "Adds an assertion the original did not make, that the failed proofs were published. notes/research-content.md line 31 lists 'Engel 1955, Segre (3x, 1956-60), Groebner 1961, Oda 1980, many arXiv attempts', so the claim is partly supported (Engel, Segre, Groebner were journal papers) and partly not (Oda 1980 was a preprint, and arXiv attempts are posted rather than published). ARTICLE.md already carries the same wording, so the risk is low, but this file now asserts publication where before it asserted only existence.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "the volume factor is still $-2$, the collision still collides",
+    "after": "The volume factor is still $-2$, and the three points still collide, because the first three coordinates behave exactly as before.",
+    "why": "The because-clause is a new justification the original did not give. It is correct, since padding with w -> w gives a block-triangular Jacobian so the determinant stays -2, and the three inputs extended by a common w share an image. Worth knowing that the repo tests only half of it: test_padding_breaks_conjecture_in_all_higher_dimensions asserts the 4D determinant is -2 and never checks the 4D collision. Claim strength is unchanged, since the original also asserted the collision survives.",
+    "severity": "other"
+   },
+   {
+    "before": "Three polynomials. Degrees 7, 6 and 4. Coefficients a child could copy down.",
+    "after": "These are three short polynomials, of degrees 7, 6 and 4. Their coefficients are small whole numbers, which is what makes the map easy to copy down and check by hand later on this page.",
+    "why": "'Coefficients a child could copy down' was a flourish; 'their coefficients are small whole numbers' is a checkable factual claim the original did not make. It holds: expanding gives integer coefficients with 12 the largest (Q contains 12xy^2), and the degrees 7, 6, 4 match test_component_degrees. Reported only because it is a new assertion, not because it is wrong.",
+    "severity": "other"
+   },
+   {
+    "before": "The point maps to $(-\\tfrac14, 0, 0)$, by arithmetic you just did in your head. An 87-year-old fortress, and the door is open.",
+    "after": "This point maps to $(-\\tfrac14, 0, 0)$, which is arithmetic you can do in your head, and it is one third of the collision the announcement rests on.",
+    "why": "The metaphor is replaced by a new factual statement. It is accurate, since the reader has verified one of the three inputs in full, and it is more careful than 'the door is open', so the change runs in the safe direction. Flagged for completeness because the original asserted nothing checkable here.",
+    "severity": "other"
+   }
+  ],
+  "style": [
+   "Opening italic: 'In the week this guide was being written, the 87-year-old conjecture collapsed in every dimension except the one where it was born.' Dramatic wording plus personification of the conjecture, both banned by notes/writing-style.md. I would say plainly that a counterexample was announced in July 2026 for dimension three and above, and that the two-variable case stayed open.",
+   "The news: 'so this guide does what mathematics always does with an announcement, which is to **verify before trusting.**' The bolded three-word slogan survived the rewrite, and 'which is to' is a clumsy graft onto the old sentence. Style rules ban slogan-like statements. I would write: 'so every claim below is re-checked in this repository before it is relied on.'",
+   "What survives: 'maps that cannot be built by stacking exist only in dimension 3 and above'. The original said 'wild unstackable maps', the only place in the guide pairing the plain word with the standard term. Chapter 11 defines **unstackable** in bold and never says 'wild', so the revision drops both the callback and the real name, against the CLAUDE.md rule that every invented word carries its standard term. I would restore 'unstackable maps (the standard term is wild)'.",
+   "What survives, closing line: 'The oldest piece of the puzzle is still on the table.' A decorative metaphor kept from the original, standing as a one-sentence closer. I would state the fact instead, that the two-variable case Keller actually asked about is the part still unsolved.",
+   "Why this ending is beautiful: 'so wrong proof after wrong proof of it was published'. The 'X after X' construction is the dramatic repetition the style rules ask to remove. 'so several wrong proofs of it were published' says the same thing and is also safer about how many were peer-reviewed.",
+   "Why this ending is beautiful, final clause: 'concrete enough for a person with no mathematical training to check it by hand, which is what you just did on this page.' This oversells what the page delivered, since the reader hand-checked R = 0 at three points and one full image while the other two images went to sympy. CLAUDE.md records a reader complaining about exactly this kind of promise. I would say the reader checked one of the three collisions by hand and confirmed the other two with exact algebra."
+  ]
+ }
+]

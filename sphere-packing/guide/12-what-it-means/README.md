@@ -1,6 +1,6 @@
 # 12 · What it means, and what it does not
 
-The 2026 result settles the limit of one method. It does not settle the sphere-packing problem in most dimensions.
+The 2026 result settles the limit of one method, but it does not settle the sphere-packing problem in most dimensions. The comparison below separates what is now known from what is still open:
 
 ```
     now known                              still unknown
@@ -13,7 +13,7 @@ The 2026 result settles the limit of one method. It does not settle the sphere-p
                                            we can build and limits we can prove
 ```
 
-No known high-dimensional packing comes close to the new upper limit. The gap between the best construction and the best proven limit is still exponentially wide, which means their ratio grows by repeated factors as dimensions are added. The advance maps one route completely: we now know exactly how far this certificate method can go, so a better long-term rate will need a different idea.
+No known high-dimensional packing comes close to the new upper limit. The gap between the best construction and the best proven limit is still exponentially wide, which means their ratio grows by repeated factors as dimensions are added. The advance maps one route completely: we now know exactly how far this certificate method can go, so a better long-term rate will need a different idea. The dates below place that step in the longer history of the problem:
 
 ```
     1611  Kepler proposes that the fruit-shop stack cannot be beaten
@@ -30,9 +30,9 @@ No known high-dimensional packing comes close to the new upper limit. The gap be
           1978 exponent
 ```
 
-The proof also answers two related questions about a curve and its Fourier view. Some special curves look unchanged after moving to the Fourier view. Others return upside down. Mathematicians call these the plus and minus versions of a **Fourier eigenfunction**. For each version, we can ask how far from the centre the curve must travel before it stops crossing the zero line.
+The proof also answers two related questions about a curve and its Fourier view. Some special curves look unchanged after moving to the Fourier view, while others return upside down, and mathematicians call these the plus and minus versions of a **Fourier eigenfunction**. For each version, we can ask how far from the centre the curve must travel before it stops crossing the zero line.
 
-Researchers expected the two versions to approach the same radius in high dimensions. The proof confirms this. For both, the long-term radius is one over pi times the square root of the dimension.
+Researchers expected the two versions to approach the same radius in high dimensions, and the proof confirms this. For both, the long-term radius is one over pi times the square root of the dimension.
 
 ![The plus and minus radii approaching the same dashed limit, with the plus radius always smaller; the spacing shows the trend rather than exact values](two_radii.png)
 

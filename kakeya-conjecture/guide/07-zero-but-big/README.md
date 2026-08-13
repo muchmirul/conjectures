@@ -42,9 +42,9 @@ Length zero, dimension 0.63. The set is bigger than a dot and smaller than a lin
 
 The Cantor set crossed with a line segment has area 0 and dimension $1.63$. Two Cantor sets crossed with each other have area 0 and dimension $1.26$. Each of these is computed by counting boxes in this repo, and each measured slope matches its theoretical value to more decimals than are shown (`tests/test_dimension.py`).
 
-And a Besicovitch set in the plane? Area 0, like all of these. Dimension: **2**, the same as a solid square. That is a theorem, proved by Roy Davies in 1971, and it is the last piece of setup before the conjecture.
+A Besicovitch set in the plane has area 0, like all of these, and dimension **2**, the same as a solid square. That is a theorem, proved by Roy Davies in 1971, and it is the last piece of setup before the conjecture.
 
-Which is exactly the shape of the question. Area zero these sets can manage. Can they be thin in the sharper sense too?
+That is exactly the shape of the question. Area zero these sets can manage, and what remains to ask is whether they can be thin in the sharper sense as well.
 
 ## Try it
 

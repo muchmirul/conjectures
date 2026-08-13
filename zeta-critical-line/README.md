@@ -11,9 +11,10 @@ written for a reader with no mathematical background.
 
 ## What it covers
 
-The primes and the wobble in their staircase; the zeta landscape, the strip,
-and the critical line; the explicit formula as a duet between zeros and
-primes; the Riemann hypothesis and the record race from Hardy to five
+The guide begins with the primes and the wobble in their staircase, then
+builds the zeta landscape, the strip and the critical line. It presents the
+explicit formula as a duet between zeros and primes, and then states the
+Riemann hypothesis together with the record race from Hardy to five
 twelfths; and the whole of the 2026 paper: the four counting functions, the
 microphone family and its Gram table, the zero side read by Sylvester's
 inertia (bowls and saddles), the prime side read by Montgomery's two moments,
@@ -24,8 +25,8 @@ illustrations, the Lean formalisation, and the Appendix C account of how the
 argument was found.
 
 The source is "More than two thirds of the zeros of the Riemann zeta function
-lie on the critical line" (Claude, Anthropic, August 2026), kept in
-`docs/zeta-critical-line/paper/` and published on the Anthropic CDN.
+lie on the critical line" (Claude, Anthropic, August 2026). A copy is kept in
+`docs/zeta-critical-line/paper/`, and it is published on the Anthropic CDN.
 
 ## Running the code
 
@@ -70,8 +71,9 @@ build_interactive.py writes the playable page for each chapter
 ## What this repository proves, and what it only describes
 
 The tests recompute a sample of the 300 shipped zero heights with independent
-software and confirm zeta vanishes at all of them; verify the zero-counting
-formula against the table; rebuild the prime staircase from zero-waves and
+software and confirm zeta vanishes at all of them. They also verify the
+zero-counting formula against the table, rebuild the prime staircase from
+zero-waves and
 watch the error fall; build the 44-microphone toy table twice, from zeros and
 from primes, and confirm agreement to about two parts in a hundred million;
 verify bowls, saddles and the see-saw bound on real and synthetic

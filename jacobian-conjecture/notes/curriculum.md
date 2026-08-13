@@ -34,7 +34,8 @@ animations, and ends up genuinely understanding what the Jacobian Conjecture say
 | 11 | Why it was so hard | Pinchuk (real fails), char p fails, 87 years of attempts, known partial results | results timeline; Pinchuk det>0 heatmap |
 | 12 | July 2026: the conjecture falls (in 3D) | An explicit 3-variable map with det ≡ −2 that is not injective; n = 2 still open | collision certificate the reader can check by hand + sympy |
 
-Ends with "where to go next" pointers (van den Essen's book, surveys).
+Ends with "where to go next" pointers, naming van den Essen's book and the
+standard surveys. Those are the places a reader continues from.
 
 **Timeliness note (2026-07-20).** During the research pass for this guide we
 learned the conjecture was disproved for n ≥ 3 *this very week*; the repo's

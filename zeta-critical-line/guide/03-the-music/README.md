@@ -1,6 +1,6 @@
 # 3 · The music of the primes
 
-Riemann's discovery is that the zeros and the primes are two descriptions of one thing, the way a chord and its notes are. There is an exact formula, called the explicit formula, that turns the list of zeros into the prime staircase and back. Instead of writing the formula, this guide shows it working.
+Riemann's discovery is that the zeros and the primes are two descriptions of one thing, in the way that a chord and its separate notes are. There is an exact formula, called the explicit formula, that turns the list of zeros into the prime staircase and back, and instead of writing the formula down, this guide shows it working.
 
 Each zero contributes one wave, and the zero's height sets the wave's frequency: a zero at height 14.13 contributes a wave that oscillates 14.13 fast on a logarithmic ruler. The picture below shows the first zero's wave on its own.
 
@@ -14,7 +14,7 @@ As more waves are added, the sum reproduces the staircase, corners and all. (The
 
 The same identity also works in the other direction: a sum with one wave for every prime points back at the zeros. This reverse direction is what the 2026 paper relies on, because it gives information about zeros nobody can see, and chapter 8 shows it in action.
 
-One further fact will matter later. How loud each zero's wave sounds depends on where the zero sits sideways. A zero on the line contributes the quietest possible wave, one whose loudness stays balanced forever. A mirror pair off the line would contribute a wave that grows louder, and the further off the line, the faster the growth. The Riemann hypothesis is therefore exactly the statement that the prime wobble stays as quiet as it can possibly be.
+One further fact will matter later, and it concerns how loud each zero's wave sounds, which depends on where the zero sits sideways. A zero on the line contributes the quietest possible wave, one whose loudness stays balanced forever, while a mirror pair off the line would contribute a wave that grows louder, and the further off the line, the faster the growth. The Riemann hypothesis is therefore exactly the statement that the prime wobble stays as quiet as it can possibly be.
 
 **[Play with this](https://muchmirul.github.io/conjectures/zeta-critical-line/play/03.html)** to add the zero-waves one at a time yourself.
 

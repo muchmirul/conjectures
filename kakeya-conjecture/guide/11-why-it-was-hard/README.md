@@ -4,7 +4,7 @@
 
 ## A century of inches
 
-Here is the whole assault on three dimensions, as one number: the best dimension anyone could prove a Kakeya set in $\mathbb{R}^3$ must have.
+The whole hundred year effort in three dimensions can be read off a single number. That number is the best dimension anyone could prove a Kakeya set in $\mathbb{R}^3$ must have, and the chart below follows it.
 
 <img src="bounds.png" width="800" alt="A step chart from 1919 to 2025: 2, then 5/2 in 1995, 5/2 plus a sliver in 2000 and 2019, then 3 in 2025">
 
@@ -25,9 +25,9 @@ The obstacles are not vague. People know exactly what a hypothetical thin Kakeya
 
 **Sticky.** Nearby directions have to sit on nearby tubes, in a way that persists at every scale. A sticky set is self similar and looks like the worst case.
 
-**Plany.** At every point, the tubes through it lie almost inside a plane.
+**Plany.** At every point, the tubes through it lie almost inside a plane. Wherever you stand in such a set, it looks locally two dimensional.
 
-**Grainy.** The set is built of little slabs that line up across scales.
+**Grainy.** The set is built of little slabs that line up across scales. The same structure then repeats however far you zoom in.
 
 Wolff's hairbrush argument shows why counting has to be clever:
 

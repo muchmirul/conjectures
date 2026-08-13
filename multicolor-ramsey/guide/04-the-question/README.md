@@ -1,6 +1,6 @@
 # 4 · The question
 
-To compare constructions that use different numbers of colours, we need a fair score. Suppose a safe table uses a certain number of colours. Ask for the number that, when multiplied by itself once for each colour, gives the group size. We will call that score **people per colour**. This is the usual root of the group size, but the repeated-multiplication picture is all we need here.
+To compare constructions that use different numbers of colours, we need a fair score. Suppose a safe table uses a certain number of colours, and ask for the number that, when multiplied by itself once for each colour, gives the group size. We will call that score **people per colour**. This is the usual root of the group size, but the repeated-multiplication picture is all we need here.
 
 Five people with two colours score about 2.24, because multiplying 2.24 by itself gives about five. Sixteen people with three colours score about 2.52, because multiplying 2.52 by itself three times gives about sixteen. A larger score means that each colour contributes a larger multiplying effect.
 
@@ -8,7 +8,7 @@ Before 2026, the best long-term recipe was based on addition patterns around num
 
 ![The people-per-colour scores of known constructions rising toward the old long-term rate](rate.png)
 
-The known scores rose slowly, which led to the central question.
+The known scores rose slowly, which led to the central question:
 
 > As the number of colours grows without limit, does the people-per-colour score also grow without limit, or does it settle below one fixed ceiling?
 

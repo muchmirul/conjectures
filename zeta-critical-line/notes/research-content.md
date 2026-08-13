@@ -34,9 +34,9 @@ applies, the test that re-checks it. Claims fall into three buckets:
 | 2026 | unconditionally, at least 2/3 of the zeros are simple and on the critical line, and at least 5/6 are distinct | [recent] | the paper, Theorems A, B, C |
 | 2004 | the first 10^13 zeros are on the line, numerically | [classical] | Gourdon 2004; not cited by the paper, quoted by this guide for context only |
 
-The numerical-verification claim (10^13 zeros checked) is the only claim in
-the guide that does not come from the paper or from a source the paper cites;
-the guide marks it as outside the paper.
+The numerical-verification claim, that 10^13 zeros have been checked, is the
+only claim in the guide that does not come from the paper or from a source the
+paper cites. The guide marks it as outside the paper.
 
 ## The named constants
 

@@ -12,11 +12,11 @@ Take every ordering of a small set of letters. For each pair of orderings, find 
 
 ![Six letter orderings coloured by their first difference until a one-colour triangle appears](orderings.gif)
 
-It fails. The orderings ABC, BAC and CAB all first differ from one another at the first letter. Their three connections therefore receive the same colour. The same collision can be built with any larger number of items. Recording more detail in each colour can prevent this particular collision, but it also uses so many extra colours that the hoped-for advantage disappears.
+It fails because the orderings ABC, BAC and CAB all first differ from one another at the first letter, so their three connections receive the same colour. The same collision can be built with any larger number of items. Recording more detail in each colour can prevent this particular collision, but it also uses so many extra colours that the hoped-for advantage disappears.
 
 Researchers also tried to prove that the score could never grow past a fixed ceiling. One plan replaced each colour pattern with a small summary and then combined those summaries. For the plan to work, every pattern with no triangle would need to split into the same fixed number of teams, no matter how large the pattern became. A team here means a group containing no connection of that colour.
 
-The next picture shows why that hope fails. It has eleven people and no triangle, yet no split into three teams works. The tests try every possible three-team split. A split into four teams does work.
+The next picture shows why that hope fails. It has eleven people and no triangle, yet no split into three teams works, which the tests confirm by trying every possible three-team split. By contrast, a split into four teams does work.
 
 ![Eleven people with no triangle at all, whose people still cannot be split into three connection-free teams](groetzsch.png)
 

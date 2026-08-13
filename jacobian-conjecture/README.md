@@ -30,12 +30,12 @@ This repo teaches you the whole story from absolute zero: pictures first, simple
 
 **Start reading: [chapter 0 →](guide/00-start-here/README.md)**
 
-Prefer one continuous page? The whole guide is also assembled as a single article, in two formats:
+The whole guide is also assembled as a single continuous article, in two formats:
 
 - **[docs/jacobian-conjecture/index.html](../docs/jacobian-conjecture/index.html)**, the polished web version: real LaTeX math (MathJax), playing animations, article typography. Published at [muchmirul.github.io/conjectures/jacobian-conjecture](https://muchmirul.github.io/conjectures/jacobian-conjecture/).
 - **[ARTICLE.md](ARTICLE.md)**, plain GitHub-flavored Markdown.
 
-The web version lives at the repository root under `docs/`, not in this folder, because GitHub Pages can only publish from the root or from `/docs`.
+The web version lives at the repository root under `docs/` rather than in this folder. That is because GitHub Pages can only publish from the root or from `/docs`.
 
 ## Run the code
 
@@ -48,9 +48,9 @@ make test       # re-verify every claim: Jacobians, inverses, Pinchuk, the 2026 
 make figures    # re-render every PNG/GIF in guide/
 ```
 
-The virtualenv sits at the repository root and is shared by every topic, so `make venv` from the root works too.
+The virtualenv sits at the repository root and is shared by every topic. Running `make venv` from the root therefore works as well.
 
-Play: open any `src/viz/chNN_*.py`, change a map's recipe, re-run, and watch your own monster.
+To play with it, open any `src/viz/chNN_*.py` and change a map's recipe. Running the script again redraws that chapter's figures with your own map in them.
 
 ## Layout
 
@@ -67,4 +67,4 @@ notes/      research notes: content, sources, Pinchuk data, curriculum design
 
 Distrust, and verify. The guide's tone is friendly, but its claims are not hand-waved: the shear inverses, the Nagata automorphism, Pinchuk's sum-of-squares identity, and the July 2026 counterexample (announced days before this was written; attributed to Levent Alpöge, produced with the AI model Claude Fable; peer review pending) are all re-checked from scratch by `tests/` in exact rational arithmetic, on your machine, not on anyone's authority.
 
-The two-variable case, Keller's original question, **is still open.** Maybe it's waiting for you.
+The two-variable case, Keller's original question, **is still open**. It has been checked up to degree 100, and nobody has settled it.

@@ -8,7 +8,7 @@ A needle is infinitely thin, and nothing in the physical world is. Fatten it: ta
 
 <img src="tubes.png" width="880" alt="Four panels of tubes pointing in every direction, at thicknesses 0.16, 0.08, 0.04 and 0.02, piling into a star">
 
-Now the questions become quantitative. Take one tube for each of $1/\delta$ directions. How small can their union be? Kakeya says: as $\delta$ shrinks, not much smaller than a fixed blob, and never as small as the sum of the tubes suggests. The dimension statement of chapter 8 is the sharp version of that, at the limit.
+Now the questions become quantitative. Take one tube for each of $1/\delta$ directions and ask how small their union can be. Kakeya says that as $\delta$ shrinks the union stays not much smaller than a fixed blob, and never gets as small as the sum of the tubes suggests. The dimension statement of chapter 8 is the sharp version of that, at the limit.
 
 The moment you say "tube", analysts recognise the object. A wave that travels in some direction, over some stretch of time, lives in a tube. Add up waves going in many directions and you are asking exactly how much their tubes can pile up.
 
@@ -25,7 +25,7 @@ There is a hierarchy of conjectures here, roughly: restriction implies Bochner-R
 
 ## The reason it is quotable
 
-A problem this famous usually has an unquotable statement. This one you can say to a stranger on a bus: *how small can a room be, if you have to turn a needle around inside it?* And the answer is genuinely useful to people proving theorems about waves.
+A problem this famous usually has an unquotable statement. This one you can say to a stranger on a bus, as *how small can a room be, if you have to turn a needle around inside it*, and the answer is genuinely useful to people proving theorems about waves.
 
 That combination, a question a child can hold and a theorem an expert needs, is rare. It is why the needle keeps its name in the literature.
 

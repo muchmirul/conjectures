@@ -38,7 +38,7 @@ This is a machine for making monsters: stack as many shears and straight maps as
 
 ## The villains: folding and crushing
 
-Now the other kind of polynomial map.
+Now for the other kind of polynomial map. Two examples show what goes wrong, and both fail in the way chapter 2 described.
 
 <img src="fold.gif" width="640" alt="The plane folds like a closing book onto the right half plane; two marked dots crash into one">
 
@@ -55,7 +55,7 @@ Put the chapter's cast side by side:
 - Heroes (shear, stacked shears): **bend but never crush** → undoable, with polynomial undo.
 - Villains (fold, crush): somewhere, area gets **squeezed to zero** → collisions → no undo.
 
-It smells like chapter 5's law ("undoable ⟺ area factor ≠ 0") wants to generalize from straight maps to *bent* maps. But a bent map stretches area differently in different places… so what plays the role of "the" area factor? For that we need a microscope.
+The pattern suggests that chapter 5's law, undoable exactly when the area factor is not zero, should carry over from straight maps to bent ones. A bent map stretches area differently in different places, so it is not obvious what would play the role of "the" area factor. Finding that is what the microscope of the next chapter is for.
 
 ## Try it
 

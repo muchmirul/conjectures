@@ -9,7 +9,8 @@ At stage `j` the tree merges pairs of bunches by sliding the right bunch left by
 `2 * W * (1 - alpha_j)`, where `W` is the base width of one bunch's original
 triangle. `alpha_j` is the fraction of its width the merged pair keeps.
 
-The single merge has a closed form (derived in `merged_pair_area`, verified in
+The single merge has a closed form. It is derived in `merged_pair_area` and
+verified in
 `tests/test_core.py`): sliding by `t` half-widths leaves area
 `1 - t + 3t^2/4`, minimised at `t = 2/3`, that is `alpha = 2/3`, with two thirds
 of the area surviving.

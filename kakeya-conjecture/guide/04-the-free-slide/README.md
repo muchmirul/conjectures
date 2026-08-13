@@ -12,7 +12,7 @@ So a needle can travel any distance you like along its own direction, for free. 
 
 ## Turning costs a slice of pie
 
-Pivot a needle about one end through an angle $\theta$ and it sweeps a circular sector, of area
+Pivot a needle about one end through an angle $\theta$ and it sweeps a circular sector. The area of that sector is
 
 ```math
 \tfrac12 \theta \cdot 1^2 = \tfrac{\theta}{2}.

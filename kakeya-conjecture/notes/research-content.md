@@ -57,9 +57,9 @@ nothing in this repo verifies it.
 
 ## Perron trees (chapters 5 and 6)
 
-Setup: the triangle with base [0,1] and apex (1/2, 1), cut into 2^k slivers,
-merged in k stages, the right member of each pair slid left by 2*W*(1-alpha)
-where W is the base width of one member's original triangle.
+Setup: the triangle with base [0,1] and apex (1/2, 1) is cut into 2^k slivers
+and merged in k stages. The right member of each pair slides left by
+2*W*(1-alpha), where W is the base width of one member's original triangle.
 
 - **Steady squeeze (alpha = 2/3 at every stage).** Exact area
   1/6 + 1/(3*2^k). **[computed]** for k = 0..6 as exact fractions; the tests also
@@ -101,7 +101,8 @@ where W is the base width of one member's original triangle.
 
 ## The finite grid (chapter 10)
 
-All for prime q; the module refuses non-prime input rather than pretending.
+All of these are for prime q. The module refuses non-prime input rather than
+pretending to handle it.
 
 - Number of directions in F_q^n is (q^n - 1)/(q - 1), so q+1 in the plane.
   **[computed]**

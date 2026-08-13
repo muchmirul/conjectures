@@ -1,8 +1,6 @@
 # 11 · The two halves meet
 
-Section 11 combines the two halves and turns their shared radius into the exact long-term density rate.
-
-One part of the proof says that no certificate can have a better long-term radius than the limit. The other part builds certificates whose radii approach that same limit. Either statement alone leaves room for a gap. Together, they show that the limit is exact.
+Section 11 combines the two halves and turns their shared radius into the exact long-term density rate. One part of the proof says that no certificate can have a better long-term radius than the limit, while the other part builds certificates whose radii approach that same limit. Either statement alone leaves room for a gap, but together they show that the limit is exact.
 
 ![The impossible side and the constructed side closing on the same limiting number](closing.gif)
 
@@ -20,7 +18,7 @@ One standard estimate is still needed to turn a radius into a density. It is cal
 
 The middle number is the easiest one to compare with earlier work: **0.6044005442916777** halvings per dimension. In the long run, each added dimension contributes about that much of a halving to the density limit. The 1978 value was 0.59905576.
 
-This is the first improvement to the general sphere-packing exponent since 1978. “Exponent” is the standard name for this long-term shrinking rate. Because the other half of the proof rules out every better certificate, no certificate using these two sign rules can improve that rate again.
+This is the first improvement to the general sphere-packing exponent since 1978, and “exponent” is the standard name for this long-term shrinking rate. Because the other half of the proof rules out every better certificate, no certificate using these two sign rules can improve that rate again.
 
 **[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/11.html)** to bring the constructed and impossible sides together at one value.
 

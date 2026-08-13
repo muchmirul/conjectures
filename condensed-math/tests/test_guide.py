@@ -126,13 +126,82 @@ def test_the_article_points_at_the_lectures(part):
         assert 5 <= int(page) <= 78
 
 
+def chapter_bodies(part):
+    """Each numbered chapter's text, keyed by its number."""
+    out, current, buf = {}, None, []
+    for line in part.article.read_text().splitlines():
+        m = re.match(r"^## (\d+) · ", line)
+        if m:
+            if current is not None:
+                out[current] = "\n".join(buf)
+            current, buf = int(m.group(1)), []
+        elif re.match(r"^## ", line):
+            if current is not None:
+                out[current] = "\n".join(buf)
+            current, buf = None, []
+        elif current is not None:
+            buf.append(line)
+    if current is not None:
+        out[current] = "\n".join(buf)
+    return out
+
+
+def chapters_with_maths(part):
+    """Which numbered chapters currently state their mathematics."""
+    bodies = chapter_bodies(part)
+    return {n: bodies[n] for n in sorted(bodies)
+            if n > 0 and "### The mathematics" in bodies[n]}
+
+
 @pytest.mark.parametrize("part", PARTS, ids=lambda p: p.slug)
-def test_the_prose_carries_no_formulas(part):
-    """The house rule: draw it or link to it by number, never typeset it."""
-    text = part.article.read_text()
-    assert "$" not in text
-    assert "\\(" not in text
-    assert "```math" not in text
+def test_every_statement_is_paired_with_words_and_a_simulation(part):
+    """The rule for this topic: the mathematics is never shown on its own.
+
+    Each formal statement is paired with a reading of every symbol in ordinary
+    words and with the simulation that lets the reader move it.  This checks
+    the pairing wherever a statement exists.  How many chapters have reached
+    that point is a separate question, measured by the test below, because the
+    work of writing them is still in progress.
+    """
+    for n, body in chapters_with_maths(part).items():
+        block = body.split("### The mathematics", 1)[1]
+        assert "```math" in block or "$" in block, \
+            f"{part.slug} chapter {n}: the heading carries no statement"
+        assert "**Reading the symbols.**" in block, \
+            f"{part.slug} chapter {n}: no plain reading of the symbols"
+        assert "**In the simulation.**" in block, \
+            f"{part.slug} chapter {n}: the statement is not tied to its activity"
+        assert f"play/{n:02d}.html" in block, \
+            f"{part.slug} chapter {n}: the pairing does not reach the activity"
+
+
+def test_how_much_of_the_mathematics_has_been_written():
+    """Record the coverage, so the remaining work stays visible.
+
+    The owner asked for the real mathematics in every chapter, each paired
+    with an explanation and a simulation.  Part one chapter one carries the
+    pattern the rest copy.  This test does not demand completeness, it reports
+    it, and `notes/WORKING-STATE.md` lists what is left.
+    """
+    done = {p.slug: sorted(chapters_with_maths(p)) for p in PARTS}
+    total = sum(len(v) for v in done.values())
+    wanted = sum(len([c for c in p.chapters if c > 0]) for p in PARTS)
+    assert total >= 1, "the pattern block itself is missing"
+    assert total <= wanted
+    print(f"\nmathematics written for {total} of {wanted} chapters: {done}")
+
+
+@pytest.mark.parametrize("part", PARTS, ids=lambda p: p.slug)
+def test_the_maths_renders_on_the_built_page(part):
+    """A formula that does not render is worse than no formula."""
+    html = (DOCS / part.slug / "index.html").read_text()
+    assert "tex-chtml.js" in html, "MathJax is not loaded"
+    opened = html.count('<section class="mathpair">')
+    assert opened == len(chapters_with_maths(part)), \
+        f"{part.slug}: {opened} paired blocks rendered from the article's blocks"
+    assert opened == html.count("</section>"), "a paired block was left open"
+    if opened:
+        assert '<div class="eq">' in html, "no display maths was rendered"
 
 
 @pytest.mark.parametrize("part", PARTS, ids=lambda p: p.slug)

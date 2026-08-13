@@ -28,7 +28,7 @@ Slide, turn, grow, lean, these keep the gridlines straight. The last one, *bend*
 >
 > Example: $F(x, y) = (x + \tfrac{1}{4}y^2,\; y + \tfrac{1}{4}x^2)$, the *bend* panel above.
 
-The whole rest of this guide lives inside this zoo: polynomial maps of flat space.
+The whole rest of this guide lives inside this zoo, which is to say inside the polynomial maps of flat space. Every example from here on is one of them.
 
 ## Try it
 
@@ -36,7 +36,7 @@ The whole rest of this guide lives inside this zoo: polynomial maps of flat spac
 python src/viz/ch04_plane_maps.py
 ```
 
-Change the recipes in `PANELS` and re-run, invent your own warp.
+Change the recipes in `PANELS` and run the script again. That lets you invent your own warp and see what it does to the grid.
 
 ---
 

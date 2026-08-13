@@ -344,7 +344,7 @@ $$ H(x, y) = \left(\,x + (y + x^2)^2,\; y + x^2\,\right) $$
   <img src="https://raw.githubusercontent.com/muchmirul/conjectures/main/jacobian-conjecture/guide/07-the-microscope/microscope.gif" width="480" alt="The camera stays locked on one dot while zooming in; the bent grid straightens into a perfect parallelogram grid">
 </figure>
 
-<p>The nearby grid increasingly resembles straight, parallel, evenly spaced lines—the kind of picture used in chapter 5. <strong>At very small scales, a bent polynomial map is approximated by a straight map.</strong></p>
+<p>The nearby grid increasingly resembles straight, parallel, evenly spaced lines, the kind of picture used in chapter 5. <strong>At very small scales, a bent polynomial map is approximated by a straight map.</strong></p>
 
 <blockquote><p>The <strong>Jacobian</strong> of $F$ at a point $p$ is the straight map that describes this close-up behavior near $p$.</p></blockquote>
 
@@ -395,7 +395,7 @@ $$ H(x, y) = \left(\,x + (y + x^2)^2,\; y + x^2\,\right) $$
 
 <p>This example must be interpreted carefully. Because its factor does reach zero at the center, it does not disprove the proposed “nonzero everywhere” test. It shows a different danger: a collision may join distant inputs that cannot be viewed through one local microscope. Local information and global undoability answer different questions.</p>
 
-<p>Could the test work if the local factor were nonzero with no exceptions? Over the real numbers, it still does not. Chapter 11 describes Pinchuk’s polynomial map, whose factor is positive at every real point even though two distant inputs collide. Smooth non-polynomial maps can behave more extremely and hit some outputs infinitely many times.</p>
+<p>The next thing to ask is whether the test could work if the local factor were nonzero with no exceptions. Over the real numbers, it still does not. Chapter 11 describes Pinchuk’s polynomial map, whose factor is positive at every real point even though two distant inputs collide. Smooth non-polynomial maps can behave more extremely and hit some outputs infinitely many times.</p>
 
 <p>A merely nonzero local factor is therefore insufficient over the real numbers. Keller imposed a tighter condition for polynomial maps over the complex numbers: the local factor must be the <strong>same nonzero constant at every point</strong>. The question was whether those requirements finally force a global polynomial inverse.</p>
 
@@ -532,7 +532,7 @@ $$ H(x, y) = \left(\,x + (y + x^2)^2,\; y + x^2\,\right) $$
 
 <p>Pinchuk’s map has no local flattening and no local orientation reversal, yet it has a global collision. It supplies the example promised in chapter 8 and shows that the corresponding statement over real numbers is false.</p>
 
-<p>This raises an obvious question: why does Pinchuk’s example not disprove the official conjecture? The official problem uses complex numbers, and the feature that protects Pinchuk’s factor over the reals does not carry over. Over real numbers, squares are never negative, so a sum of squares can stay positive. Complex numbers are not ordered into positive and negative values in this way. Over the complex numbers, a polynomial in several variables with no zeros must be constant. Pinchuk’s factor is not constant, so it has complex zeros and does not meet Keller’s condition there.</p>
+<p>That raises the obvious point of why Pinchuk’s example does not disprove the official conjecture. The official problem uses complex numbers, and the feature that protects Pinchuk’s factor over the reals does not carry over. Over real numbers, squares are never negative, so a sum of squares can stay positive. Complex numbers are not ordered into positive and negative values in this way. Over the complex numbers, a polynomial in several variables with no zeros must be constant. Pinchuk’s factor is not constant, so it has complex zeros and does not meet Keller’s condition there.</p>
 
 <p class="aside">(More specifically, Pinchuk’s factor is $t^2 + \big(t + f\,(13 + 15h)\big)^2 + f^2$ for certain helper polynomials $t, f, h$. Over the reals this is a sum of three squares, and a short additional argument proves it is never zero. The symbolic identity is checked in <code>tests/test_pinchuk.py</code>.)</p>
 
@@ -582,7 +582,7 @@ R &= 2x - 3x^2 y - x^3 z
 
 <p>The three components are polynomials of degrees 7, 6, and 4, with small integer coefficients.</p>
 
-<p><strong>Fact 1: the condition holds.</strong> The local volume factor—the three-dimensional Jacobian determinant—is the constant $-2$ at every point. This meets Keller’s condition. The minus sign records a uniform reversal of orientation; the size of the factor remains fixed.</p>
+<p><strong>Fact 1: the condition holds.</strong> The local volume factor, the three-dimensional Jacobian determinant, is the constant $-2$ at every point. This meets Keller’s condition. The minus sign records a uniform reversal of orientation; the size of the factor remains fixed.</p>
 
 <p><strong>Fact 2: the map has a collision.</strong> These three different inputs all have the same output:</p>
 

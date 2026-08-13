@@ -1,18 +1,18 @@
 # Start here
 
-*A step-by-step visual guide to packing equal balls, a question first asked in 1611, and to a major result proved in 2026. You do not need a maths background. Each new idea begins with a picture.*
+*A step-by-step visual guide to packing equal balls, a question first asked in 1611, and to a major result proved in 2026. It assumes no maths background, and it introduces most new ideas with a picture.*
 
 ![Equal balls in a tightly packed fruit-shop stack, rotating so you can see its depth](hero.gif)
 
-Every ball in this stack is the same size, and none of them overlap. This familiar fruit-shop arrangement fills a little under 75 percent of the surrounding space. The remaining space is made of gaps between the balls. Everything in this guide comes from the open source repository at [github.com/muchmirul/conjectures](https://github.com/muchmirul/conjectures): the text, every figure, and the tests behind each number.
+Every ball in this stack is the same size, and none of them overlap. This familiar fruit-shop arrangement fills a little under 75 percent of the surrounding space, and the rest of that space is made of the gaps between the balls. Everything in this guide comes from the open source repository at [github.com/muchmirul/conjectures](https://github.com/muchmirul/conjectures): the text, every figure, and the tests behind each number.
 
-For circles on a flat surface, the best arrangement is known. For balls in ordinary three-dimensional space, finding the answer took almost four hundred years. In most higher dimensions, the exact answer is still unknown and is expected to remain difficult. Researchers therefore also ask a more manageable question: how dense could any packing possibly be? In 2026, they found the exact long-term limit of the main method used to answer that question. The result improved a general limit that had stood since 1978.
+For circles on a flat surface, the best arrangement is known, while for balls in ordinary three-dimensional space, finding the answer took almost four hundred years. In most higher dimensions, the exact answer is still unknown and is expected to remain difficult. Because of this, researchers also ask a more manageable question about how dense any packing could possibly be. In 2026, they found the exact long-term limit of the main method used to answer that question, and the result improved a general limit that had stood since 1978.
 
 This guide develops that story one small step at a time. Most numbered sections also have a [page you can play with](https://muchmirul.github.io/conjectures/sphere-packing/play/index.html), where you can change the main quantities and watch the picture respond.
 
-The 2026 result is presented in two documents. The first gives the finished proof. The second is a behind-the-scenes guide that explains how the main ideas were found, including earlier attempts that did not work. Sections 8 to 11 explain the finished proof. The other sections provide the surrounding story. A table near the end shows where each idea appears in the two source documents.
+The 2026 result is presented in two documents. The first gives the finished proof, and the second is a behind-the-scenes guide that explains how the main ideas were found, including earlier attempts that did not work. Sections 8 to 11 of this guide explain the finished proof, while the other sections provide the surrounding story. A table near the end shows where each idea appears in the two source documents.
 
-The code that makes each figure is included in this repository. The tests recalculate the numbers used in the guide. When a statement comes from an existing theorem rather than from those calculations, the text says so.
+The code that makes each figure is included in this repository, and the tests recalculate the numbers used in the guide. When a statement comes from an existing theorem rather than from those calculations, the text says so.
 
 ```
     first, the problem       1  what are we trying to find?

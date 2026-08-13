@@ -77,7 +77,8 @@ repository computes is the finite machinery underneath:
 marks it computed, a finite shadow of an infinite statement, or quoted. The
 articles say which is which where it matters.
 
-The simulations are checked twice over: `tests/test_interactive.py` runs their
-JavaScript and compares it against the Python library at sample points, and
-runs every page against a small DOM stub through every position of every
-control, so a page that throws fails here rather than in front of a reader.
+The simulations are checked twice over. `tests/test_interactive.py` runs their
+JavaScript and compares it against the Python library at sample points, and it
+also runs every page against a small DOM stub through every position of every
+control. A page that throws therefore fails here rather than in front of a
+reader.

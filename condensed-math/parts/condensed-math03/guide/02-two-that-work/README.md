@@ -2,7 +2,7 @@
 
 *Part 3 of three: Rings That Know How To Integrate. Retells Lectures VII to XI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-Nothing new is needed here: the two rules that work are the two objects part two already built.
+Nothing new is needed here, because the two rules that work are the two objects part two already built:
 
 **The base-p rule.** Take the base-p numbers, and let the legal weightings be the ones part two built on the base-p probe. This passes ([Proposition 7.8, page 48](https://arxiv.org/pdf/2605.03658v1#page=48)).
 
@@ -10,9 +10,9 @@ Nothing new is needed here: the two rules that work are the two objects part two
 
 ![The two working rules side by side, the base-p one and the solid one over a plain ring, with what each allows you to sum](two_rules.png)
 
-The second one deserves a comment because it looks like it says nothing. A ring with no topology has nothing to complete; why does attaching a rule for infinite sums change anything?
+The second one deserves a comment because it looks like it says nothing. A ring with no topology has nothing to complete, so attaching a rule for infinite sums seems to add nothing either.
 
-The reason is that the modules are not required to be plain. The ring is discrete, but the things it acts on are answer sheets, and those can carry as much topology as they like. So the rule is a statement about the modules, not about the ring, and it says: among all the ways a module over this plain ring might carry a topology, these are the ones where infinite sums behave. That is exactly the setting in which the rest of this part does geometry, and the ring being plain is a feature, because it means no choices were made about the ring's own topology.
+The reason it does add something is that the modules are not required to be plain. The ring is discrete, but the things it acts on are answer sheets, and an answer sheet can carry any amount of topology. This means that the rule is a statement about the modules rather than about the ring: among all the ways a module over this plain ring might carry a topology, these are the ones where infinite sums behave. That is exactly the setting in which the rest of this part does geometry, and the ring being plain helps, because it means no choices were made about the ring's own topology.
 
 There is also a version for the fractions of the base-p numbers, where the legal weightings are the bounded ones, and more generally a rule attached to any pair consisting of a ring and a chosen subring of things of size at most one ([Remark 7.9, page 49](https://arxiv.org/pdf/2605.03658v1#page=49)). Section 6 uses that generality.
 

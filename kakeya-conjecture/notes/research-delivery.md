@@ -44,7 +44,8 @@ two reasons for that:
    `sphere_directions(n, count)`, which works in every dimension, so the same
    figure extends to n = 5 or 10 by changing one argument.
 
-Everything else, every chart and every diagram, is a static PNG.
+Everything else, meaning every chart and every diagram, is a static PNG.
+Motion is reserved for the figures whose movement is the mathematics.
 
 And a third rule, learned the hard way: **a picture that is only words is not a
 picture.** Cards of text, step lists, timelines and status tables were drawn as
@@ -62,8 +63,8 @@ makes the reader wait to see a number they could have read at a glance, and it
 cannot be scanned back and forth. Where an animation used to reveal its values
 one at a time, the static version labels them all.
 
-matplotlib + Pillow, no ffmpeg needed, GIF for the ten that move so they play
-inline on GitHub.
+The stack is matplotlib plus Pillow, with no ffmpeg needed. The ten figures
+that move are written as GIF so they play inline on GitHub.
 
 Two problems were worth solving properly on the GIF side:
 

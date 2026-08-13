@@ -2,15 +2,13 @@
 
 *Part 2 of three: Infinite Sums That Finally Land. Retells Lectures IV to VI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-Everything is now in place to state the rule this part is named for. Nothing new is needed: only weightings, from section 2.
+Everything is now in place to state the rule this part is named for. Nothing new is needed, only the weightings from section 2.
 
-A group is **solid** when it knows how to be summed against a weighting, and knows it in exactly one way.
-
-Precisely: take any probe, and any way of placing the probe's points into the group. Then there must be exactly one way to extend that placement so that weightings can be integrated against it, agreeing with the placement on single points.
+A group is **solid** when weightings can be summed against it, and can be summed in exactly one way. More precisely, take any probe, and any way of placing the probe's points into the group. Then there must be exactly one way to extend that placement so that weightings can be integrated against it, agreeing with the placement on single points.
 
 ![A placement of a probe's points into a group, and the unique extension that lets weightings be integrated against it](extension.gif)
 
-The animation shows what "exactly one way" buys. Once the extension exists, every weighting has a value, so every infinite sum the probe describes has an answer, and there is no ambiguity about which answer. Existence gives you the sums; uniqueness stops you inventing two different theories of the same sum.
+The animation shows what "exactly one way" gives you. Once the extension exists, every weighting has a value, so every infinite sum the probe describes has an answer, and there is no ambiguity about which answer. Existence gives you the sums, and uniqueness stops you inventing two different theories of the same sum.
 
 The lectures state the rule in one line ([Definition 5.1, page 33](https://arxiv.org/pdf/2605.03658v1#page=33)) and spend a lecture and a half establishing that it behaves. What comes out is a full toolkit, and this is the central result of this part:
 
@@ -20,7 +18,7 @@ That is Theorem 5.8 ([page 35](https://arxiv.org/pdf/2605.03658v1#page=35)) toge
 
 ![Which of the sample groups obey the solid rule and which do not, each with the reason](solid_or_not.png)
 
-The picture sorts the guide's stock examples. The whole numbers are solid. Any endless product of copies of them is solid, and by the previous section that is every collection of weightings. The base-p numbers are solid, which is the promise of section 1 kept. Power series in a variable are solid. The real numbers are not, and the next section is about what happens to them.
+The picture sorts the guide's stock examples. The whole numbers are solid, and so is any endless product of copies of them, which by the previous section means every collection of weightings. The base-p numbers are solid, which keeps the promise of section 1. Power series in a variable are solid. The real numbers are not, and the next section is about what happens to them.
 
 **[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/05.html)** to test candidate groups against the rule and see each verdict's reason.
 

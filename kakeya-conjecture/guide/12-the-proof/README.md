@@ -26,7 +26,7 @@ You can build one from the flat tree of chapter 5, without any new ideas. Push t
 
 Why that works: a unit needle of space pointing along $(a, b, c)$ casts a shadow on the plane of length $\sqrt{a^2+b^2}$, which is **less** than one. A shorter shadow fits inside the unit segment the flat tree already holds in that direction, and the height the needle needs is $|c| \le 1$, which the slab covers. So the slab holds every direction of space whose shadow lies in the tree's fan, and four rotated copies hold the rest.
 
-The blue needle in the picture is not decoration: `tests/test_core.py` walks along it point by point and checks that every point is inside a sliver and inside the slab.
+The blue needle in the picture is checked rather than drawn by hand. The file `tests/test_core.py` walks along it point by point and checks that every point is inside a sliver and inside the slab.
 
 ## What you can check, and what you cannot
 
@@ -35,7 +35,7 @@ This repo's ethos is distrust and verify. So, plainly:
 - **A 127 page proof cannot be checked by running a script.** Nothing here verifies Wang and Zahl, and nothing could.
 - **What you can run** is everything the theorem sits on top of: that Kakeya sets of tiny area exist at all (chapters 5 and 6), that area zero does not imply small (chapter 7), and the entire finite grid version with Dvir's proof executed step by step (chapter 10).
 
-That is the honest split, and it is worth knowing which side of it any statement in this guide falls on.
+That is the honest split between what is checked here and what is quoted. Any statement in this guide falls on one side of it or the other, and the text says which.
 
 ## A hundred and eight years
 

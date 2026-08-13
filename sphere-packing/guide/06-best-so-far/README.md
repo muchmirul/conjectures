@@ -1,16 +1,16 @@
 # 6 · What certificates actually prove
 
-This repository includes a small computer search for useful certificates. It begins with a function that passes both rules, makes small random changes, and keeps changes that improve the density limit. The picture treats space like a container filling from the bottom. Blue shows the density reached by the best known packing, while the line above it shows the candidate certificate’s limit.
+This repository includes a small computer search for useful certificates. It begins with a function that passes both rules, makes small random changes, and keeps changes that improve the density limit. The picture treats space like a container filling from the bottom, where blue shows the density reached by the best known packing and the line above it shows the candidate certificate’s limit.
 
 ![Packing density in blue, a candidate certificate limit above it, and the small gap enlarged](gap.png)
 
 For the plane, the search finds a candidate limit of 91.16 percent. If its two sign rules held at every distance, it would prove that no circle packing could be denser than that. Staggered rows reach 90.69 percent, leaving less than half a percentage point between the two numbers.
 
-That narrow gap is a limit of this numerical certificate, not an unsolved gap in the two-dimensional packing problem. Section 1 already noted that a separate theorem proves 90.69 percent is the exact answer. The enlarged sliver shows only what this candidate certificate has not ruled out.
+That narrow gap is a limit of this numerical certificate, not an unsolved gap in the two-dimensional packing problem. Section 1 already noted that a separate theorem proves 90.69 percent is the exact answer, so the enlarged sliver shows only what this candidate certificate has not ruled out.
 
-There is another important limit. The program checks the two rules at many closely spaced sample points, but it does not check every possible distance. The result is therefore a **numerical certificate**, not a formal proof. Researchers can make stronger searches with a method called semidefinite programming. They also design the curve so that it touches zero at carefully chosen distances. This project does neither.
+There is a second important limit. The program checks the two rules at many closely spaced sample points, but it does not check every possible distance, so the result is a **numerical certificate** rather than a formal proof. Researchers can make stronger searches with a method called semidefinite programming, and they also design the curve so that it touches zero at carefully chosen distances. This project does neither.
 
-The small search also shows why its starting point matters. Its starting family stops working before dimension six, so the search cannot even begin in dimension eight. Viazovska’s exact certificate for dimension eight needed a family of highly structured functions known as modular forms.
+The small search also shows why its starting point matters. Its starting family stops working before dimension six, so the search cannot even begin in dimension eight. Viazovska’s exact certificate for dimension eight needed a family of highly structured functions known as modular forms. The overall position across dimensions looks like this:
 
 ```
     dimensions 8 and 24     exact certificates meet the exact packing densities

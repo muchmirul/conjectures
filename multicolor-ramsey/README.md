@@ -11,15 +11,17 @@ background.
 
 ## What it covers
 
-The game of coloring every connection in a group so that no three people are
-joined in a single color; the exact small answers and where they stop; the
-question Erdős put money on, whether the safe group size per color climbs
-forever; why products and shortcuts could never answer it; and the three
-moving parts of the 2026 construction (palettes, teams, and a fixed saturated
-table) that make the rate climb like the cube root of the color count.
+The guide starts with the game of coloring every connection in a group so
+that no three people are joined in a single color, and gives the exact small
+answers and the point where they stop. It then states the question Erdős put
+money on, which is whether the safe group size per color climbs forever, and
+explains why products and shortcuts could never answer it. The last chapters
+cover the three moving parts of the 2026 construction, which are palettes,
+teams and a fixed saturated table, and show how they make the rate climb like
+the cube root of the color count.
 
 The source is chapter 9 of *Ten Advances in Mathematics and Theoretical
-Computer Science* (OpenAI), kept with its reasoning walkthrough in
+Computer Science* (OpenAI). It is kept with its reasoning walkthrough in
 `docs/ten-proofs/09-multicolor-ramsey/`.
 
 ## Running the code
@@ -63,8 +65,8 @@ build_interactive.py writes the playable page for each chapter
 ## What this repository proves, and what it only describes
 
 The tests rebuild the pentagon and the sixteen-person coloring and re-check
-every triangle; sweep all 32768 two-colorings of six people; verify two
-product colorings cold; find the saturated matrix at alphabet size two and
+every triangle. They also sweep all 32768 two-colorings of six people, verify
+two product colorings cold, find the saturated matrix at alphabet size two and
 verify its promise over all seventy column choices and the meeting guarantee
 over every pair of words; check all eight cases of the palette parity rule
 and both endings of the two-room trap; and recompute the paper's own

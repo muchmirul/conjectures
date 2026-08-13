@@ -70,8 +70,9 @@ R = 2x − 3x²y − x³z
 - Component degrees (7, 6, 4); non-properness / escape-to-infinity is the
   mechanism (fibers run off to infinity).
 
-Coverage: Wikipedia (updated), jacobianfun.org/jacobian-explained (Gallagher),
-zzhang-iu.github.io consequences note.
+Coverage was checked against three sources. Those were Wikipedia (updated),
+Gallagher's note at jacobianfun.org/jacobian-explained, and the consequences
+note at zzhang-iu.github.io.
 
 ## Teaching examples (all [V-repo] in tests/)
 

@@ -2,13 +2,11 @@
 
 Sections 8 to 11 follow the finished 2026 construction. They reuse familiar ideas about rooms, colours, and one-colour triangles. Each section adds one simple rule, while the behind-the-scenes document explains why that rule was chosen. The first rule decides which colours may be used in each room.
 
-As in section 5, divide the people into rooms. Give every room a **palette**, meaning a list of colours that are not allowed on connections inside that room. All colours outside the list may be used internally. In the pictures, a room is said to “hold” a colour when that colour is on its palette, even though holding it means keeping it out of the room.
-
-A connection between two different rooms may use a colour only when that colour appears on exactly one of their palettes.
+As in section 5, divide the people into rooms. Give every room a **palette**, meaning a list of colours that are not allowed on connections inside that room. All colours outside the list may be used internally. In the pictures, a room is said to “hold” a colour when that colour is on its palette, even though holding it means keeping it out of the room. A connection between two different rooms may use a colour only when that colour appears on exactly one of their palettes.
 
 ![A connection between two rooms trying colours until it finds one listed by exactly one room](rooms.gif)
 
-This rule immediately prevents a one-colour triangle spread across three rooms. Fix one colour and look at any three room palettes. For each room, the colour is either listed or not listed. Among three rooms, at least two must have the same answer. The connection between those two rooms cannot use that colour, because a cross-room colour must be listed by exactly one side. The chosen colour therefore cannot appear on all three sides of the triangle.
+This rule immediately prevents a one-colour triangle spread across three rooms. Fix one colour and look at any three room palettes. For each room, the colour is either listed or not listed, so among three rooms at least two must have the same answer. The connection between those two rooms cannot use that colour, because a cross-room colour must be listed by exactly one side. The chosen colour therefore cannot appear on all three sides of the triangle.
 
 ![All eight listed-or-unlisted patterns for one colour across three rooms, each blocking at least one side](parity.png)
 

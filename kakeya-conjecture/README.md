@@ -32,7 +32,7 @@ This repo teaches the whole story from absolute zero: pictures first, simple sen
 
 **Start reading: [chapter 0 →](guide/00-start-here/README.md)**
 
-Prefer one continuous page? The whole guide is also assembled as a single article, in two formats:
+The whole guide is also assembled as a single continuous article, in two formats:
 
 - **[docs/kakeya-conjecture/index.html](../docs/kakeya-conjecture/index.html)**, the polished web version: real LaTeX math (MathJax), playing animations, article typography. Published at [muchmirul.github.io/conjectures/kakeya-conjecture](https://muchmirul.github.io/conjectures/kakeya-conjecture/).
 - **[ARTICLE.md](ARTICLE.md)**, plain GitHub-flavored Markdown.
@@ -50,9 +50,9 @@ make test       # re-verify every claim: areas, trees, dimensions, Dvir's proof
 make figures    # re-render every figure in guide/
 ```
 
-The virtualenv sits at the repository root and is shared by every topic, so `make venv` from the root works too.
+The virtualenv sits at the repository root and is shared by every topic. Running `make venv` from the root therefore works as well.
 
-Play: open any `src/viz/chNN_*.py`, change a construction, re-run, and watch your own monster.
+To play with it, open any `src/viz/chNN_*.py` and change a construction. Running the script again redraws that chapter's figures with your own shape in them.
 
 ## Layout
 

@@ -9,7 +9,7 @@ Take an input $x$. Allow yourself only two moves:
 - **add** (numbers or pieces you already built),
 - **multiply** (numbers or pieces you already built).
 
-Whatever machine you can build this way is called a **polynomial**.
+Whatever machine you can build this way is called a **polynomial**. Here are three of them:
 
 - $2x + 1$: double, add one. Polynomial.
 - $x^2$: $x$ times $x$. Polynomial. (A power is just repeated multiplication.)
@@ -25,7 +25,7 @@ The dashed gray machines, $\sin x$, $1/x$, $\sqrt{x}$, are **not** polynomials. 
 
 Polynomials are the machines you can run **exactly, with pencil and paper, in finitely many steps**. No approximations, no "undefined at zero", no infinite sums. They are the most concrete, most finite, most *checkable* machines in mathematics.
 
-That is exactly why the puzzle in this guide is so embarrassing for mathematics: it is a question about the *tamest machines we have*, and it defeated everyone for 87 years.
+That is exactly why the puzzle in this guide is so awkward for mathematics. It is a question about the tamest machines we have, and it defeated everyone for 87 years.
 
 The **degree** of a polynomial is its biggest power: $x^3 - 2x$ has degree 3. Keep this word in your pocket; it becomes important in chapter 10.
 

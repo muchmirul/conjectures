@@ -4,7 +4,7 @@
 
 ## Keep cutting
 
-The tree of chapter 5 holds every direction of its fan, and its area falls as you cut finer.
+The tree of chapter 5 holds every direction of its fan, and its area falls as you cut finer. The next picture follows that fall from two slivers to five hundred and twelve.
 
 <img src="shrink.png" width="860" alt="Five Perron trees in a row, from 2 slivers to 512, each thinner than the last, with areas falling from 0.4688 to 0.1181">
 

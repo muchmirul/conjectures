@@ -4,11 +4,11 @@
 
 ## A tempting shortcut
 
-Chapter 7 gave us a dream tool. Want to know if a map is undoable? Check the local area factor everywhere. If it is never zero, the map never crushes anything, anywhere, so surely it can be undone…?
+Chapter 7 gave us a tool that looks decisive. To find out whether a map is undoable, check the local area factor everywhere. If it is never zero, the map never crushes anything anywhere, and it is tempting to conclude that it can therefore be undone.
 
 It *is* true that a nonzero local factor at $p$ makes the map undoable **near $p$**: zoom in enough and it is a healthy straight map, and healthy straight maps have undo maps. Mathematicians call this the *inverse function theorem*, and it is rock solid.
 
-But watch what it does **not** promise.
+What that theorem does **not** promise is anything about the map as a whole. The next example shows the gap.
 
 ## The wrap-around
 
@@ -37,7 +37,7 @@ There are smooth (non-polynomial) maps whose local factor is nonzero at *every* 
 
 ## The right question
 
-So "local factor never zero" is not enough in general. If we want global undoability from a local condition, we need to bet on something extra. Keller's bet: demand the strongest local condition imaginable, the local area factor is not just nonzero but **the same constant everywhere**, and demand the map be **polynomial**. Is *that* enough?
+So "local factor never zero" is not enough in general. Getting global undoability from a local condition requires betting on something extra. Keller's bet was to demand the strongest local condition imaginable, that the local area factor is not just nonzero but **the same constant everywhere**, and to demand that the map be **polynomial**. Whether that is enough is the question the next chapter states.
 
 That is the Jacobian Conjecture. Next page assembles it properly.
 

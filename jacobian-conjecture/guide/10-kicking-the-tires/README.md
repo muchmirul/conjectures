@@ -60,7 +60,7 @@ python -m pytest tests/ -q        # every claim in this guide, re-verified
 python src/viz/ch10_roundtrip.py
 ```
 
-Build your own monster: open `src/jacobian_guide/examples.py`, stack more shears into `TANGLED3`, and let `invert` hunt down its undo.
+You can build your own monster as well. Open `src/jacobian_guide/examples.py`, stack more shears into `TANGLED3`, and let `invert` hunt down its undo.
 
 ---
 

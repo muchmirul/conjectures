@@ -10,7 +10,7 @@ Points are pairs $(x, y)$ with $x, y$ in $\{0, 1, \ldots, q-1\}$, and all arithm
 
 <img src="grid.png" width="560" alt="A 7 by 7 grid with 31 of its 49 points marked, and beside it the line the set holds in each of the 8 directions">
 
-The question becomes counting. The grid has $q^2$ points. How few can a Kakeya set have?
+The question becomes one of counting. The grid has $q^2$ points, and what we want to know is how few of them a Kakeya set can have.
 
 ## The answers, computed
 
@@ -31,7 +31,7 @@ About half the grid. Not a tiny corner of it. That is the finite version of "can
 
 ## The same question, one dimension up
 
-Dvir's argument is written for $\mathbb{F}_q^n$, not just for the plane, so it is worth seeing the grid in three dimensions before reading the proof.
+Dvir's argument is written for $\mathbb{F}_q^n$, not just for the plane. Seeing the grid in three dimensions first makes the general proof easier to follow.
 
 <img src="grid3d.gif" width="520" alt="A rotating 3D view of the 27 point grid F_3 x F_3 x F_3, with the 15 points of a Kakeya set marked in green and some of its lines drawn">
 
@@ -43,7 +43,7 @@ Exhaustive search stops being possible almost immediately here: in the plane the
 
 In 2008 Zeev Dvir proved the general statement, for every $q$ and every dimension, in about half a page. The argument is famous, and it is short enough to give here in full.
 
-Suppose $K$ is a Kakeya set in the grid, and suppose it is small.
+Suppose $K$ is a Kakeya set in the grid, and suppose it is small. The argument below shows that the supposition cannot hold.
 
 1. **Counting.** A polynomial of degree at most $q-1$ in $n$ variables has $\binom{q+n-1}{n}$ coefficients. Asking it to vanish at one point is one linear equation on those coefficients.
 2. **Step one.** If $K$ has fewer points than there are coefficients, the equations cannot pin everything down, so there is a **nonzero** polynomial $g$ of degree at most $q-1$ vanishing on all of $K$.

@@ -29,7 +29,8 @@ animations, its own code, and its own tests. Pick one and start reading.
 ```
 
 A topic may also carry a `build_docs.py`, which rebuilds its page under `docs/`
-from its `ARTICLE.md`, so the one-page version never has to be edited by hand.
+from its `ARTICLE.md`. The one-page version therefore never has to be edited
+by hand.
 
 A wide topic may be split into parts, in which case `ARTICLE.md` and `guide/`
 sit one level down, inside `parts/<topic>NN/`, and the topic's `docs/` folder
@@ -76,7 +77,7 @@ mathematics itself can travel. Some of it looks impossibly hard and some of it
 looks trivially small, but either kind can find a use in the real world once it
 reaches the one person who can internalise it and recognise where it fits.
 
-**Why start with the hardest problems?** Because a hard problem tends to reach
+**Why the hardest problems.** A hard problem tends to reach
 the parts of a person's imagination that nothing else asks for. A question that
 has stayed open for a century is a question that has already resisted every
 obvious way of thinking, so meeting it means going somewhere new.

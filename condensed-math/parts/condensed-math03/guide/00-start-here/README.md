@@ -6,11 +6,9 @@
 
 ![The unit ball of the measure size turning as its exponent changes, bulging outward, passing through the diamond, and collapsing into a concave star](hero.gif)
 
-The animation is one number turning, and the shape it controls decides whether an entire theory exists. The shape is the set of measures of size at most one, and the number is the exponent used to measure them. Above one the shape bulges. At exactly one it is a diamond. Below one it caves inward and stops being convex. Section 3 shows why the boundary at one is not a matter of taste: past it, merging two boxes can make a measure bigger, and the whole construction of part two falls apart.
+The animation shows one number turning, along with the shape that number controls, and whether an entire theory exists depends on that shape. The shape is the set of measures of size at most one, and the number is the exponent used to measure them. Above one the shape bulges outward, at exactly one it is a diamond, and below one it caves inward and stops being convex. Section 3 shows why the boundary at one is not a matter of taste, because past it, merging two boxes can make a measure bigger, and the whole construction of part two falls apart.
 
-This is part three of three, covering Lectures VII to XI of Peter Scholze's *Lectures on Condensed Mathematics* ([arXiv:2605.03658](https://arxiv.org/abs/2605.03658), May 2026), joint work with Dustin Clausen. [Part one](../condensed-math01/ARTICLE.md) built probes; [part two](../condensed-math02/ARTICLE.md) built weightings and the solid rule. Both are assumed here, and nothing else is.
-
-Most sections have a [page you can play with](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/index.html).
+This is part three of three, covering Lectures VII to XI of Peter Scholze's *Lectures on Condensed Mathematics* ([arXiv:2605.03658](https://arxiv.org/abs/2605.03658), May 2026), joint work with Dustin Clausen. [Part one](../condensed-math01/ARTICLE.md) built probes, and [part two](../condensed-math02/ARTICLE.md) built weightings and the solid rule. Both are assumed here, and nothing else is. Most sections also come with a [page you can play with](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/index.html).
 
 ```
     the general notion          1  a ring with a rule for sums

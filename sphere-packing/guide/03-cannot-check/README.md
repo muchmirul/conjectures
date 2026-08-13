@@ -1,12 +1,12 @@
 # 3 · Why you cannot just check
 
-Trying many arrangements can help us find a good packing, but it can never confirm that we have found the best one.
+Trying many arrangements can help us find a good packing, but it can never confirm that we have found the best one. The next picture shows several different ways of arranging equal circles.
 
 ![Six possible circle arrangements that show how many different choices there are](many_packings.png)
 
-There are endlessly many ways to place the balls, and there is no checklist that contains them all. One arrangement can show that a particular density can be reached. This is called a lower bound. It cannot show that every other arrangement is worse. For that, we need an upper bound: one statement that applies to all possible packings at once.
+There are endlessly many ways to place the balls, and there is no checklist that contains them all. One arrangement can show that a particular density can be reached, which is called a lower bound, but it cannot show that every other arrangement is worse. For that we need an upper bound, meaning one statement that applies to all possible packings at once.
 
-The rest of the guide explains how a single number-making rule can provide such a statement.
+The rest of the guide explains how a single number-making rule can provide such a statement. The two ways of working compare like this:
 
 ```
     trying arrangements one by one      using one certificate

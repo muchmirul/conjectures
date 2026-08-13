@@ -22,9 +22,7 @@ Point the needle east, then west. Nothing changed: a needle has no head and no t
 
 ![A needle turning through a half circle while a dial fills up](guide/01-the-needle/directions.gif)
 
-Turning a needle through a half circle takes it through every direction that exists.
-
-Two questions will come back again and again:
+Turning a needle through a half circle takes it through every direction that exists. Two questions about a shape will come back again and again:
 
 1. **Does this shape hold a needle in every direction?** A shape that passes is a **Kakeya set**.
 2. **Can the needle turn from one direction to the next without leaving the shape?** A shape that passes that is a **Kakeya needle set**.
@@ -35,7 +33,7 @@ The second is stricter than the first, the way a road network is stricter than a
 
 You want to turn a needle right around. Easy: draw a circle around its middle and spin it. The needle is 1 long, so the disc has diameter 1 and area $\pi/4 \approx 0.7854$.
 
-Can you do better? Here are three rooms, with the needle really turning in each one.
+Whether you can do better is the next question. The figure below shows three rooms, with the needle really turning in each one.
 
 ![Three panels: a needle spinning in a disc, a three point turn in a triangle, a chord sliding inside a deltoid](guide/02-turning-around/rooms.gif)
 
@@ -49,9 +47,7 @@ In 1917 Soichi Kakeya asked how small the room can be. He suspected the deltoid 
 
 ## 3 · How much space
 
-Two shapes cover a region. How much area is that? Not the sum: the ground they share is one patch of ground, and it does not get counted twice.
-
-That sounds like a technicality. It is the whole trick.
+Two shapes cover a region, and the area they cover together is not the sum of their two areas. The ground they share is one patch of ground, and it does not get counted twice. That sounds like a technicality, and it is the fact the shrinking constructions of the next two sections depend on.
 
 ![A triangle split down the middle; the right half slides onto the left half while the area drops to two thirds](guide/03-how-much-space/overlap.gif)
 
@@ -99,7 +95,7 @@ There is a trap. The obvious thing is to use the best single merge at every stag
 
 The steady squeeze makes a **bowtie**: every sliver passes through one point, and the solid triangle below it never thins. Its area is exactly $\frac16 + \frac{1}{3 \cdot 2^k}$, which falls, and falls, and then **stops** at one sixth. Cut into a billion slivers and a third of the original area is still there.
 
-The fix is to squeeze hard where the slivers are thin and gently where they are fat: at stage $j$, overlap each pair to $(j+1)/(j+4)$ of its width.
+The fix is to squeeze hard where the slivers are thin and gently where they are fat. At stage $j$, overlap each pair to $(j+1)/(j+4)$ of its width.
 
 ![Two curves: the steady squeeze flattens onto the one sixth line while the varying squeeze keeps dropping](guide/05-the-perron-tree/areas.png)
 
@@ -123,7 +119,7 @@ One step hides inside that sentence. A tree only holds the directions of the tri
 
 He was not even working on Kakeya's problem. He was in Perm, in Russia, working on a question about Riemann integration, and he needed a set like this as a tool.
 
-Turning the needle is a stronger demand, and this is where the free slide earns its keep.
+Turning the needle is a stronger demand than merely holding one. This is what the free slide of section 4 is for.
 
 ![A needle pivoting inside each sliver of a Perron tree in turn, with a dial filling up](guide/06-area-zero/turn.gif)
 
@@ -149,20 +145,20 @@ But at box size $3^{-m}$ the count is exactly $2^m$. Read that as a rate: make t
 
 ![A bar chart of dimensions: a dot 0, Cantor 0.63, Cantor times a line 1.63, a Besicovitch set 2, a square 2](guide/07-zero-but-big/zoo.png)
 
-And a Besicovitch set in the plane? Area 0, like everything here. Dimension **2**, the same as a solid square. That is a theorem of Roy Davies from 1971.
+A Besicovitch set in the plane has area 0, like everything else here, and dimension **2**, the same as a solid square. That is a theorem of Roy Davies from 1971.
 
 ## 8 · The conjecture
 
 You now have every piece. A Kakeya set holds a unit needle in every direction. It can have zero volume. Dimension measures size in a way that survives that. And in the plane, every Kakeya set has the largest dimension possible.
 
-So the question asks itself. In three dimensions, in four, in $n$: the volume can still be squeezed to zero. Can the **dimension** be squeezed at all?
+The question then follows on its own. In three dimensions, in four, and in $n$, the volume can still be squeezed to zero, and what nobody knew was whether the **dimension** could be squeezed at all.
 
 > a set in n-dimensional space<br>
 > **holding a unit needle in every direction**<br>
 > may have zero volume (Besicovitch),<br>
 > **but it must still have dimension n**
 
-That is the **Kakeya set conjecture**.
+That statement is the **Kakeya set conjecture**. The picture below shows what it rules out.
 
 ![A dimension line with everything below 2 shaded red as forbidden](guide/08-the-conjecture/what_it_forbids.png)
 
@@ -170,7 +166,7 @@ It does not predict a value to be discovered. It says every value except the max
 
 ### Every direction, in every dimension
 
-The words doing the work are "every direction", and what they mean changes with the dimension you are in.
+The words doing the work are "every direction". What they mean changes with the dimension you are in, and the figure below turns each case so the change is visible.
 
 ![Three rotating panels: in 2 dimensions the needle directions make a flat circle, in 3 dimensions a sphere, in 4 dimensions they are turned in the fourth axis and projected down](guide/08-the-conjecture/dimensions.gif)
 
@@ -205,7 +201,7 @@ For small $q$ you can simply search all the possibilities:
 
 About half the grid. Not a tiny corner of it.
 
-Dvir's argument is written for any dimension, so it is worth seeing the grid in three dimensions first.
+Dvir's argument is written for any dimension. Seeing the grid in three dimensions first makes the general case easier to follow.
 
 ![A rotating 3D view of the 27 point grid F_3 x F_3 x F_3, with the 15 points of a Kakeya set marked in green](guide/10-on-a-grid/grid3d.gif)
 
@@ -222,11 +218,11 @@ In 2008 Zeev Dvir proved the general statement in about half a page. Suppose $K$
 5. A homogeneous polynomial dying in every direction dies everywhere, and nothing nonzero of degree below $q$ can vanish on the whole grid.
 6. Contradiction. So $|K| \geq \binom{q+n-1}{n} \geq q^n/n!$.
 
-Every one of those steps is a computation on small grids, and the repository runs all of them: finding the vanishing polynomial by linear algebra over the field, restricting it to a line and watching every coefficient come out zero, comparing top coefficients with top parts, and computing the rank that closes the argument.
+Every one of those steps is a computation on small grids, and the repository runs all of them. The tests find the vanishing polynomial by linear algebra over the field, restrict it to a line and check that every coefficient comes out zero, compare top coefficients with top parts, and compute the rank that closes the argument.
 
 ## 11 · Why it was hard
 
-Here is the whole assault on three dimensions as one number: the best dimension anyone could prove a Kakeya set in space must have.
+The whole hundred year effort in three dimensions can be read off a single number, which is the best dimension anyone could prove a Kakeya set in space must have. The chart below follows that number from 1919 to 2025.
 
 ![A step chart from 1919 to 2025: 2, then 5/2, then 5/2 plus a sliver, then 3](guide/11-why-it-was-hard/bounds.png)
 
@@ -261,7 +257,7 @@ The engine is a statement about tubes: take thin tubes in space, limit how many 
 
 The camera turns because it has to. This is a claim about three dimensions, and a still picture hides the point: those tubes run over a whole sphere of directions, not a circle of them.
 
-You can build a Kakeya set of space yourself, out of the flat tree of section 5, by pushing it sideways into a slab.
+The flat tree of section 5 can be pushed sideways into a slab, and you can build that yourself. How far the slab gets on its own takes some care, and the paragraphs after the picture set it out.
 
 ![The flat Perron tree extruded into a translucent slab in three dimensions, rotating, with a blue needle inside it leaning out of the original plane](guide/12-the-proof/kakeya3d.gif)
 
@@ -293,9 +289,7 @@ The slab on its own is not the finished object. It inherits the tree's fan, so i
 | 3 | proved by Wang and Zahl, February 2025 |
 | 4 and up | **open** |
 
-The result is specifically three dimensional: it uses the geometry of lines in space, where two directions span a plane and the third dimension is the only room left over. In four dimensions there is more room, the configurations multiply, and the known bounds fall well short.
-
-So the conjecture is settled in exactly the dimensions where you can draw a picture.
+The result is specifically three dimensional: it uses the geometry of lines in space, where two directions span a plane and the third dimension is the only room left over. In four dimensions there is more room, the configurations multiply, and the known bounds fall well short. So the conjecture is settled in dimensions one, two and three, and remains open in four and above.
 
 ## What you can check yourself
 

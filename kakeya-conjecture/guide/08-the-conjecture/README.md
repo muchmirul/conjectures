@@ -13,28 +13,28 @@ You now own every part:
 
 Point 4 is the interesting one. Area could be squeezed to nothing. Dimension could not be squeezed at all.
 
-So the question asks itself. In three dimensional space, in four, in $n$: you can still make the volume zero, that carries over. Can you make the **dimension** smaller than $n$?
+The question then follows on its own. In three dimensional space, in four, and in $n$, you can still make the volume zero, since that much carries over, and what nobody knew was whether the **dimension** could be made smaller than $n$.
 
 > a set in n-dimensional space<br>
 > **holding a unit needle in every direction**<br>
 > may have zero volume (Besicovitch),<br>
 > **but it must still have dimension n**
 
-That is the **Kakeya set conjecture**: a set in $n$ dimensional space containing a unit segment in every direction must have dimension $n$.
+That statement is the **Kakeya set conjecture**. Written out, it says that a set in $n$ dimensional space containing a unit segment in every direction must have dimension $n$.
 
 ## Every direction, in every dimension
 
-The word doing the work is "every direction", and what that means changes with the dimension you are in.
+The word doing the work is "every direction". What that means changes with the dimension you are in, and the figure below turns each case so the change can be seen.
 
 <img src="dimensions.gif" width="820" alt="Three rotating panels: in 2 dimensions the needle directions make a flat circle, in 3 dimensions they make a sphere, in 4 dimensions they are turned in the fourth axis and projected down">
 
-All three panels are real three dimensional scenes, and the camera goes round all of them, which is the only way a flat screen can tell you the truth about depth. Watch what each one does:
+All three panels are real three dimensional scenes, and the camera goes round all of them, because a still image of a three dimensional scene makes distant points look adjacent. Watch what each one does:
 
 - **In the plane**, the directions make a circle. Seen edge on it is visibly flat, because it is.
 - **In space**, they make a sphere. Far more directions to cover, and that is exactly why the problem got harder.
 - **In four dimensions**, they make a 3-sphere, which nobody can look at. So the picture does the honest thing: it turns the directions in the fourth axis and projects the result down to three, the same way a cube's shadow is drawn on paper. The breathing you see, needles growing and shrinking as they swing, is the fourth axis passing through the projection. No rotation of a three dimensional object can do that.
 
-The same code makes any of these: directions are drawn as normalised random vectors, which are spread evenly over the sphere in **every** dimension, so the panel for $n = 5$ or $n = 10$ is one argument away.
+The same code makes any of these. Directions are drawn as normalised random vectors, which are spread evenly over the sphere in **every** dimension, so the panel for $n = 5$ or $n = 10$ is one argument away.
 
 ## What it forbids
 

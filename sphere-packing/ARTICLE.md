@@ -1,18 +1,18 @@
 # Stacking Balls, from Zero
 
-*A step-by-step visual guide to packing equal balls, a question first asked in 1611, and to a major result proved in 2026. You do not need a maths background. Each new idea begins with a picture.*
+*A step-by-step visual guide to packing equal balls, a question first asked in 1611, and to a major result proved in 2026. It assumes no maths background, and it introduces most new ideas with a picture.*
 
 ![Equal balls in a tightly packed fruit-shop stack, rotating so you can see its depth](guide/00-start-here/hero.gif)
 
-Every ball in this stack is the same size, and none of them overlap. This familiar fruit-shop arrangement fills a little under 75 percent of the surrounding space. The remaining space is made of gaps between the balls. Everything in this guide comes from the open source repository at [github.com/muchmirul/conjectures](https://github.com/muchmirul/conjectures): the text, every figure, and the tests behind each number.
+Every ball in this stack is the same size, and none of them overlap. This familiar fruit-shop arrangement fills a little under 75 percent of the surrounding space, and the rest of that space is made of the gaps between the balls. Everything in this guide comes from the open source repository at [github.com/muchmirul/conjectures](https://github.com/muchmirul/conjectures): the text, every figure, and the tests behind each number.
 
-For circles on a flat surface, the best arrangement is known. For balls in ordinary three-dimensional space, finding the answer took almost four hundred years. In most higher dimensions, the exact answer is still unknown and is expected to remain difficult. Researchers therefore also ask a more manageable question: how dense could any packing possibly be? In 2026, they found the exact long-term limit of the main method used to answer that question. The result improved a general limit that had stood since 1978.
+For circles on a flat surface, the best arrangement is known, while for balls in ordinary three-dimensional space, finding the answer took almost four hundred years. In most higher dimensions, the exact answer is still unknown and is expected to remain difficult. Because of this, researchers also ask a more manageable question about how dense any packing could possibly be. In 2026, they found the exact long-term limit of the main method used to answer that question, and the result improved a general limit that had stood since 1978.
 
 This guide develops that story one small step at a time. Most numbered sections also have a [page you can play with](https://muchmirul.github.io/conjectures/sphere-packing/play/index.html), where you can change the main quantities and watch the picture respond.
 
-The 2026 result is presented in two documents. The first gives the finished proof. The second is a behind-the-scenes guide that explains how the main ideas were found, including earlier attempts that did not work. Sections 8 to 11 explain the finished proof. The other sections provide the surrounding story. A table near the end shows where each idea appears in the two source documents.
+The 2026 result is presented in two documents. The first gives the finished proof, and the second is a behind-the-scenes guide that explains how the main ideas were found, including earlier attempts that did not work. Sections 8 to 11 of this guide explain the finished proof, while the other sections provide the surrounding story. A table near the end shows where each idea appears in the two source documents.
 
-The code that makes each figure is included in this repository. The tests recalculate the numbers used in the guide. When a statement comes from an existing theorem rather than from those calculations, the text says so.
+The code that makes each figure is included in this repository, and the tests recalculate the numbers used in the guide. When a statement comes from an existing theorem rather than from those calculations, the text says so.
 
 ```
     first, the problem       1  what are we trying to find?
@@ -33,9 +33,9 @@ The code that makes each figure is included in this repository. The tests recalc
 
 ## 1 · The question
 
-Pack equal balls together without letting them overlap. The **density** tells us how much of the available space is inside the balls. A density of 100 percent would leave no gaps, so a larger density means a tighter packing.
+Start by packing equal balls together without letting them overlap. The **density** tells us how much of the available space is inside the balls, so a density of 100 percent would leave no gaps and a larger density means a tighter packing.
 
-On a flat surface, the “balls” are circles. Put their centres in straight rows and columns and the circles cover a little over 78 percent of the surface. Now slide every other row sideways. Each circle can settle into the dip between two circles in the row below, allowing the rows to move closer together.
+On a flat surface, the “balls” are circles. Put their centres in straight rows and columns and the circles cover a little over 78 percent of the surface. Now slide every other row sideways, so that each circle settles into the dip between two circles in the row below, which allows the rows to move closer together.
 
 ![Equal circles sliding from straight rows into tighter staggered rows](guide/01-the-question/rearrange.gif)
 
@@ -43,31 +43,31 @@ The number and size of the circles have not changed. Only their positions have c
 
 ![The larger gaps between straight rows compared with the smaller gaps between staggered rows](guide/01-the-question/waste.png)
 
-A dimension is simply an independent direction in which something can move. A line has one direction, a flat surface has two, and ordinary space has three. Although we cannot directly see eight or twenty-four dimensions, the same packing question still makes sense there. The exact best packing is known in only five dimensions. The next picture divides the available space into one hundred equal parts and colours the amount filled in each known case.
+A dimension is simply an independent direction in which something can move, so a line has one direction, a flat surface has two, and ordinary space has three. Although we cannot directly see eight or twenty-four dimensions, the same packing question still makes sense there, and the exact best packing is known in only five dimensions. The next picture divides the available space into one hundred equal parts and colours the amount filled in each known case.
 
 ![The filled share of space for the five dimensions whose best packing is known](guide/01-the-question/known.png)
 
 In one dimension, the “balls” are line segments, and they can touch end to end with no gaps. In two dimensions, staggered rows give the answer. In three dimensions, the answer is the fruit-shop stack: Kepler proposed it in 1611, and Hales proved it in 1998. The eight-dimensional case was settled by Viazovska in 2017. In the same year, Cohn, Kumar, Miller, Radchenko and Viazovska settled the twenty-four-dimensional case.
 
-The last two panels show how quickly the filled share can become small. In dimension eight, the balls fill about twenty-five of the one hundred parts. In dimension twenty-four, they fill less than one fifth of a single part. Extra dimensions do not simply add more room for balls; they also create far more room between them.
+The last two panels show how quickly the filled share can become small. In dimension eight, the balls fill about twenty-five of the one hundred parts, and in dimension twenty-four they fill less than one fifth of a single part. Each added dimension does not simply give the balls more room, because it creates far more room between them than it gives to the balls themselves.
 
 **[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/01.html)** to compare the known densities and rearrange the circles yourself.
 
 ## 2 · The room runs out
 
-To see why high dimensions behave so differently, begin with one ball inside the smallest box that can hold it. The ball may look as if it fills most of the box, but the corners tell a different story.
+To see why high dimensions behave so differently, begin with one ball inside the smallest box that can hold it. The ball may look as if it fills most of the box, but a closer look at the corners gives a different impression.
 
 ![A ball inside its smallest cube, rotating until all eight untouched corners are visible](guide/02-room-runs-out/ball_in_box.gif)
 
-On a flat surface, a circle inside a square cannot reach the square’s four corners. In ordinary space, a ball inside a cube cannot reach its eight corners. Each new dimension doubles the number of corners, while the round ball still curves away from all of them.
+On a flat surface, a circle inside a square cannot reach the square’s four corners. In the same way, a ball inside a cube in ordinary space cannot reach its eight corners. Each new dimension doubles the number of corners, while the round ball still curves away from all of them.
 
-The next animation represents every dimension inside one flat frame. Each red mark stands for a corner of the box in that dimension, so the number of marks doubles at every step. The blue disc does not show the ball’s literal shape in those dimensions. Its area shows the exact fraction of the box that the ball fills.
+The next animation represents every dimension inside one flat frame. Each red mark stands for a corner of the box in that dimension, so the number of marks doubles at every step. The blue disc does not show the ball’s literal shape in those dimensions; its area shows the exact fraction of the box that the ball fills.
 
 ![Red corner marks doubling as the blue share filled by the ball becomes smaller](guide/02-room-runs-out/corners.gif)
 
 By dimension ten, the ball fills only about one quarter of one percent of its box. By dimension thirty, it fills about two parts in a hundred trillion. Nearly all the box’s volume lies away from the ball, toward its many corners.
 
-There is another surprising effect. Keep the ball’s radius fixed at one and compare its own volume from one dimension to the next. In the next picture, the sizes represent those volumes directly. They grow at first, reach a largest value, and then begin to shrink.
+There is a second effect worth noticing. Keep the ball’s radius fixed at one and compare its own volume from one dimension to the next. In the next picture, the sizes represent those volumes directly, and they grow at first, reach a largest value, and then begin to shrink.
 
 ![Unit-radius balls shown at their true relative sizes, growing through dimension five and then shrinking](guide/02-room-runs-out/volume_peak.png)
 
@@ -77,19 +77,19 @@ We cannot draw a four-dimensional object directly. Instead, the next animation s
 
 ![A four-dimensional cube rotating, shown through its changing three-dimensional shadow](guide/02-room-runs-out/four_d.gif)
 
-The corners swing outward and back because the turn uses a direction that is not present in ordinary space. Every added direction gives the box more corners and gives those corners more ways to lie far from the round centre.
+The corners swing outward and back because the turn uses a direction that is not present in ordinary space. Every added direction doubles the number of corners and places them further from the round centre.
 
 **[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/02.html)** to change the dimension and watch the ball’s share of its box disappear.
 
 ## 3 · Why you cannot just check
 
-Trying many arrangements can help us find a good packing, but it can never confirm that we have found the best one.
+Trying many arrangements can help us find a good packing, but it can never confirm that we have found the best one. The next picture shows several different ways of arranging equal circles.
 
 ![Six possible circle arrangements that show how many different choices there are](guide/03-cannot-check/many_packings.png)
 
-There are endlessly many ways to place the balls, and there is no checklist that contains them all. One arrangement can show that a particular density can be reached. This is called a lower bound. It cannot show that every other arrangement is worse. For that, we need an upper bound: one statement that applies to all possible packings at once.
+There are endlessly many ways to place the balls, and there is no checklist that contains them all. One arrangement can show that a particular density can be reached, which is called a lower bound, but it cannot show that every other arrangement is worse. For that we need an upper bound, meaning one statement that applies to all possible packings at once.
 
-The rest of the guide explains how a single number-making rule can provide such a statement.
+The rest of the guide explains how a single number-making rule can provide such a statement. The two ways of working compare like this:
 
 ```
     trying arrangements one by one      using one certificate
@@ -106,23 +106,19 @@ We will call this function a **certificate**, because passing its two rules cert
 
 ## 4 · The certificate
 
-Before defining a certificate, choose the unit of distance so that every ball has diameter one. Resizing the whole packing does not change the fraction of space it fills. With that choice made, a certificate is a function: give it the distance between two ball centres, and it returns a number.
+Before defining a certificate, choose the unit of distance so that every ball has diameter one. Resizing the whole packing does not change the fraction of space it fills. With that choice made, a certificate is a function: give it the distance between two ball centres, and it returns a number. The function must pass two rules.
 
-The function must pass two rules.
+**Rule one.** At distance one and beyond, its value must always be zero or negative. Below distance one, this rule says nothing about the value.
 
-**Rule one.** At distance one and beyond, its value must always be zero or negative.
+**Rule two.** A second view of the function, called its **Fourier transform**, must always be zero or positive. This condition applies everywhere, not only from distance one onward.
 
-**Rule two.** A second view of the function, called its **Fourier transform**, must always be zero or positive.
-
-The name “Fourier transform” can sound more difficult than the picture. A changing curve can be described as a mixture of simple waves. The Fourier transform tells us how much of each wave is present. The original curve and this list of waves are two views of the same information, just as a musical chord and the notes inside it describe the same sound.
+The name “Fourier transform” can sound more difficult than the picture behind it. A changing curve can be described as a mixture of simple waves, and the Fourier transform tells us how much of each wave is present. The original curve and this list of waves are two views of the same information, in the same way that a musical chord and the notes inside it describe the same sound.
 
 ![A certificate shown as its original curve on the left and its Fourier view on the right](guide/04-the-certificate/rules.png)
 
-The left panel shows the original function. In the shaded region, which begins at distance one, the curve stays on or below the zero line. That is rule one. The right panel shows its Fourier transform staying on or above the zero line. That is rule two.
+The left panel shows the original function, and in the shaded region, which begins at distance one, the curve stays on or below the zero line. That is rule one. The right panel shows its Fourier transform staying on or above the zero line, which is rule two.
 
-Either rule is easy to satisfy by itself. It is easy to draw a curve that stays negative after distance one, and it is easy to draw a curve whose Fourier view stays positive. Satisfying both at the same time is difficult. A sharp change in one view usually spreads out and produces ripples in the other, so improving one side can break the other.
-
-The next picture shows a basic function that passes both rules.
+Either rule is easy to satisfy by itself, since it is easy to draw a curve that stays negative after distance one, and just as easy to draw a curve whose Fourier view stays positive. Satisfying both at the same time is difficult, because a sharp change in one view usually spreads out and produces ripples in the other, so improving one side can break the other. The next picture shows a basic function that passes both rules.
 
 ![A basic certificate made from a simple curve that fades away like a bell](guide/04-the-certificate/simple.png)
 
@@ -132,21 +128,19 @@ The next animation changes one part of a working certificate. Watch the Fourier 
 
 ![A control changing the function until its Fourier view crosses below zero](guide/04-the-certificate/tuning.gif)
 
-Once any part of the Fourier view falls below zero, rule two fails. Even a small failure means the function can no longer prove a density limit.
-
-A function that passes both rules produces a number that no packing in that dimension can exceed. The next section explains where that number comes from.
+Once any part of the Fourier view falls below zero, rule two fails, and even a small failure means the function can no longer prove a density limit. A function that passes both rules produces a number that no packing in that dimension can exceed, and the next section explains where that number comes from.
 
 **[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/04.html)** to adjust a certificate and see exactly when one of its rules breaks.
 
 ## 5 · Counting twice
 
-The key idea is to calculate one total in two different ways. To keep the picture simple, first imagine a packing that repeats. The full argument handles a non-repeating packing by looking at larger and larger regions.
+The method calculates one total in two different ways. To keep the picture simple, first imagine a packing that repeats. The full argument handles a non-repeating packing by looking at larger and larger regions.
 
-Take the centres of the balls and, for every pair of centres, use their distance as the input to the certificate. Add all the returned values.
+Take the centres of the balls and, for every pair of centres, use their distance as the input to the certificate. Adding all of the returned values gives one total for the whole packing.
 
 ![The same total being counted first with pairs of centres and then with waves](guide/05-count-twice/two_counts.gif)
 
-First count by pairs of centres. Two different centres are at least distance one apart because the balls have diameter one and cannot overlap. Rule one says every such pair contributes zero or a negative number. Only a centre paired with itself has distance zero. The different-centre pairs can therefore only pull the total downward.
+First count by pairs of centres. Two different centres are at least distance one apart, because the balls have diameter one and cannot overlap, so rule one says that every such pair contributes zero or a negative number. Only a centre paired with itself has distance zero, and the different-centre pairs can therefore only pull the total downward.
 
 Now count the same total through the Fourier view, which describes the waves in the packing. A standard result called **Poisson summation** says that these two counts give the same number. Rule two says every contribution in the Fourier count is zero or positive, so this view can only push the total upward.
 
@@ -160,23 +154,23 @@ Now count the same total through the Fourier view, which describes the waves in 
 
 The two counts squeeze one total from opposite sides. When the number of centres is separated out, the result is an upper limit on density. The limit depends on the certificate, not on the particular packing, so it applies to every packing. This is the bound introduced by Gorbachev and by Cohn and Elkies in work from 2000 and 2003.
 
-The source paper calls this a **linear program**. In plain terms, it means searching for the best possible value while obeying a set of simple restrictions. Here, the restrictions are the two sign rules.
+The source paper calls this a **linear program**. In plain terms, it means searching for the best possible value while obeying a set of simple restrictions, and here the restrictions are the two sign rules.
 
 **[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/05.html)** to follow the two counts and see how they trap the density.
 
 ## 6 · What certificates actually prove
 
-This repository includes a small computer search for useful certificates. It begins with a function that passes both rules, makes small random changes, and keeps changes that improve the density limit. The picture treats space like a container filling from the bottom. Blue shows the density reached by the best known packing, while the line above it shows the candidate certificate’s limit.
+This repository includes a small computer search for useful certificates. It begins with a function that passes both rules, makes small random changes, and keeps changes that improve the density limit. The picture treats space like a container filling from the bottom, where blue shows the density reached by the best known packing and the line above it shows the candidate certificate’s limit.
 
 ![Packing density in blue, a candidate certificate limit above it, and the small gap enlarged](guide/06-best-so-far/gap.png)
 
 For the plane, the search finds a candidate limit of 91.16 percent. If its two sign rules held at every distance, it would prove that no circle packing could be denser than that. Staggered rows reach 90.69 percent, leaving less than half a percentage point between the two numbers.
 
-That narrow gap is a limit of this numerical certificate, not an unsolved gap in the two-dimensional packing problem. Section 1 already noted that a separate theorem proves 90.69 percent is the exact answer. The enlarged sliver shows only what this candidate certificate has not ruled out.
+That narrow gap is a limit of this numerical certificate, not an unsolved gap in the two-dimensional packing problem. Section 1 already noted that a separate theorem proves 90.69 percent is the exact answer, so the enlarged sliver shows only what this candidate certificate has not ruled out.
 
-There is another important limit. The program checks the two rules at many closely spaced sample points, but it does not check every possible distance. The result is therefore a **numerical certificate**, not a formal proof. Researchers can make stronger searches with a method called semidefinite programming. They also design the curve so that it touches zero at carefully chosen distances. This project does neither.
+There is a second important limit. The program checks the two rules at many closely spaced sample points, but it does not check every possible distance, so the result is a **numerical certificate** rather than a formal proof. Researchers can make stronger searches with a method called semidefinite programming, and they also design the curve so that it touches zero at carefully chosen distances. This project does neither.
 
-The small search also shows why its starting point matters. Its starting family stops working before dimension six, so the search cannot even begin in dimension eight. Viazovska’s exact certificate for dimension eight needed a family of highly structured functions known as modular forms.
+The small search also shows why its starting point matters. Its starting family stops working before dimension six, so the search cannot even begin in dimension eight. Viazovska’s exact certificate for dimension eight needed a family of highly structured functions known as modular forms. The overall position across dimensions looks like this:
 
 ```
     dimensions 8 and 24     exact certificates meet the exact packing densities
@@ -194,19 +188,17 @@ Only in dimensions eight and twenty-four do known exact certificates meet the kn
 
 ## 7 · Is there a ceiling on the method?
 
-In high dimensions, these density limits are compared by how quickly they shrink as the dimension grows. Once the dimension is very large, the main part of each limit behaves like multiplying by the same fraction whenever another dimension is added. The next picture represents that repeated shrinking with squares. Each square has a fixed fraction of the area of the previous one.
+In high dimensions, these density limits are compared by how quickly they shrink as the dimension grows. Once the dimension is very large, the main part of each limit behaves like multiplying by the same fraction whenever another dimension is added. The next picture represents that repeated shrinking with squares, where each square has a fixed fraction of the area of the previous one.
 
 ![Two models of repeatedly shrinking limits, using the rates from 1978 and 2026](guide/07-the-ceiling/exponents.png)
 
-At first glance, the two rows look the same. A useful way to compare them is to ask how much of a halving happens per added dimension. A larger number is better because it means the upper limit becomes smaller more quickly. Kabatianskii and Levenshtein obtained 0.59906 halvings per dimension in 1978. That rate remained the best general result for forty-eight years.
+At first glance, the two rows look the same. A useful way to compare them is to ask how much of a halving happens per added dimension, and a larger number is better because it means the upper limit becomes smaller more quickly. Kabatianskii and Levenshtein obtained 0.59906 halvings per dimension in 1978, and that rate remained the best general result for forty-eight years.
 
-The difference made in 2026 begins only in the fourth decimal place, but it is repeated across every dimension. The animation lets that repeated difference build up. The grey disc keeps the 1978 value at a fixed display size. The green disc shows the 2026 value at the same scale as the dimension rises.
+The difference made in 2026 begins only in the fourth decimal place, but it is repeated across every dimension. The animation lets that repeated difference build up, with the grey disc keeping the 1978 value at a fixed display size while the green disc shows the 2026 value at the same scale as the dimension rises.
 
 ![The 2026 rate becoming smaller than the 1978 rate as the dimension rises to one thousand](guide/07-the-ceiling/advantage.gif)
 
-If we use only these long-term rates to compare dimension one thousand, the 2026 value is about 40.6 times smaller than the 1978 value.
-
-This leads to the main question behind the 2026 work. Researchers had found increasingly good certificates for about twenty years, but could the method keep improving forever? Answering that requires two separate results.
+If we use only these long-term rates to compare dimension one thousand, the 2026 value is about 40.6 times smaller than the 1978 value. Researchers had found increasingly good certificates for about twenty years, and the main question behind the 2026 work was whether the method could keep improving forever. Answering that requires two separate results:
 
 ```
     build one certificate near a rate   shows the method can reach that rate
@@ -215,27 +207,23 @@ This leads to the main question behind the 2026 work. Researchers had found incr
     the exact limit is known only when both statements meet
 ```
 
-A good example proves what the method can achieve. A limit that applies to every possible certificate proves what the method cannot achieve. The second task is especially difficult because it must cover functions that nobody has found or written down.
+A good example proves what the method can achieve, while a limit that applies to every possible certificate proves what the method cannot achieve. The second task is especially difficult, because it must cover functions that nobody has found or written down.
 
 In 2020, Afkhami-Jeddi, Cohn, Hartman, de Laat and Tajdini calculated the rate they expected and stated it as a conjecture. In 2026, both required statements were proved.
 
 ## 8 · The balancing trick
 
-From this section through section 11, the guide follows the 2026 proof. The proof has two jobs. Sections 8 and 9 show that no certificate can pass a particular long-term limit. Section 10 builds certificates that approach that limit. Section 11 combines the two results. The companion behind-the-scenes document explains how these ideas were found, and we include that context where it helps.
+From this section through section 11, the guide follows the 2026 proof, which has two jobs. Sections 8 and 9 show that no certificate can pass a particular long-term limit, section 10 builds certificates that approach that limit, and section 11 combines the two results. The companion behind-the-scenes document explains how these ideas were found, and we include that context where it helps.
 
-The final sections do not require a new starting idea. They reuse the two sign rules and the Fourier transform from section 4, together with the familiar idea of a radius. Until now, we asked what one chosen certificate could prove. We will now ask what every possible certificate is forced to look like.
+The final sections do not require a new starting idea, because they reuse the two sign rules and the Fourier transform from section 4, together with the familiar idea of a radius. Until now we asked what one chosen certificate could prove, and from here we ask what every possible certificate is forced to look like.
 
 Begin with any certificate and stretch its graph, as though changing the zoom on a picture. When the original graph becomes wider, its Fourier view becomes narrower and changes height. There is one amount of stretching for which the original function and its Fourier view have the same value at the centre. Make that adjustment, and then subtract the stretched function from its Fourier view.
 
 ![A stretched certificate being subtracted from its Fourier view to make a balanced function](guide/08-balancing/balancing.gif)
 
-We will call the result the **balanced function**. The way it was made immediately gives it two useful features.
+We will call the result the **balanced function**, and the way it was made immediately gives it two useful features. First, its value at the centre is zero, because the two values there were made equal before the subtraction. Second, taking its Fourier transform changes it into its own negative, since the transform swaps the two parts of the subtraction and reverses their order. This strong symmetry leaves the balanced function much less freedom to change shape.
 
-First, its value at the centre is zero because the two values there were made equal before the subtraction.
-
-Second, taking its Fourier transform changes it into its own negative. The transform swaps the two parts of the subtraction, so their order reverses. This strong symmetry leaves the balanced function much less freedom to change shape.
-
-To see why that helps, look at the area above and below the zero line. Count the area above as positive and the area below as negative. For the balanced function, those two amounts cancel and leave a total of zero, so they must be equal. If all the area is then counted without a sign, exactly half of it lies below zero. The original sign rules also ensure that the balanced function cannot be negative beyond a certain radius.
+To see why that helps, look at the area above and below the zero line, counting the area above as positive and the area below as negative. For the balanced function, those two amounts cancel and leave a total of zero, so they must be equal. If all the area is then counted without a sign, exactly half of it lies below zero. The original sign rules also ensure that the balanced function cannot be negative beyond a certain radius.
 
 ![The negative half of a balanced function contained inside one marked radius](guide/08-balancing/trapped.png)
 
@@ -245,9 +233,7 @@ All of the negative half must therefore fit inside one ball. The size of this ba
 
 ## 9 · The wall
 
-Sections 8 and 9 form the first half of the proof. They show that no certificate, including one nobody has discovered yet, can have a better long-term radius.
-
-Making the radius smaller makes the requirement harder to meet. The negative amount remains exactly half of the total, but it has less space in which to fit.
+Sections 8 and 9 form the first half of the proof, and they show that no certificate, including one nobody has discovered yet, can have a better long-term radius. Making the radius smaller makes the requirement harder to meet, because the negative amount remains exactly half of the total while having less space in which to fit.
 
 ![A radius shrinking until there is not enough room for the required negative half](guide/09-the-wall/wall.gif)
 
@@ -257,39 +243,37 @@ The 2026 proof shows that there is a long-term limit. As dimensions grow, a radi
 
 Finite dimensions can differ slightly from this simple description. The statement is about the rate as the dimension becomes large: after the radius is divided by the square root of the dimension, those smaller differences disappear. This is the part of the proof that places a ceiling on the certificate method.
 
-The number pi comes from one particular step. The proof changes how the function is viewed until the Fourier transform acts like a mirror. It then looks at a strip, meaning the region between two parallel edges. A standard rule called the maximum principle says that values on those edges limit what can happen between them. This rule gives a weight to each wave. Near the important edge, the weights settle into one bell-shaped curve.
+The number pi comes from one particular step. The proof changes how the function is viewed until the Fourier transform acts like a mirror, and it then looks at a strip, meaning the region between two parallel edges. A standard rule called the maximum principle says that values on those edges limit what can happen between them. This rule gives a weight to each wave, and near the important edge the weights settle into one bell-shaped curve.
 
 ![The proof’s changing weights settling into the bell-shaped curve that fixes the limit](guide/09-the-wall/ingredients.png)
 
-That final curve produces the factor one over pi. This repository does not reproduce the proof, but it does recalculate several of its ingredients. The tests confirm that the reflection step changes direction without changing size along the required line. They also confirm that the limiting curve has total area one and the stated Fourier view. A separate check recovers the exact average used by the proof.
+That final curve produces the factor one over pi. This repository does not reproduce the proof, but it does recalculate several of its ingredients. The tests confirm that the reflection step changes direction without changing size along the required line, and they also confirm that the limiting curve has total area one and the stated Fourier view. A separate check recovers the exact average used by the proof.
 
-One small-looking detail affects the final number. At an earlier stage, the edge weights do not add up to one. Turning them into percentages too soon would change the result, so the proof must keep their original total until the correct step.
+At an earlier stage of the proof, the edge weights do not add up to one, and this small-looking detail affects the final number. Turning them into percentages too soon would change the result, so the proof must keep their original total until the correct step.
 
-The behind-the-scenes document describes an earlier idea that failed. It compared only two totals: all the negative weight and all the room available inside the ball. This does give a limit, but not the correct one. A total says how much weight exists, but it forgets where that weight sits. Two functions can have similar totals while placing their negative parts in very different places. The successful proof had to keep track of location as well as amount. The strip method above does that.
+The behind-the-scenes document describes an earlier idea that failed. It compared only two totals: all the negative weight and all the room available inside the ball. This does give a limit, but not the correct one, because a total records how much weight exists without recording where that weight sits. Two functions can have similar totals while placing their negative parts in very different places. The successful proof had to keep track of location as well as amount, which is what the strip method above does.
 
-The sources also give a second way to express the same wall. One fixed object, built from nonnegative weights, can check every certificate at once. Mathematicians call this a dual witness. The rest of the guide does not use it, but it is useful confirmation: this different viewpoint reaches the same limit.
+The sources also give a second way to express the same wall, using one fixed object, built from nonnegative weights, that can check every certificate at once. Mathematicians call this a dual witness. The rest of the guide does not use it, but it is useful confirmation, because this different viewpoint reaches the same limit.
 
 **[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/09.html)** to reduce the radius and compare its capacity with the fixed negative half.
 
 ## 10 · Building the witness
 
-Section 10 supplies the second half of the proof. It builds a concrete family of certificates that approaches the wall.
-
-In this chapter, a **witness** simply means a concrete example. Proving that no certificate can cross the limit gives only one half of the result. The other half requires a family of certificates that gets all the way to that limit as the dimension grows.
+Section 10 supplies the second half of the proof by building a concrete family of certificates that approaches the wall. In this chapter, a **witness** simply means a concrete example. Proving that no certificate can cross the limit gives only one half of the result, and the other half requires a family of certificates that gets all the way to that limit as the dimension grows.
 
 A natural starting point is the familiar bell curve, also called a Gaussian. Its Fourier transform has the same shape, so the needed symmetry is already present. However, after measuring the radius per square root of the dimension, the Gaussian gives about 0.399. The limit is one over pi, about 0.318, so the unmodified Gaussian does not reach it.
 
-The construction changes the bell curve with a carefully chosen left-right symmetric adjustment. Mathematicians call this an even deformation. It moves the radius while preserving the Fourier symmetry.
+The construction changes the bell curve with a carefully chosen left-right symmetric adjustment, which mathematicians call an even deformation. It moves the radius while preserving the Fourier symmetry.
 
 ![A symmetric adjustment moving the Gaussian radius from about 0.399 toward 0.318](guide/10-the-witness/moving_radius.gif)
 
-The amount of movement comes from one **integral**. An integral gathers many thin pieces into a total; in this picture, that total is the area under the curve. The animation fills the area from left to right while the container beside it shows how much has been collected. The final amount is exactly the logarithm of pi over two. A logarithm measures repeated multiplication in the way an ordinary difference measures addition. This old result is known as Wallis’s identity.
+The amount of movement comes from one **integral**. An integral gathers many thin pieces into a total; in this picture, that total is the area under the curve. The animation fills the area from left to right while the container beside it shows how much has been collected. The final amount is exactly the logarithm of pi over two, where a logarithm measures repeated multiplication in the way an ordinary difference measures addition. This old result is known as Wallis’s identity.
 
 ![Area being collected under a curve until it reaches the Wallis value](guide/10-the-witness/wallis.gif)
 
 Combining that amount with the Gaussian moves the limiting radius from about 0.399 to exactly one over pi, about 0.318. The construction reaches the same long-term limit that the first half said no certificate could pass.
 
-Two extra parts repair side effects of the adjustment. They do not change the central idea.
+Two extra parts repair side effects of the adjustment without changing the central idea, so the full construction looks like this:
 
 ```
     the bell curve               already has the required Fourier symmetry
@@ -298,13 +282,11 @@ Two extra parts repair side effects of the adjustment. They do not change the ce
     two simple curve factors     correct the signs close to the centre
 ```
 
-The original bell curve fades quickly at great distances, but the adjustment weakens that fading. A tiny positive bump far away restores it. The bump covers a range of distances rather than one exact distance. If it sat at only one point, a wave could line up with that point and avoid the correction. Spreading the bump removes that opening. The broad checks also miss what happens near the centre, so two simple curve factors built from powers handle that short range separately.
+The original bell curve fades quickly at great distances, but the adjustment weakens that fading, and a tiny positive bump far away restores it. The bump covers a range of distances rather than one exact distance, because if it sat at only one point, a wave could line up with that point and avoid the correction. Spreading the bump removes that opening. The broad checks also miss what happens near the centre, so two simple curve factors built from powers handle that short range separately.
 
 ## 11 · The two halves meet
 
-Section 11 combines the two halves and turns their shared radius into the exact long-term density rate.
-
-One part of the proof says that no certificate can have a better long-term radius than the limit. The other part builds certificates whose radii approach that same limit. Either statement alone leaves room for a gap. Together, they show that the limit is exact.
+Section 11 combines the two halves and turns their shared radius into the exact long-term density rate. One part of the proof says that no certificate can have a better long-term radius than the limit, while the other part builds certificates whose radii approach that same limit. Either statement alone leaves room for a gap, but together they show that the limit is exact.
 
 ![The impossible side and the constructed side closing on the same limiting number](guide/11-they-meet/closing.gif)
 
@@ -322,13 +304,13 @@ One standard estimate is still needed to turn a radius into a density. It is cal
 
 The middle number is the easiest one to compare with earlier work: **0.6044005442916777** halvings per dimension. In the long run, each added dimension contributes about that much of a halving to the density limit. The 1978 value was 0.59905576.
 
-This is the first improvement to the general sphere-packing exponent since 1978. “Exponent” is the standard name for this long-term shrinking rate. Because the other half of the proof rules out every better certificate, no certificate using these two sign rules can improve that rate again.
+This is the first improvement to the general sphere-packing exponent since 1978, and “exponent” is the standard name for this long-term shrinking rate. Because the other half of the proof rules out every better certificate, no certificate using these two sign rules can improve that rate again.
 
 **[Play with this](https://muchmirul.github.io/conjectures/sphere-packing/play/11.html)** to bring the constructed and impossible sides together at one value.
 
 ## 12 · What it means, and what it does not
 
-The 2026 result settles the limit of one method. It does not settle the sphere-packing problem in most dimensions.
+The 2026 result settles the limit of one method, but it does not settle the sphere-packing problem in most dimensions. The comparison below separates what is now known from what is still open:
 
 ```
     now known                              still unknown
@@ -341,7 +323,7 @@ The 2026 result settles the limit of one method. It does not settle the sphere-p
                                            we can build and limits we can prove
 ```
 
-No known high-dimensional packing comes close to the new upper limit. The gap between the best construction and the best proven limit is still exponentially wide, which means their ratio grows by repeated factors as dimensions are added. The advance maps one route completely: we now know exactly how far this certificate method can go, so a better long-term rate will need a different idea.
+No known high-dimensional packing comes close to the new upper limit. The gap between the best construction and the best proven limit is still exponentially wide, which means their ratio grows by repeated factors as dimensions are added. The advance maps one route completely: we now know exactly how far this certificate method can go, so a better long-term rate will need a different idea. The dates below place that step in the longer history of the problem:
 
 ```
     1611  Kepler proposes that the fruit-shop stack cannot be beaten
@@ -358,9 +340,9 @@ No known high-dimensional packing comes close to the new upper limit. The gap be
           1978 exponent
 ```
 
-The proof also answers two related questions about a curve and its Fourier view. Some special curves look unchanged after moving to the Fourier view. Others return upside down. Mathematicians call these the plus and minus versions of a **Fourier eigenfunction**. For each version, we can ask how far from the centre the curve must travel before it stops crossing the zero line.
+The proof also answers two related questions about a curve and its Fourier view. Some special curves look unchanged after moving to the Fourier view, while others return upside down, and mathematicians call these the plus and minus versions of a **Fourier eigenfunction**. For each version, we can ask how far from the centre the curve must travel before it stops crossing the zero line.
 
-Researchers expected the two versions to approach the same radius in high dimensions. The proof confirms this. For both, the long-term radius is one over pi times the square root of the dimension.
+Researchers expected the two versions to approach the same radius in high dimensions, and the proof confirms this. For both, the long-term radius is one over pi times the square root of the dimension.
 
 ![The plus and minus radii approaching the same dashed limit, with the plus radius always smaller; the spacing shows the trend rather than exact values](guide/12-what-it-means/two_radii.png)
 
@@ -368,7 +350,7 @@ The shared limit does not mean the two radii are equal in any particular dimensi
 
 ## Where to find each idea in the sources
 
-The folder `docs/ten-proofs/01-sphere-packing-linear-program/` contains two documents. The chapter named “Exponential Growth Rate of the Cohn-Elkies Sphere Packing Linear Program” gives the finished proof. The walkthrough named “High-Dimensional Sphere Packing and the Euclidean Linear Program” explains how the proof was found, including ideas that failed along the way. This table helps you find the matching passages.
+The folder `docs/ten-proofs/01-sphere-packing-linear-program/` contains two documents. The chapter named “Exponential Growth Rate of the Cohn-Elkies Sphere Packing Linear Program” gives the finished proof, and the walkthrough named “High-Dimensional Sphere Packing and the Euclidean Linear Program” explains how the proof was found, including ideas that failed along the way. This table helps you find the matching passages.
 
 | this guide | in the finished proof | in the behind-the-scenes walkthrough |
 |---|---|---|
@@ -379,7 +361,7 @@ The folder `docs/ten-proofs/01-sphere-packing-linear-program/` contains two docu
 | section 11, the two halves meet | the main result combines sections 3 and 4 | part 1.9 explains why the shared limit is exact |
 | section 12, the two related sign questions | appendix A compares the two radii | part 1.9 discusses both versions |
 
-The two documents use “lower limit” and “ceiling” for what may look like opposite ideas. There is no disagreement. The proof studies the density limit and shows that it cannot be pushed lower. This guide studies the strength of a certificate and says that its strength cannot rise past a ceiling. These are two views of the same fact.
+The two documents use “lower limit” and “ceiling” for what may look like opposite ideas, but there is no disagreement between them. The proof studies the density limit and shows that it cannot be pushed lower, while this guide studies the strength of a certificate and says that its strength cannot rise past a ceiling. These are two views of the same fact.
 
 ## What you can check yourself
 
@@ -417,7 +399,7 @@ These calculations do not prove that the five known packings are best; that come
 | the symmetric adjustment | the Mellin envelope multiplier |
 | stretching a function | dilation |
 
-The source shortens “linear program” to LP. It also writes the decimal rate in a shorter exact form using pi, e, and a base-two logarithm. The decimal value given in section 11 is enough to follow this guide.
+The source shortens “linear program” to LP, and it also writes the decimal rate in a shorter exact form using pi, e, and a base-two logarithm. The decimal value given in section 11 is enough to follow this guide.
 
 ## Where to go next
 

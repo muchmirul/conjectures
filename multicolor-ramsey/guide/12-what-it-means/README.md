@@ -2,7 +2,7 @@
 
 The 2026 theorem can now be stated in the guide's plain language. For every colour count from two upward, there is a safe table whose people-per-colour score is at least one fixed positive constant times the cube root of the colour count, divided by its logarithm. The same constant works for every colour count.
 
-That score grows without bound. Erdős's 100-dollar question asked whether the long-term score was finite, and the answer is no. His 250-dollar question asked what it approaches, and the answer is infinity.
+That score grows without bound, which settles both of the questions Erdős offered prizes for. His 100-dollar question asked whether the long-term score was finite, and it is not, while his 250-dollar question asked what that score approaches, which turns out to be infinity.
 
 Combine this construction with the factorial upper limit from section 6. The forcing size now has the same broad shape from both sides: the colour count is raised to a power proportional to the colour count. The lower result gives roughly one third of the colour count in that power, apart from slowly growing corrections. The upper result gives roughly the full colour count.
 
@@ -21,9 +21,9 @@ This chart compares the shapes of the two limits rather than exact values at a p
                                            between 51 and 62
 ```
 
-The scale of the theorem also matters. Its printed constant is extremely small because its denominator is enormous. The authors focused on proving the long-term shape rather than improving that number. With the printed constant, the new construction does not beat the old 3.28 score until around ten to the sixtieth colours. Below 342 colours, its numerical bound says nothing beyond the trivial fact that a safe group exists. At every size anyone could draw or compute directly, the older constructions give bigger tables. The advance is about what eventually becomes possible, not a new small-colour record.
+The scale of the theorem also matters. Its printed constant is extremely small because its denominator is enormous. The authors focused on proving the long-term shape rather than improving that number. With the printed constant, the new construction does not beat the old 3.28 score until around ten to the sixtieth colours. Below 342 colours, its numerical bound says nothing beyond the trivial fact that a safe group exists. At every size anyone could draw or compute directly, the older constructions give bigger tables. The advance therefore concerns what eventually becomes possible rather than a new small-colour record.
 
-The result also answers a question about sending messages through noise. The next picture begins with five symbols arranged in a ring. Neighbouring symbols can be confused with each other.
+The result also answers a question about sending messages through noise. The next picture begins with five symbols arranged in a ring, where neighbouring symbols can be confused with each other.
 
 ![Five noisy symbols and five two-letter codewords that carry more safe messages than single symbols](channel.png)
 

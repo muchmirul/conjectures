@@ -2,21 +2,17 @@
 
 *Part 1 of three: Shapes You Can Only See By Probing Them. Retells Lectures I to III of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-Now the repair pays off.
+The repair pays off as soon as you return to the map from the dust to the ruler. As answer sheets, these are genuinely different objects, so the map between them is genuinely not a sameness, and algebra is now allowed to ask what the difference is. Subtracting the dust from the ruler leaves a perfectly good condensed group, and this guide calls it **the ghost**.
 
-Go back to the map from the dust to the ruler. As answer sheets, these are genuinely different objects, so the map between them is genuinely not a sameness, and algebra is now allowed to ask what the difference is. Subtract the dust from the ruler. The result is a perfectly good condensed group, and this guide calls it **the ghost**.
-
-The ghost has no points. Ask it what a single point can say, and the answer is: nothing, the entry is empty. By the old way of counting, the ghost is zero.
-
-Ask it what the halving probe can say, and the answer is not empty.
+The ghost has no points. When you ask what a single point can say to it, the entry is empty, so by the old way of counting the ghost is zero. When you ask what the halving probe can say, however, the answer is not empty.
 
 ![A staircase-like function being built on the branching probe, level by level, ending as a landing that is continuous but not flat on any box](ghost.gif)
 
 The animation builds one entry of the ghost. On the halving probe, choose a value on each box, refine, choose again, and keep the choices consistent. In the limit you get a landing which is perfectly continuous but is not constant on any box, no matter how far you refine. A landing like that is precisely something the ruler can do and the dust cannot, so it is a nonzero entry of the ghost's answer sheet ([Example 1.9, page 9](https://arxiv.org/pdf/2605.03658v1#page=9)).
 
-So the ghost is an object with no points which is not zero. That sounds like a paradox and it is the opposite: it is the missing piece that makes the recipe work. The map from the dust to the ruler kills nothing and misses nothing *at the level of points*, and the reason it is still not a sameness is a difference which only shows up on probes, and which the ghost now names.
+So the ghost is an object with no points which is not zero, and it is the missing piece that makes the recipe work. The map from the dust to the ruler kills nothing and misses nothing *at the level of points*, and the reason it is still not a sameness is a difference which only shows up on probes, and which the ghost now names.
 
-With that, the thing algebra needs is finally true.
+With that, the statement algebra needs is finally true:
 
 > Condensed groups form a setting where every map has a genuine kill-list and a genuine miss-list, and a map with both of them empty really is a sameness.
 

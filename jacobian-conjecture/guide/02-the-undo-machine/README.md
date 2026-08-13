@@ -16,14 +16,14 @@ Now try to undo *«square it»* (multiply the number by itself):
 
 <img src="collision.gif" width="760" alt="Left: the dots −3 and 3 ride their arrows and crash onto the same output 9. Right: the doubling dots land on separate outputs, so every arrow can be traced back">
 
-Feed it −3: you get 9. Feed it 3: you also get 9. Now stand at 9 and try to walk back. **Which input did you come from?** You cannot know. The information "was it negative?" has been destroyed.
+Feed it −3 and you get 9. Feed it 3 and you also get 9. Now stand at 9 and try to walk back. You cannot tell **which input you came from**, because the information about whether the number was negative has been destroyed.
 
 An undo machine cannot exist when:
 
 1. **Collisions**, two different inputs land on the same output. (−3 and 3 both land on 9.)
 2. **Gaps**, some outputs are never reached, so the undo machine wouldn't know what to say there. (Squaring never outputs −4.)
 
-No collisions and no gaps: then, and only then, every output has exactly one origin, and "walk back where you came from" is a well-defined machine.
+No collisions and no gaps: then, and only then, every output has exactly one origin, and "walk back where you came from" is a well-defined machine. The two conditions are not merely helpful, they are exactly what an undo needs.
 
 ## Say it like a mathematician (optional)
 

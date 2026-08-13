@@ -6,13 +6,13 @@
 
 The animation shows sixteen people with a connection between every pair. That makes 120 connections, and each one receives one of three colours. When the colouring is complete, there is no group of three people whose three mutual connections all have the same colour. Sixteen is the largest group for which this is possible with three colours. Greenwood and Gleason built this example and proved that seventeen is impossible in 1955. Everything in this guide comes from the open source repository at [github.com/muchmirul/conjectures](https://github.com/muchmirul/conjectures): the text, every figure, and the tests behind each number.
 
-This guide asks what happens when many more colours are available. More colours let us keep a larger group safe, but how much larger can the group become for each added colour? Erdős offered cash prizes for answering that question. For decades, the best construction and the best limit were so far apart that researchers did not even know whether the long-term rate stopped at a fixed number. A result in 2026 showed that it never stops growing.
+This guide asks what happens when many more colours are available. More colours let us keep a larger group safe, and the question is how much larger the group can become for each added colour. Erdős offered cash prizes for answering that question. For decades, the best construction and the best limit were so far apart that researchers did not even know whether the long-term rate stopped at a fixed number. A result in 2026 showed that it never stops growing.
 
 The guide develops the result in small steps. Most numbered sections also have a [page you can play with](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/index.html), where you can change the main choices and watch the picture respond.
 
 The code that creates every figure is included in this repository. The tests recalculate the numbers and check the small colourings shown here. When a statement comes from an existing theorem rather than those tests, the text says so.
 
-The 2026 work is presented in two documents. One gives the finished proof. The other is a behind-the-scenes guide that explains how the ideas were found, including earlier attempts that failed. Sections 5 to 7 explain why the old methods stalled. Sections 8 to 11 explain the finished construction. A table near the end shows where each idea appears in the two source documents.
+The 2026 work is presented in two documents. One gives the finished proof, and the other is a behind-the-scenes guide that explains how the ideas were found, including earlier attempts that failed. Sections 5 to 7 explain why the old methods stalled. Sections 8 to 11 explain the finished construction. A table near the end shows where each idea appears in the two source documents.
 
 ```
     first, learn the game       1  the rule
@@ -35,65 +35,63 @@ The 2026 work is presented in two documents. One gives the finished proof. The o
 
 Start with a group of people and draw a connection between every pair. Give every connection a colour. Any choice of three people forms a triangle because each pair among them is connected. You lose if all three connections in one of those triangles have the same colour.
 
-We will call this a **one-colour triangle**. A completed colouring with no one-colour triangle will be called **safe**. A group together with a safe colouring is a **safe table**.
+We will call this a **one-colour triangle**. A completed colouring with no one-colour triangle will be called **safe**, and a group together with a safe colouring is a **safe table**.
 
 ![Two colourings of four people, with a one-colour triangle on the left and a safe result on the right](guide/01-the-game/rules.png)
 
 The thick triangle on the left uses one colour on all three sides, so that colouring loses. Four people contain four possible groups of three. On the right, each of those four triangles uses at least two colours, so the colouring is safe.
 
-With two colours, a group of five can be kept safe. Apart from renaming the people or swapping the colours, there is only one way to do it. Place the five people around a circle. Use the first colour for neighbouring pairs around the outside, then use the second colour for the five connections that skip across the circle.
+With two colours, a group of five can be kept safe. Apart from renaming the people or swapping the colours, there is only one way to do it. Place the five people around a circle, use the first colour for neighbouring pairs around the outside, and then use the second colour for the five connections that skip across the circle.
 
 ![The ten connections among five people being coloured, followed by a check of all ten triangles](guide/01-the-game/pentagon.gif)
 
-The final sweep checks every possible group of three. There are ten of them, and every one uses both colours. Safety is therefore not based on how the picture looks. It comes from checking a short, complete list. The tests in this repository perform the same check.
+The final sweep checks every possible group of three. There are ten of them, and every one uses both colours. Safety is therefore not based on how the picture looks, but on checking a short, complete list. The tests in this repository perform the same check.
 
-There is also a quick way to understand the pattern. Look at either colour by itself. Its five connections form a ring, and a ring contains no triangle. Since neither colour can make a triangle on its own, the combined colouring is safe.
+There is also a quick way to understand the pattern. If you look at either colour by itself, its five connections form a ring, and a ring contains no triangle. Because neither colour can make a triangle on its own, the combined colouring is safe.
 
 **[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/01.html)** to colour the five-person group and check each triangle.
 
 ## 2 · Six is forced
 
-Five people can stay safe with two colours. Six people cannot. This is the one theorem proved completely in this guide, and every step can be seen in the animation.
+Five people can stay safe with two colours, but six people cannot. This is the one theorem proved completely in this guide, and every step can be seen in the animation.
 
-Choose one of the six people and look at the five connections leading from that person. There are only two colours available. At least three of those five connections must have the same colour, because two connections of each colour would account for only four. Suppose three of them are red.
+Choose one of the six people and look at the five connections leading from that person. Only two colours are available, so at least three of those five connections must have the same colour, because two connections of each colour would account for only four. Suppose three of them are red.
 
 ![Three same-coloured connections from one person forcing a red or blue triangle](guide/02-six-is-forced/pigeonhole.gif)
 
 Now focus on the three people at the other ends of those red connections. If any pair among them is joined in red, that connection and the two red connections back to the first person make a red triangle. To avoid that outcome, all three connections among those people would have to be blue. But those three blue connections make a blue triangle instead.
 
-A one-colour triangle appears in either case. The first counting step is often called the **pigeonhole principle**: when more objects are placed into fewer groups, one group must receive several objects.
+A one-colour triangle therefore appears in either case. The first counting step is often called the **pigeonhole principle**: when more objects are placed into fewer groups, one group must receive several objects.
 
 The argument did not depend on how the connections were coloured, so it covers every possible two-colouring of six people. The computer tests check the same claim another way. Six people have fifteen connections, with two choices for each connection, giving 32768 complete colourings. The tests inspect all of them and find that none is safe.
 
 ![All 32768 two-colourings of six people grouped by their number of one-colour triangles](guide/02-six-is-forced/census.png)
 
-The empty bar at zero confirms that every colouring contains a one-colour triangle. The bar at one is empty too. Even the best six-person colourings contain exactly two one-colour triangles, never only one. Goodman recorded this stronger observation in 1959, and the exhaustive test finds it again.
+The empty bar at zero confirms that every colouring contains a one-colour triangle. The bar at one is empty as well. Even the best six-person colourings contain exactly two one-colour triangles, never only one. Goodman recorded this stronger observation in 1959, and the exhaustive test finds it again.
 
-The two-colour story is now complete: five people can stay safe, while six force a loss. We will call six **the forcing size** for two colours, meaning the first group size at which a one-colour triangle is unavoidable.
+The two-colour case is now complete: five people can stay safe, while six force a loss. We will call six **the forcing size** for two colours, meaning the first group size at which a one-colour triangle is unavoidable.
 
 **[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/02.html)** to try colouring six people and see which triangle becomes unavoidable.
 
 ## 3 · More crayons
 
-Adding a third colour makes a much larger safe group possible. The best safe size jumps from five people to sixteen. The opening animation showed the full colouring; the next picture separates its three colours so that each can be checked on its own.
+Adding a third colour makes a much larger safe group possible, raising the best safe size from five people to sixteen. The opening animation showed the full colouring, and the next picture separates its three colours so that each can be checked on its own.
 
 ![The sixteen-person colouring separated into three colour layers, none of which contains a triangle](guide/03-more-crayons/layers.png)
 
 Each panel contains the connections of one colour. Every person has five connections in each panel, but no panel contains a triangle. A one-colour triangle would have to appear entirely inside one of these panels, so the full three-colour pattern is safe. Greenwood and Gleason created this pattern in 1955. This repository rebuilds it from their instructions and checks all 560 groups of three.
 
-They also proved that seventeen people cannot stay safe with three colours. A direct computer sweep would require considering three choices on each of 136 connections, which is far beyond the case-by-case checks in this project. The guide therefore quotes their theorem rather than claiming to verify it.
-
-After three colours, no exact forcing size is known.
+They also proved that seventeen people cannot stay safe with three colours. A direct computer sweep would require considering three choices on each of 136 connections, which is far beyond the case-by-case checks in this project. The guide therefore quotes their theorem rather than claiming to verify it. After three colours, no exact forcing size is known.
 
 ![The exact answers for one, two and three colours, followed by the open range for four colours](guide/03-more-crayons/records.png)
 
-For four colours, the forcing size is known to be somewhere between 51 and 62. In other words, a safe colouring of fifty people is known, and every colouring of sixty-two people is known to fail, but the exact point between them remains open. The uncertainty is even wider for five colours. No exact answer is known for any colour count above three. The number of possible colourings grows too quickly for a simple search, so progress depends on general arguments and constructions.
+For four colours, the forcing size is known to be somewhere between 51 and 62. In other words, a safe colouring of fifty people is known, and every colouring of sixty-two people is known to fail, but the exact point between them remains open. The uncertainty is even wider for five colours, and no exact answer is known for any colour count above three. The number of possible colourings grows too quickly for a simple search, so progress depends on general arguments and constructions.
 
 **[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/03.html)** to compare the known small cases and the first open range.
 
 ## 4 · The question
 
-To compare constructions that use different numbers of colours, we need a fair score. Suppose a safe table uses a certain number of colours. Ask for the number that, when multiplied by itself once for each colour, gives the group size. We will call that score **people per colour**. This is the usual root of the group size, but the repeated-multiplication picture is all we need here.
+To compare constructions that use different numbers of colours, we need a fair score. Suppose a safe table uses a certain number of colours, and ask for the number that, when multiplied by itself once for each colour, gives the group size. We will call that score **people per colour**. This is the usual root of the group size, but the repeated-multiplication picture is all we need here.
 
 Five people with two colours score about 2.24, because multiplying 2.24 by itself gives about five. Sixteen people with three colours score about 2.52, because multiplying 2.52 by itself three times gives about sixteen. A larger score means that each colour contributes a larger multiplying effect.
 
@@ -101,7 +99,7 @@ Before 2026, the best long-term recipe was based on addition patterns around num
 
 ![The people-per-colour scores of known constructions rising toward the old long-term rate](guide/04-the-question/rate.png)
 
-The known scores rose slowly, which led to the central question.
+The known scores rose slowly, which led to the central question:
 
 > As the number of colours grows without limit, does the people-per-colour score also grow without limit, or does it settle below one fixed ceiling?
 
@@ -119,9 +117,9 @@ A classical construction combines two safe tables to make a larger safe table. T
 
 ![Each of five people expanding into a room of five, with old colours between rooms and fresh colours inside](guide/05-multiply/blowup.gif)
 
-Begin with five outer people. Replace each person with a **room** containing a complete copy of the second safe group. Connections inside a room use the second group's colours. These colours are fresh, meaning they are not used between rooms. Every connection between two rooms uses the colour that joined the corresponding two people in the outer group.
+Begin with five outer people. Replace each person with a **room** containing a complete copy of the second safe group. Connections inside a room use the second group's colours, which are fresh, meaning that they are not used between rooms. Every connection between two rooms uses the colour that joined the corresponding two people in the outer group.
 
-To see why the result is safe, consider the three possible locations of a triangle.
+To see why the result is safe, consider the three possible locations of a triangle:
 
 1. If all three people are in one room, their triangle belongs to the safe inner colouring.
 2. If two people are in one room and the third is in another, the two cross-room connections have the same outer colour. The connection inside the room has a fresh inner colour, so all three cannot match.
@@ -129,11 +127,11 @@ To see why the result is safe, consider the three possible locations of a triang
 
 This covers every triangle, so the combined group is safe. The tests check all 2300 triangles in the resulting 25-person, four-colour group. They also check an 80-person, five-colour group made by combining the sixteen-person and five-person patterns.
 
-The rule is simple: group sizes multiply, while colour counts add. Repeating the five-person construction gives 25 people with four colours, 125 with six colours, and so on.
+In this construction, group sizes multiply while colour counts add. Repeating the five-person construction therefore gives 25 people with four colours, 125 with six colours, and so on.
 
 ![Repeated products shown on a scale where a fixed people-per-colour score makes a straight line](guide/05-multiply/tower.png)
 
-The vertical scale compresses repeated multiplication, so a fixed score appears as a straight line. Repeating the five-person pattern always scores 2.24 people per colour. Repeating the sixteen-person pattern always scores 2.52. The groups become enormous, but the score never changes because every round spends the same number of colours for the same multiplying gain.
+The vertical scale compresses repeated multiplication, so a fixed score appears as a straight line. Repeating the five-person pattern always scores 2.24 people per colour, and repeating the sixteen-person pattern always scores 2.52. The groups become enormous, but the score never changes because every round spends the same number of colours for the same multiplying gain.
 
 The ability to combine any two safe groups also guarantees that the best possible score has a well-defined long-term destination rather than bouncing forever. What remained unknown was whether that destination was a fixed number or infinity. Repeating one fixed construction can never answer infinity, because its score stays fixed at every round.
 
@@ -171,11 +169,11 @@ Take every ordering of a small set of letters. For each pair of orderings, find 
 
 ![Six letter orderings coloured by their first difference until a one-colour triangle appears](guide/07-the-gap/orderings.gif)
 
-It fails. The orderings ABC, BAC and CAB all first differ from one another at the first letter. Their three connections therefore receive the same colour. The same collision can be built with any larger number of items. Recording more detail in each colour can prevent this particular collision, but it also uses so many extra colours that the hoped-for advantage disappears.
+It fails because the orderings ABC, BAC and CAB all first differ from one another at the first letter, so their three connections receive the same colour. The same collision can be built with any larger number of items. Recording more detail in each colour can prevent this particular collision, but it also uses so many extra colours that the hoped-for advantage disappears.
 
 Researchers also tried to prove that the score could never grow past a fixed ceiling. One plan replaced each colour pattern with a small summary and then combined those summaries. For the plan to work, every pattern with no triangle would need to split into the same fixed number of teams, no matter how large the pattern became. A team here means a group containing no connection of that colour.
 
-The next picture shows why that hope fails. It has eleven people and no triangle, yet no split into three teams works. The tests try every possible three-team split. A split into four teams does work.
+The next picture shows why that hope fails. It has eleven people and no triangle, yet no split into three teams works, which the tests confirm by trying every possible three-team split. By contrast, a split into four teams does work.
 
 ![Eleven people with no triangle at all, whose people still cannot be split into three connection-free teams](guide/07-the-gap/groetzsch.png)
 
@@ -187,13 +185,11 @@ Addition patterns on number circles face another version of the same difficulty.
 
 Sections 8 to 11 follow the finished 2026 construction. They reuse familiar ideas about rooms, colours, and one-colour triangles. Each section adds one simple rule, while the behind-the-scenes document explains why that rule was chosen. The first rule decides which colours may be used in each room.
 
-As in section 5, divide the people into rooms. Give every room a **palette**, meaning a list of colours that are not allowed on connections inside that room. All colours outside the list may be used internally. In the pictures, a room is said to “hold” a colour when that colour is on its palette, even though holding it means keeping it out of the room.
-
-A connection between two different rooms may use a colour only when that colour appears on exactly one of their palettes.
+As in section 5, divide the people into rooms. Give every room a **palette**, meaning a list of colours that are not allowed on connections inside that room. All colours outside the list may be used internally. In the pictures, a room is said to “hold” a colour when that colour is on its palette, even though holding it means keeping it out of the room. A connection between two different rooms may use a colour only when that colour appears on exactly one of their palettes.
 
 ![A connection between two rooms trying colours until it finds one listed by exactly one room](guide/08-palettes/rooms.gif)
 
-This rule immediately prevents a one-colour triangle spread across three rooms. Fix one colour and look at any three room palettes. For each room, the colour is either listed or not listed. Among three rooms, at least two must have the same answer. The connection between those two rooms cannot use that colour, because a cross-room colour must be listed by exactly one side. The chosen colour therefore cannot appear on all three sides of the triangle.
+This rule immediately prevents a one-colour triangle spread across three rooms. Fix one colour and look at any three room palettes. For each room, the colour is either listed or not listed, so among three rooms at least two must have the same answer. The connection between those two rooms cannot use that colour, because a cross-room colour must be listed by exactly one side. The chosen colour therefore cannot appear on all three sides of the triangle.
 
 ![All eight listed-or-unlisted patterns for one colour across three rooms, each blocking at least one side](guide/08-palettes/parity.png)
 
@@ -203,9 +199,7 @@ The figure shows all eight possible patterns, and the tests check every one. No 
 
 ## 9 · The trap
 
-This is the second part of the construction. It handles the remaining danger: a triangle that uses two rooms.
-
-Consider two people in one room and a third person outside it. Suppose both incoming connections use red. A red triangle appears if the two people inside the room are also connected in red. The construction must prevent the two incoming connections from landing on such a pair.
+The second part of the construction handles the remaining danger, a triangle that uses two rooms. Consider two people in one room and a third person outside it. Suppose both incoming connections use red. A red triangle appears if the two people inside the room are also connected in red. The construction must prevent the two incoming connections from landing on such a pair.
 
 Look at the red connections already inside the room. Split the people into **teams** so that no red connection has both ends in one team. In the five-person room, the red connections form a ring, and the next picture shows a split into three teams.
 
@@ -221,49 +215,45 @@ There is a second safe case. If red appears on the room's palette, then red is n
 
 It would be convenient to use only two teams for every colour, but that rule is too strict. Keeping the same two sides lined up across every room and every floor would cost almost as much as giving each room fresh colours. The new construction lets the number of teams grow slowly instead. When a floor is added, rooms that use a colour keep their existing teams. All rooms that omit that colour form one extra team together. The number of teams therefore rises by only one on each floor. This keeps the referee's set of symbols small enough to manage.
 
-The animation is a small demonstration of why the team rule matters. The real construction does not choose each arrival by hand. It needs one fixed procedure that enforces the rule for every pair of rooms without adding new colours. That procedure is the referee in the next section.
+The animation is a small demonstration of why the team rule matters. The real construction does not choose each arrival by hand, so it needs one fixed procedure that enforces the rule for every pair of rooms without adding new colours. That procedure is the referee in the next section.
 
 **[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/09.html)** to compare a broken landing rule with a safe one.
 
 ## 10 · The referee
 
-The third part is one fixed referee that enforces the team rule everywhere at once.
-
-Every connection between two rooms needs two choices: a colour allowed by the palettes, and a team on which it may safely land. These choices cannot be improvised for one pair and changed for the next. A single rule must work for every pair of people in every pair of rooms.
+The third part is one fixed referee that enforces the team rule everywhere at once. Every connection between two rooms needs two choices: a colour allowed by the palettes, and a team on which it may safely land. These choices cannot be improvised for one pair and changed for the next, because a single rule must work for every pair of people in every pair of rooms.
 
 The construction begins by fixing a card filled with symbols before any people or rooms are considered. We will call it **the referee's card**. The next animation shows a genuine small example found and checked by this repository.
 
 ![A small referee's card being checked so that every four selected columns show both symbols in some row](guide/10-the-referee/referee.gif)
 
-This card has thirteen rows and eight columns, and every entry is one of two symbols. Its promise is simple: choose any four columns, and there is at least one row in which both symbols appear among those four entries. There are seventy ways to choose the four columns, and the tests check all seventy.
+This card has thirteen rows and eight columns, and every entry is one of two symbols. It promises that for any four columns, there is at least one row in which both symbols appear among those four entries. There are seventy ways to choose the four columns, and the tests check all seventy.
 
-At this small size, most randomly filled cards already pass. That does not show that the full construction is easy. At the real sizes, direct checking is impossible. Two counting arguments prove that at least one card works for all column choices at once. The rest of the construction needs only that promise, not a case-by-case search.
+At this small size, most randomly filled cards already pass, which does not show that the full construction is easy. At the real sizes, direct checking is impossible, so two counting arguments prove instead that at least one card works for all column choices at once. The rest of the construction needs only that promise, not a case-by-case search.
 
-The two counting arguments have separate jobs. The first decides how many columns must be examined together. There must be enough entries for one random row to have a good chance of showing every symbol. The second decides how many rows the card needs. It provides enough independent attempts to cover every possible choice of columns at the same time. One count sets the size of each column group; the other sets the height of the card.
+The two counting arguments have separate jobs. The first decides how many columns must be examined together, because there must be enough entries for one random row to have a good chance of showing every symbol. The second decides how many rows the card needs, providing enough independent attempts to cover every possible choice of columns at the same time. One count therefore sets the size of each column group, and the other sets the height of the card.
 
-The card must be fixed first. If a new rule could be invented after seeing each pair of people, it could always be adjusted to make that one pair work. Such an adjustment would say nothing about any other pair. One card chosen in advance has to handle every future pair, which is what gives the promise its force.
+The card must be fixed first. If a new rule could be invented after seeing each pair of people, it could always be adjusted to make that one pair work, and such an adjustment would say nothing about any other pair. One card chosen in advance has to handle every future pair, which is what gives the promise its force.
 
-Here is how the card guides a connection. For each candidate colour, a person's team number is written as one symbol in a word. The fixed card produces **the two answer lists**, one for each direction between the two people. More precisely, it gives two fixed rules for producing those lists. For any pair of words, at least one position is guaranteed to contain an agreement between one person's team symbol and the answer produced from the other person's word.
+The card guides a connection in the following way. For each candidate colour, a person's team number is written as one symbol in a word. The fixed card produces **the two answer lists**, one for each direction between the two people. More precisely, it gives two fixed rules for producing those lists. For any pair of words, at least one position is guaranteed to contain an agreement between one person's team symbol and the answer produced from the other person's word.
 
 ![Two team words and their answer lists being scanned until a guaranteed agreement is found](guide/10-the-referee/meeting.gif)
 
-The agreeing position selects a candidate colour. It also selects the receiving team in the way section 9 requires: that team is determined from the sender's word. If the same outsider sends two connections of the same colour into a room, both must therefore land on the same team. The dangerous triangle cannot form.
+The agreeing position selects a candidate colour. It also selects the receiving team in the way section 9 requires: that team is determined from the sender's word. If the same outsider sends two connections of the same colour into a room, both must therefore land on the same team, and the dangerous triangle cannot form.
 
-The two lists divide the work. The first few symbols of one word identify a column on the card. The first answer list copies that column. Usually the other word matches it in at least one row, and that matching row chooses the colour.
+The two lists divide the work. The first few symbols of one word identify a column on the card, and the first answer list copies that column. Usually the other word matches it in at least one row, and that matching row chooses the colour.
 
 A few column choices may fail to match a particular word anywhere. The card's promise guarantees that there are only a small number of these exceptions. The second answer list gives each exception its own reserved position, so none can escape. At toy size, the tests confirm that any word has at most three exceptional columns.
 
 At the small size, each word contains thirteen two-choice symbols, so there are 8192 possible words. The tests verify the meeting promise for every word on one side and every word on the other. This is a complete check of the toy version.
 
-The toy is drawn small enough to read. The smallest card used by the full construction has 57 rows, and each word has 57 symbols. The rule is the same, but the proof that such a card exists depends on the counting arguments rather than exhaustive checking.
+The toy is drawn small enough to read, while the smallest card used by the full construction has 57 rows, and each word there has 57 symbols. The rule is the same, but the proof that such a card exists depends on the counting arguments rather than exhaustive checking.
 
 **[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/10.html)** to choose card columns and follow the search for an agreeing position.
 
 ## 11 · The tower
 
-The fourth part assembles the rooms, counts how quickly they grow, and turns that count into the final rate.
-
-The palette rule protects triangles across three rooms. The team rule protects triangles that use two rooms. The referee enforces the team rule everywhere at once. The construction now repeats these parts over several floors.
+The fourth part assembles the rooms, counts how quickly they grow, and turns that count into the final rate. The palette rule protects triangles across three rooms, the team rule protects triangles that use two rooms, and the referee enforces the team rule everywhere at once. The construction now repeats these parts over several floors.
 
 The ground floor contains one person. On each new floor, many rooms are created. Every room contains a complete copy of the floor below, with its internal colours renamed to match the colours allowed by that room's palette. Different rooms receive palettes that differ in many places, so the referee always has enough cross-room colours to choose from. The same fixed referee rule colours every connection between rooms.
 
@@ -271,19 +261,19 @@ Every possible triangle is now covered. A triangle inside one room was already r
 
 ![Several floors of rooms inside larger rooms, with the multiplying gain increasing on later floors](guide/11-the-tower/tower.gif)
 
-The animation shows the nesting pattern, not the true number of rooms. Even the first full-scale floors are far too wide to draw. The important change is that the available colour pool grows from one floor to the next. A larger pool provides many more sufficiently different palettes, so a later floor can contain more rooms than an earlier floor. Each floor multiplies the group size by a larger amount than the floor before it.
+The animation shows the nesting pattern rather than the true number of rooms, because even the first full-scale floors are far too wide to draw. The important change is that the available colour pool grows from one floor to the next. A larger pool provides many more sufficiently different palettes, so a later floor can contain more rooms than an earlier floor. Each floor multiplies the group size by a larger amount than the floor before it.
 
-The proof also has to show that enough different palettes exist. It builds a list in a simple way. Keep a new palette only when it differs enough from every palette already on the list. Stop when no more can be added. At that point, every unused palette must be close to one that was kept. Only a small share of all palettes can be close to any one kept palette. Since every possible palette must be covered this way, the kept list has to be enormous. Each kept palette becomes one room.
+The proof also has to show that enough different palettes exist, and it builds a list in a simple way. Keep a new palette only when it differs enough from every palette already on the list, and stop when no more can be added. At that point, every unused palette must be close to one that was kept, while only a small share of all palettes can be close to any one kept palette. Since every possible palette must be covered this way, the kept list has to be enormous, and each kept palette becomes one room.
 
-This is exactly what fixed products could not do. In section 5, every round used the same number of rooms and kept the score flat. Here, the number of rooms rises with the floor, so the people-per-colour score rises too.
+This is what fixed products could not do. In section 5, every round used the same number of rooms and kept the score flat. By contrast, the number of rooms here rises with the floor, so the people-per-colour score rises too.
 
-There is a trade-off. Palettes must differ in many colours so that the referee has enough choices, which makes each palette large and spends more colours. Making the tower taller creates more multiplying gains, but also increases that cost. After balancing the two, first multiply the tower height by a slowly growing logarithmic factor and then cube the result. That is roughly how many colours the tower uses. Its people-per-colour score grows roughly like the height.
+The construction has a trade-off. Palettes must differ in many colours so that the referee has enough choices, which makes each palette large and spends more colours. Making the tower taller creates more multiplying gains, but also increases that cost. After balancing the two, first multiply the tower height by a slowly growing logarithmic factor and then cube the result. That is roughly how many colours the tower uses, while its people-per-colour score grows roughly like the height.
 
 Turning that relationship around gives the final rate: for a given colour count, the score is about the cube root of the colour count, divided by its logarithm. A logarithm is a slow-growing way to record repeated multiplication. It grows much more slowly than a cube root, so the score eventually keeps increasing.
 
 ![The fixed scores of older recipes compared with the rising shape of the 2026 score](guide/11-the-tower/base.png)
 
-The rising curve shows the long-term shape without the theorem's tiny fixed multiplier. It is not a plot of useful values at small colour counts. For the smallest full-scale stage, the referee's card has 57 rows. Each floor uses palettes containing 114 colors, and three floors use 342 colours altogether. This repository recalculates those parameters from the paper's instructions.
+The rising curve shows the long-term shape without the theorem's tiny fixed multiplier, so it is not a plot of useful values at small colour counts. For the smallest full-scale stage, the referee's card has 57 rows, each floor uses palettes containing 114 colors, and three floors use 342 colours altogether. This repository recalculates those parameters from the paper's instructions.
 
 Complete towers naturally use only certain colour totals, beginning with 342 and then larger special values. The theorem must also cover colour counts between them. For such a count, the proof uses the tallest smaller tower and leaves the extra colours unused. Consecutive tower sizes are close enough that this reduces the score by only a fixed factor. The final result therefore applies to every colour count from two upward, not just the special totals.
 
@@ -291,7 +281,7 @@ Complete towers naturally use only certain colour totals, beginning with 342 and
 
 The 2026 theorem can now be stated in the guide's plain language. For every colour count from two upward, there is a safe table whose people-per-colour score is at least one fixed positive constant times the cube root of the colour count, divided by its logarithm. The same constant works for every colour count.
 
-That score grows without bound. Erdős's 100-dollar question asked whether the long-term score was finite, and the answer is no. His 250-dollar question asked what it approaches, and the answer is infinity.
+That score grows without bound, which settles both of the questions Erdős offered prizes for. His 100-dollar question asked whether the long-term score was finite, and it is not, while his 250-dollar question asked what that score approaches, which turns out to be infinity.
 
 Combine this construction with the factorial upper limit from section 6. The forcing size now has the same broad shape from both sides: the colour count is raised to a power proportional to the colour count. The lower result gives roughly one third of the colour count in that power, apart from slowly growing corrections. The upper result gives roughly the full colour count.
 
@@ -310,9 +300,9 @@ This chart compares the shapes of the two limits rather than exact values at a p
                                            between 51 and 62
 ```
 
-The scale of the theorem also matters. Its printed constant is extremely small because its denominator is enormous. The authors focused on proving the long-term shape rather than improving that number. With the printed constant, the new construction does not beat the old 3.28 score until around ten to the sixtieth colours. Below 342 colours, its numerical bound says nothing beyond the trivial fact that a safe group exists. At every size anyone could draw or compute directly, the older constructions give bigger tables. The advance is about what eventually becomes possible, not a new small-colour record.
+The scale of the theorem also matters. Its printed constant is extremely small because its denominator is enormous. The authors focused on proving the long-term shape rather than improving that number. With the printed constant, the new construction does not beat the old 3.28 score until around ten to the sixtieth colours. Below 342 colours, its numerical bound says nothing beyond the trivial fact that a safe group exists. At every size anyone could draw or compute directly, the older constructions give bigger tables. The advance therefore concerns what eventually becomes possible rather than a new small-colour record.
 
-The result also answers a question about sending messages through noise. The next picture begins with five symbols arranged in a ring. Neighbouring symbols can be confused with each other.
+The result also answers a question about sending messages through noise. The next picture begins with five symbols arranged in a ring, where neighbouring symbols can be confused with each other.
 
 ![Five noisy symbols and five two-letter codewords that carry more safe messages than single symbols](guide/12-what-it-means/channel.png)
 

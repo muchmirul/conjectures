@@ -18,7 +18,7 @@ certificate can beat a certain rate and that one certificate reaches it. The
 result replaces the general packing exponent that had stood since 1978.
 
 The source is chapter 1 of *Ten Advances in Mathematics and Theoretical
-Computer Science* (OpenAI), kept with its reasoning walkthrough in
+Computer Science* (OpenAI). It is kept with its reasoning walkthrough in
 `docs/ten-proofs/01-sphere-packing-linear-program/`.
 
 ## Running the code

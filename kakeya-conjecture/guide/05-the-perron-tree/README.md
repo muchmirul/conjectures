@@ -14,7 +14,7 @@ Now slide the slivers into each other, in stages. Neighbours first, then neighbo
 
 Nothing is rotated. Nothing is resized. Nothing is thrown away. So the pile still holds a needle in every direction of the original fan, and the tests in this repo check exactly that: after every stage, each sliver is still a translate of the one it came from, and the directions covered still run over the whole fan.
 
-The result is called a **Perron tree**, after Oskar Perron, who in 1928 turned Besicovitch's original construction into this picture.
+The result is called a **Perron tree**. The name is for Oskar Perron, who in 1928 turned Besicovitch's original construction into this picture.
 
 ## The trap: squeeze the same way every time
 
@@ -49,7 +49,7 @@ The steady column is heading for 0.1667 and will never leave. The varying column
 
 Two honest notes. First, the exact area of these trees is a fraction with a hundred digits underneath by the time you reach 256 slivers, so the table shows the decimals; the repo computes both. Second, the varying schedule here was found by scanning, not by theory, and it is not optimal. The known theory (Perron, Schoenberg, and Keich in 1999, who proved the rate is sharp) says the best a tree of $n$ slivers can do is about $1/\log n$, and $1/\log n$ goes to zero **very** slowly. To get the area below 1 percent you need something like $2^{100}$ slivers.
 
-That slowness is a large part of why this whole subject was so hard, and why the picture in your head refuses to believe the theorem in the next chapter.
+That slowness is a large part of why this whole subject was so hard. It is also why the theorem in the next chapter is difficult to believe from the pictures alone.
 
 ## Try it
 

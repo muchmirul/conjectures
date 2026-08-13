@@ -2,7 +2,7 @@
 
 Riemann observed, in one parenthetical sentence of the 1859 memoir, that it is "very likely" that all the zeros sit on the line. He added that he had put the question aside after a few fleeting attempts, since it was not needed for his immediate purpose. That aside became the Riemann hypothesis, the most famous open question in mathematics: one of Hilbert's problems of 1900, one of the seven million-dollar Millennium Prize Problems of 2000, and still open today.
 
-The evidence sits in an unusual position. By 2004, computers had checked the first ten trillion zeros, and every single one sits exactly on the line. This checking can never settle the question, because there are infinitely many zeros, and the history of this subject contains patterns that hold for trillions of cases and then fail. What has been proven, across more than a century, is that an increasing *proportion* of the zeros must sit on the line.
+The evidence is unusual in what it can and cannot establish. By 2004, computers had checked the first ten trillion zeros, and every single one sits exactly on the line. This checking can never settle the question, because there are infinitely many zeros, and the history of this subject contains patterns that hold for trillions of cases and then fail. What has been proven instead, across more than a century, is that an increasing *proportion* of the zeros must sit on the line.
 
 ![The record proportion of zeros known to lie on the critical line, from Hardy through Levinson and Conrey to five twelfths in 2020, then the 2026 jump to two thirds](race.png)
 

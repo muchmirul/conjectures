@@ -25,7 +25,7 @@ Same machine, new point of view: a function *moves the whole line*. Keep this "e
 
 ## The nametag
 
-Writing "the double-it-then-add-1 machine" gets old, so mathematicians give machines nametags like $f$ and write the recipe as
+Writing "the double-it-then-add-1 machine" gets old. Mathematicians give machines nametags like $f$ instead, and write the recipe as:
 
 ```math
 f(x) = 2x + 1
@@ -39,7 +39,7 @@ Read it out loud as: "$f$ eats a number $x$ and returns $2x + 1$." The letter $x
 python src/viz/ch01_functions.py
 ```
 
-Open the script and change `2 * x + 1` to any recipe you like, then watch how *your* machine moves the line.
+Open the script and change `2 * x + 1` to any recipe you like. Running it again redraws the number line picture, so you can watch how your own machine moves the line.
 
 ---
 

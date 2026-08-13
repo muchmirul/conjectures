@@ -66,7 +66,7 @@ for pt in [(0, 0, Rational(-1, 4)),
 # -> [-1/4, 0, 0]  three times
 ```
 
-Or simply run this repo's test suite: `python -m pytest tests/test_counterexample.py -q`.
+You can also simply run this repo's test suite with `python -m pytest tests/test_counterexample.py -q`. It checks the same identities in exact arithmetic.
 
 ## What survives
 
@@ -74,9 +74,9 @@ Keller asked his question in 1939 **for the plane**. The counterexample lives in
 
 ## Why this ending is beautiful
 
-For 87 years the question was: *which extra hypothesis forces global undoability?* Everyone believed "polynomial + constant factor" was enough, and the graveyard filled with proofs of it. The answer turned out to be: **it is not enough**, the escape-to-infinity trapdoor of chapter 11 is real, exploitable, and exploitable by polynomials of degree seven. The conjecture didn't need a cleverer proof. It needed a disproof, and the disproof is so concrete that a person with no mathematical training can hold it in one hand and check it with the other.
+For 87 years the question was which extra hypothesis forces global undoability. Everyone believed "polynomial plus constant factor" was enough, and the graveyard filled with proofs of it. The answer turned out to be: **it is not enough**, the escape-to-infinity trapdoor of chapter 11 is real, exploitable, and exploitable by polynomials of degree seven. The conjecture didn't need a cleverer proof. It needed a disproof, and the disproof is so concrete that a person with no mathematical training can hold it in one hand and check it with the other.
 
-That is what you just did.
+That is what the checks on this page just did. A disproof this concrete is unusual, and it is why the ending of this story can be verified rather than believed.
 
 ## Where to go next
 

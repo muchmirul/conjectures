@@ -14,7 +14,7 @@ You now own every part:
 
 Keller's move, in 1939: play the strongest local card in the deck. Don't just ask the local area factor to avoid zero. Ask it to be **the same nonzero constant at every single point**, like the shear, like the stacked-shear monsters, whose local factor is exactly 1 everywhere. And keep the machines as tame as machines get: polynomial.
 
-Surely, *surely*, such a map must be globally undoable, with a polynomial undo?
+Such a map, the reasoning went, must surely be globally undoable, and with a polynomial undo at that. That expectation is what the next 87 years failed to confirm.
 
 <img src="statement_card.gif" width="760" alt="The statement card assembles clause by clause: a polynomial map, constant nonzero local area factor everywhere, must a polynomial undo exist? Believed yes, unproven for 87 years">
 
@@ -39,7 +39,7 @@ That is the **Jacobian Conjecture**. Not a theorem, a conjecture: a belief nobod
 
 Every hero you met satisfies the hypothesis (local factor ≡ 1) and is undoable. Chapter 10 will show you that *every* example anyone ever constructed confirms the conjecture, and that for degree-2 maps it is a proven theorem. It looks like a ripe apple.
 
-It hung there, unpicked, from 1939 to 2026.
+It hung there, unpicked, from 1939 to 2026. Chapter 11 explains what kept everyone from reaching it.
 
 ---
 

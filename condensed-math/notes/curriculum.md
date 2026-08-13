@@ -49,8 +49,9 @@ two that could, and both open by saying nothing new is needed.
 | 7 the multiplication table | 5 | the completed tensor product |
 | 8 solidify a shape | 5, part one chapter 8 | the payoff: topology falls out of an algebra rule |
 
-Chapter 6 is the one a reader is most likely to read as the theory breaking,
-so it says plainly, twice, that it is not.
+Chapter 6 is the one a reader is most likely to read as the theory breaking.
+It therefore says plainly, twice, that the vanishing is a feature of this
+particular notion of completion rather than a defect.
 
 ## Part three, chapter by chapter
 

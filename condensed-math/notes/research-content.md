@@ -134,7 +134,7 @@ directions stand for independent ways a valuation can vary and not for
 coordinates on any particular ring. The figure carries that caption.
 
 **The lectures themselves flag a gap in the literature** that this guide
-repeats rather than resolves: the universal resolution of Lecture IV has no
+repeats rather than resolves. The universal resolution of Lecture IV has no
 published proof, which is why the lectures supply one in an appendix
 (Remark 4.6, page 25).
 

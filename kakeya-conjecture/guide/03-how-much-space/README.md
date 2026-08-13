@@ -4,9 +4,7 @@
 
 ## Overlap is only counted once
 
-Two shapes cover a region. How much area is that? Not the sum of their areas: the part they share is one patch of ground, and ground does not get counted twice because two shapes claim it.
-
-That sounds like a technicality. It is the entire trick.
+Two shapes cover a region, and the area they cover together is not the sum of their two areas. The part they share is one patch of ground, and ground does not get counted twice because two shapes claim it. That sounds like a technicality, and it is what every shrinking construction in this guide runs on.
 
 <img src="overlap.gif" width="820" alt="A triangle split down the middle; the right half slides left onto the left half while a graph shows the total area dropping from 1 to two thirds">
 
@@ -20,7 +18,7 @@ Slide by exactly the right amount and you land on the best deal available:
 
 which is smallest at $t = 2/3$, where the two halves together cover exactly **two thirds** of what the whole triangle covered. The repo checks this closed form at every $t$ it can, exactly, in fractions (`tests/test_core.py`).
 
-Two thirds from one cut. What if you cut again? That is chapter 5.
+That is two thirds from a single cut. Chapter 5 cuts again, and then keeps cutting.
 
 ## How the area is actually measured here
 

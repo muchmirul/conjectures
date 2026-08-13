@@ -43,7 +43,7 @@ Let's paint this number over the whole plane for a hero and a villain:
 python src/viz/ch07_jacobian.py
 ```
 
-Point the microscope somewhere else: change `P = (0.5, 0.5)` and re-run.
+Point the microscope somewhere else by changing `P = (0.5, 0.5)` and running the script again. The reported factor changes with the point, which is the whole reason the microscope is needed.
 
 ---
 

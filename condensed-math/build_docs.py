@@ -30,8 +30,21 @@ REPO = "https://github.com/muchmirul/conjectures/tree/main/condensed-math"
 # --- a very small Markdown reader ------------------------------------------
 
 def inline(text: str) -> str:
-    """Bold, italics, code and links, for one line of prose."""
-    s = html.escape(text)
+    """Bold, italics, code, links and inline maths, for one line of prose.
+
+    Maths is escaped but otherwise passed through untouched, so that MathJax
+    sees it rather than the Markdown rules: a subscript underscore must not
+    be read as emphasis, and a backslash must survive.
+    """
+    parts, out, last = [], [], 0
+    for m in re.finditer(r"\$([^$]+)\$", text):
+        parts.append((m.start(), m.end(), f"${html.escape(m.group(1))}$"))
+    for start, end, rendered in parts:
+        out.append(html.escape(text[last:start]))
+        out.append(rendered)
+        last = end
+    out.append(html.escape(text[last:]))
+    s = "".join(out)
     s = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", s)
     s = re.sub(r"(?<![*\w])\*([^*]+)\*(?!\*)", r"<em>\1</em>", s)
     s = re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
@@ -48,12 +61,14 @@ def parse(md: str) -> list[tuple]:
             i += 1
             continue
         if line.startswith("```"):
+            lang = line[3:].strip()
             body, i = [], i + 1
             while i < len(lines) and not lines[i].startswith("```"):
                 body.append(lines[i])
                 i += 1
             i += 1
-            blocks.append(("code", "\n".join(body)))
+            blocks.append(("math" if lang == "math" else "code",
+                           "\n".join(body)))
         elif line.startswith("#"):
             level = len(line) - len(line.lstrip("#"))
             blocks.append((f"h{level}", line[level:].strip()))
@@ -110,9 +125,23 @@ def is_italic(text: str) -> bool:
             and not text.startswith("**"))
 
 
+#: the heading that opens a chapter's paired block.  Everything from it to
+#: the end of the chapter is the formal statement, the plain-words reading of
+#: it, and the simulation that moves it, and the three are boxed together.
+PAIR_HEADING = "The mathematics"
+
+
 def render_html(blocks, part: Part) -> str:
     out, n, sections = [], 0, []
     hero_open = False
+    pair_open = False
+
+    def close_pair():
+        nonlocal pair_open
+        if pair_open:
+            out.append("</section>")
+            pair_open = False
+
     for kind, payload in blocks:
         if kind == "h1":
             hero_open = True
@@ -120,6 +149,7 @@ def render_html(blocks, part: Part) -> str:
                        f'<p class="kicker">Condensed mathematics, part '
                        f'{part.number} of 3</p><h1>{inline(payload)}</h1>')
         elif kind == "h2":
+            close_pair()
             n += 1
             sections.append((f"s{n}", payload))
             if "·" in payload:
@@ -129,6 +159,10 @@ def render_html(blocks, part: Part) -> str:
             else:
                 out.append(f'<h2 id="s{n}">{inline(payload)}</h2>')
         elif kind == "h3":
+            if payload.strip() == PAIR_HEADING:
+                close_pair()
+                out.append('<section class="mathpair">')
+                pair_open = True
             out.append(f"<h3>{inline(payload)}</h3>")
         elif kind == "p":
             if hero_open and is_italic(payload):
@@ -166,9 +200,12 @@ def render_html(blocks, part: Part) -> str:
             cls = ' class="words"' if longest > 25 else ""
             out.append(f'<div class="scroll"><table{cls}><thead><tr>{cells}</tr>'
                        f"</thead><tbody>{rows}</tbody></table></div>")
+        elif kind == "math":
+            out.append(f'<div class="eq">$$ {payload} $$</div>')
         elif kind == "code":
             out.append(f"<pre><code>{html.escape(payload)}</code></pre>")
 
+    close_pair()                  # in case an article ends inside a pair
     body = "\n".join(out)
     links = "".join(f'<a href="#{i}">{html.escape(t)}</a>' for i, t in sections)
     nav = f'<nav class="toc">{links}</nav>'
@@ -295,6 +332,19 @@ STYLE = """
   nav.parts .pn { display: block; font-size: 0.72rem; letter-spacing: 0.08em;
                   text-transform: uppercase; color: var(--violet); font-weight: 600; }
   nav.parts .pt { display: block; font-size: 0.9rem; margin-top: 0.15rem; }
+  .eq { overflow-x: auto; margin: 1rem 0; }
+  /* the maths, the plain words and the simulation, rendered as one unit so a
+     reader can see that each formal statement is paired with both */
+  section.mathpair {
+    background: var(--card); border: 1px solid var(--line);
+    border-left: 4px solid var(--violet); border-radius: 0 10px 10px 0;
+    padding: 0.3rem 1.2rem 1.1rem; margin: 1.9rem 0;
+  }
+  section.mathpair h3 {
+    margin: 1rem 0 0.5rem; color: var(--violet); font-size: 1rem;
+    letter-spacing: 0.02em; text-transform: uppercase;
+  }
+  section.mathpair figure.sim { margin-bottom: 0.4rem; }
   figure img.missing { outline: 2px dashed var(--red); padding: 1rem; }
   figure.sim iframe { width: 100%; height: 660px; border: 1px solid var(--line);
                       border-radius: 10px; background: #fff; }
@@ -327,6 +377,14 @@ TEMPLATE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TITLEHERE</title>
 <meta name="description" content="DESCHERE">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$', '$'], ['\\\\(', '\\\\)']],
+         displayMath: [['$$', '$$'], ['\\\\[', '\\\\]']] },
+  chtml: { scale: 1.0 }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 <style>STYLEHERE</style>
 </head>
 <body>

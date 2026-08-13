@@ -1,8 +1,6 @@
 # 9 · The trap
 
-This is the second part of the construction. It handles the remaining danger: a triangle that uses two rooms.
-
-Consider two people in one room and a third person outside it. Suppose both incoming connections use red. A red triangle appears if the two people inside the room are also connected in red. The construction must prevent the two incoming connections from landing on such a pair.
+The second part of the construction handles the remaining danger, a triangle that uses two rooms. Consider two people in one room and a third person outside it. Suppose both incoming connections use red. A red triangle appears if the two people inside the room are also connected in red. The construction must prevent the two incoming connections from landing on such a pair.
 
 Look at the red connections already inside the room. Split the people into **teams** so that no red connection has both ends in one team. In the five-person room, the red connections form a ring, and the next picture shows a split into three teams.
 
@@ -18,7 +16,7 @@ There is a second safe case. If red appears on the room's palette, then red is n
 
 It would be convenient to use only two teams for every colour, but that rule is too strict. Keeping the same two sides lined up across every room and every floor would cost almost as much as giving each room fresh colours. The new construction lets the number of teams grow slowly instead. When a floor is added, rooms that use a colour keep their existing teams. All rooms that omit that colour form one extra team together. The number of teams therefore rises by only one on each floor. This keeps the referee's set of symbols small enough to manage.
 
-The animation is a small demonstration of why the team rule matters. The real construction does not choose each arrival by hand. It needs one fixed procedure that enforces the rule for every pair of rooms without adding new colours. That procedure is the referee in the next section.
+The animation is a small demonstration of why the team rule matters. The real construction does not choose each arrival by hand, so it needs one fixed procedure that enforces the rule for every pair of rooms without adding new colours. That procedure is the referee in the next section.
 
 **[Play with this](https://muchmirul.github.io/conjectures/multicolor-ramsey/play/09.html)** to compare a broken landing rule with a safe one.
 

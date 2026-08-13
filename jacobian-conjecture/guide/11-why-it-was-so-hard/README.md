@@ -8,13 +8,13 @@
 
 The pattern repeats for a century: someone announces a proof; the world gets excited; a subtle hole is found. It happened to Kraus in 1884 (before Keller even stated the problem!), to Engel in 1955, three times to Segre, to Gröbner, and to a steady stream of modern attempts. The conjecture earned a reputation as mathematics' most reliable producer of *almost*-proofs.
 
-Why? Because any successful proof must squeeze through three trapdoors at once.
+The reason is that any successful proof must squeeze through three trapdoors at once. Each one closes off a whole family of natural arguments.
 
 ## Trapdoor 1: it is false over the real numbers
 
-Hope: maybe ordinary real-plane geometry, the kind our pictures show, is enough to force undoability once the local factor never vanishes.
+Hope: maybe ordinary real-plane geometry, the kind our pictures show, is enough to force undoability once the local factor never vanishes. It is the first thing anyone would try.
 
-**No.** In 1994, Sergey Pinchuk constructed an explicit pair of polynomials $(p, q)$, degrees 10 and 25, whose local area factor is **strictly positive at every real point**… and which still sends two different points to the same place.
+**No.** In 1994, Sergey Pinchuk constructed an explicit pair of polynomials $(p, q)$, of degrees 10 and 25, whose local area factor is **strictly positive at every real point**. That map still sends two different points to the same place.
 
 <img src="pinchuk_det.gif" width="620" alt="A probe sweeps Pinchuk's log-scale determinant heatmap, its readout dipping into deep valleys while the running minimum shows the floor is never zero">
 
@@ -23,7 +23,7 @@ No crushing anywhere, no mirror-flipping anywhere, and still a collision. Real-v
 <details>
 <summary>How can we be sure the factor is never zero? (a gem, optional)</summary>
 
-Pinchuk's local area factor obeys an exact algebraic identity: with his auxiliary polynomials $t$ and $f$,
+Pinchuk's local area factor obeys an exact algebraic identity. Writing $t$ and $f$ for his auxiliary polynomials, it reads:
 
 ```math
 \det J = t^2 + \big(t + f\,(13 + 15h)\big)^2 + f^2
@@ -33,7 +33,7 @@ Pinchuk's local area factor obeys an exact algebraic identity: with his auxiliar
 
 ## Trapdoor 2: it is false in "clock arithmetic"
 
-Hope: maybe pure algebra, just formal manipulation of polynomial symbols, valid in any number system, can do it.
+Hope: maybe pure algebra, meaning formal manipulation of polynomial symbols valid in any number system, can do it. That would avoid geometry altogether.
 
 **No.** In arithmetic on a clock with a prime number $p$ of positions (add, multiply, wrap around), the innocent one-variable machine $F(x) = x - x^p$ has constant slope 1, the perfect Keller hypothesis, yet it maps *every* clock position to 0. Total collapse. So any proof must genuinely use a property that ordinary numbers have and clock arithmetic lacks (*characteristic zero*, in the jargon). Purely formal symbol-pushing cannot be enough.
 
@@ -41,13 +41,13 @@ Hope: maybe pure algebra, just formal manipulation of polynomial symbols, valid 
 
 ## Trapdoor 3: the danger hides at infinity
 
-Hope: a classical theorem (Hadamard) says a map that is locally undoable everywhere **and** doesn't let points "escape to infinity" is globally undoable. Maybe polynomial maps can't escape?
+Hope: a classical theorem of Hadamard says that a map which is locally undoable everywhere **and** does not let points "escape to infinity" is globally undoable. The question is then whether polynomial maps can escape.
 
 **They can.** Take the crush map $(x, xy)$ and the points $(1/2, 2), (1/3, 3), (1/4, 4), \dots$, they march off to infinity, while their outputs $(1/2, 1), (1/3, 1), (1/4, 1), \dots$ calmly approach an ordinary point. A sequence flees; its shadow stays:
 
 <img src="escape.gif" width="820" alt="Two panels: on the left the input point (1/s, s) rides the hyperbola out of the top of every window as s grows; on the right its output (1/s, 1) slides gently along the line y = 1 toward the ordinary point (0, 1)">
 
-So the escape hatch is open, all the interesting action happens "near infinity", and that is exactly where every naive argument, starting with Kraus's in 1884, silently leaked.
+So the escape hatch is open, and all the interesting action happens near infinity. That is exactly where every naive argument, starting with Kraus's in 1884, silently leaked.
 
 ## And one more omen: dimension 3 is stranger
 

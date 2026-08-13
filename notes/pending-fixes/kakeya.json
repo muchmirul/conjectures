@@ -1,0 +1,532 @@
+[
+ {
+  "file": "kakeya-conjecture/ARTICLE.md",
+  "claims": [
+   {
+    "before": "Every one of those steps is a computation on small grids, and the repository runs all of them: finding the vanishing polynomial by linear algebra over the field, restricting it to a line and watching every coefficient come out zero, comparing top coefficients with top parts, and computing the rank that closes the argument.",
+    "after": "... and computing the rank that closes the argument. Each of those runs prints its numbers, so this section can be followed line by line rather than taken on trust.",
+    "why": "Brand new claim about the repository, and it is false. Dvir's six steps are checked as pytest assertions in kakeya-conjecture/tests/test_finite.py, and `make test` runs `pytest -q`, which prints dots, not numbers. The only print statements anywhere in src/ or tests/ are the thirteen `print(f\"wrote figures to {OUT}\")` lines in src/viz/ch*.py. This breaks the CLAUDE.md rules 'do not oversell' and 'the prose must agree with the tests'. Delete the sentence, or point the reader at the named tests instead.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "That sounds like a technicality. It is the whole trick.",
+    "after": "That sounds like a small piece of bookkeeping, and everything else in this article depends on it.",
+    "why": "The original called overlap the trick behind the shrinking constructions. The revision promotes it to a universal claim about the whole article, which the article itself contradicts: section 7 (box dimension of the Cantor set), section 10 (Dvir's polynomial proof on a grid) and section 11 (the hairbrush) do not depend on counting shared ground once. Narrow it to the constructions that actually use it.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "A needle only cares about direction, and overlapping pieces hold all the directions they held apart. So overlap is free storage.",
+    "after": "What matters for a needle is direction alone, and pieces that overlap still hold every direction they held while apart. Because of this, overlap costs nothing, and it is the main way each later construction saves area.",
+    "why": "'the main way each later construction saves area' is new and is wrong for two of the later constructions. The Pal join of section 4 saves area by sliding along the needle's own line, not by overlapping anything, and the section 12 slab saves nothing by overlap at all (its point is that height comes free). Only the Perron tree of section 5 fits the sentence.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "Can you do better? Here are three rooms, with the needle really turning in each one.",
+    "after": "Smaller rooms are possible, and the next figure shows three of them, with the needle really turning in each one.",
+    "why": "Miscounts the figure. The gif's own alt text is 'a needle spinning in a disc, a three point turn in a triangle, a chord sliding inside a deltoid', and the disc is the room just described in the preceding clause, not a smaller one. Only two of the three panels are smaller rooms. The original asked a question and then showed three rooms, which was accurate.",
+    "severity": "number-or-name"
+   },
+   {
+    "before": "In the plane two tubes pointing in nearly the same direction can hug each other along their whole length, and a set can be almost made of lines without containing any. Polynomials do not notice \"almost\".",
+    "after": "... and a set can be almost made of lines without containing any. The polynomial argument needs a line to lie exactly inside the set, so it has nothing to say about a set that only comes close.",
+    "why": "The original was a remark about exact vanishing. The revision turns it into a flat statement that the polynomial argument 'has nothing to say' about near-lines, which reads as a claim about the polynomial method in the continuous setting and is undercut by the article's own timeline, since the 2019 Katz and Zahl row and the 2025 Wang and Zahl proof sit downstream of polynomial partitioning. Bound the claim to Dvir's step 3 ('this argument needs the line to lie exactly inside K') rather than to polynomials in general.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "Half the surprises in this story come from the gap between them.",
+    "after": "Several of the surprises in this story come from the gap between the two.",
+    "why": "A quantity that was asserted got quietly weakened. Both are informal, so this is the mildest item here, but it is a change in what is claimed rather than in how it is said, and the surrounding sentence was rewritten anyway, so restoring 'half' costs nothing.",
+    "severity": "claim-strength"
+   }
+  ],
+  "style": [
+   "Section 3: 'That sounds like a small piece of bookkeeping, and everything else in this article depends on it.' The forbidden two-beat contrast (setup, then reversal) survived the revision, only joined by 'and'. Replace with a plain statement of why the shared ground is counted once.",
+   "Section 1: 'Two questions about a shape will come back again and again: 1. Whether the shape holds a needle in every direction. 2. Whether the needle can turn from one direction to the next without leaving the shape.' Announced as questions but written as sentence fragments, apparently to dodge the no-rhetorical-questions rule. Either restore the question marks (a labelled question in a list is not a rhetorical question) or write them as statements: 'The first asks whether the shape holds a needle in every direction.'",
+   "Section 6: 'One step hides inside that sentence.' A one-sentence teaser opener with informal personification. Say it directly: 'That sentence skips a step. A tree only holds the directions of the triangle it was cut from ...'",
+   "Section 5: 'why the picture in your head resists the next section' and Section 6: 'this is where the free slide earns its keep'. Both are informal personification and idiom. 'why the next section is hard to believe' and 'this is what the free slide is for' carry the same information.",
+   "Section 10: 'a flat drawing of a cube of points lies about which points are near each other', and Section 8: 'the only way a flat screen can tell the truth about depth'. Drawings and screens lying and telling the truth is decorative personification. 'a flat drawing of a cube of points makes distant points look adjacent' says it plainly.",
+   "Closing: 'For a century this was a story about shrinking: how small a room can be, how much smaller it can get, and whether there is a floor.' The escalating triple that CLAUDE.md names. Two clauses do the same work.",
+   "Closing: 'The answer, when it came, was not a trick but thirty years of accumulated ability to talk about structure at many scales at once.' The 'not X but Y' pattern, the same shape the style file forbids as 'X is not Y. It is Z.' Write it positively: 'The answer came from thirty years of accumulated ability ...'",
+   "Section 11: 'The whole assault on three dimensions can be read off one number', with 'the modern assault begins' in the timeline. The war metaphor is decorative and unexplained. 'The whole hundred year effort in three dimensions can be read off one number' loses nothing.",
+   "Section 8: the figure now sits between the boxed statement and 'That statement is the Kakeya set conjecture', so the referent of 'That statement' is on the far side of an image. Name the conjecture before the figure, then let the figure follow.",
+   "Section 5: 'One natural choice works less well than it looks. The obvious thing is to use the best single merge at every stage, overlapping each pair to two thirds.' The first sentence is an empty lead-in to the second. Merge them: 'The obvious choice, the best single merge at every stage, overlapping each pair to two thirds, works less well than it looks.'"
+  ]
+ },
+ {
+  "file": "kakeya-conjecture/guide/00-start-here/README.md",
+  "claims": [
+   {
+    "before": "If a sentence feels obvious, good, that is the design, not an accident.",
+    "after": "Many of the sentences will feel obvious, which is how the guide is meant to read, because each one carries only one small step.",
+    "why": "Two changes of substance, not wording. (1) A conditional about the reader's possible reaction (\"if a sentence feels obvious\") becomes a prediction the guide now asserts about itself (\"many of the sentences will feel obvious\"). (2) It adds a brand new claim the original never made: that each sentence carries only one small step. The repo's actual granularity claim is per chapter, not per sentence, and it is stated two paragraphs earlier as \"Each chapter is one small idea\" (line 14); ARTICLE.md line 11 likewise says \"Each section is one small idea\". A per-sentence promise is a promise the text cannot keep, which is exactly the overselling CLAUDE.md forbids (\"Promise exactly what is delivered\"). Suggested repair: \"Read the chapters in order, and look at each picture before reading the text around it. Many sentences will feel obvious, which is how the guide is meant to read, because each chapter adds only one small step.\"",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "**the shape can be made smaller than any size you name.** A millionth. A trillionth.",
+    "after": "**The shape can be made smaller than any size you name**, a millionth of a square unit, or a trillionth.",
+    "why": "The revision supplies a unit the original left unstated, so the sentence now asserts something slightly more specific than before. The reading is correct (the preceding sentence measures the shape in square units, and the arbitrarily-small-area result is about area), so this needs no fix; it is listed because it is an added specification rather than a rewording. Note the second item, \"or a trillionth\", now inherits \"of a square unit\" only by implication, which is fine.",
+    "severity": "number-or-name"
+   }
+  ],
+  "style": [
+   "Line 7: \"That already sounds like a tight fit, and the fact that broke people's intuition for a hundred years is that the fit can be made much tighter than this.\" Dramatic framing plus informal personification (\"broke people's intuition\"), and the sentence circles its own metaphor (\"tight fit\" then \"much tighter\") instead of stating the fact. It also announces that a surprising fact is coming before giving it, which the style rules call an unnecessary introduction. Plainer: \"That already sounds like a tight fit, and for a hundred years it surprised people that the fit can be much tighter than this.\"",
+   "Line 9: \"He expected a pretty answer, and what the question produced instead was one of the strangest facts in geometry, together with a further question that stayed open for a century until its answer arrived in February 2025.\" The cleft construction \"what the question produced instead was\" is indirect where a plain subject and verb would do, \"a pretty answer\" is vague, and \"one of the strangest facts in geometry\" is decorative superlative. Also the clause piles three ideas into one 45-word sentence. Plainer: \"He expected a simple answer. Instead the question led to one of the most surprising facts in geometry, and to a further question that stayed open for a century. Its answer arrived in February 2025.\"",
+   "Line 13: \"Nothing. Every idea is built from pictures first, words second, symbols last.\" A one-word fragment followed by the escalating three-beat pattern CLAUDE.md names explicitly. Plainer: \"Nothing at all. Every idea starts with a picture, then words, and symbols only at the end.\"",
+   "Line 30: \"Many of the sentences will feel obvious, which is how the guide is meant to read, because each one carries only one small step.\" Beyond the claim problem above, it chains a relative clause onto a causal clause so the reader has to hold three thoughts at once, and it reassures rather than informs. Splitting it into two short declarative sentences fixes both.",
+   "Line 5: \"by the end of its journey it will have pointed in every direction there is\". \"Journey\" is a metaphor doing no work for a needle that simply turns; \"by the time it finishes turning\" says the same thing literally."
+  ]
+ },
+ {
+  "file": "kakeya-conjecture/guide/01-the-needle/README.md",
+  "claims": [
+   {
+    "before": "Turning the needle through a half circle takes it through **every direction that exists**. That is what \"turning the needle around\" means from here on, and it is the whole of Kakeya's question.",
+    "after": "Turning the needle through a half circle therefore takes it through **every direction that exists**. That is what \"turning the needle around\" will mean from here on, and Kakeya's question is entirely about doing it inside a given shape.",
+    "why": "The revision adds a restriction the original sentence never stated: \"inside a given shape\". That is new content, not new wording, and it lands one paragraph before the section that carefully separates two questions. By saying Kakeya's question is \"entirely about\" turning the needle inside a shape, the revised line commits the reader to the needle-set version (question 2) alone, while the very next section says the rest of the guide asks two questions, only one of which involves turning. The original's \"it is the whole of Kakeya's question\" was already loose, but it did not name the shape constraint or pre-empt the split.",
+    "severity": "other"
+   },
+   {
+    "before": "For this whole guide, the \"where\" is scenery. The \"which way\" is the plot.",
+    "after": "For this whole guide the position of a needle matters much less than its direction, so most of what follows asks which way the needle points rather than where it sits.",
+    "why": "Strength of the assertion moved. The original said position is scenery, that is, it plays no part in the question at all. The revision hedges to \"matters much less\", which concedes that position does matter somewhat, and it hedges the coverage from \"this whole guide\" to \"most of what follows\". The hedged version happens to be the more accurate one, since later chapters depend entirely on where needles are placed so that they overlap, but the change is to what is claimed, not to how it is said, and a style-only pass should not have made it.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "Keep the two apart in your head. Half the surprises in this story come from the gap between them.",
+    "after": "It helps to keep the two apart, since much of what is surprising later comes from the gap between them.",
+    "why": "A stated fraction became a vague quantifier: \"half the surprises\" to \"much of what is surprising\". The figure was rhetorical rather than measured, so no mathematics is affected, but it is a number that moved in a pass that was supposed to touch only wording. The scope also shifted from \"this story\" (the guide as a whole) to \"later\" (the chapters after this one). Note that the source text this chapter mirrors, kakeya-conjecture/ARTICLE.md line 32, still reads \"Half the surprises in this story come from the gap between them\", so the two copies now disagree.",
+    "severity": "number-or-name"
+   },
+   {
+    "before": "Take a straight piece of wire, one unit long. Where the unit comes from does not matter. Call it a **needle**.",
+    "after": "Take a straight piece of wire, one unit long. Where the unit comes from does not matter, so call the wire a **needle**.",
+    "why": "The revision welds two independent statements together with \"so\", asserting a derivation that does not hold: naming the wire a needle does not follow from the choice of unit being arbitrary. CLAUDE.md asks explicitly that before writing \"so\" or \"therefore\" the step be checked, and this one does not follow. Merging the sentences was legitimate under the connected-paragraph rule; supplying a causal link that the original did not claim was not.",
+    "severity": "other"
+   },
+   {
+    "before": "*By the end of this page you will know exactly what the puzzle is about, and the one word that carries the whole story: direction.*",
+    "after": "*By the end of this page you will know what the puzzle is about, and why one word, direction, carries the rest of the guide.*",
+    "why": "Minor, and in the safe direction, but still a change in what is promised rather than in how it is phrased. \"exactly what the puzzle is about\" became \"what the puzzle is about\", and the promise now covers \"the rest of the guide\" instead of \"the whole story\". It also promises to explain why direction carries the guide, which this page does not do; it only shows that directions fill a half circle.",
+    "severity": "claim-strength"
+   }
+  ],
+  "style": [
+   "\"Point the needle east, then point it west, and nothing about it has really changed, because a needle has no head and no tail, so those count as the same direction.\" Four clauses chained with \"and ... because ... so\", and \"those\" has no clean antecedent, since east and west were given as instructions rather than as named things. I would split it: \"Point the needle east, then point it west. The needle has no head and no tail, so east and west count as the same direction.\"",
+   "\"Question 2 is stricter than question 1, because holding every direction is not the same as being able to swing between them, which is the difference between a set of parking spaces and a road network.\" The subordinate chain \"because ... which is ...\" hangs the analogy off the end of an already long sentence, so the reader meets the comparison after the point it is meant to illustrate. I would make the analogy its own sentence.",
+   "\"...so most of what follows asks which way the needle points rather than where it sits.\" The text is described as asking, and the needle as sitting, which is the informal personification the style notes rule out. Plainer: \"...so later chapters look at the direction of the needle rather than its position.\"",
+   "\"By the end of this page you will know what the puzzle is about, and why one word, direction, carries the rest of the guide.\" This is an introduction announcing an introduction, and a word carrying a guide is decorative rather than informative. The style rules ask that the explanation begin directly, so I would either drop the line or replace it with a plain statement of what the page defines: a needle, its direction, and the two questions."
+  ]
+ },
+ {
+  "file": "kakeya-conjecture/guide/02-turning-around/README.md",
+  "claims": [
+   {
+    "before": "Area: $\\pi/8 \\approx 0.3927$, half the triangle.",
+    "after": "Its area is $\\pi/8 \\approx 0.3927$, half the area of the disc.",
+    "why": "A numeric comparison was silently swapped to a different referent. Checked: pi/8 = 0.39270 is exactly half of pi/4 = 0.78540 (the disc) and 0.680 of 1/sqrt3 = 0.57735 (the triangle), so the original sentence was arithmetically wrong and the revision is right. That makes it a real correction, not a rewording, and a style-only pass had no licence to make it. Two consequences: it silently repairs a factual error that should be committed as a visible correctness fix, and it desyncs the hand-maintained mirror, since kakeya-conjecture/ARTICLE.md line 44 still reads 'Area $\\pi/8 \\approx 0.3927$, half the triangle.' Per CLAUDE.md the Kakeya prose lives in ARTICLE.md and the chapter README together, so the two copies now assert different things about the same number.",
+    "severity": "number-or-name"
+   },
+   {
+    "before": "**The deltoid.** Drop convexity and you can do better.",
+    "after": "**The deltoid.** Rooms that are allowed to have dents do better than the triangle.",
+    "why": "The modal 'can' was dropped and a possibility claim became a general statement. 'Drop convexity and you can do better' says only that beating 0.5774 becomes possible once the room may have dents. 'Rooms that are allowed to have dents do better than the triangle' reads as a property of non-convex rooms in general, which is false: a dented room can have any area at all, including far more than 0.5774. This is the failure CLAUDE.md names, a smoother sentence that claims more than the construction gives. Restore the modality, for example 'Once a room is allowed to have dents, it can do better than the triangle.'",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "You want to turn a needle right around. Easy: draw a circle around its middle and spin it.",
+    "after": "The easiest way to turn a needle right around is to draw a circle about its middle and spin it.",
+    "why": "A superlative was introduced that the original did not make and the page never supports. The original asserted only that this method is easy. The revision asserts it is the easiest, an unranked comparative claim sitting directly under a heading ('The lazy answer') whose whole point is that the disc is the wasteful choice; the triangle's three point turn is arguably just as easy to carry out. Nothing on the page or in tests/test_shapes.py establishes an ordering of ease. Write 'One easy way ...' or 'The obvious way ...'.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "Can you do better? Watch three rooms at once.",
+    "after": "Smaller rooms than that disc exist, and the animation below runs three rooms side by side, the disc and two that beat it.",
+    "why": "A question was replaced by two new assertions: that smaller rooms exist, and that two of the three panels beat the disc. Both are consistent with the numbers given a few lines later (0.5774 and 0.3927 against 0.7854), so this is accurate, but it is new content rather than a rewording, and it states the result before the figure that is supposed to show it. Removing the rhetorical question is required by the style rules; the replacement can stay descriptive, for example 'The animation below runs three rooms side by side.'",
+    "severity": "other"
+   },
+   {
+    "before": "To understand it you need two ordinary looking ideas first: what area really counts (chapter 3), and what moving a needle really costs (chapter 4).",
+    "after": "Chapter 6 gives it in full, but two ordinary looking ideas come first: what area really counts (chapter 3), and what moving a needle really costs (chapter 4).",
+    "why": "Two changes in one sentence. The necessity claim was weakened to a statement about reading order: the original said the two ideas are needed in order to understand the answer, the revision says only that they come first in the book, which loses the reason not to skip ahead. Separately, 'gives it in full' is a new promise about chapter 6 that the original did not make. Chapter 6 does quote the Besicovitch 1928 statement in full, but it also carries a section ('What the repo can and cannot show you') saying the limit itself is quoted from the literature rather than verified, so 'in full' is a stronger advertisement than that chapter's own hedging supports.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "Roll a circle of radius 1/4 inside a circle of radius 3/4 and follow one point: you get a three cusped curve.",
+    "after": "Roll a circle of radius 1/4 inside a circle of radius 3/4 and follow one point on the rolling circle, and you get a three cusped curve.",
+    "why": "A geometric specification was added that the original left unstated: the traced point is on the rolling circle. It is correct, the deltoid is the hypocycloid traced by a point on the rim of the rolling circle, and it probably helps a beginner, but it is added mathematical content in a pass that was supposed to touch wording only. Flagged so it gets confirmed rather than slipping through unreviewed.",
+    "severity": "other"
+   }
+  ],
+  "style": [
+   "\"The answer to Kakeya's question took two years to arrive, and nobody was ready for it.\" The second clause is decorative drama of the kind the style rules ask to remove, and it asserts a state of mind for everyone alive in 1919 that nothing supports. I would write what actually happened: \"Besicovitch answered it two years later, and the answer was not a shape at all.\"",
+   "\"...because each improvement so far had come from a cleverer shape and shapes seem to run out.\" \"Shapes seem to run out\" is informal personification and too vague to carry the reason it is being asked to carry. I would write \"...because every improvement so far had come from finding a smarter shape, and there are only so many shapes to try.\"",
+   "Section heading \"## The lazy answer\". A slogan-style label rather than a description of the content, and it now fights the sentence under it that calls the disc the easiest way. I would use a plain heading such as \"Spinning inside a disc\".",
+   "\"*By the end of this page you will have seen the three rooms everyone thinks of first, watched a needle turn inside each one, and met the 1917 question.*\" This is an escalating triple, the pattern CLAUDE.md names, and \"the three rooms everyone thinks of first\" claims something about all readers that the page does not deliver. I would cut it to one plain sentence naming the three rooms and the question.",
+   "\"> **The one thing to remember:** disc 0.7854, triangle 0.5774 and it is the best convex room, deltoid 0.3927. Kakeya asked in 1917 how far down this goes.\" A run of slogan fragments, and \"and it is the best convex room\" dangles off a bare number with no grammatical anchor. I would make it connected prose: \"A disc costs 0.7854, an equilateral triangle costs 0.5774 and is the best room with no dents, and a deltoid costs 0.3927. In 1917 Kakeya asked how far down this goes.\"",
+   "\"Smaller rooms than that disc exist, and the animation below runs three rooms side by side, the disc and two that beat it.\" Two unrelated ideas joined by \"and\", with a trailing appositive hanging off the end. I would split it: \"The animation below runs three rooms side by side. The first is the disc, and the other two are smaller.\""
+  ]
+ },
+ {
+  "file": "kakeya-conjecture/guide/03-how-much-space/README.md",
+  "claims": [],
+  "style": [
+   "\"That rule sounds like a small piece of bookkeeping, and it is what the rest of this guide is built on.\" This is the same concessive setup-and-reveal as the original's banned two-beat (\"That sounds like a technicality. It is the entire trick.\"); only the punctuation changed, the rhetorical move survives. Replace with a plain statement, e.g. \"Ground shared by several shapes is paid for once, and that single rule is what the rest of the guide is built on.\"",
+   "\"the rest of the guide relies on\" (opening line), \"what the rest of this guide is built on\" (first paragraph), \"the rest of the guide follows how far it can be taken\" (last paragraph of 'Why this matters for a needle'). The revision introduced the same phrase three times on one short page where the original used it once; drop or vary two of them.",
+   "\"At each height, a single sliver covers one interval, so a pile of slivers covers a union of intervals, and a union of intervals has a clear length once the shared parts are counted only once.\" Three steps chained into one 40-word sentence with 'so ... and ...'. For the no-math reader this guide targets, split after 'union of intervals' so each step lands on its own.",
+   "\"The two pieces never shrink and nothing is thrown away, and every direction the original triangle held is still held, because sliding a piece sideways does not turn it.\" Two 'and' joins plus a trailing 'because' clause in one sentence. Fusing the original's four steps this tightly loses the brick-by-brick build; put a period after 'nothing is thrown away'."
+  ]
+ },
+ {
+  "file": "kakeya-conjecture/guide/04-the-free-slide/README.md",
+  "claims": [
+   {
+    "before": "*By the end of this page you will know why a needle can wander anywhere it likes for almost no cost, which is the second half of the loophole.*",
+    "after": "*By the end of this page you will know why a needle can reach almost any position for almost no area, which is the second half of the loophole.*",
+    "why": "Scope change, not wording. The original hedges only the cost (\"almost no cost\"); the revision adds a second hedge on reachability (\"almost any position\") and never says which positions are excluded. What the chapter proves has no hedge on reachability: a Pal join puts the needle on any parallel line, for area theta with theta as small as you like (pal_join_area(0.001) -> 0.001). Say the proved thing: the needle can get onto any parallel line for as little area as you choose.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "Move a needle sideways and it sweeps a rectangle. Move it along the line it already lies on and it sweeps... the line it already lies on.",
+    "after": "A needle covers area in two quite different ways, depending on how it moves.",
+    "why": "New completeness claim. The original lists two motions without claiming they are all of them. The revision asserts there are exactly two ways a needle covers area, and the very next section introduces a third motion, pivoting, which costs theta/2. The page then disagrees with itself: this sentence says two, the next section adds a third, and line 11 still says \"Only *turning* and *sideways* motion cost area\".",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "Move a needle sideways and it sweeps a rectangle.",
+    "after": "When it moves sideways, it sweeps out a rectangle, and the area of that rectangle grows with every bit of distance it travels.",
+    "why": "New quantitative claim the original does not make. It is true for a perpendicular push (swept area = needle length times distance) but nothing in the chapter, the figures, or tests/test_shapes.py establishes or uses it, and it is the claim that later makes \"the complete price list\" false.",
+    "severity": "other"
+   },
+   {
+    "before": "Pivot a needle about one end through an angle $\\theta$ and it sweeps a circular sector, of area",
+    "after": "When you pivot a needle about one end through an angle $\\theta$, the far tip traces part of a circle, so the needle sweeps a circular sector, which is the shape of a slice of pie. For a needle of length 1 the area of that slice is:",
+    "why": "Adds a condition the original left implicit in the bare 1^2 of the formula. It matches sector_area(angle, length) = |angle| * length**2 / 2, so this is a correctness improvement rather than a regression, but it is still a change in what is asserted and should be kept if the paragraph is rewritten again. \"the far tip traces part of a circle\" is also new and correct.",
+    "severity": "other"
+   },
+   {
+    "before": "This is the only price list in the problem: **free to slide along yourself, $\\theta/2$ to pivot through $\\theta$.**",
+    "after": "Those two results together are the complete price list for moving a needle: **free to slide along yourself, $\\theta/2$ to pivot through $\\theta$.**",
+    "why": "Strengthened from a scoped claim (\"the only price list in the problem\", meaning inside the construction being built, where only slides and pivots are used) to a general claim about moving a needle at all. As written it is false, and the same page supplies the counterexample: a sideways push sweeps a rectangle whose area grows with distance, so a third motion with a nonzero price is left off a list now called complete. Restore the scope, for example \"these are the only two prices the construction ever pays\".",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "Naively that is a sideways shove, and sideways is expensive.",
+    "after": "The obvious way is to push it straight across the gap, but that is sideways motion, which is the expensive kind, because it sweeps out the whole rectangle between the two lines.",
+    "why": "New causal claim. It is right for a perpendicular push of a unit needle (swept area = gap width times needle length), but \"the whole rectangle between the two lines\" reads as the entire strip between two infinite parallel lines, which is not what the needle sweeps. The swept area is also just gap times 1, a fixed number, so \"expensive\" holds only relative to theta, which the sentence no longer says.",
+    "severity": "other"
+   },
+   {
+    "before": "Instead: slide the needle far out along its own line (free), pivot through a small angle $\\theta$ (cost $\\theta/2$), slide along that slightly slanted line until it arrives at the other line (free), pivot back (cost $\\theta/2$).",
+    "after": "The cheap route avoids the sideways push completely. Slide the needle far out along its own line (free), pivot through a small angle $\\theta$ (cost $\\theta/2$), slide along that slightly slanted line until it arrives at the other line (free), then pivot back to the original direction (cost $\\theta/2$).",
+    "why": "Two additions the original does not assert: that the route contains no sideways motion at all, and that the second pivot returns the needle to its original direction. Both hold for the Pal join as coded in shapes.pal_join_area, so no fix is needed, but they are new assertions rather than rewording.",
+    "severity": "other"
+   },
+   {
+    "before": "Fact 1 says you can pile up directions cheaply.",
+    "after": "The first fact means many directions can be stored in very little area, as long as the pieces holding them overlap.",
+    "why": "Adds a condition the original does not state. It agrees with chapter 3 (overlapping pieces are charged once), so this is a correct tightening and worth keeping, but it changes what is claimed rather than how it is worded.",
+    "severity": "other"
+   },
+   {
+    "before": "Put them together and Kakeya's question is about to get an answer nobody wanted.",
+    "after": "Taken together, they lead into the construction of the next chapter, which answers Kakeya's question in a way few people expected.",
+    "why": "The pointer now names the wrong chapter. The original only says an answer is coming; the revision says the next chapter's construction answers Kakeya's question. The next chapter is 05-the-perron-tree, which builds the tree, ends on the one sixth stall and areas like 0.1295, and claims no answer in its own summary. Chapter 6 is the one whose preamble says \"you will know the answer to Kakeya's 1917 question\", and chapter 6 also records two repairs the tree needs first: a tree holds only a fan of about 53 degrees, so four rotated copies are needed, and a set holding every direction is still not a set the needle can turn inside. The same sentence also swaps the reception claim \"an answer nobody wanted\" for \"a way few people expected\", a different assertion about how the result was received.",
+    "severity": "number-or-name"
+   }
+  ],
+  "style": [
+   "\"This is a real motion rather than a trick of bookkeeping.\" This is the X-rather-than-Y contrast the rules forbid, plus a metaphor (bookkeeping), and \"trick\" now collides with the section heading \"Pal's trick\" two paragraphs above, so one word means both the honest construction and a swindle on the same page. Replace with a flat statement such as \"The needle really does move along this path, and the area it covers really is theta.\"",
+   "\"**free to slide along yourself, $\\theta/2$ to pivot through $\\theta$.**\" (repeated in the closing box) addresses the needle as \"yourself\", which is the informal personification the rules list under Avoid, and the bolded two-item line reads as a slogan. Rewrite as prose: \"sliding along the needle's own line costs no area, and pivoting through theta costs theta/2\".",
+   "\"Shrinking the pivot does have a cost of its own, and the plot below shows where it lands:\" The phrase \"where it lands\" is decorative and says nothing about the figure. State what the plot shows: as the pivot angle shrinks, the swept area falls in step with it while the distance travelled climbs, both on log scales.",
+   "\"A needle covers area in two quite different ways, depending on how it moves.\" and \"Turning is the motion that does cost something, and the cost can be worked out exactly.\" are both announcements of what is about to be explained. The rules ask the explanation to begin directly, so start with the sideways rectangle and with the pivot itself.",
+   "\"which answers Kakeya's question in a way few people expected\" is drama resting on a guess about what people expected, and nothing on the page supports it. Say what the next chapters actually do: cut the triangle into slivers, slide them together, and watch how far the area can fall.",
+   "Sync note: ARTICLE.md section 4 still carries the unrevised prose (\"Move a needle sideways and it sweeps a rectangle.\", \"That is the entire price list.\", \"Now the move that changes everything.\", \"Nothing here is a cheat\"). docs/kakeya-conjecture/index.html is generated from ARTICLE.md by build_docs.py, so the published page still has every style problem this revision fixed in the guide chapter."
+  ]
+ },
+ {
+  "file": "kakeya-conjecture/guide/05-the-perron-tree/README.md",
+  "claims": [
+   {
+    "before": "The steady column is heading for 0.1667 and will never leave.",
+    "after": "The steady column is heading for 0.1667 and never gets below it.",
+    "why": "The original made a loose statement about the column settling on a rounded value. The revision turns it into a strict lower bound attached to the rounded decimal 0.1667, and that bound is false. The chapter's own closed form gives 1/6 + 1/(3*2^k), which equals 0.166687 at k = 14 (16384 slivers) and 0.166677 at k = 15, both below 0.1667. The true bound is one sixth, which is exactly what the test asserts: tests/test_core.py::test_steady_squeeze_never_gets_past_a_sixth compares against PERRON_STALL_LIMIT = 1/6, not against 0.1667. Under CLAUDE.md the prose has to agree with the test, so this should read \"never gets below one sixth\".",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "The varying column is slower off the line and then walks straight through the wall.",
+    "after": "The varying column starts higher and falls more slowly, but by 64 slivers it has already come below the steady column, and after that it carries on down past the level the steady squeeze will never leave.",
+    "why": "The revision invents a crossover point the original never named. The number happens to check out against the table on the same page (at 64 slivers, varying 0.166697 < steady 0.171875, while at 16 slivers varying 0.244289 is still above steady 0.187500), but the table skips 32 slivers, so \"by 64 slivers\" is the earliest listed crossing rather than a verified first crossing. A style-only pass should not be adding quantitative claims, and this one is stated more precisely than the data on the page supports.",
+    "severity": "number-or-name"
+   },
+   {
+    "before": "The steady squeeze makes a **bowtie**. All the slivers pass through one point, and below that point sits a solid triangle that never gets any thinner. The area is exactly",
+    "after": "The steady squeeze makes a **bowtie**, in which all the slivers pass through one point, and below that point sits a solid triangle that never gets any thinner. That solid triangle is what keeps the total from falling much further. The area works out to exactly",
+    "why": "\"That solid triangle is what keeps the total from falling much further\" is a new causal claim. The original only described the geometry and let the formula speak. The claim is defensible, since notes/research-content.md says \"the picture explains the formula\" and notes/research-perron.md says the constant alpha makes the figure self similar so the solid triangle never thins, but it is an explanation of the 1/6 limit that the original chapter deliberately did not assert, and it was added by a pass that was only supposed to reword.",
+    "severity": "other"
+   },
+   {
+    "before": "Two honest notes. First, the exact area of these trees is a fraction with a hundred digits underneath ... Second, the varying schedule here was found by scanning, not by theory, and it is not optimal.",
+    "after": "Two limits of this table are worth stating. The exact area of these trees is a fraction with a hundred digits underneath ... The varying schedule used here was also found by scanning, not by theory, and it is not optimal.",
+    "why": "The caveat's scope was narrowed. \"Two honest notes\" covered the chapter; \"Two limits of this table\" tells the reader both caveats are about the presentation of the six rows. Only the first one is. That the schedule was found by scanning and is not optimal is a limitation of the construction the whole chapter builds, and of examples.tree(k) which every later chapter uses, not of the table. Framing it as a table caveat lets a reader carry the construction forward as if it were the good one.",
+    "severity": "lost-caveat"
+   },
+   {
+    "before": "Now slide the slivers into each other, in stages. Neighbours first, then neighbouring pairs, then neighbouring quadruples.",
+    "after": "The next step is to slide the slivers into each other, in stages. Neighbours move together first, then neighbouring pairs, then neighbouring quadruples, until the whole fan has been folded up.",
+    "why": "\"until the whole fan has been folded up\" is a new clause, and it collides with the word the chapter uses for the thing that is preserved. Everywhere else on the page \"fan\" is the set of directions: \"every direction of the original fan\", \"the directions covered still run over the whole fan\". Directions are exactly what does not get folded up, which is the point of the next paragraph. CLAUDE.md forbids letting one word mean two things, and here the second meaning states the opposite of the chapter's main invariant.",
+    "severity": "other"
+   }
+  ],
+  "style": [
+   "\"The steady column is heading for 0.1667 and never gets below it. The varying column starts higher and falls more slowly, but by 64 slivers it has already come below the steady column, and after that it carries on down past the level the steady squeeze will never leave.\" The columns are still treated as actors that head, start, fall and carry on, which is the informal personification the style guide bans, and \"the level the steady squeeze will never leave\" is a decorative way of writing one sixth. Say it with the numbers: the steady squeeze stays above one sixth at every depth, the varying squeeze is above it at 16 slivers, below the steady column at 64, and below one sixth itself by 256.",
+   "\"Two limits of this table are worth stating.\" This is the kind of announcement sentence the style guide asks to remove, and the paragraph it opens now runs five sentences across four separate topics: decimals versus exact fractions, the schedule not being optimal, Keich's sharp 1/log n rate, and why the subject was hard. The last sentence (\"That slowness is a large part of why this whole subject was so hard...\") was its own paragraph before and belongs on its own again, since it is the bridge into chapter 6 rather than a caveat about the table.",
+   "\"The picture below shows what that plan actually gives.\" \"Actually\" keeps the reveal-tease of the old \"Watch what happens\" without keeping any information. Plain version: \"The picture below shows the result.\"",
+   "\"Chapter 3 cut a triangle once and brought the area down to two thirds, and the same cut can be made again on the pieces, and again on those.\" Three clauses chained with \"and\", and it describes repeated cutting when what actually repeats in this chapter is the sliding: the base is cut into 2^k pieces in one go, and it is the merge that happens stage after stage. Better to name the real recursion, for example: chapter 3 brought the area down to two thirds with one cut and one slide, and this chapter repeats the slide at every scale.",
+   "\"$1/\\log n$ goes to zero **very** slowly\" keeps bold emphasis on an intensifier, which is the decorative wording the guide asks to drop. The sentence that follows already gives the honest measure of the slowness (2^100 slivers for 1 percent), so the bold \"very\" can go."
+  ]
+ },
+ {
+  "file": "kakeya-conjecture/guide/06-area-zero/README.md",
+  "claims": [
+   {
+    "before": "Those needle sets sprawl: the joins push the whiskers far away, so the sets are small in area but wide across.",
+    "after": "The first is that these needle sets sprawl, since the joins push the whiskers far away, so a set can be small in area and still be wide across.",
+    "why": "The original states as a fact about the construction just built that the sets ARE wide across. The revision turns the second half into a bare possibility, \"a set can be small in area and still be wide across\", which no longer commits to anything about the sets on this page. The caveat the footnote existed to deliver (these particular needle sets are not contained in a small region) is weakened to a generic remark.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "And in 1971 Cunningham showed you can have both, an arbitrarily small needle set with no holes in it, sitting inside a disc of radius 1.",
+    "after": "The second is that the sprawl is not forced, because in 1971 Cunningham showed you can have both, an arbitrarily small needle set with no holes in it, sitting inside a disc of radius 1.",
+    "why": "New assertion the original never made, and it re-purposes the citation. The original cited Cunningham for \"both\" meaning small area plus no holes; the revision cites him as the answer to sprawl. The inference is defensible (notes/research-content.md line 22 records \"inside a disc of radius 1\", which does bound the spread), so it is not false, but a style-only pass added a conclusion about what a 1971 theorem establishes. If kept it should be signed off as content, not slipped in as rewording.",
+    "severity": "other"
+   },
+   {
+    "before": "Same fan of directions in every picture. Less and less ground.",
+    "after": "Every tree in that row holds the same fan of directions, and each one covers less ground than the one before it. The areas fall from 0.4688 for two slivers to 0.1181 for 512 slivers.",
+    "why": "Two numbers and two sliver counts move out of the image alt text into the body as prose claims. I checked them: src/viz/ch06_area_zero.py draws ks=(1,3,5,7,9), that is 2 through 512 slivers, and union_area(tree(1)) = 0.46875 and union_area(tree(9)) = 0.11808810..., which round to 0.4688 and 0.1181, consistent with RAMPED_AREAS_DECIMAL and tests/test_core.py. So the figures are correct, but a prose-style revision should not introduce quantities the sentence did not carry, since each one becomes a new thing to keep in sync with the figure.",
+    "severity": "number-or-name"
+   },
+   {
+    "before": "The tree of chapter 5 holds every direction of its fan, and its area falls as you cut finer.",
+    "after": "The tree of chapter 5 holds every direction of its fan, and its area falls as the triangle is cut into finer slivers. Cutting finer never loses a direction, so the same fan survives while the ground underneath it keeps shrinking.",
+    "why": "A new sentence asserting an invariance under refinement, with \"never\". It is true of the construction and is what chapter 5 claims, but it is stronger and more general than anything the original said here, and it runs ahead of what is verified: tests/test_core.py checks holds_every_direction only for k in range(7), up to 64 slivers, while the figure and the new numbers in the same paragraph run out to 512. The original attached the direction claim to the tree of chapter 5 and to the pictures shown.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "*By the end of this page you will know the answer to Kakeya's 1917 question, and it is not a number.*",
+    "after": "*By the end of this page you will know the answer to Kakeya's 1917 question, and why that answer is not a number.*",
+    "why": "The chapter promise changes from stating a fact to promising an explanation of it. The page does deliver the reason (no smallest room exists, so there is nothing for the deltoid to be close to), so nothing is oversold, but the promise made to the reader is not the same promise.",
+    "severity": "other"
+   },
+   {
+    "before": "a set of area exactly zero can still point in every direction",
+    "after": "a set of area exactly zero can still hold a needle pointing in every direction",
+    "why": "This changes what the closing summary asserts, from a set \"pointing\" in every direction to a set containing a unit needle in each direction. It is the correct claim and matches the body text and the tests, so it is a repair rather than a regression, but it is a claim edit rather than a wording edit and should be recorded as one.",
+    "severity": "other"
+   }
+  ],
+  "style": [
+   "\"The deltoid was not close to the answer, because there was no answer for it to be close to.\" The reversal-for-effect closer that both CLAUDE.md and notes/writing-style.md rule out (dramatic contrast, clever wording). The revision kept it and only swapped the semicolon for \"because\". Replace with a plain statement: the deltoid is not the smallest room, because there is no smallest room.",
+   "\"Two footnotes are usually worth adding.\" A filler introduction with a vague \"usually\" and no agent, and it labels body text as footnotes. The style file says to remove unnecessary introductions. State the two facts directly and drop the \"The first is that / The second is that\" scaffolding, which is itself a repeated pattern.",
+   "\"Cutting finer never loses a direction, so the same fan survives while the ground underneath it keeps shrinking.\" \"The fan survives\" is informal personification and \"the ground underneath it\" is a metaphor, both on the avoid list. Plain wording carries the same content: every direction of the fan is still present, and the total area is smaller.",
+   "\"Ask for a room of area one billionth and the construction gives you one, then ask for something smaller and it gives you that as well.\" Direct address plus a repeated beat for emphasis. A declarative sentence says the same thing: for any area you name, however small, the construction produces a room below it.",
+   "\"that a Pal join really costs $\\theta$ and really travels $1/\\tan\\theta$\" (bullet list). \"Really ... really\" is repetition for emphasis, and $1/\\tan\\theta$ is a bare expression with no plain-words gloss on this page, which CLAUDE.md asks for whenever a symbol appears. Say in words that the join costs an area equal to the pivot angle, and that the detour distance grows as the angle shrinks.",
+   "Mirror copy out of step: kakeya-conjecture/ARTICLE.md line 120 still carries the fragment version the revision removed, \"Same fan of directions in every picture. Less and less ground.\" Per CLAUDE.md the Kakeya prose has to be fixed in ARTICLE.md and the chapter README together and then rebuilt, so this sentence still breaks the house style in the copy that ships."
+  ]
+ },
+ {
+  "file": "kakeya-conjecture/guide/07-zero-but-big/README.md",
+  "claims": [
+   {
+    "before": "Which is exactly the shape of the question. Area zero these sets can manage. Can they be thin in the sharper sense too?",
+    "after": "That result is exactly the shape of the question being asked. These sets can manage area zero, and the remaining thing to settle is whether they can also be thin in the sharper sense that dimension measures.",
+    "why": "The original ends on an open question that chapter 8 then answers (in the plane, no; in higher dimensions, unknown). The revision turns it into a statement that the matter is unsettled, and the grammatical subject is \"These sets\", which the previous sentence has just fixed as Besicovitch sets in the plane. For that case the question is not remaining to be settled at all: the sentence immediately above states Davies 1971, every planar Kakeya set has dimension 2, so planar sets provably cannot be thin. The revision also silently contradicts the repo's careful line that three dimensions is now proved (Wang-Zahl 2025, guide/12-the-proof) and only n >= 4 is open. A question mark is not the same assertion as \"the remaining thing to settle\", and this chapter is exactly where that distinction is load-bearing.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "Start with the interval from 0 to 1 and remove the middle third. Remove the middle third of what is left. Repeat forever.",
+    "after": "Start with the interval from 0 to 1 and remove the middle third, which leaves two shorter pieces. Then remove the middle third of each of those pieces, and keep applying the same step forever.",
+    "why": "This changes the mathematical description of the construction, not its wording. The original says \"the middle third of what is left\", which describes removing one middle third from the whole remainder; the revision says \"the middle third of each of those pieces\", which is the per-piece removal that actually produces 2^m intervals of length 3^-m and the exponent log2/log3 used later. The new clause \"which leaves two shorter pieces\" is also a fact the original never states. The revised version is the correct one and matches cantor_intervals in tests/test_dimension.py, but a style-only pass should not be repairing the construction; flagging it so the change is made deliberately rather than as a side effect.",
+    "severity": "other"
+   },
+   {
+    "before": "It is also uncountably infinite and contains no interval at all. Now count boxes.",
+    "after": "It is still uncountably infinite, and it contains no interval at all. Because length gives it the same answer as a single dot, the more informative thing to do is count boxes.",
+    "why": "\"Because length gives it the same answer as a single dot\" is a new assertion the original does not make. It is true (both have length 0) and it echoes the chapter's opening, but the chapter has never told this reader that a dot has length zero, only that a dot has area zero and needs one box. The revision therefore adds a claim that rests on an unstated premise, and it commits the text to a comparison (Cantor set versus dot under length) that the original left to the earlier paragraph about area.",
+    "severity": "other"
+   }
+  ],
+  "style": [
+   "\"It is still uncountably infinite, and it contains no interval at all.\" The reader is assumed to have no maths background, and \"uncountably infinite\" is never explained anywhere in the chapter. Either give the plain meaning (there are so many points left that you could never list them one after another, even with forever to do it) or drop the term.",
+   "\"The exponent in that growth is the **dimension**: $N(\\varepsilon) \\approx \\varepsilon^{-d}$.\" CLAUDE.md says no equations in the prose, symbols only, and every symbol explained in words. This is an inline equation, and neither $N$ nor $d$ is ever named in words. Say it as a sentence (the box count is one over the box size raised to some power, and that power is the dimension) and let boxcount.png carry the formula.",
+   "\"## The Cantor set: no length, and yet\" The trailing \"and yet\" is the teasing, clever heading the style rules ask to avoid. A plain heading such as \"A set with no length but real size\" says the same thing without the wink.",
+   "\"That result is exactly the shape of the question being asked.\" This opens the closing paragraph with a metaphor instead of content, and \"the shape of the question\" tells a beginner nothing. State the question: in the plane the dimension cannot be squeezed, and the open part is what happens in higher dimensions.",
+   "\"A unit segment: about $1/\\varepsilon$ boxes. Halve the box, double the count.\" and \"A solid square: ... Halve the box, quadruple the count.\" These keep the two-beat slogan rhythm the house style bans; the list format hides it but does not fix it. Write them as one clause each, for example \"a segment needs about one box per box-width, so halving the box size doubles the count\".",
+   "\"That gap is the definitions working correctly rather than failing, because the set is genuinely spread out at every scale while occupying no room.\" The subject is an abstraction acting on its own, which reads contorted. Plainer: \"Both answers are correct, because the two rulers measure different things: the set takes up no room, and it is still spread out at every scale.\"",
+   "\"For the segment it comes out as 1 and for the square as 2, which is what most people would already expect from those two shapes.\" The trailing clause is filler that tells the reader what to feel; the original's \"So far so boring\" was cut for the same reason, and the replacement keeps the beat. End the sentence at \"as 2\"."
+  ]
+ },
+ {
+  "file": "kakeya-conjecture/guide/08-the-conjecture/README.md",
+  "claims": [
+   {
+    "before": "So the question asks itself. In three dimensional space, in four, in $n$: you can still make the volume zero, that carries over. Can you make the **dimension** smaller than $n$?",
+    "after": "The same question can be asked in three dimensional space, in four, and in $n$ dimensions, where the volume can still be made zero because that part carries over. What nobody knows is whether the **dimension** can be made smaller than the dimension of the space.",
+    "why": "The original poses the question historically and asserts nothing about what is known today. The revision turns it into a present-tense statement of current ignorance (\"What nobody knows is...\") and keeps three dimensional space inside the list it ranges over, so the page now says the three dimensional case is unsettled. It was settled by Wang and Zahl in February 2025, as line 51 of this same file says (\"the problem stayed open in three dimensions from 1971 to 2025\") and as guide/12-the-proof states. notes/curriculum.md records the rule that the guide must be exact about which dimensions are open. This is a false claim introduced by a style-only pass, and it contradicts the page nineteen lines later.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "The word doing the work is \"every direction\", and what that means changes with the dimension you are in.",
+    "after": "The words doing the work are \"every direction\", and what they mean changes with the dimension you are in. The panels below show all the ways a needle can point, first in the plane, then in space, then in four dimensions.",
+    "why": "The second sentence is new and it oversells the figure. The panels do not show all the ways a needle can point: the revision itself says two paragraphs later that \"Directions are drawn as normalised random vectors\", so each panel is a finite sample, and the four dimensional panel is a projection of a 3-sphere into three dimensions rather than a view of its directions. The original promised nothing about completeness. CLAUDE.md's \"promise exactly what is delivered\" applies.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "That is the **Kakeya set conjecture**: a set in $n$ dimensional space containing a unit segment in every direction must have dimension $n$.",
+    "after": "The box states the **Kakeya set conjecture**: a set in $n$ dimensional space containing a unit segment in every direction must have dimension $n$. The rest of this page looks at what that statement rules out, and at why it has been so hard to settle.",
+    "why": "The trailing roadmap sentence is new, and half of it is not delivered. The page covers what the statement rules out (\"What it forbids\"), but it never explains why the problem was hard; the only section after it is \"Why it looks winnable\", which argues the opposite, and the hardness account lives in chapter 11. A style pass added a promise the chapter does not keep.",
+    "severity": "other"
+   },
+   {
+    "before": "Point 4 is the interesting one. Area could be squeezed to nothing. Dimension could not be squeezed at all.",
+    "after": "Point 4 is the one that opens the problem up. In the plane, area can be squeezed down to nothing, while dimension cannot be squeezed at all, so the two ways of measuring size disagree about how small a Kakeya set really is.",
+    "why": "Adding \"In the plane\" is faithful, since point 4 was about the plane. The clause after it is new content: the original never says the two rulers disagree. Area zero and dimension 2 are both true of the same plane set and measure different things, so \"disagree about how small a Kakeya set really is\" reads as a conflict where there is none. It is a defensible gloss, but it is an added assertion rather than a rewording, and it is the kind of loose framing the guide otherwise avoids.",
+    "severity": "other"
+   }
+  ],
+  "style": [
+   "Line 3, \"*By the end of this page you will understand, fully and with nothing hidden, a question that stood for over a century.*\" The \"fully and with nothing hidden\" is dramatic wording and a promise no page can keep; CLAUDE.md's do-not-oversell rule and the style file's ban on dramatic wording both bite. I would cut it to a plain statement of what the page covers.",
+   "Line 21, \"The box states the **Kakeya set conjecture**\". \"The box\" points at a blockquote by its rendered appearance, which reads awkwardly and breaks if the layout changes. I would write \"That statement is the Kakeya set conjecture\" and drop the added roadmap clause with it.",
+   "Line 14, \"The same question can be asked in three dimensional space, in four, and in $n$ dimensions, where the volume can still be made zero because that part carries over.\" The relative clause hangs off the wrong noun and \"that part\" is vague. I would split it: \"The same question can be asked in three dimensional space, in four, and in $n$ dimensions. Volume can still be squeezed to zero there, because Besicovitch's construction carries over.\"",
+   "Lines 29 and 31, \"which is the only way a flat screen can tell you the truth about depth\". A screen telling you the truth is informal personification and decorative wording, both on the style file's avoid list. I would write \"which is the only way to show depth on a flat screen\".",
+   "Line 41, \"Volume can be squeezed away completely, while the conjecture claims that dimension is blocked from being squeezed at all.\" This is the dramatic contrast pattern (completely versus not at all) that the style file asks to avoid. I would state the two facts as separate plain sentences and say what each measurement is.",
+   "Line 43, \"Two pieces of fine print, both worth one read:\" A sentence fragment used as a lead-in, and \"worth one read\" is chatty. I would write \"Two details are worth reading before moving on.\"",
+   "Line 35, \"so the panel for $n = 5$ or $n = 10$ is one argument away.\" \"One argument away\" is clever shorthand, and for a reader with no maths background \"argument\" collides with the everyday sense of the word. I would write \"so the same script draws the panel for $n = 5$ or $n = 10$ when you change one setting in the command.\""
+  ]
+ },
+ {
+  "file": "kakeya-conjecture/guide/09-why-it-matters/README.md",
+  "claims": [
+   {
+    "before": "There is a hierarchy of conjectures here, roughly: restriction implies Bochner-Riesz implies local smoothing implies Kakeya, with details that specialists argue about.",
+    "after": "These results sit in a rough hierarchy: restriction implies Bochner-Riesz implies local smoothing implies Kakeya, with details that specialists argue about.",
+    "why": "The word \"conjectures\" was the only thing on the whole page marking restriction, Bochner-Riesz and local smoothing as unproven. \"Results\" presents them as established mathematics. It also fights the rest of its own sentence (\"it was still open for a century\") and undercuts the care chapter 8 takes to call the Kakeya statement a conjecture and to keep proved and open apart. After the revision the word \"conjecture\" appears in this file only in the navigation link at the bottom. Fix: \"These conjectures sit in a rough hierarchy\".",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "Restriction implies Kakeya, so Kakeya is a floor under the whole subject.",
+    "after": "Restriction implies Kakeya, so Kakeya has to hold before anything in the subject above it can.",
+    "why": "The original was a figure of speech. The replacement is an explicit logical necessity claim, and the \"so\" now carries it from the one cited implication (restriction implies Kakeya) to an unnamed class of statements (\"anything in the subject above it\"). The scope is no wider than the metaphor's, and for the four items in the chain quoted later the direction is right, but the modality hardened from a picture into a stated requirement, which is the \"check that the step really follows before writing so\" case in CLAUDE.md. \"Has to hold before\" also reads temporally for a logical dependence. Safer: \"Restriction implies Kakeya, so a failure of Kakeya would bring restriction down with it.\"",
+    "severity": "other"
+   },
+   {
+    "before": "you will know why a puzzle about turning a needle became load bearing for large parts of modern mathematics",
+    "after": "you will know why a puzzle about turning a needle became important for large parts of modern mathematics",
+    "why": "\"Load bearing\" asserted that other results rest on Kakeya, which is the claim the page spends its length supporting and which the takeaway box still makes (\"lean on it\"). \"Important\" only asserts significance, so the promise at the top is now weaker than the page delivers. Minor, but it is a change in what is asserted, and it also breaks the wording shared with the hand-maintained copy in kakeya-conjecture/ARTICLE.md line 187 (\"That is why this puzzle became load bearing\"), which the revision left untouched.",
+    "severity": "claim-strength"
+   }
+  ],
+  "style": [
+   "\"This one can be given in a single line to someone with no training in mathematics: *how small a room can be, if you have to turn a needle around inside it*.\" The sentence promises a line you can say out loud and then gives a sentence fragment. Turning the original question into a noun clause to dodge the no-rhetorical-questions rule was the wrong fix, since this question is the problem statement being quoted, not a rhetorical device. Restore a sayable line: \"*how small can a room be, if you have to turn a needle around inside it?*\"",
+   "\"**PDE more generally.** These estimates are the tools with which dispersive equations are attacked.\" Stiff passive with a fronted relative clause, and \"PDE\" is never spelled out or explained anywhere on the page, which breaks both the plain-words rule and the rule that every technical term gets its real name on first use. Something like: \"Partial differential equations, the equations that describe how waves and heat spread out, are attacked with these same estimates.\"",
+   "\"Take one tube for each of $1/\\delta$ directions and ask how small their union can be.\" The symbol arithmetic $1/\\delta$ arrives with no words saying what it counts or why thinner tubes mean more directions. CLAUDE.md allows symbols only when explained in plain words, so say it: the thinner the tube, the more separate directions you can point tubes in, roughly one for each thickness that fits around the circle.",
+   "\"**Bochner-Riesz summation.** This asks whether the natural way of summing a Fourier series converges, and it meets the same tubes and the same obstruction.\" For a reader assumed to have no mathematics, \"Fourier series\", \"converges\" and \"the natural way of summing\" all arrive unexplained in one sentence, and \"meets the same obstruction\" stands in for an explanation instead of giving one. One added clause saying what summing such a series means would carry it."
+  ]
+ },
+ {
+  "file": "kakeya-conjecture/guide/10-on-a-grid/README.md",
+  "claims": [
+   {
+    "before": "Dvir's argument is written for $\\mathbb{F}_q^n$, not just for the plane, so it is worth seeing the grid in three dimensions before reading the proof.",
+    "after": "Dvir's argument is written for $\\mathbb{F}_q^n$, not just for the plane, so it is worth seeing the grid in three dimensions before reading the proof. The picture below shows the smallest such grid, with three allowed values along each of the three coordinates.",
+    "why": "Wholly new sentence, and the claim in it is false. F_3^3 is not the smallest three-dimensional grid: q=2 is prime, the page's own table already uses q=2, and the repo's code accepts it (greedy_kakeya_set(2,3) gives a 5 point Kakeya set in the 8 point grid F_2^3, floor 4). A style pass should not have added a superlative the original never asserted, least of all one the table two sections earlier contradicts. Delete it, or restrict it (\"the smallest grid this article searches in three dimensions\").",
+    "severity": "other"
+   },
+   {
+    "before": "About half the grid. Not a tiny corner of it. That is the finite version of \"cannot be thin\".",
+    "after": "What those numbers say is that a Kakeya set takes up about half of the grid rather than some tiny corner of it, and that is the finite version of \"cannot be thin\".",
+    "why": "The quantifier moved. In the original the fragment sits directly under the table and reads as a comment on the middle column, the computed smallest sets. The revision turns it into a general statement about \"a Kakeya set\", which is not what the table shows and is not true as written: the whole grid is itself a Kakeya set and fills all of it, and the computed minima are 63 to 78 percent, not half. The supportable claim is \"at least about half\", so it should say the smallest Kakeya set is about half the grid, or that any Kakeya set must fill at least about half.",
+    "severity": "claim-strength"
+   }
+  ],
+  "style": [
+   "\"The picture below shows the smallest such grid, with three allowed values along each of the three coordinates.\" Beyond being wrong, this is the sentence to rewrite anyway: say plainly \"The picture below shows the 27 point grid where each of the three coordinates can be 0, 1 or 2.\"",
+   "Heading \"## The catch\". The style notes ban \"here is the catch\" by name, and this is the same dramatic framing compressed into a heading. Use a heading that carries the information, such as \"Why the grid proof does not reach the plane\".",
+   "\"What those numbers say is that a Kakeya set takes up about half of the grid rather than some tiny corner of it\". \"What those numbers say is that\" is the kind of empty introduction the style notes ask to cut, and \"rather than some tiny corner\" keeps the dramatic contrast from the fragments it replaced. Prefer \"The smallest Kakeya set fills roughly half of the grid, so it cannot sit in a small part of it.\"",
+   "\"That last line reports the theorem directly.\" Vague and a little grand for what is happening. Say what the value means: \"The last line is the theorem in action: the set of 17 points is above the floor of 15, so `too_small` comes back False.\"",
+   "\"not the real one but its shadow on a finite grid\" in the opening italics. \"Shadow\" is an unexplained metaphor in the first sentence a reader sees. \"a version of the same question set on a finite grid\" says it without asking the reader to decode an image.",
+   "The table column \"Dvir's floor\", and the later \"sets below the floor\", never get their standard name. The repo rule is that an invented word carries the real term where it first appears, so add that the floor is the lower bound Dvir's argument proves, the smallest size a Kakeya set is allowed to have."
+  ]
+ },
+ {
+  "file": "kakeya-conjecture/guide/11-why-it-was-hard/README.md",
+  "claims": [
+   {
+    "before": "The obstacles are not vague. People know exactly what a hypothetical thin Kakeya set would have to look like, because thirty years of work went into cataloguing the possibilities.",
+    "after": "The obstacles here are well understood. Thirty years of work went into cataloguing the possibilities, so people know exactly what a hypothetical thin Kakeya set would have to look like, and three of the properties such a set would have to combine already have names.",
+    "why": "New claim the original never made. The original catalogued \"the possibilities\", alternative shapes a counterexample might take, and listed sticky, plany and grainy as separate named possibilities. The revision asserts a thin set \"would have to combine\" all three. That conjunction is unsupported and it contradicts this same page two sections later: \"Before the main result, Wang and Zahl had already shown that sticky Kakeya sets in R^3 cannot be thin.\" If every thin set had to be sticky, that earlier paper would already have closed the 3D conjecture and the 127 page main result would have been unnecessary. Restore the weaker framing, e.g. \"three of the shapes such a set could take already have names\". The lift from \"are not vague\" to \"are well understood\" pushes in the same direction.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "Wolff's hairbrush argument shows why counting has to be clever: ... The naive move is to find a point where many tubes meet, a **bush**, and count the room they must fill.",
+    "after": "Wolff's hairbrush argument shows why the counting has to be done with care: ... The simpler move is to find a point where many tubes meet, a **bush**, and count the room they must fill.",
+    "why": "Both swaps weaken the same assertion. The original says the obvious count is not good enough and a new idea was needed; the revision says the count merely has to be performed carefully, and demotes \"naive\" (inadequate) to \"simpler\" (a valid lighter option). The rest of the paragraph, unchanged, still argues the stronger version: the hairbrush \"forces far more room\" and \"was worth half a dimension\". The prose no longer sets up its own conclusion.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "There is a deeper reason too. On the grid there is no notion of scale: a line is a line.",
+    "after": "Scale is the other difference between the two settings. On the grid everything is finite and there is nothing to zoom into, so scale never enters the problem.",
+    "why": "Two changes. First, \"a deeper reason too\" ranks scale as the more fundamental obstruction and leaves the list open, while \"the other difference\" flattens it to one of exactly two, which is a new completeness claim. Second, \"everything is finite\" is a fact the original did not state. It is true of chapter 10's setting (arithmetic modulo a prime q, so q^n points), so it is not an error, but a style pass should not be adding load-bearing facts.",
+    "severity": "other"
+   },
+   {
+    "before": "**Sticky.** Nearby directions have to sit on nearby tubes, in a way that persists at every scale. A sticky set is self similar and looks like the worst case.",
+    "after": "**Sticky** means that nearby directions have to sit on nearby tubes, in a way that persists at every scale, so a sticky set is self similar and looks like the worst case.",
+    "why": "The joining \"so\" turns two independent statements into a derivation, asserting that self similarity and worst case behaviour follow from the definition just given. The original claimed only that both hold. CLAUDE.md asks that any \"so\" be checked before it is written; the merge introduced one the text does not justify. \"and a sticky set is\" would keep the original meaning.",
+    "severity": "other"
+   }
+  ],
+  "style": [
+   "Section heading \"What made it hard: the enemy has structure\" is informal personification, which the style rules forbid. It is now worse than before the revision: the body sentence carrying the same metaphor (\"taking the enemy's structure seriously\") became \"The proof that finally worked takes that structure seriously\", so \"that structure\" has no nearby antecedent and points back across two sections to the heading. Rename the heading (for example \"What made it hard: the possible counterexamples have structure\") and open the last section with \"The proof that finally worked takes those three properties seriously.\"",
+   "Section heading \"A century of inches\" is decorative and the metaphor is inaccurate, since nothing on the page is measured in inches and the quantity tracked is dimension. Replace with something plain such as \"The bound from 1919 to 2025\".",
+   "The sticky, plany and grainy paragraph is still three standalone definitions bolted together with the same \"X means that\" frame, which is the repeated pattern the rules warn against. It never says why the three properties matter or connects to the hairbrush figure that follows. Add one opening sentence naming what the three describe, then the definitions, then a sentence leading into Wolff's count.",
+   "\"That size is no reflection on the authors, because getting off 5/2 at all was the point and it took an argument nobody had thought of. The size of the step still shows how difficult the ground was.\" repeats \"size\" in consecutive sentences and reads defensively. One sentence can do both jobs, for example \"Getting off 5/2 at all was the point, and it took an argument nobody had thought of, which is the clearest sign of how difficult the ground was.\""
+  ]
+ },
+ {
+  "file": "kakeya-conjecture/guide/12-the-proof/README.md",
+  "claims": [
+   {
+    "before": "Push the tree sideways, out of its plane, into a slab.",
+    "after": "The step is to push the tree sideways, out of its plane, so that it fills a slab.",
+    "why": "\"into a slab\" describes the extrusion producing a slab-shaped solid; \"fills a slab\" asserts the extruded tree occupies the whole slab. It does not: the set is the tree's footprint times the height, which is exactly why the very next paragraph has to say it holds only the directions \"whose shadow lies in the tree's fan, and four rotated copies hold the rest\", and why tests/test_core.py keeps test_the_extruded_tree_misses_what_the_flat_fan_misses. A filled slab would hold every direction and have positive volume, destroying both the fan restriction and the small-volume point of the chapter. This is the same overclaim CLAUDE.md records a reader catching before.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "That second question outlived everyone who first asked it.",
+    "after": "That second question stayed open for more than a century, longer than the lifetimes of the people who first asked it.",
+    "why": "Two changes. The original made a claim only about lifetimes and said nothing about the question being resolved; \"stayed open\" in the past tense reads as \"and now it is closed\", which contradicts the table three paragraphs later (4, and 5 and up, still open) and the guide's care that only dimension three was settled. It also introduces a duration, \"more than a century\", that the original did not state.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "That is the honest split, and it is worth knowing which side of it any statement in this guide falls on.",
+    "after": "That is the honest split between what a reader can run and what has to be taken on trust. Every statement in this guide falls on one side of it or the other, and it helps to know which side before repeating any of it.",
+    "why": "New universal claim. The split defined by the two bullets is between the Wang and Zahl proof (uncheckable here) and the four chapters with runnable code. Plenty of this guide sits outside both: the history table, the attribution of the finite field question to Wolff in 1999, \"one of the results of the decade\", the Fourier analysis remark. Asserting that every statement falls on one side of that split is stronger than the original's \"it is worth knowing which side ... any statement falls on\", and it is not true of the page it appears on.",
+    "severity": "claim-strength"
+   },
+   {
+    "before": "And the needle, the actual physical needle from 1917, turns in a room of any size you name. That part was true the whole time.",
+    "after": "The needle itself, the actual physical needle from 1917, turns in a room of any size you name. That was true the whole time, and none of the century of work that followed changed it.",
+    "why": "The trailing clause is a new assertion about the whole subsequent literature that the original never made. It is benign in substance but it is content, not wording, and it is loose: later work did change what is known about turning the needle, for example the 1971 Cunningham row in this chapter's own table (arbitrarily small rooms with no holes, inside a disc). The intended meaning is that Besicovitch's 1928 statement was never overturned, which is narrower than what the sentence says.",
+    "severity": "other"
+   }
+  ],
+  "style": [
+   "\"The answer, when it came, was not a clever construction or a slick trick but the accumulated ability to talk about structure at many scales at once\" - this is still the banned dramatic contrast, just joined with \"but\" instead of a period. Say what the proof rests on directly: it came from thirty years of accumulated technique for describing structure at many scales at once, rather than from a single new construction.",
+   "\"This repo's ethos is distrust and verify, so it is worth setting out plainly which parts of the story you can check for yourself\" - \"distrust and verify\" is a motto, the slogan pattern the style rules ask you to drop. Plainer: \"This guide tries to be clear about which parts of the story a reader can check for themselves and which parts have to be taken on trust.\"",
+   "\"It should be treated the way mathematics treats any result, which means believing it because people have checked it rather than because it was announced.\" - informal personification (mathematics does not treat anything) wrapped around a rhetorical contrast. Plainer: \"The result is accepted because specialists have read and checked the paper, not because it was announced.\"",
+   "\"*February 2025. After a hundred and eight years, the three dimensional case was settled.*\" - the standfirst still opens with a two word fragment. One sentence carries the same information: \"In February 2025, after a hundred and eight years, the three dimensional case was settled.\"",
+   "Section heading \"Why this ending is a good one\" together with its closing line \"That was true the whole time, and none of the century of work that followed changed it.\" - the heading editorialises and the last line is a flourish rather than information. A plain heading such as \"How the problem was finally closed\" and a closing sentence that states what remains open would fit the rest of the page better."
+  ]
+ }
+]
