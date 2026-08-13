@@ -2,23 +2,23 @@
 
 *Part 1 of three: Shapes You Can Only See By Probing Them. Retells Lectures I to III of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-Now point a probe at a shape. Pointing a probe at a shape means laying the probe's dust into the shape without tearing it, so that nearby dust lands nearby. If two points of the dust are close, their images have to be close as well, and if a sequence of dust points marches towards a limit, the images must march towards the image of the limit.
+We can now use a probe to examine a space. A probe **lands** in a space when its points are mapped there continuously. Continuity means that the map respects the nearness already carried by the probe. In particular, if probe points approach a limit, their images must approach the image of that limit.
 
 ![A probe's points being laid into a curve, first a landing that keeps limits and then one that tears, with the verdict shown](landing.gif)
 
-The animation lays an approaching probe into a curve twice. The first landing takes the marching points to marching points and the limit point to their limit, and it is accepted. The second sends the limit point somewhere else, which breaks the chain, so it is refused.
+The animation tests two attempted landings of the approaching probe. In the first, the sequence of images approaches the image of the limit point, so the landing is continuous. In the second, the sequence approaches one place while the limit point is sent elsewhere. That break in continuity causes the landing to be rejected.
 
-The whole subject turns on a change of description: instead of describing a shape by listing its points, you describe it by listing, for every probe, all the ways that probe can land in it. A shape becomes a giant answer sheet, with one entry per probe, and the entry is the collection of legal landings.
+This suggests a new way to describe a space. For every possible probe, record every continuous way that probe can land in the space. The resulting record is like an answer sheet: each probe poses a test, and the space answers with its set of legal landings. This answer sheet remembers not only which points exist but also which compact families of points fit together continuously.
 
-An object of that kind, an answer sheet obeying two rules we will meet next section, is called a **condensed set** ([Definition 1.2, page 6](https://arxiv.org/pdf/2605.03658v1#page=6)). If the shape you started from carried a notion of adding, so does its answer sheet, and it is then called a condensed group; if it carried multiplication too, a condensed ring ([Example 1.3, page 7](https://arxiv.org/pdf/2605.03658v1#page=7)).
+An answer sheet satisfying the two compatibility rules in the next section is called a **condensed set** ([Definition 1.2, page 6](https://arxiv.org/pdf/2605.03658v1#page=6)). If the original space has addition, its landings can be added point by point, producing a condensed group. If it also has multiplication, the same construction produces a condensed ring ([Example 1.3, page 7](https://arxiv.org/pdf/2605.03658v1#page=7)).
 
-Now return to the two real lines. Point the approaching probe at the ruler and there are enormous numbers of legal landings, since any marching sequence with a limit will do. Point it at the dust and almost all of those landings are refused, because in the dust a sequence marching towards a limit is a sequence of unrelated grains, and the only landings that survive are the ones that are eventually stuck on a single grain. The two answer sheets are therefore different, so the difference that the points could not see is visible to the probes straight away.
+This description immediately distinguishes the two real lines. The approaching probe has many continuous landings in the ruler, because any convergent sequence of real numbers and its limit gives one. In the dust, a convergent sequence must eventually remain at one value, so nearly all of those landings disappear. Although the dust and ruler have the same individual points, their answer sheets are different.
 
-The approaching probe alone is already enough to catch this, for a reason worth stating. Any space where you can measure distance is completely determined by which sequences converge in it, so the probe that is one converging sequence can already read the whole of such a space ([Remark 1.6, page 9](https://arxiv.org/pdf/2605.03658v1#page=9)). Everything with a distance on it, which is nearly everything anyone draws, is covered by that one probe.
+For spaces with a distance, the approaching probe already contains enough information to detect the topology. Such a space is determined by its convergent sequences, and this probe tests exactly those sequences ([Remark 1.6, page 9](https://arxiv.org/pdf/2605.03658v1#page=9)). More general spaces require all profinite probes, but this small example explains why probes can see information that points alone miss.
 
 ![A set in the plane with a sequence inside it approaching a point outside, so the probe reports that the set is missing a limit](sequence_test.png)
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/03.html)** to drag the landing points yourself and watch the verdict flip when the chain snaps.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/03.html)** to move the images of a convergent sequence and see exactly when the proposed landing stops being continuous.
 
 ---
 

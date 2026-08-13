@@ -2,23 +2,23 @@
 
 *Part 3 of three: Rings That Know How To Integrate. Retells Lectures VII to XI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-Part two attached a rule for infinite sums to the whole numbers. This section says what that rule is in general, so it can be attached to anything.
+Part two attached one particular theory of infinite summation to the integers. Other rings need different theories, so we begin by separating the underlying ring from the measures it permits. This allows p-adic numbers, ordinary discrete rings, and the real numbers to use the same framework without pretending that they share one notion of convergence.
 
-A ring is a place where you can add, subtract and multiply, while part two's rule was about adding only. The question now is what the same service looks like over a ring: given a probe, and a placement of the probe's points into a module over the ring, we want to integrate weightings against the placement.
+A ring supports addition, subtraction, and multiplication. A module is an additive group whose elements can also be multiplied by elements of the ring. For every probe and every placement of its points in a module, we want a rule that says which weighted combinations are legal and how those combinations act on the module.
 
-The general notion needs two pieces of data ([Definition 7.1, page 45](https://arxiv.org/pdf/2605.03658v1#page=45)):
+The general definition contains two pieces of data ([Definition 7.1, page 45](https://arxiv.org/pdf/2605.03658v1#page=45)):
 
-**The ring**, taken as an answer sheet in the sense of part one. Being an answer sheet is what lets it carry a topology without that topology sitting outside the algebra.
+**The ring** is treated as a condensed ring, meaning an answer sheet of the kind introduced in part one, with compatible addition and multiplication. This description allows topological information to live inside the algebra rather than beside it.
 
-**A rule**, which for each probe hands back the module of legal weightings on it. The rule also has to meet one requirement, that every point of the probe already counts as a weighting, namely the unit sitting on that point alone.
+**The theory of measures** assigns an A-module of legal measures to every unfoldable probe. It respects finite disjoint unions, and it includes every Dirac measure, the unit weight concentrated at one point. Thus, ordinary points remain available inside the larger space of measures.
 
 ![A ring beside its rule: for each probe the module of weightings the ring allows, with each point of the probe entering as a unit weight](measures.png)
 
-Those two pieces of data are not yet enough on their own. The pair must be well behaved, meaning roughly that the modules it produces really do form a self-contained world of their own, the way solid groups did in part two. A pair passing that test is called an **analytic ring** ([Definition 7.4, page 46](https://arxiv.org/pdf/2605.03658v1#page=46)), and this guide will simply say *a ring with a rule*.
+A ring and a proposed theory of measures must also pass a compatibility test. The test ensures that modules built from the proposed free complete modules form a stable algebraic world, with the expected maps from point data agreeing with maps from measures. A pair that passes is called an **analytic ring** ([Definition 7.4, page 46](https://arxiv.org/pdf/2605.03658v1#page=46)). This guide uses the plainer phrase *a ring with a rule*.
 
-The definition is short, and all of its content sits in which pairs pass. It is genuinely possible to write down a ring and a plausible-looking rule that fails, and section 3 is about the most important such failure.
+The distinction between proposing a rule and proving it analytic is important. Many assignments look reasonable on each individual probe but fail when modules are combined into exact sequences or complexes. Section 3 examines this problem for real-valued measures and shows why the first natural choices do not pass.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/01.html)** to assemble a rule and watch the requirements be checked one at a time.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/01.html)** to assemble the two pieces of a proposed rule and check its basic requirements in order.
 
 ---
 

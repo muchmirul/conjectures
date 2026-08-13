@@ -2,19 +2,19 @@
 
 *Part 1 of three: Shapes You Can Only See By Probing Them. Retells Lectures I to III of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-Take the real numbers, the whole endless ruler of them, and write them down twice. In the first copy, forget every idea of nearness. Two numbers are either the same number or different numbers, and that is all you may ask. The numbers sit apart like grains of sand, and no grain is nearer any other. Call this copy **the dust**.
+Start with the set of all real numbers and give it two different rules about nearness. In the first copy, forget nearness completely. Two numbers are either equal or different, and no distinct numbers count as close. We will call this copy **the dust**, which is the real line with the discrete topology.
 
-In the second copy, keep nearness. Now 0.999 is close to 1, a sequence can approach a limit, and a function can be continuous. Call this copy **the ruler**.
+In the second copy, keep the usual notion of distance. In this copy, 0.999 is close to 1, sequences can approach limits, and continuous motion makes sense. We will call this copy **the ruler**, which is the ordinary topological real line.
 
 ![The same numbers drawn twice, as separated grains and as a continuous ruler, with every grain matched to its point](bijection.gif)
 
-There is an obvious way to go from the dust to the ruler, which is to send each number to itself. The animation matches them up, and nothing is left over on either side. Every number of the dust arrives somewhere, no two arrive at the same place, and every point of the ruler is arrived at, so the map loses nothing and adds nothing.
+Send each number in the dust to the same number on the ruler. The animation shows this matching. Every input has one output, different inputs remain different, and every point on the ruler is reached. As a map of underlying sets, it is a perfect one-to-one correspondence.
 
-Even so, the dust and the ruler are not the same object, because on the ruler you may speak of limits and on the dust you may not. This gives a map which is not a genuine sameness, even though it has nothing missing at the front and nothing missing at the back.
+However, the two topological groups are not the same. The map from the dust to the ruler is continuous, but its inverse is not. A single point is open in the dust, while a single point is not open on the ruler, so the inverse fails the basic test for continuity. A bijection of points therefore does not guarantee an isomorphism of topological objects.
 
-The distinction matters, because it makes ordinary algebra impossible. In algebra the whole method is this: given a map, look at what it kills, look at what it misses, and if both are nothing, the map was a sameness. This is how one solves equations, chains up long calculations, and defines almost everything. Here both questions are answered with nothing, so the recipe declares the map a sameness, which is the wrong answer.
+This causes a precise algebraic problem. In an abelian setting, one studies a map by finding its kernel, the elements it sends to zero, and its cokernel, the part of the target it fails to account for. If both are zero, the map should be an isomorphism. For the map above, both are zero even though the map is not an isomorphism, so topological abelian groups do not support this standard algebraic test.
 
-The lectures open on exactly this example ([Example 1.9, page 9](https://arxiv.org/pdf/2605.03658v1#page=9)), and list two more failures of the same kind. That list sits on the first page of the course because the whole course is the repair for it. Rather than patching the recipe, the repair starts from the observation that the dust and the ruler differ in something the points cannot see, and then changes what an object *is*, so that the difference becomes visible.
+The lectures begin with this example ([Example 1.9, page 9](https://arxiv.org/pdf/2605.03658v1#page=9)) and give two related failures. These examples identify the problem that condensed mathematics is designed to solve. The point sets of the dust and ruler agree, so a successful repair must record how whole compact families of points move, not merely which individual points exist.
 
 ### The mathematics
 
@@ -26,13 +26,13 @@ Write $\mathbb{R}_{\mathrm{disc}}$ for the dust and $\mathbb{R}$ for the ruler, 
 \qquad \text{yet } \mathbb{R}_{\mathrm{disc}} \not\cong \mathbb{R}.
 ```
 
-**Reading the symbols.** The subscript "disc" records the choice to forget nearness, so $\mathbb{R}_{\mathrm{disc}}$ and $\mathbb{R}$ hold the same numbers under different rules about which of them count as close. The arrow labelled $\mathrm{id}$ is the map that sends each number to itself. The word $\ker$ names everything the map sends to zero, which is the kill-list, and $\mathrm{coker}$ names what the map fails to reach, which is the miss-list. The last symbol, $\not\cong$, says the two groups are still not the same object.
+**Reading the symbols.** The symbol $\mathbb{R}$ means the real numbers, and the subscript $\mathrm{disc}$ says that distinct numbers are treated as separate, with no usual notion of nearness. The arrow labelled $\mathrm{id}$ sends every number to itself. The symbol $\ker$ names the kernel, or everything sent to zero, while $\mathrm{coker}$ names the cokernel, or what remains unaccounted for in the target. Both are $0$, meaning that neither detects a difference. The symbol $\not\cong$ says that the two topological groups are nevertheless not isomorphic.
 
-**Why it matters.** In an abelian category, a map with $\ker = 0$ and $\mathrm{coker} = 0$ is an isomorphism. Here both vanish and the map is not one, so topological abelian groups do not form an abelian category, and the standard machinery of homological algebra cannot be used on them.
+**Why it matters.** In an abelian category, a map whose kernel and cokernel are both zero must be an isomorphism. This example violates that implication, so the category of topological abelian groups is not abelian. As a result, the usual tools of homological algebra cannot simply be applied there.
 
-**In the simulation.** The slider is how closely you look. The two rows are $\mathbb{R}_{\mathrm{disc}}$ and $\mathbb{R}$, the vertical lines are $\mathrm{id}$ matching them up one to one, and the readout prints $\ker$ and $\mathrm{coker}$ so you can watch both stay empty while the two rows behave differently.
+**In the simulation.** The slider controls how closely you inspect the two copies of the real line. The two rows represent $\mathbb{R}_{\mathrm{disc}}$ and $\mathbb{R}$, and the vertical lines show the identity map matching equal numbers. The readout displays the kernel and cokernel, which remain zero even while the pictures retain different notions of nearness.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/01.html)** to match the two lines yourself and watch both the kill-list and the miss-list come out empty.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/01.html)** to inspect the matching and see why its empty kernel and cokernel do not make it an isomorphism.
 
 ---
 

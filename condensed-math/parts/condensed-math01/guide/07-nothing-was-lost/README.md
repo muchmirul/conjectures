@@ -2,19 +2,19 @@
 
 *Part 1 of three: Shapes You Can Only See By Probing Them. Retells Lectures I to III of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-A repair is only worth having if it keeps what was already good, and this section checks that it does. The worry is reasonable, since answer sheets are stranger and larger than spaces, and swapping every space for its answer sheet might smear distinct spaces together, or might lose track of which maps between spaces were the continuous ones. Neither happens, on a class of spaces broad enough to contain everything anyone draws.
+Changing from spaces to answer sheets is useful only if familiar spaces and continuous maps can still be recovered. The concern is natural because an answer sheet contains far more entries than a point set. The relevant comparison theorem says that, for a broad class of ordinary spaces, the new description preserves exactly the original maps and keeps distinct spaces distinct.
 
 ![Nested regions showing which topological spaces sit inside condensed sets, and which condensed sets come from spaces](nesting.png)
 
-The picture is read from the inside out. The compact shapes, meaning the ones that are closed, bounded and separated, correspond exactly to the answer sheets that are compact in the matching sense, with nothing on either side left over ([Theorem 2.16, page 17](https://arxiv.org/pdf/2605.03658v1#page=17)). Around them sits a much wider class, containing every space with a distance and every shape built out of cells, and on that class the translation is still faithful: two different spaces give two different answer sheets, and the continuous maps between two spaces are exactly the maps between their answer sheets ([Proposition 1.7, page 9](https://arxiv.org/pdf/2605.03658v1#page=9)). Outside that, condensed sets keep going, and the ghost of section 5 sits out there.
+Read the picture from the centre outward. Compact Hausdorff spaces correspond exactly to condensed sets that satisfy the matching compactness condition ([Theorem 2.16, page 17](https://arxiv.org/pdf/2605.03658v1#page=17)). In familiar Euclidean examples, these are the closed and bounded shapes. A larger surrounding class contains all metric spaces and spaces built from cells. On this larger class, the translation is fully faithful: different spaces have different answer sheets, and maps of answer sheets are exactly the continuous maps of spaces ([Proposition 1.7, page 9](https://arxiv.org/pdf/2605.03658v1#page=9)). Condensed sets extend beyond this image, as the ghost from section 5 demonstrates.
 
 ![A space being translated into its answer sheet and read back out, returning to the same space](roundtrip.gif)
 
-There is a way back, too. From an answer sheet you can recover a space by taking its points and declaring a set closed when every probe says so. On the wide class above, the round trip returns the space you started with, which is what the animation traces.
+There is also a return construction. Begin with the point entries of an answer sheet, and declare a subset closed when every probe detects it as closed. For the broad class just described, translating a space into an answer sheet and then applying this construction returns the original topology. The animation follows that round trip.
 
-Two honest limits are worth recording, and the lectures flag both. The translation genuinely fails for spaces where a point need not be closed, and such a space never gives an answer sheet at all ([Warning 2.14, page 16](https://arxiv.org/pdf/2605.03658v1#page=16)). In the other direction, the return trip can merge things, because there are compact shapes which are an increasing union of strictly smaller closed pieces, in a way ordinary topology cannot record but an answer sheet can. The lectures regard that as topology losing information rather than condensed sets gaining it, and note it cannot happen for unions taken one step at a time.
+The comparison has limits, and the lectures state them explicitly. If a topological space has a point that is not closed, its probe data do not define a condensed set of the required kind ([Warning 2.14, page 16](https://arxiv.org/pdf/2605.03658v1#page=16)). In the other direction, the return to ordinary topology can identify condensed information that topology cannot retain. One example involves compact objects built as increasing unions of strictly smaller closed pieces. The lectures interpret this as a limitation of ordinary topology, and note that the issue does not occur for countable colimits.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/07.html)** to send a space around the round trip and watch what comes back.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/07.html)** to follow a space through the translation and compare the recovered result with the starting space.
 
 ---
 

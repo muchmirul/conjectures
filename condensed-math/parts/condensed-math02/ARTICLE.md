@@ -1,12 +1,12 @@
 # Infinite Sums That Finally Land
 
-*Part two of three on condensed mathematics. Endless sums are the reason topology was brought into algebra in the first place. This part builds the rule that says when an endless sum has exactly one answer, finds the building blocks of everything obeying that rule, and ends by solidifying a doughnut and watching its holes fall out. Part one is assumed, and nothing else.*
+*Part two of three on condensed mathematics. Part one made subtraction reliable by replacing spaces with their answers to probes. We now ask when an infinite sum has one well-defined value. Compatible weights on the finite stages of a probe lead to the solid rule, reveal the basic structure of solid groups, and recover the holes of familiar spaces. Only part one is assumed.*
 
 ![Weights being handed down a branching probe, splitting between the boxes at every level while the totals keep agreeing](guide/00-start-here/hero.gif)
 
-The animation shows the object this part is built on. Take a probe, the branching thing from part one, and put a number on each box. Then refine, which means splitting each box and splitting its number between the pieces, any way you like, as long as the pieces add back up to what the box had. Refining forever leaves you with what this guide calls a **weighting**, and weightings turn out to be the entire answer to a question about infinite sums that took a century to ask properly.
+The animation shows the main construction of this part. Place an integer weight on the first box of a probe. Whenever a box splits, divide its weight among the new boxes so that their weights add back to the old one. Repeating this at every level produces a compatible family called a **weighting**, or, in standard language, an integer-valued measure. Because every level is finite and the totals agree between levels, a weighting gives a controlled way to interpret sums over all the points of a probe.
 
-This is part two of three, covering Lectures IV to VI of Peter Scholze's *Lectures on Condensed Mathematics* ([arXiv:2605.03658](https://arxiv.org/abs/2605.03658), May 2026), joint work with Dustin Clausen. [Part one](../condensed-math01/ARTICLE.md) built probes and answer sheets and is assumed here. Part three carries all of this to rings and geometry. Most sections have a [page you can play with](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/index.html).
+This is part two of three, covering Lectures IV to VI of Peter Scholze's *Lectures on Condensed Mathematics* ([arXiv:2605.03658](https://arxiv.org/abs/2605.03658), May 2026), joint work with Dustin Clausen. [Part one](../condensed-math01/ARTICLE.md) introduced probes and condensed sets, and those ideas will be used here. Part three extends the resulting theory from groups to rings and geometry. Most sections include a [page you can play with](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/index.html), so each new definition can be tested on a finite example.
 
 ```
     the problem again           1  sums with nowhere to land
@@ -19,167 +19,165 @@ This is part two of three, covering Lectures IV to VI of Peter Scholze's *Lectur
     the payoff                  8  solidify a shape, get its holes
 ```
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/00.html)** to hand out weights yourself and watch the totals keep agreeing.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/00.html)** to distribute weights through a probe and check that every refinement preserves the total above it.
 
 ## 1 · Sums with nowhere to land
 
-Part one repaired subtraction, but it did not add anything up. Consider adding one, then two, then four, then eight, doubling forever. In ordinary arithmetic the running totals are 1, 3, 7, 15, 31, and they run away, so the sum has no value.
+Part one repaired kernels and cokernels, but it did not define infinite addition. Consider the series obtained by adding 1, then 2, then 4, then 8, and continuing to double. Its partial sums are 1, 3, 7, 15, 31, and so on. With ordinary distance, these values move farther and farther away, so the series does not converge.
 
-Now measure size differently. Say a whole number is **small when it is divisible by a high power of two**, so 16 is smaller than 4, and 1024 is smaller still. This is a real and consistent notion of size, used constantly in number theory, and it is exactly the size the counting-in-base-two probe from part one carries.
+Now use a different measure of size. Fix the number two and declare an integer to be smaller when it is divisible by a larger power of two. Under this rule, 16 is smaller than 4, and 1024 is smaller than 16. This is the 2-adic absolute value, the notion of size carried by the base-two probe from part one.
 
 ![The running totals of the doubling sum, drawn twice: running away on the ordinary ruler, and closing in on a single point in the base-two probe](guide/01-sums-with-nowhere-to-land/padic_walk.gif)
 
-Under that size the running totals behave differently. The gaps between them are 2, 4, 8, 16, each one smaller than the last, and the totals close in on a single point. The animation shows both readings side by side: on the ordinary ruler the totals fly apart, and in the probe they nest into one box after another and converge.
+The same partial sums now have a different behaviour. Consecutive gaps are 2, 4, 8, and 16, which become progressively smaller in 2-adic size. The partial sums therefore settle into finer and finer boxes of the base-two probe. The animation places this convergence beside their divergence on the ordinary real line.
 
 ![The distance from each running total to the limit, measured the ordinary way and the base-two way, one climbing and one halving](guide/01-sums-with-nowhere-to-land/distance.png)
 
-The chart is computed in this repository, in exact arithmetic. The ordinary distance doubles at every step, while the base-two distance halves at every step, and the point the totals close in on is minus one. Adding an endless string of positive numbers and getting minus one is not a trick, because the doubling sum genuinely converges to minus one under this size, and the tests here recompute both columns.
+The chart uses exact arithmetic from this repository. The ordinary distance from the partial sum to minus one doubles at each step, while its 2-adic distance halves. Thus, in the 2-adic number system, the series converges to minus one. There is no contradiction: convergence depends on the chosen notion of distance, and the ordinary and 2-adic distances are different.
 
-So the same endless sum has no answer under one notion of size and exactly one answer under another, and that is where the difficulty lies. An infinite sum is not a property of the numbers being added on their own, but a property of those numbers together with a decision about what near means, and that decision is precisely the topology that part one had to swallow into the answer sheet. The question of this part follows from that, since having swallowed the topology, we now need a way to get the infinite sums back out.
+This example identifies what an infinite sum needs in addition to its terms. It needs a rule that says when partial sums are close and what their limit should be. In other words, infinite addition depends on topology or an equivalent completion rule. Condensed sets already carry topological information inside their responses to probes, so the next task is to express summation through those responses rather than by adding an external topology again.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/01.html)** to change the base and the number of terms, and watch the two size readings disagree.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/01.html)** to change the base and compare the ordinary and base-p distances of the same partial sums.
 
 ## 2 · Weights that agree
 
-The answer is the animation from the top of this page. Take a probe, where at the coarsest stage there is one box, and give that box a number. Split the box, and split the number between the two new boxes, however you like, as long as the two add back to the original. Keep going forever, and the result is a **weighting**: one number per box at every stage, with the rule that a box's number is always the total of the boxes inside it.
+A weighting turns the opening animation into a definition. Begin with one integer on the coarsest box of a probe. When that box is refined, assign integers to its smaller boxes whose sum equals the original integer. Continue at every level. The resulting family is compatible because the weight of any box always equals the sum of all weights immediately below it.
 
 ![The same function read at a coarse level and at a fine one, with the two totals coming out equal](guide/02-weights-that-agree/integral.png)
 
-A weighting is exactly what you need to add things up. Suppose someone hands you a value for each box, and you want a single total. Multiply each box's value by the box's weight, and add. The picture shows the one property that makes this well posed: if you refine, and read the same values on the smaller boxes, the total does not change. This repository computes both readings and the tests check they agree, on the halving probe and on the base-p probe. What has just been described is genuinely an infinite sum, because the probe has infinitely many points, the weighting spreads a finite total across all of them, and the answer is a single number.
+This compatibility makes integration independent of the chosen level. A continuous integer-valued function on a probe is constant on the boxes of some finite stage. Multiply each of those values by its box's weight and add the finite list. If the stage is refined, the function value is repeated on the smaller boxes and their weights add back to the old weight, so the answer stays the same. The figure compares these two calculations, and the tests verify their agreement for both the halving and base-p probes.
 
-The lectures write the collection of all weightings on a probe as the free solid group on that probe, and build it as exactly this: the limit of the finite pictures, one copy of the whole numbers per box at each stage, fitting together down the levels ([Definition 5.1, page 33](https://arxiv.org/pdf/2605.03658v1#page=33)). Its elements are called measures on the probe, which is the ordinary word for a rule that assigns a size to every region.
+The lectures call the group of all such weightings the free solid group on the probe. They define it as an inverse limit of finite groups, with one copy of the integers for every box and with refinement maps that add weights back together ([Definition 5.1, page 33](https://arxiv.org/pdf/2605.03658v1#page=33)). An element of this inverse limit is also called a measure because it assigns a compatible integer size to every box.
 
-Two things about weightings are worth carrying forward. The first is that the simplest weighting is one unit sitting on a single point of the dust, which is what you get by following one branch all the way down and putting every unit there. This repository builds those, checks the agreement rule holds, and uses them as the starting point of every picture that follows.
+The simplest example concentrates one unit at a single point. Follow the branch leading to that point, place weight one on its box at every stage, and place zero on all other boxes. This is a Dirac measure. The code constructs these point measures, checks their compatibility, and uses them as the point-level data that more general weightings must extend.
 
-The second matters for everything that comes later, and it is that **a weighting is built entirely out of finite data**. At each stage it is a finite list of whole numbers, so nothing about it requires limits, completeness, convergence, or any of the apparatus that made the original problem hard. The infinite sum has been rebuilt out of finite bookkeeping.
+The important simplification is that each stage contains only finite data. A weighting may involve infinitely many levels, but each level is just a finite list of integers, and compatibility is checked by finite addition. The next two sections study the functions being integrated and use their algebraic structure to classify all weightings.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/02.html)** to place weights, refine, and watch the agreement rule refuse an inconsistent split.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/02.html)** to split weights across finer boxes and see which assignments satisfy the compatibility rule.
 
 ## 3 · Every function is a stack of steps
 
-To understand weightings, it helps to look at what they are weighing. A continuous whole-number-valued measurement on a probe is a simple thing. Because the values are whole numbers they cannot drift smoothly, so continuity forces the measurement to be constant on small enough boxes. This means that every such measurement is decided at some finite stage, and is a plain function on a finite list of boxes.
+We first examine continuous functions from a probe to the integers. Since distinct integers are separated from one another, continuity prevents such a function from changing indefinitely inside smaller and smaller nearby regions. On a compact probe, it becomes constant on every box of some finite stage. The function can therefore be read as a finite list of integer values.
 
 ![A whole-number measurement on the branching probe being taken apart into step functions, one basis element at a time](guide/03-stacks-of-steps/steps.gif)
 
-The animation takes such a measurement apart. Each step function is one box switched on and everything else switched off, or a product of a few such switches, and the original is rebuilt by stacking them with whole-number coefficients. The rebuild uses each step exactly once and needs no fractions.
+At one finite stage, the basic step functions are easy to see. For each box, use the function that equals one on that box and zero elsewhere. Multiplying these indicators by integers and adding them reconstructs any function on the stage. The animation performs this reconstruction one basis element at a time, without introducing fractions.
 
-That is a stronger statement than it looks, and it is a genuine theorem. The measurements on a probe form a group under addition, and the claim is that this group has a basis, meaning a list of measurements such that everything is a whole-number combination of finitely many of them, in exactly one way. Groups with a basis are called free, and most groups are not.
+The deeper statement concerns all stages at once. Under addition, the continuous integer-valued functions on a probe form an abelian group. Nöbeling's theorem says that this group is free: there is a collection of basis functions such that every continuous integer-valued function has one unique expression as a finite integer combination of them. Freeness is special because a general abelian group need not have any basis of this kind.
 
 ![The number of basis elements produced by the construction, level by level, matching the number of boxes at that level](guide/03-stacks-of-steps/basis_size.png)
 
-The theorem that this always works is due to Nöbeling, building on Specker, and the lectures give Bergman's proof of it ([Theorem 5.4, page 34](https://arxiv.org/pdf/2605.03658v1#page=34)). This repository runs that construction: it orders the products of switch functions, keeps each one that is not already a combination of earlier ones, and checks the result is a basis. The chart shows the count coming out equal to the number of boxes at every level, which is what a basis must give.
+The theorem is due to Nöbeling, extending work of Specker, and the lectures present Bergman's proof ([Theorem 5.4, page 34](https://arxiv.org/pdf/2605.03658v1#page=34)). The implementation in this repository follows the finite stages of that construction. It orders products of indicator functions, retains a function when earlier choices do not already generate it, and checks that the retained functions form a basis. The chart confirms that the basis size matches the number of boxes at each tested stage.
 
-One honesty note belongs here. At any single finite stage, freeness is automatic and the computation checks only that the *construction* behaves. The theorem's content is entirely in the infinite limit, where it is not automatic and where nothing in this repository can reach. The tests say what they check and no more.
+This finite calculation does not prove Nöbeling's theorem. At a fixed finite stage, the group is automatically free, while the theorem's real content is that a compatible basis exists for the full infinite object. The repository therefore labels its calculation as a finite shadow and quotes the infinite theorem from the lectures.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/03.html)** to draw a measurement on the probe and watch it get taken apart into steps.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/03.html)** to choose an integer-valued function and watch the basis functions rebuild it.
 
 ## 4 · Products in, sums out
 
-With the previous section in hand, the shape of a weighting becomes visible, and it comes out of comparing two different ways of having infinitely many whole numbers at once. A **product** is an endless row of dials, each set independently, with no restriction at all, so a dial may hold a number other than zero however far along the row you look. A **sum** is the same endless row with one restriction added, that only finitely many dials may be off zero, so every dial past some point is blank. The difference between the two matters because they behave in opposite ways when you ask them for a number, and that is what the rest of this section works out.
+Nöbeling's theorem lets us describe weightings by comparing two ways to store an infinite family of integers. A **product** is an unlimited row of integer dials. Every dial can be set independently, and infinitely many of them may be nonzero. A **direct sum** uses the same row but allows only finitely many nonzero dials in any one element. This finite-support condition creates an important duality between the two constructions.
 
 ![An endless row of dials with every dial set, beside the same row where all but a few dials are blank](guide/04-products-in-sums-out/product_sum.png)
 
-Although the two rows are built differently, a single operation turns each one into the other, and that operation is asking for a number. Ask an endless product for a single whole number, in a way that respects addition. You might expect that such a question could sample all the dials at once, weighting them somehow, but it cannot, because any such question reads only finitely many dials and ignores the rest.
+A homomorphism from a product to the integers cannot depend on infinitely many dials. Although one might try to assign a coefficient to every position, Specker's theorem says that every additive map reads only finitely many coordinates. Therefore, the collection of homomorphisms from a product is a direct sum of copies of the integers.
 
 ![A reader scanning along an endless row of dials and coming to a halt after finitely many, because no legal question can reach further](guide/04-products-in-sums-out/finite_reach.gif)
 
-That is Specker's theorem from 1950, and the lectures use it constantly. The shape of the reason is worth a sentence, because it is the shape of section 6 below as well, and it is that a legal question is defeated by divisibility. Settings that live only in the far tail of the row can be made divisible by as high a power of a number as you like, so the answer they force would have to be divisible by every such power, and the only whole number like that is zero. Making that precise is more work than one sentence, and this guide leaves it to the sources.
+The underlying obstruction comes from divisibility. Data placed sufficiently far along the row can be arranged to be divisible by arbitrarily high powers of an integer. Any output that respects all those divisions would have to be divisible by every such power, and the only integer with that property is zero. Specker's proof makes this argument precise; the theorem is quoted here rather than reproduced.
 
-Ask an endless sum for a number and the opposite happens, since you may choose an answer for every dial independently. Only finitely many dials are ever on, so nothing diverges, and the questions on a sum form a product.
+A homomorphism from a direct sum behaves in the opposite way. Because each input has finite support, one may choose an independent integer coefficient for every dial without creating an infinite numerical sum. The collection of homomorphisms from a direct sum is therefore a product.
 
-Put these together with the previous section and the shape of a weighting falls out. The measurements on a probe form a free group, so they are a sum of copies of the whole numbers. The weightings are exactly the questions one can ask of the measurements. Therefore:
+This applies directly to measures. By Nöbeling's theorem, the continuous integer-valued functions on a probe form a free group, so they are a direct sum of copies of the integers indexed by a basis. A weighting is exactly an integer-valued homomorphism on this function group, obtained by integration. Taking the homomorphisms turns that direct sum into a product:
 
 > Every collection of weightings on a probe is an endless product of copies of the whole numbers.
 
-That is the lectures' Corollary 5.5 ([page 34](https://arxiv.org/pdf/2605.03658v1#page=34)), and the statement is a blunt one. Whatever probe you started with, however intricately it branched, the weightings on it are just a row of dials, so all the structure has been pushed into how many dials there are.
+This is Corollary 5.5 of the lectures ([page 34](https://arxiv.org/pdf/2605.03658v1#page=34)). The branching pattern of the probe determines the indexing set, but once a basis is chosen, every weighting is represented by an unrestricted row of integer coordinates. These products will become the basic projective building blocks of solid groups.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/04.html)** to set dials in a product and a sum, and try to build a question that reaches past the end.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/04.html)** to compare products with direct sums and test how many coordinates an integer-valued homomorphism can use.
 
 ## 5 · The solid rule
 
-Everything is now in place to state the rule this part is named for. Nothing new is needed, only the weightings from section 2.
+We can now define the property that gives this part its name. The definition uses the compatible weightings from section 2 and asks whether point-level data determine how every such weighting should be integrated.
 
-A group is **solid** when weightings can be summed against it, and can be summed in exactly one way. More precisely, take any probe, and any way of placing the probe's points into the group. Then there must be exactly one way to extend that placement so that weightings can be integrated against it, agreeing with the placement on single points.
+A condensed abelian group is **solid** when any map from the points of a probe into the group extends uniquely to the free solid group of weightings on that probe. Informally, once the values of individual points are known, there must be exactly one compatible way to assign a value to every integer weighting.
 
 ![A placement of a probe's points into a group, and the unique extension that lets weightings be integrated against it](guide/05-the-solid-rule/extension.gif)
 
-The animation shows what "exactly one way" gives you. Once the extension exists, every weighting has a value, so every infinite sum the probe describes has an answer, and there is no ambiguity about which answer. Existence gives you the sums, and uniqueness stops you inventing two different theories of the same sum.
+The two parts of "extends uniquely" serve different purposes. Existence ensures that every weighting described by the probe can be integrated in the group. Uniqueness ensures that the point values do not lead to two conflicting answers. Together, they make the summation rule part of the group's structure rather than an extra choice made for each series.
 
-The lectures state the rule in one line ([Definition 5.1, page 33](https://arxiv.org/pdf/2605.03658v1#page=33)) and spend a lecture and a half establishing that it behaves. What comes out is a full toolkit, and this is the central result of this part:
+The lectures give this definition in one line ([Definition 5.1, page 33](https://arxiv.org/pdf/2605.03658v1#page=33)) and then establish the structure of the resulting category. The main conclusions needed here can be summarized as follows:
 
-> The solid groups form a self-contained setting for algebra, closed under everything one wants to do. Its building blocks are exactly the endless products of copies of the whole numbers. Any group at all can be pushed into a solid one, in a best-possible way, and pushing is compatible with everything else.
+> Solid groups form an abelian category closed under limits, colimits, and extensions. Products of copies of the integers are compact projective generators, and every condensed group has a universal solidification.
 
-That is Theorem 5.8 ([page 35](https://arxiv.org/pdf/2605.03658v1#page=35)) together with Corollary 6.1 ([page 42](https://arxiv.org/pdf/2605.03658v1#page=42)). The operation of pushing a group into a solid one is called solidification here; the lectures write it with a small square.
+This statement combines Theorem 5.8 ([page 35](https://arxiv.org/pdf/2605.03658v1#page=35)) with Corollary 6.1 ([page 42](https://arxiv.org/pdf/2605.03658v1#page=42)). The word **universal** means that the map to the solidification factors uniquely through every other map from the original group to a solid group. Compact projective generators are equally practical: maps from the products in section 4 detect objects and help build the rest of the solid category.
 
 ![Which of the sample groups obey the solid rule and which do not, each with the reason](guide/05-the-solid-rule/solid_or_not.png)
 
-The picture sorts the guide's stock examples. The whole numbers are solid, and so is any endless product of copies of them, which by the previous section means every collection of weightings. The base-p numbers are solid, which keeps the promise of section 1. Power series in a variable are solid. The real numbers are not, and the next section is about what happens to them.
+The figure classifies several recurring examples. The integers are solid, as is every product of copies of the integers. The p-adic integers and formal power-series groups are also solid. The usual real numbers are not solid under this integer-based rule, and understanding that failure will prepare us for the different rule introduced in part three.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/05.html)** to test candidate groups against the rule and see each verdict's reason.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/05.html)** to compare sample groups and see which requirement supports each solidity verdict.
 
 ## 6 · Where the real line goes
 
-Solidifying the real numbers gives zero, meaning the whole group disappears rather than shrinking to something small. That result is a precise statement in the lectures ([Corollary 6.1 (iii), page 42](https://arxiv.org/pdf/2605.03658v1#page=42)), not a defect being confessed, and the reason for it is visible in one picture.
+The solidification of the usual real numbers is zero. This is Corollary 6.1 (iii) of the lectures ([Corollary 6.1 (iii), page 42](https://arxiv.org/pdf/2605.03658v1#page=42)). A simple divisibility argument explains why zero is the expected result, although the full theorem requires more than that argument alone.
 
 ![A real number being halved, thirded, and divided by every whole number in turn, always landing on another real number, while a whole number falls off its lattice immediately](guide/06-where-the-real-line-goes/divisible.gif)
 
-Every real number can be divided by two, and by three, and by every whole number, and the answer is again a real number. The animation shows a real number surviving division forever while a whole number falls off the lattice at the first step. A group where every element can always be divided like this is called divisible.
+Every real number can be divided by any positive integer and remain a real number. An abelian group with this property is called **divisible**. The integers do not have it, because an integer such as one cannot be divided by two while staying inside the integers. The animation contrasts these two behaviours.
 
-Section 5 said the building blocks of solid groups are rows of dials, and each dial holds a whole number, so consider what a divisible group can send into a single dial. Whatever a real number is sent to must itself be divisible by two, and by three, and by everything, because the sending respects division. The only whole number divisible by everything is zero, so every dial receives zero, and the whole row receives zero.
+Now consider a homomorphism from the additive real numbers to one copy of the integers. If a real number is divisible by every positive integer, its image must have the same property because homomorphisms respect addition and division relations. The only integer divisible by every positive integer is zero. Every such homomorphism is therefore zero, and the same coordinate-by-coordinate argument applies to a product of integer groups.
 
 ![Every homomorphism from the real line into a row of dials collapsing to zero, because the image would have to be divisible](guide/06-where-the-real-line-goes/no_map.png)
 
-That settles the building blocks, and it is as far as this argument reaches on its own, since it shows only that the real line sends nothing but zero into any of the pieces solid groups are assembled from. Going from there to the full statement, that the solidification is zero and not merely small, is the lectures' step and it needs one more input, the computation of Lecture IV ([Theorem 4.3, page 25](https://arxiv.org/pdf/2605.03658v1#page=25)). With that in hand the conclusion is exactly what the picture suggests: the real numbers solidify to nothing.
+This argument shows that the real line maps trivially into the projective building blocks of the solid category. It does not by itself prove that solidification sends the real line to zero. That stronger conclusion also uses the universal-resolution calculation from Lecture IV ([Theorem 4.3, page 25](https://arxiv.org/pdf/2605.03658v1#page=25)), after which the stated vanishing follows.
 
-Two things must be said plainly here, because this is where a reader is most likely to conclude the theory is broken:
+**This does not make the real numbers unimportant.** The solid rule in this part is designed for nonarchimedean notions of size, such as the p-adic size from section 1, where high divisibility means smallness. The ordinary real absolute value behaves differently and requires a different theory of measures. The lectures note this when solidity is introduced ([page 33](https://arxiv.org/pdf/2605.03658v1#page=33)), and part three explains the real-valued replacement.
 
-**The theory is not claiming the real numbers are unimportant.** It is saying that this particular notion of completion is a nonarchimedean one, tuned to sizes like the base-p size of section 1, where near means divisible by a high power. The real line's notion of near is a different kind, and it needs a different completion. The lectures flag this in a footnote at the very moment solidity is defined ([page 33](https://arxiv.org/pdf/2605.03658v1#page=33)), and part three of this guide builds the real version.
+**The vanishing also has a mathematical use.** Real-valued correction terms disappear from certain condensed calculations instead of creating obstructions. Part one encountered a related result when higher cohomology with real coefficients vanished. The computation in Lecture IV uses this behaviour ([Theorem 4.3, page 25](https://arxiv.org/pdf/2605.03658v1#page=25)), and that computation supports the structure theorem for solid groups.
 
-**The collapse is useful, not merely tolerated.** Because real-valued measurements vanish, they cannot obstruct anything, and calculations that would otherwise carry an unbounded real-valued correction term simply lose it. Section 8 of part one already met this, where real-valued hole counting returns nothing above the zeroth. That vanishing is what makes the key computation of Lecture IV go through ([Theorem 4.3, page 25](https://arxiv.org/pdf/2605.03658v1#page=25)), and that computation is what everything in this part rests on.
-
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/06.html)** to divide numbers repeatedly and watch which groups survive it.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/06.html)** to divide elements repeatedly and compare divisible groups with the integers.
 
 ## 7 · The multiplication table
 
-Solid groups can be multiplied together, in the sense that two of them combine into a third that handles pairs. The combination is called the completed tensor product, and its table is the most quotable thing in the lectures.
+The category of solid groups has a product operation called the **completed tensor product**. It combines two solid groups into a third group that represents additive operations depending on one input from each side. The examples below show that this product remembers which completion, or adic topology, each group carries.
 
 ![The completed tensor products of the sample groups, arranged as a grid, with the vanishing entries marked](guide/07-the-multiplication-table/tensor_table.png)
 
-The grid reads as follows. The base-two numbers combined with the base-three numbers give zero, while the base-two numbers combined with themselves give the base-two numbers back. The base-two numbers combined with the real numbers give zero, which section 6 already explains. Power series in one variable combined with power series in another give power series in both.
+Read the grid by choosing one label from its row and one from its column. The 2-adic integers tensored with the 3-adic integers give zero, while the 2-adic integers tensored with themselves return the 2-adic integers. Combining the 2-adic integers with the real numbers also gives zero, consistent with section 6. Combining power series in one variable with power series in another produces power series in both variables.
 
 ![Two rulers marked in powers of two and powers of three sliding against each other, with no scale ever lining up](guide/07-the-multiplication-table/rulers.gif)
 
-The two-and-three entry is the surprising one, and the animation above draws the two nestings side by side, one shrinking its boxes by twos and the other by threes. The base-two numbers are built by a nesting whose boxes shrink by twos, and the base-three numbers by a nesting whose boxes shrink by threes. Neither nesting reaches the other's boxes, because three is a unit in the base-two world, so dividing by three is harmless there, and two is a unit in the base-three world. Nothing can carry both nestings at once, so the product is zero.
+The animation gives an intuition for the mixed 2-adic and 3-adic entry. The 2-adic completion is organized by divisibility by powers of two, while the 3-adic completion is organized by powers of three. In the 2-adic setting, three is invertible and does not produce a finer scale; in the 3-adic setting, the same is true of two. The two scales are therefore incompatible. The picture illustrates the exact vanishing stated in the table, but does not prove it.
 
-The lectures summarise the pattern in a sentence worth quoting, that the completed tensor product asks both sides which nesting they carry, and then keeps all of them ([Example 6.4, page 44](https://arxiv.org/pdf/2605.03658v1#page=44)). Two compatible nestings combine, and two incompatible ones annihilate.
+The lectures describe the general pattern by saying that the completed tensor product asks which adic topologies the two factors carry and retains the compatible ones ([Example 6.4, page 44](https://arxiv.org/pdf/2605.03658v1#page=44)). Matching completions reinforce one another, while incompatible completions can give zero. The table is a set of precise instances of that rule.
 
-The one entry in the grid that this repository derives rather than transcribes is the power series row. Section 4 said a collection of weightings is a row of dials, and the lectures show that combining two such rows gives the row indexed by all pairs ([Proposition 6.3, page 43](https://arxiv.org/pdf/2605.03658v1#page=43)). A power series in one variable has one dial per power of that variable, so pairs of dials are pairs of powers, which is exactly a power series in two variables. The tests check that pairing, and mark the rest of the grid as quoted from the lectures.
+The power-series entry can also be understood through the coordinates from section 4. A one-variable power series has one coefficient for each nonnegative power of its variable. Combining two such products gives coordinates indexed by pairs of powers ([Proposition 6.3, page 43](https://arxiv.org/pdf/2605.03658v1#page=43)). A pair of powers is exactly a monomial in two variables, so the resulting coordinate system is the group of two-variable power series. The repository tests this indexing argument; the remaining table entries are quoted from the lectures.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/07.html)** to pick any two entries and see the product, with the nesting that explains it.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/07.html)** to select two solid groups and inspect the completion rule behind their tensor product.
 
 ## 8 · Solidify a shape, get its holes
 
-The last section of this part is the payoff, and its explanation is short. Take an ordinary shape: a circle, a doughnut surface, a sphere. Turn it into a group the cheapest possible way, by taking formal combinations of its points, with no relations imposed. Then solidify.
+We can now connect the summation rule back to topology. Begin with an ordinary space, such as a circle, sphere, or torus. Form the free condensed abelian group on its points, which allows finite formal integer combinations of those points, and then apply derived solidification.
 
 ![A rotating three-dimensional doughnut surface with its holes counted off as bars beneath it](guide/08-solidify-a-shape/solidify.gif)
 
-What comes out is the shape's holes themselves, with the hole counts coming out exactly, in every degree, torsion included, rather than a shadow of them or something related to them. Solidification, an operation defined purely to make infinite sums behave, hands back the classical topology of the shape ([Example 6.5, page 44](https://arxiv.org/pdf/2605.03658v1#page=44)).
+The homology groups of the resulting object are the classical integral homology groups of the original space ([Example 6.5, page 44](https://arxiv.org/pdf/2605.03658v1#page=44)). Thus, the degrees record connected pieces, loops, enclosed surfaces, and higher-dimensional analogues. Torsion information is retained as well, so the result contains more than numerical hole counts.
 
 ![The computed hole counts of five shapes, including the two-torsion of the Klein bottle](guide/08-solidify-a-shape/homology_bars.png)
 
-The bars are computed in this repository from cell-by-cell boundary data, over the whole numbers, using Smith normal form, so the torsion is genuine and not rounded away. A circle has one hole in degree one, and a figure eight has two. A sphere has none in degree one and one in degree two, while a doughnut has two and one. A Klein bottle has one hole in degree one plus a piece of order two, which is a hole you have to go round twice to close, and the computation finds it.
+The chart is computed from cellular boundary maps using Smith normal form over the integers. A circle has one free class in degree one, and a figure eight has two. A sphere has one class in degree two and none in degree one. A torus has two degree-one classes and one degree-two class. The Klein bottle has one free degree-one class together with a torsion class of order two, which disappears when doubled.
 
-The reason this happens is short. Part one, section 8 showed that counting holes with whole numbers is the same whether you count classically or inside the world of answer sheets. Solidification is defined by how it answers questions from rows of dials, and questions asked of a shape's formal combinations are exactly whole-number measurements on the shape, which is hole counting. The two descriptions meet, and the lectures make the identification precise in half a page.
+The connection follows the ideas already developed. Part one showed that integral cohomology agrees before and after translating a compact space into condensed mathematics. In this part, solidification is characterized through maps from products of integer groups, while maps out of the free group on a space correspond to integer-valued data on that space. The lectures turn this correspondence into the precise identification with singular homology.
 
-The consequence worth keeping is the direction the information travels. Nobody put topology into the definition of solidity, which was defined by a rule about infinite sums in section 5, and the topology came out anyway. That is the sense in which the subject is not a repackaging, since a single definition about infinite sums also delivers the classical topology of a shape.
+This result explains why solidity matters beyond the original convergence problem. The definition mentions compatible infinite sums, not loops or surfaces. Nevertheless, applying its universal completion to the free group of a space recovers established topological invariants. The same framework can therefore handle completion and topology without treating them as unrelated constructions.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/08.html)** to pick a shape, turn it in three dimensions, and read the holes that fall out.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/08.html)** to select a space, rotate the three-dimensional examples, and compare their free and torsion homology classes.
 
 ## Where part two leaves you
 
-Infinite sums now have a precise setting. A weighting is finite bookkeeping repeated forever, solid groups are the ones where weightings can be integrated in exactly one way, the building blocks of those groups are rows of dials, and the operation that produces them recovers classical topology for free.
+A weighting is a compatible family of finite integer assignments on a probe. A solid group is one in which point-level data extend uniquely to all such weightings, giving a consistent form of infinite summation. Nöbeling's theorem identifies the weightings as products of copies of the integers, and solidification provides a universal way to enter the solid category. Applied to a space, its derived form recovers integral homology.
 
-The real numbers are the loss that has been declared openly, and part three repairs them. Everything so far has been about groups, which is to say about adding, and multiplication has not appeared. Adding a multiplication turns groups into rings, rings into spaces, and this whole apparatus into geometry, which is part three.
+This rule is deliberately nonarchimedean, so it sends the usual real line to zero rather than modelling real analysis. Part three replaces the fixed integer-valued theory with the more general idea of a ring together with its own theory of measures. That extension brings back the real numbers and adds multiplication, which is the step needed to move from groups into geometry.
 
 **[Part three: Rings That Know How To Integrate](../condensed-math03/ARTICLE.md)**
 
@@ -198,6 +196,8 @@ The real numbers are the loss that has been declared openly, and part three repa
 
 ## Checking it yourself
 
+The following commands rebuild the figures used in this part. They also rerun the finite examples that support the visual explanations.
+
 ```
 cd condensed-math
 make venv
@@ -215,7 +215,7 @@ For this part, the tests:
 - confirm the transcribed multiplication table is symmetric and consistent with the nesting rule the lectures describe
 - compute the holes of five shapes from boundary data by Smith normal form over the whole numbers, torsion included, and confirm the Klein bottle's piece of order two
 
-What is quoted rather than computed: Nöbeling's theorem in the infinite case, the solid category's structure, the vanishing of the solidified real line, and the identification of solidification with hole counting. These are statements about whole categories or genuinely infinite objects, and no finite program reaches them. `notes/research-content.md` marks each one.
+The infinite and categorical results are quoted rather than established by these tests. They include Nöbeling's theorem, the structural theorem for solid groups, the vanishing of the solidified real line, and the identification of derived solidification with homology. The file `notes/research-content.md` marks each claim as computed, a finite shadow, derived, or quoted.
 
 ## Glossary
 

@@ -2,23 +2,23 @@
 
 *Part 3 of three: Rings That Know How To Integrate. Retells Lectures VII to XI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-So far the spaces have been affine: one ring, one coordinate patch. Real geometry is made of patches glued together, so the machinery has to survive gluing.
+The preceding construction used one ring, so geometrically it described one affine patch. A general space requires many such patches joined along overlaps. To glue them, each patch must remember both its ring of functions and the local rule that decides which functions are bounded.
 
-The patches used here are slightly richer than a plain ring. Along with the ring of functions you carry a chosen subring: the functions you have decided to call **size at most one**. The pair determines a space of valuations, meaning a space whose points are the consistent ways of measuring how big each function is ([Proposition 9.2, page 63](https://arxiv.org/pdf/2605.03658v1#page=63)).
+The local data form a Huber pair: a ring A together with an integrally closed subring A-plus whose elements are declared to have size at most one. From this pair one forms a valuation space. A point of that space is a consistent multiplicative way to assign sizes to all elements of A, subject to the requirement that every element of A-plus has size at most one ([Proposition 9.2, page 63](https://arxiv.org/pdf/2605.03658v1#page=63)).
 
 ![A ring's valuation space, with the region cut out by choosing which functions count as size at most one](spa.png)
 
-The picture shows the effect of the choice. Every choice of subring cuts out a region of the valuation space, and the lectures prove the correspondence runs exactly both ways: the subring determines the region and the region determines the subring, with nothing lost either way. Choosing a subring is choosing how much of the space you are looking at.
+Choosing A-plus cuts out the region of valuations that treat its elements as small. Conversely, the allowed region recovers A-plus as exactly the functions whose size is at most one at every point in that region. Within the class stated in the proposition, the algebraic choice and geometric region therefore determine one another.
 
 ![Two overlapping patches carrying their own module theories, agreeing on the overlap and merging into one theory on the union](gluing.gif)
 
-The gluing theorem comes next ([Theorem 9.8, page 65](https://arxiv.org/pdf/2605.03658v1#page=65)): the assignment sending each patch to its theory of modules is a sheaf, so local theories that agree on overlaps determine exactly one theory on the union. This is what licenses everything global.
+The gluing theorem says that the derived category of complete modules varies as a sheaf over these patches ([Theorem 9.8, page 65](https://arxiv.org/pdf/2605.03658v1#page=65)). If local module objects and all their comparison data agree on overlaps, they determine one global object, uniquely up to the appropriate equivalence. This result allows the affine construction of compactly supported cohomology to be used on spaces assembled from many affines.
 
-Two honest notes go with that theorem. The first is that gluing derived categories in the old-fashioned sense does not work, because one has to track homotopies between homotopies, without end, and the classical derived category has thrown that information away. The lectures pass to the higher-categorical version at precisely this point and say so plainly. The statement is unchanged, while the technology underneath it is not.
+The theorem requires a higher-categorical version of the derived category. Ordinary derived categories record maps only up to homotopy, but gluing also needs coherent homotopies between those homotopies and further levels of compatibility. An infinity-category retains that information. The need for this language appears at the gluing step rather than in the earlier finite pictures.
 
-The second note is that the proof is the same proof as classical Zariski descent: cover the space by the places where one function is invertible, and check exactness there, where the cover splits. Nothing exotic enters, although the whole of Lecture X is spent making the two supporting lemmas, that localisations commute and that a module which is locally zero is zero, hold in this setting.
+Despite that technical language, the proof follows the familiar pattern of Zariski descent. Cover a space by patches where chosen functions become invertible, check the statement after localizing to each patch, and use the fact that the localized cover splits. Lecture X establishes the two required facts in this setting: localizations commute with one another, and a module that vanishes on every patch is globally zero.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/06.html)** to choose which functions count as small and watch the region move.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/06.html)** to change the chosen bounded functions and watch the corresponding region of valuations change.
 
 ---
 

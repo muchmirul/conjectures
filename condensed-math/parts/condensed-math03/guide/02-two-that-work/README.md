@@ -2,21 +2,21 @@
 
 *Part 3 of three: Rings That Know How To Integrate. Retells Lectures VII to XI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-Nothing new is needed here, because the two rules that work are the two objects part two already built:
+The first examples require no new construction because they come from the solid measures of part two. They show how the general definition packages familiar completion rules.
 
-**The base-p rule.** Take the base-p numbers, and let the legal weightings be the ones part two built on the base-p probe. This passes ([Proposition 7.8, page 48](https://arxiv.org/pdf/2605.03658v1#page=48)).
+**The base-p rule.** Use the p-adic integers as the ring and compatible p-adic-valued measures on each probe as its free complete modules. This pair passes the analytic-ring test ([Proposition 7.8, page 48](https://arxiv.org/pdf/2605.03658v1#page=48)), so p-adic summation fits the new framework.
 
-**The solid rule over any plain ring.** Take any ring with no topology at all, and let the legal weightings be the solid ones from part two, carried across. This passes as well, by the same argument, and it is the workhorse of everything that follows.
+**The solid rule over a plain ring.** Let A be any discrete ring and extend the integer-valued solid measures by coefficients in A. This pair also passes. It supplies a theory of complete A-modules even though the underlying ring itself has no nontrivial topology.
 
 ![The two working rules side by side, the base-p one and the solid one over a plain ring, with what each allows you to sum](two_rules.png)
 
-The second one deserves a comment because it looks like it says nothing. A ring with no topology has nothing to complete, so attaching a rule for infinite sums seems to add nothing either.
+The second example may initially seem empty because a discrete ring has no limits to complete inside the ring itself. However, the rule governs condensed modules over that ring, not merely its individual elements. Those modules can carry rich topological information through their probe values. The theory selects the modules in which solid measures can be integrated consistently, while keeping the coefficient ring algebraically simple.
 
-The reason it does add something is that the modules are not required to be plain. The ring is discrete, but the things it acts on are answer sheets, and an answer sheet can carry any amount of topology. This means that the rule is a statement about the modules rather than about the ring: among all the ways a module over this plain ring might carry a topology, these are the ones where infinite sums behave. That is exactly the setting in which the rest of this part does geometry, and the ring being plain helps, because it means no choices were made about the ring's own topology.
+This separation is useful in geometry. The ring describes multiplication of functions, while the theory of measures controls infinite additive behaviour in its modules. Since these roles are independent, one can alter the completion rule without changing the underlying algebraic formulas.
 
-There is also a version for the fractions of the base-p numbers, where the legal weightings are the bounded ones, and more generally a rule attached to any pair consisting of a ring and a chosen subring of things of size at most one ([Remark 7.9, page 49](https://arxiv.org/pdf/2605.03658v1#page=49)). Section 6 uses that generality.
+A broader construction begins with a ring A and a chosen subring of elements regarded as having size at most one ([Remark 7.9, page 49](https://arxiv.org/pdf/2605.03658v1#page=49)). Such a pair is called a Huber pair. For the field of p-adic numbers, it produces the bounded p-adic-valued measures. Section 6 will use Huber pairs to turn local rings into geometric patches.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/02.html)** to compare what each rule lets you add up.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/02.html)** to compare the p-adic and discrete-ring rules and see which measures each one permits.
 
 ---
 

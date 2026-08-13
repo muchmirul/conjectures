@@ -2,21 +2,21 @@
 
 *Part 3 of three: Rings That Know How To Integrate. Retells Lectures VII to XI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-Geometry starts here, with a question about edges. Take the simplest space with an edge, an endless line, with coordinates running out forever in one direction. The polynomials are the functions defined on all of it. The question is what functions look like far out, near the edge, ignoring everything in the middle.
+We now turn from analysis to geometry. Begin with the affine line, whose global functions are polynomials in one coordinate. To study what happens far from its finite part, introduce the reciprocal coordinate. When the original coordinate is large, its reciprocal is small, so series in the reciprocal describe functions in a formal neighbourhood of infinity.
 
 ![The camera pulling back along an endless line towards its far edge, with a function's expansion in the reciprocal coordinate assembling term by term](tail.gif)
 
-Far out, the coordinate is huge, so its reciprocal is tiny, and the natural thing to expand in is that reciprocal. A function near the edge is a series in one-over-the-coordinate, allowed finitely many positive powers and endlessly many negative ones. Call this the **edge ring**. The lectures write it as the formal Laurent series in the inverse coordinate and it is the central object of Lecture VIII.
+Such a series may contain finitely many positive powers of the original coordinate and infinitely many negative powers. The lectures call the resulting ring of formal Laurent series the functions near the boundary. This guide calls it the **edge ring**. The animation moves toward the boundary while assembling the terms that remain meaningful there.
 
-Two features matter here. Every polynomial is also a function near the edge, by just reading it out there, so the polynomials sit inside the edge ring. The edge ring is also much bigger, because of all the endless negative tails.
+Every polynomial has an expansion near infinity, so the polynomial ring maps into the edge ring. The edge ring also contains infinite negative-power tails that no polynomial can have. Comparing the two rings separates information defined everywhere from information that exists only near the boundary.
 
-The quotient, functions near the edge modulo functions everywhere, is the object that does the work. Its elements are exactly the endless tails, with the polynomial part discarded as irrelevant.
+The quotient of the edge ring by the polynomial ring discards every global polynomial contribution. What remains consists of the boundary tails. This quotient is the concrete object used in the next section to build compactly supported cohomology.
 
 ![The coordinate cross, two lines meeting at a point, with an edge at each of its four ends](cross.png)
 
-The picture shows the example the lectures compute in full ([Remark 8.5, page 54](https://arxiv.org/pdf/2605.03658v1#page=54)): the coordinate cross, two lines glued at a single point. It has an edge at each end, each end contributes its own tails, and the shared point ties the two branches together in exactly one place. This repository computes the quotient's size for that shape by truncation, and the count comes out as the tails from each branch plus a single extra piece left over from the shared point, which is where the crossing enters the count. The next section says why any of this is worth doing.
+The lectures work out the coordinate cross, defined by two coordinate axes meeting at one point ([Remark 8.5, page 54](https://arxiv.org/pdf/2605.03658v1#page=54)). Each branch contributes its own Laurent tails, while the shared value at the crossing imposes one relation between the global functions. The finite truncation in this repository counts the quotient as the tails from both branches plus one additional piece associated with that shared point. The count stabilizes as the truncation is extended.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/04.html)** to slide out to the edge and watch which terms of a function survive.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/04.html)** to move toward the boundary and see which polynomial and tail terms survive in the quotient.
 
 ---
 

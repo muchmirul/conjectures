@@ -2,31 +2,31 @@
 
 *Part 3 of three: Rings That Know How To Integrate. Retells Lectures VII to XI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-There are two natural ways to collect up the functions on a space:
+A map from a space to a point gives two natural ways to collect information. Ordinary pushforward records all global sections. Pushforward with compact support records the part that does not persist out toward the boundary. The second operation is harder because it must distinguish global behaviour from the infinite tails introduced in section 4.
 
-**Everything.** Take all the functions, on the whole space, and record them. This is the ordinary one and it always works.
+**Everything.** Ordinary cohomology collects functions or sheaf data across the entire space. Algebraic geometry already has this pushforward, and it behaves well for the usual derived categories.
 
-**Only what vanishes near the edge.** Take the functions that vanish near the edge, or more precisely the ones that can be pushed off the edge, and record those. This is the compactly supported one, and classically it is much harder to define for the kind of functions algebraic geometry uses.
+**Only what vanishes near the edge.** Compactly supported cohomology keeps data whose support stays away from the boundary. In the present construction, it is obtained by comparing global modules with the modules of functions near that boundary.
 
 ![The functions near the edge, the functions everywhere, and the quotient between them being formed](compact_support.gif)
 
-In this setting it is nearly free. Section 4 built the functions near the edge, with the functions everywhere sitting inside them. The compactly supported collection is assembled from exactly that comparison, and the construction goes through because both sides are modules over a ring with a rule, so infinite sums behave in every step ([Theorem 8.1, page 53](https://arxiv.org/pdf/2605.03658v1#page=53)).
+For a finitely generated algebra over the integers, the two relevant module theories are connected by a sequence of adjoints. The edge quotient provides the additional left adjoint needed to define compactly supported pushforward. This construction works because the theories are analytic rings, so products, limits, and derived operations retain the required completeness ([Theorem 8.1, page 53](https://arxiv.org/pdf/2605.03658v1#page=53)).
 
-What comes out is stronger than the construction:
+The resulting operation has a right adjoint, which means that maps out of a compactly supported pushforward correspond naturally and uniquely to maps into a partner object:
 
-> The compactly supported collection has a partner: a second operation that is its exact counterweight, meaning that maps out of anything the first operation produces correspond exactly, and in only one way, to maps into what the second produces. Applying that partner to the simplest possible input returns one specific object, and that object is the classical dualizing complex.
+> Compactly supported pushforward has a right adjoint. Applying this right adjoint to the unit object produces the classical dualizing complex.
 
-That is Theorem 8.2 ([page 53](https://arxiv.org/pdf/2605.03658v1#page=53)). The dualizing complex is the object classical duality theory needs, and classically it has to be constructed by hand, with cases and choices. Here it is whatever the counterweight produces, with no choices at all.
+This is Theorem 8.2 ([page 53](https://arxiv.org/pdf/2605.03658v1#page=53)). In standard notation the operations are called lower shriek and upper shriek. Applying upper shriek to the unit object gives the dualizing complex. The adjunction characterizes this object canonically, replacing a separate case-by-case choice of a candidate.
 
 ![The dualizing object of the line and of the cross, read off from the tails at each edge](dualizing.png)
 
-The lectures make this concrete on the cross of section 4 and get a formula for its dualizing complex directly out of the tails ([Remark 8.5, page 54](https://arxiv.org/pdf/2605.03658v1#page=54)). This repository reproduces the counting side of that formula by truncation.
+For the coordinate cross, the lectures express the dualizing complex as the integer dual of the quotient of boundary functions by global functions ([Remark 8.5, page 54](https://arxiv.org/pdf/2605.03658v1#page=54)). The truncation calculation in this repository reproduces the finite-dimensional counting pattern behind that quotient, not the categorical theorem itself.
 
-Two remarks in the lectures are worth carrying, because they say what was gained. The first is that the compactly supported operation does not preserve ordinary discrete objects, and it *cannot*, since the tails are genuinely infinite. This means that it does not exist, even naively, in the classical setting, and the operation is only available because the modules are allowed to be answer sheets. Its counterweight does land back among ordinary objects, so the classical theory could reach the answer without being able to follow the construction that produces it ([the discussion under Theorem 8.2, page 53](https://arxiv.org/pdf/2605.03658v1#page=53)).
+Two consequences clarify why condensed modules are needed. First, compactly supported pushforward generally takes a discrete module to a genuinely nondiscrete object because boundary tails involve infinite products. The operation therefore has no naive construction within ordinary discrete modules. Its right adjoint does preserve discrete objects, so the final dualizing complex can be classical even though the route used to define it passes through condensed mathematics ([the discussion under Theorem 8.2, page 53](https://arxiv.org/pdf/2605.03658v1#page=53)).
 
-The second remark is about finiteness. The finiteness statements of classical coherent cohomology, that certain collections of functions are finitely generated, become the statement that the compactly supported operation preserves a purely formal notion of smallness ([Remark 8.3, page 54](https://arxiv.org/pdf/2605.03658v1#page=54)).
+Second, compactly supported pushforward preserves compact objects. This formal compactness condition becomes the local form of the familiar finiteness theorem for coherent cohomology ([Remark 8.3, page 54](https://arxiv.org/pdf/2605.03658v1#page=54)). Once the construction is globalized and proper pushforward agrees with compactly supported pushforward, it recovers the usual finiteness statement.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/05.html)** to form the quotient yourself on the line and on the cross.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/05.html)** to form the boundary quotient for a line and a coordinate cross and compare the surviving tails.
 
 ---
 

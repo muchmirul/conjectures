@@ -2,13 +2,13 @@
 
 *Part 2 of three: Infinite Sums That Finally Land. Retells Lectures IV to VI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-*Part two of three on condensed mathematics. Endless sums are the reason topology was brought into algebra in the first place. This part builds the rule that says when an endless sum has exactly one answer, finds the building blocks of everything obeying that rule, and ends by solidifying a doughnut and watching its holes fall out. Part one is assumed, and nothing else.*
+*Part two of three on condensed mathematics. Part one made subtraction reliable by replacing spaces with their answers to probes. We now ask when an infinite sum has one well-defined value. Compatible weights on the finite stages of a probe lead to the solid rule, reveal the basic structure of solid groups, and recover the holes of familiar spaces. Only part one is assumed.*
 
 ![Weights being handed down a branching probe, splitting between the boxes at every level while the totals keep agreeing](hero.gif)
 
-The animation shows the object this part is built on. Take a probe, the branching thing from part one, and put a number on each box. Then refine, which means splitting each box and splitting its number between the pieces, any way you like, as long as the pieces add back up to what the box had. Refining forever leaves you with what this guide calls a **weighting**, and weightings turn out to be the entire answer to a question about infinite sums that took a century to ask properly.
+The animation shows the main construction of this part. Place an integer weight on the first box of a probe. Whenever a box splits, divide its weight among the new boxes so that their weights add back to the old one. Repeating this at every level produces a compatible family called a **weighting**, or, in standard language, an integer-valued measure. Because every level is finite and the totals agree between levels, a weighting gives a controlled way to interpret sums over all the points of a probe.
 
-This is part two of three, covering Lectures IV to VI of Peter Scholze's *Lectures on Condensed Mathematics* ([arXiv:2605.03658](https://arxiv.org/abs/2605.03658), May 2026), joint work with Dustin Clausen. [Part one](../condensed-math01/ARTICLE.md) built probes and answer sheets and is assumed here. Part three carries all of this to rings and geometry. Most sections have a [page you can play with](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/index.html).
+This is part two of three, covering Lectures IV to VI of Peter Scholze's *Lectures on Condensed Mathematics* ([arXiv:2605.03658](https://arxiv.org/abs/2605.03658), May 2026), joint work with Dustin Clausen. [Part one](../condensed-math01/ARTICLE.md) introduced probes and condensed sets, and those ideas will be used here. Part three extends the resulting theory from groups to rings and geometry. Most sections include a [page you can play with](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/index.html), so each new definition can be tested on a finite example.
 
 ```
     the problem again           1  sums with nowhere to land
@@ -21,7 +21,7 @@ This is part two of three, covering Lectures IV to VI of Peter Scholze's *Lectur
     the payoff                  8  solidify a shape, get its holes
 ```
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/00.html)** to hand out weights yourself and watch the totals keep agreeing.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/00.html)** to distribute weights through a probe and check that every refinement preserves the total above it.
 
 ---
 

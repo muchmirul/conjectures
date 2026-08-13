@@ -2,23 +2,23 @@
 
 *Part 3 of three: Rings That Know How To Integrate. Retells Lectures VII to XI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-Everything now assembles into the standard shape that modern geometry is organised around. Nothing new is required: the six operations are the ones already built.
+The local and global constructions now fit into the **six-operations formalism**, the standard organizational structure for modern cohomology theories. To each space it assigns a category of sheaf-like objects. A map of spaces then gives operations that move or compare those objects in controlled ways.
 
 ![The six operations arranged as three adjoint pairs, with the pullback, the two pushforwards, and their partners](six.png)
 
-The diagram reads as follows. To each space one attaches a category of sheaves, and then there are three pairs, each pair being an operation and its exact counterweight:
+The six operations come in three related pairs. In each pair, one operation is adjoint to the other, meaning that maps after applying the first correspond naturally to maps after applying its partner.
 
-**Combine and separate.** The first is a way of multiplying two sheaves together. Its partner asks what one sheaf does to another.
+**Combine and separate.** Tensor product combines two sheaves on the same space. Internal Hom is its partner and records the maps from one sheaf into another.
 
-**Pull back and push forward.** Given a map of spaces, the first drags a sheaf backwards along it. Its partner pushes a sheaf forwards.
+**Pull back and push forward.** For a map of spaces, pullback transfers a sheaf from the target to the source. Ordinary pushforward transfers information from the source back to the target and is the right adjoint of pullback.
 
-**Push forward with compact support, and its counterweight.** This pair already appeared in section 5. It is that section's operation together with the one that produced the dualizing object.
+**Push forward with compact support, and its counterweight.** Lower shriek pushes forward while controlling behaviour at the boundary. Upper shriek is its right adjoint and produces the dualizing object when applied to the unit.
 
-The lectures state plainly which of these is the difficulty. The first four are easy, while constructing the third pair is where the work is, and it is the only reason condensed mathematics was needed at all in this story ([the discussion after Theorem 11.1, page 72](https://arxiv.org/pdf/2605.03658v1#page=72)).
+The lectures explain that the first four operations can be constructed without condensed mathematics. The difficult step is lower shriek, the compactly supported pushforward built from the boundary theory in section 5. Constructing this third pair is the reason condensed modules enter the six-operation story ([the discussion after Theorem 11.1, page 72](https://arxiv.org/pdf/2605.03658v1#page=72)).
 
-Two rules pin the third pair down. When the map is proper, meaning nothing escapes to the edge, pushing forward with compact support is just pushing forward. When the map is an open inclusion, the counterweight is just the pullback. Between them these two rules force the definition everywhere, by factoring any reasonable map into an open inclusion followed by a proper map. The lectures note the standard consequence: since the definition is forced, the real content is checking it does not depend on how you factored.
+Two familiar cases determine how lower shriek must behave. For a proper map, nothing can escape through a boundary, so compactly supported pushforward equals ordinary pushforward. For an open inclusion, upper shriek equals pullback, which makes lower shriek the left adjoint of pullback. Nagata compactification factors a separated finite-type map into an open inclusion followed by a proper map. These rules therefore determine the candidate operation, while the theorem must still show that it is independent of the chosen factorization and behaves coherently under composition.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/07.html)** to move a sheaf around a map with each operation and see where it lands.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/07.html)** to apply each operation to a sheaf and compare the directions of the three adjoint pairs.
 
 ---
 

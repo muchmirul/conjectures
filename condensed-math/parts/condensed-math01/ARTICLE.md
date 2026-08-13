@@ -1,12 +1,12 @@
 # Shapes You Can Only See By Probing Them
 
-*Part one of three on condensed mathematics. A set with a distance on it carries two structures that do not fit together properly, and the mismatch breaks ordinary algebra. This part builds the repair from the beginning: what a probe is, what a shape says to one, and why describing a shape that way makes subtraction work again. You do not need a maths background, and every idea arrives as a picture you can move.*
+*Part one of three on condensed mathematics. We begin with a familiar problem: the same set of numbers can carry different ideas of nearness, but ordinary algebra does not record that difference well. Step by step, this part introduces probes, explains how a space answers them, and shows how this new description makes subtraction work without losing familiar spaces or their holes. No previous mathematics is assumed.*
 
 ![A branching probe growing level by level while the boxes it cuts a line into get finer and finer](guide/00-start-here/hero.gif)
 
-The animation shows the only kind of object this whole subject is built on. You start with one box, split it in two, split each half in two, and keep going. At every stage you have a plain finite list of boxes, and the picture records nothing except which box sits inside which. If you follow the splitting forever, the boxes shrink onto a dust of points, and that dust, together with the memory of how it was cut, is called a **probe** in this guide. Everything that follows is about what happens when you stop describing a shape by its points and start describing it by what it says to probes like this one.
+The animation introduces the basic object used throughout this guide. Begin with one box, split it into two, and then split each new box again. Every stage is finite, so you can see the whole stage at once. If the process continues forever, each path through the boxes approaches a point, while the full branching pattern remembers how those points were separated. We will call the resulting object a **probe**. Condensed mathematics describes a space through all the continuous ways probes can enter it, rather than through its points alone.
 
-This is part one of three. It covers the first three lectures of Peter Scholze's *Lectures on Condensed Mathematics* ([arXiv:2605.03658](https://arxiv.org/abs/2605.03658), May 2026), which record a course taught in Bonn in 2019, joint work with Dustin Clausen. Part two is about infinite sums, part three about geometry. Everything here comes from the open source repository at [github.com/muchmirul/conjectures](https://github.com/muchmirul/conjectures): the text, every figure, and the code behind each computed claim. Most sections also have a [page you can play with](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/index.html), where you change the main choice and see how the picture changes.
+This is part one of three. It covers the first three lectures of Peter Scholze's *Lectures on Condensed Mathematics* ([arXiv:2605.03658](https://arxiv.org/abs/2605.03658), May 2026), which record a course taught in Bonn in 2019 and present joint work with Dustin Clausen. Part two develops infinite sums, and part three moves from addition to rings and geometry. The text, figures, and code for every computed example are available in the open source repository at [github.com/muchmirul/conjectures](https://github.com/muchmirul/conjectures). Most sections also include a [page you can play with](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/index.html), where changing one choice updates the corresponding picture.
 
 ```
     the problem                 1  two real lines, and the broken bridge
@@ -19,23 +19,23 @@ This is part one of three. It covers the first three lectures of Peter Scholze's
                                 8  counting holes
 ```
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/00.html)** to build the probe yourself, one split at a time.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/00.html)** to build a probe one split at a time and see how its finite stages fit together.
 
 ## 1 · Two real lines
 
-Take the real numbers, the whole endless ruler of them, and write them down twice. In the first copy, forget every idea of nearness. Two numbers are either the same number or different numbers, and that is all you may ask. The numbers sit apart like grains of sand, and no grain is nearer any other. Call this copy **the dust**.
+Start with the set of all real numbers and give it two different rules about nearness. In the first copy, forget nearness completely. Two numbers are either equal or different, and no distinct numbers count as close. We will call this copy **the dust**, which is the real line with the discrete topology.
 
-In the second copy, keep nearness. Now 0.999 is close to 1, a sequence can approach a limit, and a function can be continuous. Call this copy **the ruler**.
+In the second copy, keep the usual notion of distance. In this copy, 0.999 is close to 1, sequences can approach limits, and continuous motion makes sense. We will call this copy **the ruler**, which is the ordinary topological real line.
 
 ![The same numbers drawn twice, as separated grains and as a continuous ruler, with every grain matched to its point](guide/01-two-real-lines/bijection.gif)
 
-There is an obvious way to go from the dust to the ruler, which is to send each number to itself. The animation matches them up, and nothing is left over on either side. Every number of the dust arrives somewhere, no two arrive at the same place, and every point of the ruler is arrived at, so the map loses nothing and adds nothing.
+Send each number in the dust to the same number on the ruler. The animation shows this matching. Every input has one output, different inputs remain different, and every point on the ruler is reached. As a map of underlying sets, it is a perfect one-to-one correspondence.
 
-Even so, the dust and the ruler are not the same object, because on the ruler you may speak of limits and on the dust you may not. This gives a map which is not a genuine sameness, even though it has nothing missing at the front and nothing missing at the back.
+However, the two topological groups are not the same. The map from the dust to the ruler is continuous, but its inverse is not. A single point is open in the dust, while a single point is not open on the ruler, so the inverse fails the basic test for continuity. A bijection of points therefore does not guarantee an isomorphism of topological objects.
 
-The distinction matters, because it makes ordinary algebra impossible. In algebra the whole method is this: given a map, look at what it kills, look at what it misses, and if both are nothing, the map was a sameness. This is how one solves equations, chains up long calculations, and defines almost everything. Here both questions are answered with nothing, so the recipe declares the map a sameness, which is the wrong answer.
+This causes a precise algebraic problem. In an abelian setting, one studies a map by finding its kernel, the elements it sends to zero, and its cokernel, the part of the target it fails to account for. If both are zero, the map should be an isomorphism. For the map above, both are zero even though the map is not an isomorphism, so topological abelian groups do not support this standard algebraic test.
 
-The lectures open on exactly this example ([Example 1.9, page 9](https://arxiv.org/pdf/2605.03658v1#page=9)), and list two more failures of the same kind. That list sits on the first page of the course because the whole course is the repair for it. Rather than patching the recipe, the repair starts from the observation that the dust and the ruler differ in something the points cannot see, and then changes what an object *is*, so that the difference becomes visible.
+The lectures begin with this example ([Example 1.9, page 9](https://arxiv.org/pdf/2605.03658v1#page=9)) and give two related failures. These examples identify the problem that condensed mathematics is designed to solve. The point sets of the dust and ruler agree, so a successful repair must record how whole compact families of points move, not merely which individual points exist.
 
 ### The mathematics
 
@@ -47,157 +47,157 @@ Write $\mathbb{R}_{\mathrm{disc}}$ for the dust and $\mathbb{R}$ for the ruler, 
 \qquad \text{yet } \mathbb{R}_{\mathrm{disc}} \not\cong \mathbb{R}.
 ```
 
-**Reading the symbols.** The subscript "disc" records the choice to forget nearness, so $\mathbb{R}_{\mathrm{disc}}$ and $\mathbb{R}$ hold the same numbers under different rules about which of them count as close. The arrow labelled $\mathrm{id}$ is the map that sends each number to itself. The word $\ker$ names everything the map sends to zero, which is the kill-list, and $\mathrm{coker}$ names what the map fails to reach, which is the miss-list. The last symbol, $\not\cong$, says the two groups are still not the same object.
+**Reading the symbols.** The symbol $\mathbb{R}$ means the real numbers, and the subscript $\mathrm{disc}$ says that distinct numbers are treated as separate, with no usual notion of nearness. The arrow labelled $\mathrm{id}$ sends every number to itself. The symbol $\ker$ names the kernel, or everything sent to zero, while $\mathrm{coker}$ names the cokernel, or what remains unaccounted for in the target. Both are $0$, meaning that neither detects a difference. The symbol $\not\cong$ says that the two topological groups are nevertheless not isomorphic.
 
-**Why it matters.** In an abelian category, a map with $\ker = 0$ and $\mathrm{coker} = 0$ is an isomorphism. Here both vanish and the map is not one, so topological abelian groups do not form an abelian category, and the standard machinery of homological algebra cannot be used on them.
+**Why it matters.** In an abelian category, a map whose kernel and cokernel are both zero must be an isomorphism. This example violates that implication, so the category of topological abelian groups is not abelian. As a result, the usual tools of homological algebra cannot simply be applied there.
 
-**In the simulation.** The slider is how closely you look. The two rows are $\mathbb{R}_{\mathrm{disc}}$ and $\mathbb{R}$, the vertical lines are $\mathrm{id}$ matching them up one to one, and the readout prints $\ker$ and $\mathrm{coker}$ so you can watch both stay empty while the two rows behave differently.
+**In the simulation.** The slider controls how closely you inspect the two copies of the real line. The two rows represent $\mathbb{R}_{\mathrm{disc}}$ and $\mathbb{R}$, and the vertical lines show the identity map matching equal numbers. The readout displays the kernel and cokernel, which remain zero even while the pictures retain different notions of nearness.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/01.html)** to match the two lines yourself and watch both the kill-list and the miss-list come out empty.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/01.html)** to inspect the matching and see why its empty kernel and cokernel do not make it an isomorphism.
 
 ## 2 · Probes that branch
 
-The object that will do the seeing is made by splitting. Start with a single box, split it into two boxes, split each of those into two, and keep splitting forever. At every stage you have a finite list of boxes and a record of which box came from which, so nothing infinite has happened at any single stage, and each stage is a finite picture a child could draw.
+To detect nearness, we need an object that carries nearness of its own. Build one by starting with a box and repeatedly dividing it into smaller boxes. At each stage there are only finitely many pieces, together with a map telling us which new piece came from which old one. The infinite object is completely described by these finite stages and their connecting maps.
 
 ![Three probes side by side: the endlessly halving one, the one that is a single approaching sequence, and the one whose boxes split five ways](guide/02-branching-probes/probes.png)
 
-A **probe** is a splitting scheme like this, together with the dust of points you reach by following the splits forever. Three of them carry this whole guide, and the picture shows all three:
+A **probe** consists of such a compatible sequence of finite divisions and the points obtained by following branches through every stage. The lectures call this a profinite set. Three examples will be used repeatedly in this guide.
 
-The **halving probe** splits every box in two, every time. After ten rounds it has 1024 boxes, and its dust is the classical Cantor set: take a line, remove the middle third, remove the middle third of what is left, and repeat.
+The **halving probe** divides every box into two at each stage. After ten rounds it has 1024 boxes. Its limiting points form the classical Cantor set, which can also be made by repeatedly removing the middle third of every remaining interval.
 
-The **approaching probe** is thinner. Its dust is a single sequence of points marching towards one limit point, together with that limit point. At stage five it has separated the first five points and is still holding everything beyond them in one box.
+The **approaching probe** records one convergent sequence and its limit. At stage five, the first five points have been separated into their own boxes, while all later points and the limit still occupy one final box. Further stages separate one more point at a time.
 
-The **counting-in-base-p probe** splits every box into p boxes. Its dust is what number theorists call the p-adic integers, and part two of this guide will work inside it.
+The **counting-in-base-p probe** divides each box into p pieces. Its limiting points form the p-adic integers, an important number system in which divisibility by powers of p determines nearness. Part two will use this probe to explain an infinite sum that converges in one notion of size but not another.
 
-The lectures call these objects profinite sets, and the word says what they are, namely things made out of finite things ([Definition 1.2, page 6](https://arxiv.org/pdf/2605.03658v1#page=6)). Two features of the definition matter later, and both are visible in the picture. The first is that every stage is finite, so nothing at any stage is hard. The second is that the whole probe is nothing but the stages plus the memory of which box sits in which, so a probe carries no extra information brought in from outside. The code in this repository stores probes exactly this way, as a list of finite stages plus the map from each stage to the one before, and the tests check that the halving probe really doubles, that the approaching probe really adds one separated point per stage, and that following the splits down and reading a weight back up is consistent.
+The formal name *profinite set* means an inverse limit of finite sets ([Definition 1.2, page 6](https://arxiv.org/pdf/2605.03658v1#page=6)). Two parts of that description are important. Every individual stage is finite, and all information about the probe lies in the stages and the maps between them. The code follows this definition literally by storing finite sets and their transition maps. Its tests check the expected growth of all three probes and verify that compatible data can be read consistently through their levels.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/02.html)** to switch between the three probes, set the depth, and click a box to see everything inside it.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/02.html)** to compare the three probes, change their depth, and inspect the points contained in any box.
 
 ## 3 · What a shape says to a probe
 
-Now point a probe at a shape. Pointing a probe at a shape means laying the probe's dust into the shape without tearing it, so that nearby dust lands nearby. If two points of the dust are close, their images have to be close as well, and if a sequence of dust points marches towards a limit, the images must march towards the image of the limit.
+We can now use a probe to examine a space. A probe **lands** in a space when its points are mapped there continuously. Continuity means that the map respects the nearness already carried by the probe. In particular, if probe points approach a limit, their images must approach the image of that limit.
 
 ![A probe's points being laid into a curve, first a landing that keeps limits and then one that tears, with the verdict shown](guide/03-what-a-shape-says/landing.gif)
 
-The animation lays an approaching probe into a curve twice. The first landing takes the marching points to marching points and the limit point to their limit, and it is accepted. The second sends the limit point somewhere else, which breaks the chain, so it is refused.
+The animation tests two attempted landings of the approaching probe. In the first, the sequence of images approaches the image of the limit point, so the landing is continuous. In the second, the sequence approaches one place while the limit point is sent elsewhere. That break in continuity causes the landing to be rejected.
 
-The whole subject turns on a change of description: instead of describing a shape by listing its points, you describe it by listing, for every probe, all the ways that probe can land in it. A shape becomes a giant answer sheet, with one entry per probe, and the entry is the collection of legal landings.
+This suggests a new way to describe a space. For every possible probe, record every continuous way that probe can land in the space. The resulting record is like an answer sheet: each probe poses a test, and the space answers with its set of legal landings. This answer sheet remembers not only which points exist but also which compact families of points fit together continuously.
 
-An object of that kind, an answer sheet obeying two rules we will meet next section, is called a **condensed set** ([Definition 1.2, page 6](https://arxiv.org/pdf/2605.03658v1#page=6)). If the shape you started from carried a notion of adding, so does its answer sheet, and it is then called a condensed group; if it carried multiplication too, a condensed ring ([Example 1.3, page 7](https://arxiv.org/pdf/2605.03658v1#page=7)).
+An answer sheet satisfying the two compatibility rules in the next section is called a **condensed set** ([Definition 1.2, page 6](https://arxiv.org/pdf/2605.03658v1#page=6)). If the original space has addition, its landings can be added point by point, producing a condensed group. If it also has multiplication, the same construction produces a condensed ring ([Example 1.3, page 7](https://arxiv.org/pdf/2605.03658v1#page=7)).
 
-Now return to the two real lines. Point the approaching probe at the ruler and there are enormous numbers of legal landings, since any marching sequence with a limit will do. Point it at the dust and almost all of those landings are refused, because in the dust a sequence marching towards a limit is a sequence of unrelated grains, and the only landings that survive are the ones that are eventually stuck on a single grain. The two answer sheets are therefore different, so the difference that the points could not see is visible to the probes straight away.
+This description immediately distinguishes the two real lines. The approaching probe has many continuous landings in the ruler, because any convergent sequence of real numbers and its limit gives one. In the dust, a convergent sequence must eventually remain at one value, so nearly all of those landings disappear. Although the dust and ruler have the same individual points, their answer sheets are different.
 
-The approaching probe alone is already enough to catch this, for a reason worth stating. Any space where you can measure distance is completely determined by which sequences converge in it, so the probe that is one converging sequence can already read the whole of such a space ([Remark 1.6, page 9](https://arxiv.org/pdf/2605.03658v1#page=9)). Everything with a distance on it, which is nearly everything anyone draws, is covered by that one probe.
+For spaces with a distance, the approaching probe already contains enough information to detect the topology. Such a space is determined by its convergent sequences, and this probe tests exactly those sequences ([Remark 1.6, page 9](https://arxiv.org/pdf/2605.03658v1#page=9)). More general spaces require all profinite probes, but this small example explains why probes can see information that points alone miss.
 
 ![A set in the plane with a sequence inside it approaching a point outside, so the probe reports that the set is missing a limit](guide/03-what-a-shape-says/sequence_test.png)
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/03.html)** to drag the landing points yourself and watch the verdict flip when the chain snaps.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/03.html)** to move the images of a convergent sequence and see exactly when the proposed landing stops being continuous.
 
 ## 4 · Cut, and glue
 
-An answer sheet cannot be filled in at random. Two rules tie the entries together, and both say something obvious about probes.
+The entries of an answer sheet cannot be chosen independently. They must respect two basic ways of relating probes, called **cut** and **glue**. Together, these are the sheaf conditions in the definition of a condensed set.
 
-**Cut.** If a probe falls into two separate pieces, then landing the whole probe is exactly the same as landing each piece, independently. Nothing connects the pieces, so there is nothing more to say.
+**Cut.** If a probe is a disjoint union of two pieces, then a landing of the whole probe contains exactly the same information as one landing for each piece. Since the pieces do not meet, the two landings can be chosen independently and then combined.
 
 ![A probe separated into two pieces, with the landings of the pieces recombining into landings of the whole](guide/04-cut-and-glue/cut.png)
 
-**Glue.** Suppose a bigger probe covers a smaller one, and you have a landing of the bigger probe which gives the same answer everywhere the covering doubles back on itself. That landing then came from exactly one landing of the smaller one.
+**Glue.** Suppose a larger probe covers a smaller probe. A landing on the covering probe descends to the smaller one when it assigns the same result wherever the cover represents the same point more than once. If that agreement holds, there must be one and only one landing downstairs that produces the given landing upstairs.
 
 ![Two overlapping covering pieces carrying landings that agree on their overlap, merging into a single landing of the whole](guide/04-cut-and-glue/glue.gif)
 
-Of the two rules, the second is the one that constrains an answer sheet most. Under it, an answer sheet cannot hold local information that fails to assemble globally, and cannot assemble the same local information in two different ways. In the lectures these are the two conditions listed directly under the definition ([Definition 1.2, page 6](https://arxiv.org/pdf/2605.03658v1#page=6)); together they are what mathematicians call a sheaf condition. A condensed set is an answer sheet for probes obeying cut and glue, and the definition asks for nothing more.
+The glue rule prevents two kinds of failure. Compatible local answers must assemble into a global answer, so information cannot agree everywhere locally but fail to exist globally. The global answer must also be unique, so the same local data cannot produce two different results. The lectures place these two requirements directly after the definition ([Definition 1.2, page 6](https://arxiv.org/pdf/2605.03658v1#page=6)). Thus, a condensed set is precisely an answer sheet on profinite probes that respects disjoint pieces and compatible covers.
 
-One honest caution belongs here, because the lectures raise it immediately ([Remark 1.4, page 7](https://arxiv.org/pdf/2605.03658v1#page=7)). There are too many probes to form a list in the usual sense, and a definition quantifying over all of them needs care. The fix is to bound the size of the probes considered, check that nothing depends on where the bound is put, and then let the bound grow. It is bookkeeping rather than mathematics, it occupies an appendix of the lectures, and this guide will not return to it.
+A size issue also appears in the definition, and the lectures address it immediately ([Remark 1.4, page 7](https://arxiv.org/pdf/2605.03658v1#page=7)). There are too many profinite sets to collect into one ordinary set, so the phrase "every probe" must be handled carefully. One first chooses a sufficiently large size bound, develops the theory within that bound, and proves that enlarging it does not change the resulting mathematics. This guide will treat that step as background bookkeeping.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/04.html)** to cut a probe, fill in the pieces, and watch the two rules accept or refuse your answers.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/04.html)** to assign local answers and see how the cut and glue rules decide whether they form one valid answer.
 
 ## 5 · The quotient with no points
 
-The repair pays off as soon as you return to the map from the dust to the ruler. As answer sheets, these are genuinely different objects, so the map between them is genuinely not a sameness, and algebra is now allowed to ask what the difference is. Subtracting the dust from the ruler leaves a perfectly good condensed group, and this guide calls it **the ghost**.
+We can now revisit the map from the dust to the ruler. Their answer sheets are different because probes detect continuous families on the ruler that do not exist in the dust. Condensed groups therefore allow us to form a meaningful cokernel of the map. This guide calls that cokernel **the ghost**.
 
-The ghost has no points. When you ask what a single point can say to it, the entry is empty, so by the old way of counting the ghost is zero. When you ask what the halving probe can say, however, the answer is not empty.
+At a single point, the ghost looks like zero: the dust and ruler contain exactly the same real numbers, so their point-level quotient has nothing left. A branching probe gives a different result. It can move continuously through the ruler in ways that are not locally constant and therefore cannot come from the discrete real line.
 
 ![A staircase-like function being built on the branching probe, level by level, ending as a landing that is continuous but not flat on any box](guide/05-the-ghost/ghost.gif)
 
-The animation builds one entry of the ghost. On the halving probe, choose a value on each box, refine, choose again, and keep the choices consistent. In the limit you get a landing which is perfectly continuous but is not constant on any box, no matter how far you refine. A landing like that is precisely something the ruler can do and the dust cannot, so it is a nonzero entry of the ghost's answer sheet ([Example 1.9, page 9](https://arxiv.org/pdf/2605.03658v1#page=9)).
+The animation constructs such a landing on the halving probe. Values are assigned on increasingly fine boxes in a compatible way. In the limit, the resulting map to the ruler is continuous but never becomes constant on a finite collection of boxes. Maps from a compact probe to the dust must be locally constant, so this landing cannot come from the dust. It therefore gives a nonzero element of the ghost ([Example 1.9, page 9](https://arxiv.org/pdf/2605.03658v1#page=9)).
 
-So the ghost is an object with no points which is not zero, and it is the missing piece that makes the recipe work. The map from the dust to the ruler kills nothing and misses nothing *at the level of points*, and the reason it is still not a sameness is a difference which only shows up on probes, and which the ghost now names.
+The ghost is consequently nonzero even though its value on the one-point probe is zero. This explains why the original kernel-and-cokernel test failed: it examined individual points and missed a quotient visible only to larger probes. In the condensed setting, that missing quotient becomes an ordinary algebraic object instead of disappearing.
 
-With that, the statement algebra needs is finally true:
+The general result can now be stated in the form needed for algebra:
 
-> Condensed groups form a setting where every map has a genuine kill-list and a genuine miss-list, and a map with both of them empty really is a sameness.
+> Condensed abelian groups form an abelian category. In this category, a map with zero kernel and zero cokernel is an isomorphism.
 
-That is the opening theorem of the lectures ([Theorem 1.10, page 9](https://arxiv.org/pdf/2605.03658v1#page=9), restated with the size bound fixed as [Theorem 2.2, page 11](https://arxiv.org/pdf/2605.03658v1#page=11)). In the standard vocabulary: condensed abelian groups form an abelian category, and it satisfies the strongest of the usual good behaviour axioms, including some that sheaves almost never satisfy. Topological groups form no such thing, which is where this guide began.
+This is the opening theorem of the lectures ([Theorem 1.10, page 9](https://arxiv.org/pdf/2605.03658v1#page=9), restated with the size bound fixed as [Theorem 2.2, page 11](https://arxiv.org/pdf/2605.03658v1#page=11)). In standard language, condensed abelian groups form an abelian category with especially strong closure properties. The usual machinery of kernels, cokernels, and exact sequences therefore works here, including for topological information that ordinary topological groups fail to record algebraically.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/05.html)** to build a ghost entry yourself and watch the point count stay at zero while the probe entry stays nonzero.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/05.html)** to build a probe-level element of the ghost while its value on individual points remains zero.
 
 ## 6 · Probes that never need folding
 
-Nothing new is needed for this section. It is about which probes are the convenient ones to work with. Suppose one probe covers another, meaning that every box downstairs is hit from upstairs. It is often useful to choose, for each point downstairs, one point upstairs sitting above it, and to make that choice continuously. Call such a choice **a lift**.
+This section uses only the ideas already introduced and asks which probes are easiest to work with. Suppose one probe maps onto another, so every point downstairs has at least one point above it. Choosing one point above each point downstairs gives a **lift**. For the lift to be useful, that choice must also be continuous.
 
 ![A covering of the approaching probe where the choice of lift must jump at the limit point, so no continuous lift exists](guide/06-unfoldable-probes/folding.gif)
 
-Sometimes lifting is impossible. The animation shows a covering of the approaching probe where the two candidate lifts alternate down the sequence. Follow either one and you are forced to jump at the limit, so no continuous choice exists. The probe has a place where it *folds*, and the fold blocks the lift.
+A continuous lift does not always exist. In the animation, the possible choices alternate as points approach the limit. Following either set of choices forces a jump at the end, so no continuous selection can be made. The covering folds over the target in a way that cannot be continuously undone.
 
-Some probes have no such place. A probe where every covering can be lifted is called **unfoldable** here; the lectures call it extremally disconnected ([Definition 2.4, page 11](https://arxiv.org/pdf/2605.03658v1#page=11)). Probes of this kind exist in quantity. Take any plain set of separate points, and complete it in the one way that keeps every map out of it working: every map from the separate points into a compact shape must still be defined, and defined in only one way, after the completion. That completion is unfoldable ([Example 2.5, page 11](https://arxiv.org/pdf/2605.03658v1#page=11)), and the reason is short: to lift a covering you may choose lifts for the separate points however you like, and the completion's own rule then extends the choice, exactly once. Unfoldable probes are strange to look at, in a way that is worth one picture, because it explains why nobody draws them.
+A probe is called **unfoldable** in this guide when every covering onto it has a continuous lift. The standard term is *extremally disconnected* ([Definition 2.4, page 11](https://arxiv.org/pdf/2605.03658v1#page=11)). Important examples come from the Stone-Čech compactification of a discrete set. Start with separate points and add exactly the limiting information needed so that every map from those points to a compact space extends uniquely. To lift a cover, choose a point above each original discrete point; the extension property then turns those choices into one continuous lift on the completion ([Example 2.5, page 11](https://arxiv.org/pdf/2605.03658v1#page=11)).
 
 ![A sequence inside an unfoldable probe being split apart by a two-colouring, so it cannot settle on any limit](guide/06-unfoldable-probes/no_convergence.png)
 
-In an unfoldable probe, a sequence of points converges only if it is eventually stuck on one point ([Warning 2.6, page 12](https://arxiv.org/pdf/2605.03658v1#page=12)). The picture shows why. Colour the points of the sequence alternately, and in an unfoldable probe that colouring can be extended so the two colours sit in genuinely separated regions. The sequence is torn in half and both halves are infinite, so it cannot be settling anywhere, and any colouring you like does the same thing. No shape anyone normally sketches behaves in this way. The same warning also notes that the product of two infinite unfoldable probes is never unfoldable.
+Unfoldable probes behave very differently from familiar geometric spaces. Any convergent sequence in one must eventually be constant ([Warning 2.6, page 12](https://arxiv.org/pdf/2605.03658v1#page=12)). To see the obstruction, colour alternating terms of a nonconstant sequence with two colours. In an unfoldable probe, that colouring extends to two separated regions, leaving infinitely many terms on each side. Such a sequence cannot converge. The same warning notes another unusual fact: the product of two infinite unfoldable probes is never unfoldable.
 
-Because coverings of an unfoldable probe always lift, the glue rule of section 4 becomes automatic there, and an answer sheet is determined by its entries on unfoldable probes alone, with only the cut rule to check ([Proposition 2.8, page 12](https://arxiv.org/pdf/2605.03658v1#page=12)), so half the definition no longer has to be checked at all. This is the technical reason the whole theory is so much better behaved than sheaf theories usually are, and it is what the next parts of this guide will lean on constantly.
+Their usefulness comes from the glue rule. Since every cover of an unfoldable probe admits a lift, compatible data over the cover descend automatically. An answer sheet is therefore determined by its values on unfoldable probes, and only the cut rule remains to be checked there ([Proposition 2.8, page 12](https://arxiv.org/pdf/2605.03658v1#page=12)). This simpler description is one reason condensed groups have unusually strong algebraic properties, and the next two parts will repeatedly use these probes as convenient building blocks.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/06.html)** to try lifting a covering yourself, and see where a foldable probe stops you.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/06.html)** to attempt a lift and identify the discontinuity that prevents one from existing.
 
 ## 7 · Nothing was lost
 
-A repair is only worth having if it keeps what was already good, and this section checks that it does. The worry is reasonable, since answer sheets are stranger and larger than spaces, and swapping every space for its answer sheet might smear distinct spaces together, or might lose track of which maps between spaces were the continuous ones. Neither happens, on a class of spaces broad enough to contain everything anyone draws.
+Changing from spaces to answer sheets is useful only if familiar spaces and continuous maps can still be recovered. The concern is natural because an answer sheet contains far more entries than a point set. The relevant comparison theorem says that, for a broad class of ordinary spaces, the new description preserves exactly the original maps and keeps distinct spaces distinct.
 
 ![Nested regions showing which topological spaces sit inside condensed sets, and which condensed sets come from spaces](guide/07-nothing-was-lost/nesting.png)
 
-The picture is read from the inside out. The compact shapes, meaning the ones that are closed, bounded and separated, correspond exactly to the answer sheets that are compact in the matching sense, with nothing on either side left over ([Theorem 2.16, page 17](https://arxiv.org/pdf/2605.03658v1#page=17)). Around them sits a much wider class, containing every space with a distance and every shape built out of cells, and on that class the translation is still faithful: two different spaces give two different answer sheets, and the continuous maps between two spaces are exactly the maps between their answer sheets ([Proposition 1.7, page 9](https://arxiv.org/pdf/2605.03658v1#page=9)). Outside that, condensed sets keep going, and the ghost of section 5 sits out there.
+Read the picture from the centre outward. Compact Hausdorff spaces correspond exactly to condensed sets that satisfy the matching compactness condition ([Theorem 2.16, page 17](https://arxiv.org/pdf/2605.03658v1#page=17)). In familiar Euclidean examples, these are the closed and bounded shapes. A larger surrounding class contains all metric spaces and spaces built from cells. On this larger class, the translation is fully faithful: different spaces have different answer sheets, and maps of answer sheets are exactly the continuous maps of spaces ([Proposition 1.7, page 9](https://arxiv.org/pdf/2605.03658v1#page=9)). Condensed sets extend beyond this image, as the ghost from section 5 demonstrates.
 
 ![A space being translated into its answer sheet and read back out, returning to the same space](guide/07-nothing-was-lost/roundtrip.gif)
 
-There is a way back, too. From an answer sheet you can recover a space by taking its points and declaring a set closed when every probe says so. On the wide class above, the round trip returns the space you started with, which is what the animation traces.
+There is also a return construction. Begin with the point entries of an answer sheet, and declare a subset closed when every probe detects it as closed. For the broad class just described, translating a space into an answer sheet and then applying this construction returns the original topology. The animation follows that round trip.
 
-Two honest limits are worth recording, and the lectures flag both. The translation genuinely fails for spaces where a point need not be closed, and such a space never gives an answer sheet at all ([Warning 2.14, page 16](https://arxiv.org/pdf/2605.03658v1#page=16)). In the other direction, the return trip can merge things, because there are compact shapes which are an increasing union of strictly smaller closed pieces, in a way ordinary topology cannot record but an answer sheet can. The lectures regard that as topology losing information rather than condensed sets gaining it, and note it cannot happen for unions taken one step at a time.
+The comparison has limits, and the lectures state them explicitly. If a topological space has a point that is not closed, its probe data do not define a condensed set of the required kind ([Warning 2.14, page 16](https://arxiv.org/pdf/2605.03658v1#page=16)). In the other direction, the return to ordinary topology can identify condensed information that topology cannot retain. One example involves compact objects built as increasing unions of strictly smaller closed pieces. The lectures interpret this as a limitation of ordinary topology, and note that the issue does not occur for countable colimits.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/07.html)** to send a space around the round trip and watch what comes back.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/07.html)** to follow a space through the translation and compare the recovered result with the starting space.
 
 ## 8 · Counting holes
 
-The last section of part one checks the other thing that must survive, which is the holes. Counting holes is the oldest way to tell shapes apart: a disc has none, a ring has one, and the count is visible by hand, since you can walk a loop around the ring and count your turns.
+The final check is whether the translation preserves topological features such as holes. A basic way to detect a hole in a circle is to draw a closed path and count how many times it travels around the centre. This count is the winding number, and it remains unchanged when the path is continuously deformed without being broken.
 
 ![A loop being dragged around a ring while a counter records how many whole turns it has made](guide/08-counting-holes/winding.gif)
 
-The animation is the whole of the first hole-count of a circle. Drag a closed path around and the number of complete turns is a whole number, it cannot change by a little, and it is the only thing about the path that matters. That whole number is the circle's first cohomology, and it is a copy of the integers.
+The animation computes the winding number of a closed path around the circle. This number is always an integer and records both the number of turns and their direction. A generator of the circle's first cohomology measures this winding, so the first cohomology group is one copy of the integers.
 
-The next step is to stack circles. Two circles at right angles make the surface of a doughnut, and it has two independent loops.
+Products of circles create more independent directions for loops. The product of two circles is the surface of a torus, which has one loop around its central opening and another around the body of the tube.
 
 ![A rotating three-dimensional view of a doughnut surface carrying its two independent loops](guide/08-counting-holes/torus.gif)
 
-The camera goes round so the surface is genuinely three-dimensional, and the two loops are drawn on it: one going the long way round, one going through the hole. Combine them and you get the doughnut's higher holes. Stack more circles and the counts follow one fixed pattern, worked out in the lectures for any number of circles at once, including infinitely many ([Proposition 3.1, page 20](https://arxiv.org/pdf/2605.03658v1#page=20)).
+The rotating view makes the three-dimensional surface and its two independent loops visible. Products of more circles have higher-degree holes formed by choosing several circle directions at once. The lectures compute this pattern for any number of factors, including infinitely many ([Proposition 3.1, page 20](https://arxiv.org/pdf/2605.03658v1#page=20)).
 
 ![Bar charts of the hole counts of a stack of circles, for stacks of one up to six, each row the binomial pattern](guide/08-counting-holes/ranks.png)
 
-The bars are the hole counts by degree, recomputed in this repository. Every row is a row of Pascal's triangle, which is what the lectures' formula says: the holes of a stack of circles are exactly the ways of choosing some of the circles.
+The chart shows the finite cases recomputed in this repository. Each row is a row of Pascal's triangle. For a product of several circles, the count in a given degree equals the number of ways to choose that many circle directions, exactly as the formula in the lectures predicts.
 
-Two results then say the translation to answer sheets keeps all of this. First, counting holes inside the world of answer sheets gives the same numbers as counting them the classical way, for every compact shape ([Theorem 3.2, page 21](https://arxiv.org/pdf/2605.03658v1#page=21)). Second, if you count with smooth real-valued measurements instead of whole numbers, every hole count above the zeroth is zero ([Theorem 3.3, page 22](https://arxiv.org/pdf/2605.03658v1#page=22)); real-valued measurements are too flexible to notice a hole, and they simply report the continuous functions on the shape. That second result is one of the most used facts in the subject. It says the real numbers are invisible to this kind of counting, and part two will spend a section on where they went.
+Two theorems connect this calculation to condensed mathematics. First, for every compact space, cohomology computed after translation to condensed sets agrees with classical cohomology ([Theorem 3.2, page 21](https://arxiv.org/pdf/2605.03658v1#page=21)). Second, when the coefficients are the usual real numbers rather than the integers, all positive-degree cohomology vanishes ([Theorem 3.3, page 22](https://arxiv.org/pdf/2605.03658v1#page=22)); degree zero records the continuous real-valued functions. This vanishing result is important later because it shows that the usual real line behaves very differently from the integer-based objects used in part two.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/08.html)** to drag a loop around and count turns, then switch to the doughnut and count both.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/08.html)** to change a loop's winding number and then compare the two independent loop directions on a torus.
 
 ## Where part one leaves you
 
-Four things have been established, and part two uses all of them. A shape can be described by what it says to probes, and probes are nothing but endlessly refined finite pictures. That description keeps every space anyone draws, and keeps their holes. It also sees differences that points cannot, so subtraction finally works, and objects like the ghost, invisible to points, are legitimate.
+Part one has changed the basic description of a space. A probe is an inverse system of finite sets, and a condensed set records how every probe can land in it while respecting cut and glue. For familiar spaces, this translation preserves the topology, continuous maps, and cohomology. At the same time, it reveals objects such as the ghost, which have no nonzero point-level value but are visible to larger probes. This extra information restores the algebra of kernels and cokernels.
 
-What has *not* been done is any analysis. Nothing so far can add up an infinite series, complete anything, or say what an infinite sum of group elements should mean. That is the entire content of part two, and the tool built there, called solidity, is where the subject starts to show what it is good for.
+We have not yet defined how to add an infinite family of elements. That requires a rule for convergence or completion, and different rules can give different answers to the same formal series. Part two develops such a rule from compatible weights on the finite stages of a probe. The resulting notion is called solidity.
 
 **[Part two: Infinite Sums That Finally Land](../condensed-math02/ARTICLE.md)**
 
 ## How this part lines up with the lectures
 
-The lectures are kept in this repository at `docs/condensed-math/paper/lectures-on-condensed-mathematics.pdf` and published at [arXiv:2605.03658](https://arxiv.org/abs/2605.03658). This table points each section at what it retells.
+The lectures are kept in this repository at `docs/condensed-math/paper/lectures-on-condensed-mathematics.pdf` and published at [arXiv:2605.03658](https://arxiv.org/abs/2605.03658). The following table shows where each section's definitions and quoted results appear in the source.
 
 | this guide | in the lectures |
 |---|---|
@@ -212,7 +212,7 @@ The lectures are kept in this repository at `docs/condensed-math/paper/lectures-
 
 ## Checking it yourself
 
-The figures and computed claims can be rebuilt from this repository. The commands need Python and a command line, and no mathematics.
+You can rebuild the figures and rerun every finite computation from the repository. These commands require Python and a command line, but no additional mathematics.
 
 ```
 cd condensed-math
@@ -230,7 +230,7 @@ For this part, the tests:
 - recompute the hole counts of a stack of circles and confirm the binomial pattern of Proposition 3.1
 - compute the winding number of sample loops and confirm it is a whole number that survives deformation
 
-The categorical statements, that condensed groups form a good setting for algebra and that spaces embed faithfully, are quoted, not computed: no finite program can check a statement about a whole category. `notes/research-content.md` marks every claim in this guide as computed here or quoted, and from where.
+The categorical results are quoted rather than computed. These include the claims that condensed groups form an abelian category and that familiar spaces embed fully faithfully. A finite program cannot verify a theorem about every object in an entire category. The file `notes/research-content.md` labels each claim as computed, a finite shadow of an infinite result, or quoted, and gives its source.
 
 ## Glossary
 
