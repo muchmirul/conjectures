@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Count the turns · condensed mathematics, part 1</title>
+<title>Measure the winding number · condensed mathematics, part 1</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>8 · Count the turns</h1>
-<p class="lede">A closed path drawn on a ring. The only thing about it that survives wobbling is how many whole turns it makes, and that count is the ring's first hole count.</p>
-<p class="try"><strong>Try this.</strong> Change the turns and watch the counter follow. Then push the wobble as far as it goes: the path deforms wildly and the count does not move. Switch to the doughnut and there are two counts to keep.</p>
+<h1>8 · Measure the winding number</h1>
+<p class="lede">A closed path around a circle has an integer winding number. Continuous deformation may change the shape of the path, but it cannot change that integer without breaking the path.</p>
+<p class="try"><strong>Try this.</strong> Change the number of turns, then increase the deformation. The measured winding number remains equal to the chosen integer. Switch to the torus to compare its two independent loop directions.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>which shape</label><div class="pick" id="holes" style="flex:1"><button data-v="ring" class="on">ring</button><button data-v="torus" class="">doughnut</button></div></div><div class="row"><label for="turns">turns the path makes</label><input type="range" id="turns" min="-3" max="3" step="1" value="2"><span class="val" id="turnsv"></span></div><div class="row"><label for="turns2">turns the second way, for the doughnut</label><input type="range" id="turns2" min="-3" max="3" step="1" value="1"><span class="val" id="turns2v"></span></div><div class="row"><label for="wob2">how much to wobble the path</label><input type="range" id="wob2" min="0" max="100" step="1" value="0"><span class="val" id="wob2v"></span></div></div>
+<div class="controls"><div class="row"><label>which shape</label><div class="pick" id="holes" style="flex:1"><button data-v="ring" class="on">ring</button><button data-v="torus" class="">torus</button></div></div><div class="row"><label for="turns">turns the path makes</label><input type="range" id="turns" min="-3" max="3" step="1" value="2"><span class="val" id="turnsv"></span></div><div class="row"><label for="turns2">turns the second way, for the torus</label><input type="range" id="turns2" min="-3" max="3" step="1" value="1"><span class="val" id="turns2v"></span></div><div class="row"><label for="wob2">how much to deformation the path</label><input type="range" id="wob2" min="0" max="100" step="1" value="0"><span class="val" id="wob2v"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The winding count is the first hole count of the circle. The doughnut row is the exterior pattern of Proposition 3.1, recomputed here; the tests check it against the same formula in Python.</p>
+<p class="note">The circle calculation gives its first cohomology generator. Proposition 3.1 describes products of circles by an exterior algebra; the displayed torus ranks are recomputed here from that formula.</p>
 <div class="nav"><a href="07.html">← previous</a>  ·  <a href="index.html">all of them</a></div>
 </main>
 <script>
@@ -395,12 +395,12 @@ function draw(){
     document.getElementById('out').textContent=
       'turns you asked for   '+n1+'\n'+
       'turns measured        '+count+'\n'+
-      'wobble                '+w.toFixed(2)+'\n'+
-      'the count is a whole number and the wobble cannot move it';
+      'deformation                '+w.toFixed(2)+'\n'+
+      'the count is a whole number and the deformation cannot move it';
     document.getElementById('out').className='readout '+
       (count===n1?'verdict-ok':'verdict-no');
   }else{
-    // a doughnut seen at an angle, with the two independent loops on it
+    // a torus seen at an angle, with the two independent loops on it
     const R=132,r=48,tilt=0.42;
     ctx.strokeStyle='#c3c2b7';ctx.lineWidth=1;
     for(let k=0;k<28;k++){

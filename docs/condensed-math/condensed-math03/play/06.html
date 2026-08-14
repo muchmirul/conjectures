@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Choose what counts as small · condensed mathematics, part 3</title>
+<title>Match bounded functions with valuations · condensed mathematics, part 3</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>6 · Choose what counts as small</h1>
-<p class="lede">A ring's valuations, and the region cut out by deciding which functions have size at most one. Every such decision is a region, and every region is such a decision.</p>
-<p class="try"><strong>Try this.</strong> Switch each function in and out. Each one you declare small cuts the region down. The correspondence runs exactly both ways, which is what lets a space be described by patches at all.</p>
+<h1>6 · Match bounded functions with valuations</h1>
+<p class="lede">A subring of functions declared to have size at most one determines a region in the valuation space. Proposition 9.2 says that, under its hypotheses, the region also recovers the subring.</p>
+<p class="try"><strong>Try this.</strong> Add and remove boundedness conditions. Each condition removes valuations that assign the chosen function a size greater than one. Compare the remaining region after every change.</p>
 <canvas id="c" width="720" height="400"></canvas>
 <div class="controls"><div class="row"><label for="g1">declare the coordinate small</label><input type="range" id="g1" min="0" max="1" step="1" value="1"><span class="val" id="g1v"></span></div><div class="row"><label for="g2">declare its reciprocal small</label><input type="range" id="g2" min="0" max="1" step="1" value="0"><span class="val" id="g2v"></span></div><div class="row"><label for="g3">declare a prime small</label><input type="range" id="g3" min="0" max="1" step="1" value="0"><span class="val" id="g3v"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The exact two-way correspondence between the subring you declare small and the region it cuts out is Proposition 9.2 of the lectures. The picture here is schematic: the axes stand for two independent ways a valuation can vary, not for particular coordinates.</p>
+<p class="note">The correspondence is Proposition 9.2. The two plotted directions are schematic independent valuation parameters, not coordinates on a specific ring, so the drawing illustrates inclusion rather than a particular valuation space.</p>
 <div class="nav"><a href="05.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="07.html">next →</a></div>
 </main>
 <script>

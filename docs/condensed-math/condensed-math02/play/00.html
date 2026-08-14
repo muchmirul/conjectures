@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hand out the weights · condensed mathematics, part 2</title>
+<title>Distribute a compatible weight · condensed mathematics, part 2</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>0 · Hand out the weights</h1>
-<p class="lede">One number at the top, split down the tree. The only rule is that a box's number is always the total of the boxes inside it.</p>
-<p class="try"><strong>Try this.</strong> Move the bias and watch the weight slide between the branches. The totals along every stage stay equal, because nothing was created or destroyed by splitting. That, and nothing else, is what a weighting is.</p>
+<h1>0 · Distribute a compatible weight</h1>
+<p class="lede">A weighting assigns a number to every box at every stage. The number on a coarse box must equal the sum of the numbers on the finer boxes inside it.</p>
+<p class="try"><strong>Try this.</strong> Change the split and the number of stages. The weights on individual branches move, but the total at each level remains the initial value. This is the compatibility equation for a measure.</p>
 <canvas id="c" width="720" height="400"></canvas>
 <div class="controls"><div class="row"><label for="bias">how each split leans</label><input type="range" id="bias" min="0" max="100" step="1" value="50"><span class="val" id="biasv"></span></div><div class="row"><label for="wdepth">stages shown</label><input type="range" id="wdepth" min="1" max="5" step="1" value="4"><span class="val" id="wdepthv"></span></div><div class="row"><label for="start">the number at the top</label><input type="range" id="start" min="1" max="64" step="1" value="32"><span class="val" id="startv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">This is the free solid group of Definition 5.1, built the way the lectures build it: one copy of the whole numbers per box at each stage, fitting together down the levels.</p>
+<p class="note">Definition 5.1 constructs the free solid group as an inverse limit with one integer coordinate per finite-stage box. The activity uses real-valued display weights so that the split can move smoothly, while the compatibility calculation is the same.</p>
 <div class="nav"><a href="index.html">all of them</a>  ·  <a href="01.html">next →</a></div>
 </main>
 <script>

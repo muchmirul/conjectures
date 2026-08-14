@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Land a probe without tearing it · condensed mathematics, part 1</title>
+<title>Test continuity with a sequence · condensed mathematics, part 1</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>3 · Land a probe without tearing it</h1>
-<p class="lede">The approaching probe on the left: points marching towards a limit. A target line on the right. You choose where the marching points head, and where the limit point lands.</p>
-<p class="try"><strong>Try this.</strong> Set the two sliders apart and the chain snaps at the limit: the landing is refused. Bring them together and it is accepted. That gap, and nothing else, is what continuity means to a probe.</p>
+<h1>3 · Test continuity with a sequence</h1>
+<p class="lede">The points on the left approach a limit point. Their images on the target approach the value chosen by the first control, while the image of the limit is chosen independently by the second control.</p>
+<p class="try"><strong>Try this.</strong> Choose different values and observe the break at the limit. Then make the values equal. The map is continuous precisely when the images of the sequence approach the image assigned to its limit.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label for="tend">where the marching points head</label><input type="range" id="tend" min="-100" max="100" step="1" value="30"><span class="val" id="tendv"></span></div><div class="row"><label for="limit">where the limit point lands</label><input type="range" id="limit" min="-100" max="100" step="1" value="30"><span class="val" id="limitv"></span></div></div>
+<div class="controls"><div class="row"><label for="tend">where the sequence points head</label><input type="range" id="tend" min="-100" max="100" step="1" value="30"><span class="val" id="tendv"></span></div><div class="row"><label for="limit">where the limit point lands</label><input type="range" id="limit" min="-100" max="100" step="1" value="30"><span class="val" id="limitv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">Every space you can measure distance in is determined by which sequences converge, so this one probe already reads all of them. That is Remark 1.6 of the lectures.</p>
+<p class="note">Remark 1.6 states that convergent sequences determine every metrizable space. The activity therefore shows a complete continuity test for spaces whose topology comes from a distance.</p>
 <div class="nav"><a href="02.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="04.html">next →</a></div>
 </main>
 <script>
@@ -364,7 +364,7 @@ function draw(){
   const N=9;
   for(let k=0;k<N;k++){
     const py=top+18+k*22;                       // probe point k
-    const val=a+0.85/(k+1);            // the marching landings
+    const val=a+0.85/(k+1);            // the sequenceing landings
     ctx.fillStyle='#2a78d6';ctx.beginPath();ctx.arc(lx,py,5,0,7);ctx.fill();
     ctx.strokeStyle='rgba(42,120,214,0.45)';ctx.lineWidth=1.2;
     ctx.beginPath();ctx.moveTo(lx+8,py);ctx.lineTo(rx-4,Y(val));ctx.stroke();
@@ -378,22 +378,22 @@ function draw(){
   ctx.strokeStyle='#4a3aa7';ctx.lineWidth=2;
   ctx.beginPath();ctx.moveTo(lx+9,py);ctx.lineTo(rx-4,Y(b));ctx.stroke();
   ctx.fillStyle='#4a3aa7';ctx.beginPath();ctx.arc(rx,Y(b),6,0,7);ctx.fill();
-  // where the march is heading
+  // where the sequence is heading
   ctx.strokeStyle='#008300';ctx.setLineDash([4,4]);ctx.lineWidth=1.6;
   ctx.beginPath();ctx.moveTo(rx-70,Y(a));ctx.lineTo(rx+70,Y(a));ctx.stroke();
   ctx.setLineDash([]);
   ctx.fillStyle='#008300';ctx.font='12px system-ui';ctx.textAlign='left';
-  ctx.fillText('where the march heads',rx+14,Y(a)-8);
+  ctx.fillText('where the sequence heads',rx+14,Y(a)-8);
   const gap=Math.abs(a-b),ok=gap<0.02;
   if(!ok){
     ctx.strokeStyle='#d03b3b';ctx.lineWidth=3;
     ctx.beginPath();ctx.moveTo(rx+4,Y(a));ctx.lineTo(rx+4,Y(b));ctx.stroke();
     ctx.fillStyle='#d03b3b';ctx.textAlign='left';
-    ctx.fillText('the chain snaps here',rx+14,(Y(a)+Y(b))/2+4);
+    ctx.fillText('the limits differ here',rx+14,(Y(a)+Y(b))/2+4);
   }
   tendv.textContent=a.toFixed(2);limitv.textContent=b.toFixed(2);
   const out=document.getElementById('out');
-  out.textContent='the march heads to   '+a.toFixed(2)+'\n'+
+  out.textContent='the sequence heads to   '+a.toFixed(2)+'\n'+
     'the limit lands at   '+b.toFixed(2)+'\n'+
     'gap                  '+gap.toFixed(2)+'\n'+
     (ok?'accepted: nearby points of the probe go to nearby points'

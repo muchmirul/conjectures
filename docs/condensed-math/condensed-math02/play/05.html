@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Which groups obey the rule · condensed mathematics, part 2</title>
+<title>Check the unique-extension rule · condensed mathematics, part 2</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>5 · Which groups obey the rule</h1>
-<p class="lede">A group is solid when every placement of a probe's points into it extends, in exactly one way, so that weightings can be integrated. Pick a group and watch the test run.</p>
-<p class="try"><strong>Try this.</strong> Try each in turn. The whole numbers pass, a row of dials passes, the base-p numbers pass. The ruler fails, and the reason is the one the next section is about.</p>
+<h1>5 · Check the unique-extension rule</h1>
+<p class="lede">A condensed group is solid when every map from probe points extends uniquely to all compatible integer measures. The selector compares groups that satisfy or fail this condition.</p>
+<p class="try"><strong>Try this.</strong> Select each group and read the reason for its result. The integers, their products, p-adic integers, and power-series groups pass. A direct sum and the usual real line fail for different reasons.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>which group</label><div class="pick" id="grp" style="flex:1"><button data-v="Z" class="on">whole numbers</button><button data-v="prod" class="">a row of dials</button><button data-v="Zp" class="">base-p numbers</button><button data-v="ser" class="">power series</button><button data-v="sum" class="">finitely many dials</button><button data-v="R" class="">the ruler</button></div></div></div>
+<div class="controls"><div class="row"><label>which group</label><div class="pick" id="grp" style="flex:1"><button data-v="Z" class="on">whole numbers</button><button data-v="prod" class="">a row of coordinates</button><button data-v="Zp" class="">base-p numbers</button><button data-v="ser" class="">power series</button><button data-v="sum" class="">finitely many coordinates</button><button data-v="R" class="">the usual real line</button></div></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The rule is Definition 5.1 of the lectures. That the solid groups form a self-contained setting with rows of dials as building blocks is Theorem 5.8 and Corollary 6.1, quoted here rather than computed.</p>
+<p class="note">Definition 5.1 gives the extension condition. Theorem 5.8 and Corollary 6.1 prove the structural results used for these examples; the activity presents their consequences rather than proving them.</p>
 <div class="nav"><a href="04.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="06.html">next →</a></div>
 </main>
 <script>
@@ -365,18 +365,18 @@ const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 let g='Z';
 pick('grp',v=>{g=v;draw();});
 const FACTS={
-  "Z":[true,'the whole numbers',
+  "Z":[true,'the integers',
        'a weighting has a finite total, so integrating lands back in it'],
-  "prod":[true,'a row of dials',
-       'integrate dial by dial: each one is the whole numbers again'],
-  "Zp":[true,'the base-p numbers',
+  "prod":[true,'a row of coordinates',
+       'integrate coordinate by coordinate: each one is the integers again'],
+  "Zp":[true,'the p-adic integers',
        'this is exactly the group the base-p probe was built to complete'],
   "ser":[true,'power series in one variable',
-       'one dial per power, so it is a row of dials in disguise'],
-  "sum":[false,'finitely many dials at a time',
-       'a weighting can spread across infinitely many dials, and the total '+
+       'one coordinate per power, so it is a row of coordinates in disguise'],
+  "sum":[false,'finitely many coordinates at a time',
+       'a weighting can spread across infinitely many coordinates, and the total '+
        'then has infinitely many nonzero slots, which this group forbids'],
-  "R":[false,'the ruler',
+  "R":[false,'the usual real line',
        'every real number can be divided by every whole number, and the '+
        'building blocks cannot receive anything divisible like that']
 };

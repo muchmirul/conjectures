@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The lifting game · condensed mathematics, part 1</title>
+<title>Try to choose a continuous section · condensed mathematics, part 1</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>6 · The lifting game</h1>
-<p class="lede">A covering: two copies sit above every point of the probe. Choose one copy per point. On the approaching probe your choices must settle down, or the limit point cannot be lifted.</p>
-<p class="try"><strong>Try this.</strong> Set the pattern to alternate and watch the limit fail: neither copy is what the choices are approaching. Then switch to the unfoldable probe, where nothing converges in the first place, so no choice is ever blocked.</p>
+<h1>6 · Try to choose a continuous section</h1>
+<p class="lede">A cover places two possible lifts above each point of the probe. A section chooses one lift per point, and that choice must vary continuously.</p>
+<p class="try"><strong>Try this.</strong> Use an alternating choice on the approaching-sequence probe. No value above the limit makes that section continuous. Then select the extremally disconnected case, where the defining property guarantees that some continuous section exists.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>which probe below</label><div class="pick" id="base" style="flex:1"><button data-v="seq" class="on">approaching</button><button data-v="ed" class="">unfoldable</button></div></div><div class="row"><label for="period">how often the choice flips</label><input type="range" id="period" min="1" max="8" step="1" value="1"><span class="val" id="periodv"></span></div></div>
+<div class="controls"><div class="row"><label>which probe below</label><div class="pick" id="base" style="flex:1"><button data-v="seq" class="on">approaching</button><button data-v="ed" class="">extremally disconnected</button></div></div><div class="row"><label for="period">how often the choice flips</label><input type="range" id="period" min="1" max="8" step="1" value="1"><span class="val" id="periodv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">Unfoldable is the guide's word for extremally disconnected, Definition 2.4. The fact that nothing converges in one is Warning 2.6, and it is why the picture on the right looks so unlike anything you would draw.</p>
+<p class="note">Definition 2.4 calls a compact Hausdorff space extremally disconnected when every surjection onto it splits. Warning 2.6 states that every convergent sequence in such a space is eventually constant.</p>
 <div class="nav"><a href="05.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="07.html">next →</a></div>
 </main>
 <script>
@@ -412,10 +412,10 @@ function draw(){
   periodv.textContent=P>=N?'never':('every '+P);
   const ok=(base==='ed')||settles;
   const out=document.getElementById('out');
-  out.textContent=(base==='seq'?'approaching probe below\n':'unfoldable probe below\n')+
+  out.textContent=(base==='seq'?'approaching probe below\n':'extremally disconnected probe below\n')+
     'choices flip   '+(P>=N?'never':'every '+P+' points')+'\n'+
     (base==='ed'
-      ? 'every covering of an unfoldable probe lifts, whatever you choose'
+      ? 'every covering of an extremally disconnected probe lifts, whatever you choose'
       : (settles?'the choices settle, so the limit lifts too'
                 :'the choices never settle, so the limit cannot be lifted'));
   out.className='readout '+(ok?'verdict-ok':'verdict-no');

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Turn the exponent · condensed mathematics, part 3</title>
+<title>Compare exponents · condensed mathematics, part 3</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>0 · Turn the exponent</h1>
-<p class="lede">The measures of size at most one, drawn as a shape. The exponent decides the shape, and the shape decides whether the theory exists.</p>
-<p class="try"><strong>Try this.</strong> Turn the exponent down through one and watch the ball cave inward. The chord drawn across it is the convexity test: above one it stays inside, below one it escapes. The merge reading underneath is the constraint that actually forces the answer.</p>
+<h1>0 · Compare exponents</h1>
+<p class="lede">The exponent determines both the unit region for the measure size and the effect of merging boxes. These are separate tests, and their boundaries meet at exponent one.</p>
+<p class="try"><strong>Try this.</strong> Lower the exponent through one. The unit region stops being convex below one, while the merge ratio becomes no greater than one. Read both panels before deciding which exponents are allowed.</p>
 <canvas id="c" width="720" height="400"></canvas>
 <div class="controls"><div class="row"><label for="expo">the exponent</label><input type="range" id="expo" min="30" max="250" step="5" value="100"><span class="val" id="expov"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The merge curve is the closed form: merging a number of equal boxes changes the size by that number raised to one minus the reciprocal of the exponent. The tests recompute both the curve and the convexity verdict in Python.</p>
+<p class="note">For n equal boxes, the merge ratio is n raised to one minus the reciprocal of the exponent. The browser evaluates this expression, and the Python tests independently check the ratio and the convexity result.</p>
 <div class="nav"><a href="index.html">all of them</a>  ·  <a href="01.html">next →</a></div>
 </main>
 <script>

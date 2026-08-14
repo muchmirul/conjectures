@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Assemble a rule · condensed mathematics, part 3</title>
+<title>Check the data of a measure rule · condensed mathematics, part 3</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>1 · Assemble a rule</h1>
-<p class="lede">A ring with a rule for sums needs three things. Switch each one on and off and watch which parts of the machinery survive.</p>
-<p class="try"><strong>Try this.</strong> Turn off the requirement that each point counts as a unit weight, and the probe's points stop being able to enter at all. Turn off the splitting requirement and separate pieces stop being answered separately. Both are needed before anything can be integrated.</p>
+<h1>1 · Check the data of a measure rule</h1>
+<p class="lede">A proposed rule consists of a condensed ring and one module of measures for every extremally disconnected probe. It must include point masses and turn finite disjoint unions into products.</p>
+<p class="try"><strong>Try this.</strong> Toggle each requirement separately. Without Dirac measures, points cannot enter the measure module. Without the disjoint-union rule, independent pieces no longer receive independent data.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>the ring</label><div class="pick" id="ring" style="flex:1"><button data-v="Z" class="on">whole numbers</button><button data-v="Zp" class="">base-p numbers</button><button data-v="A" class="">any plain ring</button></div></div><div class="row"><label for="dirac">each point counts as a unit weight</label><input type="range" id="dirac" min="0" max="1" step="1" value="1"><span class="val" id="diracv"></span></div><div class="row"><label for="split">separate pieces answered separately</label><input type="range" id="split" min="0" max="1" step="1" value="1"><span class="val" id="splitv"></span></div></div>
+<div class="controls"><div class="row"><label>the ring</label><div class="pick" id="ring" style="flex:1"><button data-v="Z" class="on">whole numbers</button><button data-v="Zp" class="">base-p numbers</button><button data-v="A" class="">any discrete ring</button></div></div><div class="row"><label for="dirac">each point counts as a unit weight</label><input type="range" id="dirac" min="0" max="1" step="1" value="1"><span class="val" id="diracv"></span></div><div class="row"><label for="split">separate pieces answered separately</label><input type="range" id="split" min="0" max="1" step="1" value="1"><span class="val" id="splitv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The two requirements are Definition 7.1 of the lectures: a functor to modules taking separate pieces to products, and the unit weights. Passing the further test is Definition 7.4, and which pairs pass is the content of the lecture.</p>
+<p class="note">Definition 7.1 gives these data. Definition 7.4 adds the derived compatibility test that defines an analytic ring. The finite toggles illustrate necessary inputs but cannot establish that derived condition.</p>
 <div class="nav"><a href="00.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="02.html">next →</a></div>
 </main>
 <script>
@@ -365,8 +365,8 @@ const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 const dirac=document.getElementById('dirac'),split=document.getElementById('split');
 let R='Z';
 pick('ring',v=>{R=v;draw();});
-const RN={"Z":"the whole numbers","Zp":"the base-p numbers",
-          "A":"a plain ring with no topology"};
+const RN={"Z":"the integers","Zp":"the p-adic integers",
+          "A":"a discrete ring with no topology"};
 function draw(){
   const d=parseInt(dirac.value),s=parseInt(split.value);
   ctx.clearRect(0,0,cv.width,cv.height);
@@ -399,7 +399,7 @@ function draw(){
     ctx.fillStyle='#d03b3b';ctx.font='13px system-ui';ctx.textAlign='center';
     ctx.fillText('nothing to integrate against',545,180);
   }
-  // the two switches, shown as their consequences
+  // the two basis functions, shown as their consequences
   const rows=[
     ['each point counts as a unit weight',d,
      'without it, no point of the probe can enter at all'],

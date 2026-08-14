@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The same sum, two sizes · condensed mathematics, part 2</title>
+<title>Compare ordinary and p-adic distance · condensed mathematics, part 2</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>1 · The same sum, two sizes</h1>
-<p class="lede">Adding one, then p, then p squared, and on. On the ordinary ruler the running totals fly apart. Under the base-p size they close in on a single point.</p>
-<p class="try"><strong>Try this.</strong> Add terms and watch the two readings pull apart. The ordinary distance multiplies by p every step; the base-p distance divides by p every step. The value they close in on is a negative number, which is not a trick but what the sum genuinely equals under this size.</p>
+<h1>1 · Compare ordinary and p-adic distance</h1>
+<p class="lede">The partial sums add one, p, p squared, and successive powers of p. They grow in ordinary distance but converge when distance is measured p-adically.</p>
+<p class="try"><strong>Try this.</strong> Increase the term count for several bases. The ordinary error is multiplied by p at each step, while the p-adic error is divided by p. Compare the displayed limit with one divided by one minus p.</p>
 <canvas id="c" width="720" height="400"></canvas>
 <div class="controls"><div class="row"><label for="base">the base p</label><input type="range" id="base" min="2" max="7" step="1" value="2"><span class="val" id="basev"></span></div><div class="row"><label for="terms">terms added</label><input type="range" id="terms" min="1" max="12" step="1" value="6"><span class="val" id="termsv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The running totals and both distances are computed live, and the Python library recomputes them in exact fractions. The value the sums reach is one over one minus the base, which for base two is minus one.</p>
+<p class="note">The browser computes the partial sums and both errors live. The Python tests repeat the calculation with exact fractions. For base two, the p-adic limit is minus one.</p>
 <div class="nav"><a href="00.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="02.html">next →</a></div>
 </main>
 <script>

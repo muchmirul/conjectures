@@ -158,37 +158,31 @@ def test_every_statement_is_paired_with_words_and_a_simulation(part):
     """The rule for this topic: the mathematics is never shown on its own.
 
     Each formal statement is paired with a reading of every symbol in ordinary
-    words and with the simulation that lets the reader move it.  This checks
-    the pairing wherever a statement exists.  How many chapters have reached
-    that point is a separate question, measured by the test below, because the
-    work of writing them is still in progress.
+    words and with the simulation that lets the reader move it. This checks
+    the pairing in every numbered chapter. Coverage is checked separately
+    below, so a missing statement cannot disappear from this loop unnoticed.
     """
     for n, body in chapters_with_maths(part).items():
         block = body.split("### The mathematics", 1)[1]
         assert "```math" in block or "$" in block, \
             f"{part.slug} chapter {n}: the heading carries no statement"
+        assert "arxiv.org/pdf/2605.03658v1#page=" in block, \
+            f"{part.slug} chapter {n}: the statement does not cite the lectures"
         assert "**Reading the symbols.**" in block, \
             f"{part.slug} chapter {n}: no plain reading of the symbols"
+        assert "**Why it matters.**" in block, \
+            f"{part.slug} chapter {n}: no explanation of the statement's role"
         assert "**In the simulation.**" in block, \
             f"{part.slug} chapter {n}: the statement is not tied to its activity"
         assert f"play/{n:02d}.html" in block, \
             f"{part.slug} chapter {n}: the pairing does not reach the activity"
 
 
-def test_how_much_of_the_mathematics_has_been_written():
-    """Record the coverage, so the remaining work stays visible.
-
-    The owner asked for the real mathematics in every chapter, each paired
-    with an explanation and a simulation.  Part one chapter one carries the
-    pattern the rest copy.  This test does not demand completeness, it reports
-    it, and `notes/WORKING-STATE.md` lists what is left.
-    """
+def test_every_chapter_writes_out_its_mathematics():
+    """Every numbered chapter states the cited mathematics explicitly."""
     done = {p.slug: sorted(chapters_with_maths(p)) for p in PARTS}
-    total = sum(len(v) for v in done.values())
-    wanted = sum(len([c for c in p.chapters if c > 0]) for p in PARTS)
-    assert total >= 1, "the pattern block itself is missing"
-    assert total <= wanted
-    print(f"\nmathematics written for {total} of {wanted} chapters: {done}")
+    wanted = {p.slug: sorted(c for c in p.chapters if c > 0) for p in PARTS}
+    assert done == wanted
 
 
 @pytest.mark.parametrize("part", PARTS, ids=lambda p: p.slug)

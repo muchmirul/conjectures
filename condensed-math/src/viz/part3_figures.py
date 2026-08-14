@@ -41,7 +41,7 @@ def hero():
         axr.clear()
         p = exponent(f)
         style_axes(ax, (-1.45, 1.45), (-1.45, 1.55))
-        ax.set_title("the measures of size at most one", color=INK2,
+        ax.set_title("unit region for the measure size", color=INK2,
                      fontsize=11.5)
         th = np.linspace(0, 2 * np.pi, 720)
         pts = C.lp_ball(p, 720)
@@ -64,7 +64,7 @@ def hero():
                 color=GREEN if convex else RED, fontsize=10.5)
 
         plot_axes(axr, "the exponent", "size after merging, over before")
-        axr.set_title("merging four equal boxes", color=INK2, fontsize=11.5)
+        axr.set_title("size ratio after four equal boxes are merged", color=INK2, fontsize=11.5)
         xs = np.linspace(lo, hi, 240)
         axr.plot(xs, [C.worst_merge_ratio(4, x) for x in xs], color=TEAL,
                  lw=2.2)
@@ -73,11 +73,11 @@ def hero():
         axr.scatter([p], [C.worst_merge_ratio(4, p)], s=52, color=INK,
                     zorder=5)
         axr.set_ylim(0, 3.4)
-        axr.text(1.03, 3.15, "one", color=GREEN, fontsize=9.5)
+        axr.text(1.03, 3.15, "boundary p = 1", color=GREEN, fontsize=9.5)
         tag.set_text(f"exponent {p:.2f}     "
                      f"merging changes the size by "
                      f"{C.worst_merge_ratio(4, p):.2f}     "
-                     + ("allowed" if allowed else "forbidden"))
+                     + ("merge-compatible" if allowed else "merge increases size"))
         return ()
 
     save_anim(fig, update, frames, d / "hero.gif", fps=FPS)
@@ -90,7 +90,7 @@ def measures():
     fig, ax = plt.subplots(figsize=(7.8, 3.9))
     fig.subplots_adjust(left=0.03, right=0.97, top=0.9, bottom=0.08)
     style_axes(ax, (0, 1), (0, 1), equal=False)
-    ax.set_title("a ring, and its rule for turning probes into modules",
+    ax.set_title("a ring together with its modules of measures",
                  color=INK2, fontsize=12)
     ax.add_patch(plt.Rectangle((0.04, 0.62), 0.24, 0.24, fc="#efeafa",
                                ec=VIOLET, lw=1.8))
@@ -111,18 +111,17 @@ def measures():
     ax.text(0.16, 0.16, "a probe", ha="center", color=BLUE, fontsize=11)
     ax.annotate("", (0.5, 0.5), (0.32, 0.5),
                 arrowprops=dict(arrowstyle="-|>", color=GREEN, lw=2))
-    ax.text(0.41, 0.56, "the rule", ha="center", color=GREEN, fontsize=10.5)
+    ax.text(0.41, 0.56, "assign a measure module", ha="center", color=GREEN, fontsize=10.5)
     ax.add_patch(plt.Rectangle((0.53, 0.24), 0.43, 0.56, fc="#e6f2f1",
                                ec=TEAL, lw=1.8))
-    ax.text(0.745, 0.73, "the module of legal weightings", ha="center",
+    ax.text(0.745, 0.73, "module of allowed measures", ha="center",
             color=TEAL, fontsize=11)
     rng = np.random.default_rng(3)
     for k in range(9):
         h = 0.08 + 0.22 * abs(np.sin(1.7 * k))
         ax.add_patch(plt.Rectangle((0.57 + k * 0.042, 0.31), 0.03, h,
                                    color=TEAL, lw=0))
-    ax.text(0.745, 0.16, "each point of the probe enters as one unit of "
-                         "weight",
+    ax.text(0.745, 0.16, "each point enters as its Dirac measure",
             ha="center", color=INK2, fontsize=10)
     save_fig(fig, d / "measures.png")
 
@@ -134,7 +133,7 @@ def two_rules():
     fig, axes = plt.subplots(1, 2, figsize=(8.6, 3.8))
     fig.subplots_adjust(left=0.04, right=0.97, top=0.84, bottom=0.16,
                         wspace=0.18)
-    fig.suptitle("two rules that pass, and what each one lets you add up",
+    fig.suptitle("two analytic measure rules and their infinite sums",
                  color=INK2, fontsize=12, y=0.965)
 
     ax = axes[0]
@@ -149,27 +148,26 @@ def two_rules():
         w = nw
     ax.scatter([x0 + w / 2], [0.57], s=60, color=GREEN, zorder=4,
                edgecolors="none")
-    ax.text(0.5, 0.26, "an endless sum whose terms shrink\nby a factor of p "
-                       "every step",
+    ax.text(0.5, 0.26, "a series whose terms shrink p-adically\nat each step",
             ha="center", color=INK2, fontsize=10, linespacing=1.5)
-    ax.text(0.5, 0.08, "lands on exactly one value", ha="center", color=GREEN,
+    ax.text(0.5, 0.08, "converges to one p-adic value", ha="center", color=GREEN,
             fontsize=10.5)
 
     ax = axes[1]
     style_axes(ax, (0, 1), (0, 1), equal=False)
-    ax.set_title("the solid rule over a plain ring", color=VIOLET,
+    ax.set_title("solid measures over a discrete ring", color=VIOLET,
                  fontsize=11)
     for k in range(14):
         x = 0.05 + k * 0.066
         ax.add_patch(plt.Circle((x, 0.62), 0.017, fc=VIOLET, ec=VIOLET,
                                 lw=1.3))
-    ax.text(0.985, 0.62, "and on", va="center", ha="right", color=MUTED,
+    ax.text(0.985, 0.62, "…", va="center", ha="right", color=MUTED,
             fontsize=9.5)
-    ax.text(0.5, 0.4, "a weighting spread across every slot at once",
+    ax.text(0.5, 0.4, "a measure may use every product coordinate",
             ha="center", color=INK2, fontsize=10)
-    ax.text(0.5, 0.26, "the ring itself carries no topology at all",
+    ax.text(0.5, 0.26, "the coefficient ring remains discrete",
             ha="center", color=INK2, fontsize=10)
-    ax.text(0.5, 0.08, "still has exactly one total", ha="center",
+    ax.text(0.5, 0.08, "integration is still uniquely defined", ha="center",
             color=GREEN, fontsize=10.5)
     save_fig(fig, d / "two_rules.png")
 
@@ -181,21 +179,20 @@ def merge():
     fig, ax = plt.subplots(figsize=(7.4, 4.3))
     fig.subplots_adjust(left=0.12, right=0.97, top=0.86, bottom=0.17)
     plot_axes(ax, "the exponent", "size after merging, over before")
-    ax.set_title("merging boxes must never make a measure bigger", color=INK2,
+    ax.set_title("refinement requires merging not to increase size", color=INK2,
                  fontsize=12)
     xs = np.linspace(0.35, 2.5, 400)
     for boxes, colour in [(2, TEAL), (4, VIOLET), (9, BROWN)]:
         ax.plot(xs, [C.worst_merge_ratio(boxes, x) for x in xs], color=colour,
-                lw=2.1, label=f"{boxes} equal boxes merged into one")
+                lw=2.1, label=f"merge {boxes} equal boxes")
     ax.axhline(1, color=BASELINE, ls="--", lw=1.2)
     ax.axvline(1, color=GREEN, ls="--", lw=1.4)
     ax.set_ylim(0, 3.6)
     ax.axvspan(0.35, 1.0, color=GREEN, alpha=0.08, lw=0)
-    ax.text(0.66, 3.3, "allowed", ha="center", color=GREEN, fontsize=11)
-    ax.text(1.75, 3.3, "forbidden", ha="center", color=RED, fontsize=11)
+    ax.text(0.66, 3.3, "compatible with merging", ha="center", color=GREEN, fontsize=11)
+    ax.text(1.75, 3.3, "size can increase", ha="center", color=RED, fontsize=11)
     ax.legend(frameon=False, fontsize=9, loc="center right")
-    fig.text(0.5, 0.025, "the curves cross one at exactly one, whatever the "
-                         "number of boxes",
+    fig.text(0.5, 0.025, "every curve meets the no-growth threshold at exponent one",
              ha="center", color=INK2, fontsize=10)
     save_fig(fig, d / "merge.png")
 
@@ -206,7 +203,7 @@ def lp_balls():
     fig, axes = plt.subplots(1, len(ps), figsize=(9.6, 2.9))
     fig.subplots_adjust(left=0.02, right=0.98, top=0.78, bottom=0.2,
                         wspace=0.12)
-    fig.suptitle("the unit ball, exponent by exponent", color=INK2,
+    fig.suptitle("unit regions for several exponents", color=INK2,
                  fontsize=12, y=0.965)
     for ax, p in zip(axes, ps):
         style_axes(ax, (-1.3, 1.3), (-1.3, 1.3))
@@ -225,8 +222,7 @@ def lp_balls():
         ax.set_title(f"exponent {p:g}", color=INK, fontsize=10.5)
         ax.text(0, -1.22, "convex" if convex else "not convex", ha="center",
                 color=GREEN if convex else RED, fontsize=9.5)
-    fig.text(0.5, 0.045, "the working region is at and below exponent one, "
-                         "which is exactly where convexity is lost",
+    fig.text(0.5, 0.045, "merging is compatible at p no greater than one; convexity fails below one",
              ha="center", color=INK2, fontsize=10)
     save_fig(fig, d / "lp_balls.png")
 
@@ -250,13 +246,13 @@ def tail():
         t = min(1.0, f / (steps_n * 0.9))
         T = 1 + t * 26
         style_axes(ax, (0, 1), (0, 1), equal=False)
-        ax.set_title("sliding out towards the edge", color=INK2, fontsize=12)
+        ax.set_title("moving toward the formal boundary at infinity", color=INK2, fontsize=12)
         ax.annotate("", (0.97, 0.5), (0.03, 0.5),
                     arrowprops=dict(arrowstyle="-|>", color=BASELINE, lw=2))
         ax.scatter([0.03 + t * 0.88], [0.5], s=80, color=BLUE, zorder=4,
                    edgecolors="none")
-        ax.text(0.97, 0.72, "the edge", ha="right", color=BROWN, fontsize=10.5)
-        ax.text(0.03 + t * 0.88, 0.22, f"standing at {T:.1f}", ha="center",
+        ax.text(0.97, 0.72, "boundary at infinity", ha="right", color=BROWN, fontsize=10.5)
+        ax.text(0.03 + t * 0.88, 0.22, f"coordinate T = {T:.1f}", ha="center",
                 color=INK2, fontsize=10)
 
         plot_axes(axb, None, "how much each power matters out there")
@@ -269,8 +265,7 @@ def tail():
                              for e in powers], fontsize=9)
         axb.set_ylim(-7, 4)
         axb.axhline(0, color=BASELINE, lw=1)
-        tag.set_text("red: a polynomial part, thrown away in the quotient     "
-                     "teal: the tails, which are what survives")
+        tag.set_text("red: global terms removed     teal: boundary tail retained")
         return ()
 
     save_anim(fig, update, frames, d / "tail.gif", fps=FPS)
@@ -281,7 +276,7 @@ def cross():
     fig, ax = plt.subplots(figsize=(6.4, 4.4))
     fig.subplots_adjust(left=0.04, right=0.96, top=0.9, bottom=0.1)
     style_axes(ax, (-1.25, 1.25), (-1.25, 1.35))
-    ax.set_title("the coordinate cross: two lines, one shared point",
+    ax.set_title("coordinate cross with one shared origin",
                  color=INK2, fontsize=12)
     ax.plot([-1.1, 1.1], [0, 0], color=BASELINE, lw=3)
     ax.plot([0, 0], [-1.1, 1.1], color=BASELINE, lw=3)
@@ -289,10 +284,9 @@ def cross():
         ax.scatter([x], [y], s=90, color=BROWN, zorder=4, edgecolors="none")
     ax.scatter([0], [0], s=120, color=BLUE, zorder=5, edgecolors="none")
     ax.text(0.12, 0.13, "the crossing point", color=BLUE, fontsize=10.5)
-    ax.text(0, 1.28, "an edge at each end", ha="center", color=BROWN,
+    ax.text(0, 1.28, "four directions toward the boundary", ha="center", color=BROWN,
             fontsize=10.5)
-    ax.text(0, -1.22, "a function has one value at the crossing,\n"
-                      "so the two branches share exactly one constant",
+    ax.text(0, -1.22, "the two branch functions must agree at the shared origin",
             ha="center", va="top", color=INK2, fontsize=10.5, linespacing=1.5)
     save_fig(fig, d / "cross.png")
 
@@ -313,20 +307,20 @@ def compact_support():
     def update(f):
         ax.clear()
         style_axes(ax, (0, 1), (0, 1), equal=False)
-        ax.set_title("near the edge, modulo everywhere", color=INK2,
+        ax.set_title("boundary functions modulo global functions", color=INK2,
                      fontsize=12)
         t = min(1.0, f / (steps_n * 0.8))
         cell = 0.072
         for k in range(near):
             ax.add_patch(plt.Rectangle((0.05 + k * cell, 0.72), cell - 0.008,
                                        0.12, color=VIOLET, lw=0))
-        ax.text(0.05, 0.88, f"functions near the edge: {near} pieces",
+        ax.text(0.05, 0.88, f"truncated boundary ring: {near} coordinates",
                 color=VIOLET, fontsize=10.5)
         shown = int(round(t * everywhere))
         for k in range(shown):
             ax.add_patch(plt.Rectangle((0.05 + k * cell, 0.46), cell - 0.008,
                                        0.12, color=BASELINE, lw=0))
-        ax.text(0.05, 0.62, f"functions everywhere: {everywhere} pieces",
+        ax.text(0.05, 0.62, f"global polynomial ring: {everywhere} coordinates",
                 color=INK2, fontsize=10.5)
         if t > 0.55:
             a = (t - 0.55) / 0.45
@@ -335,10 +329,9 @@ def compact_support():
                 ax.add_patch(plt.Rectangle((0.05 + k * cell, 0.16),
                                            cell - 0.008, 0.12, color=TEAL,
                                            lw=0, alpha=a))
-            ax.text(0.05, 0.32, f"what is left over: {left} pieces, the tails",
+            ax.text(0.05, 0.32, f"quotient: {left} retained tail coordinates",
                     color=TEAL, fontsize=10.5, alpha=a)
-        tag.set_text("the polynomial part cancels; only the endless tails "
-                     "survive")
+        tag.set_text("global polynomial coordinates cancel in the boundary quotient")
         return ()
 
     save_anim(fig, update, frames, d / "compact_support.gif", fps=FPS)
@@ -352,19 +345,18 @@ def dualizing():
     fig, ax = plt.subplots(figsize=(7.2, 4.2))
     fig.subplots_adjust(left=0.12, right=0.97, top=0.86, bottom=0.17)
     plot_axes(ax, "tails kept", "pieces left over")
-    ax.set_title("what the quotient keeps, on the line and on the cross",
+    ax.set_title("truncated boundary quotients for the line and cross",
                  color=INK2, fontsize=12)
     ax.plot(tails, line, "o-", color=TEAL, lw=2.1, ms=6,
-            label="the line: exactly the tails")
+            label="line: one set of tail coordinates")
     ax.plot(tails, crossr, "o-", color=BROWN, lw=2.1, ms=6,
-            label="the cross: both branches' tails, plus one")
-    ax.annotate("always exactly one more than twice the line",
+            label="cross: two branch tails and one extra coordinate")
+    ax.annotate("cross count equals twice the line count plus one",
                 (tails[-2], crossr[-2]), xytext=(1.6, 12.5), color=BROWN,
                 fontsize=9.5,
                 arrowprops=dict(arrowstyle="-", color=BROWN, lw=0.9))
     ax.legend(frameon=False, fontsize=9.5, loc="upper left")
-    fig.text(0.5, 0.025, "the extra piece on the cross is the crossing point "
-                         "showing up in the arithmetic",
+    fig.text(0.5, 0.025, "the additional coordinate comes from the relation at the shared origin",
              ha="center", color=INK2, fontsize=10)
     save_fig(fig, d / "dualizing.png")
 
@@ -376,14 +368,13 @@ def spa():
     fig, axes = plt.subplots(1, 3, figsize=(9.2, 3.4))
     fig.subplots_adjust(left=0.03, right=0.98, top=0.78, bottom=0.14,
                         wspace=0.12)
-    fig.suptitle("each choice of which functions count as small cuts out a "
-                 "region",
+    fig.suptitle("boundedness conditions determine a valuation region",
                  color=INK2, fontsize=12, y=0.965)
     rng = np.random.default_rng(7)
     pts = rng.random((260, 2))
-    cases = [([], "nothing declared small"),
-             ([("x", 0.62)], "the coordinate declared small"),
-             ([("x", 0.62), ("y", 0.55)], "and a prime as well")]
+    cases = [([], "no added boundedness condition"),
+             ([("x", 0.62)], "one function required to be bounded"),
+             ([("x", 0.62), ("y", 0.55)], "two functions required to be bounded")]
     for ax, (cuts, label) in zip(axes, cases):
         style_axes(ax, (-0.04, 1.04), (-0.16, 1.06), equal=False)
         keep = np.ones(len(pts), bool)
@@ -398,10 +389,9 @@ def spa():
         ax.scatter(pts[~keep, 0], pts[~keep, 1], s=6, color=BASELINE)
         ax.scatter(pts[keep, 0], pts[keep, 1], s=7, color=GREEN)
         ax.set_title(label, color=INK, fontsize=10)
-        ax.text(0.5, -0.11, f"{int(keep.sum())} of {len(pts)} valuations left",
+        ax.text(0.5, -0.11, f"{int(keep.sum())} / {len(pts)} samples retained",
                 ha="center", color=INK2, fontsize=9.5)
-    fig.text(0.5, 0.03, "schematic: the two directions stand for independent "
-                        "ways a valuation can vary, not for coordinates",
+    fig.text(0.5, 0.03, "schematic only: the axes are independent valuation parameters, not ring coordinates",
              ha="center", color=MUTED, fontsize=9.5)
     save_fig(fig, d / "spa.png")
 
@@ -417,7 +407,7 @@ def gluing():
     def update(f):
         ax.clear()
         style_axes(ax, (0, 1), (0, 1), equal=False)
-        ax.set_title("local theories that agree on the overlap glue",
+        ax.set_title("compatible module data glue across an overlap",
                      color=INK2, fontsize=12)
         t = min(1.0, f / (steps_n * 0.75))
         ax.add_patch(plt.Rectangle((0.05, 0.6), 0.52, 0.2, color=BLUE,
@@ -428,7 +418,7 @@ def gluing():
                                    ls="--", lw=1.2))
         ax.text(0.2, 0.84, "one patch", color=BLUE, fontsize=10.5)
         ax.text(0.78, 0.84, "the other", color=TEAL, fontsize=10.5)
-        ax.text(0.5, 0.54, "they agree here", ha="center", color=INK2,
+        ax.text(0.5, 0.54, "common restriction", ha="center", color=INK2,
                 fontsize=9.5)
         for k in range(6):
             a = np.clip(t * 3 - k * 0.15, 0, 1)
@@ -436,16 +426,15 @@ def gluing():
                                        color=BLUE, lw=0, alpha=0.6 * a))
             ax.add_patch(plt.Rectangle((0.53 + k * 0.075, 0.32), 0.05, 0.1,
                                        color=TEAL, lw=0, alpha=0.6 * a))
-        ax.text(0.5, 0.26, "each patch's own theory of modules", ha="center",
+        ax.text(0.5, 0.26, "module data on each patch", ha="center",
                 color=INK2, fontsize=10)
         if t > 0.6:
             a = (t - 0.6) / 0.4
             ax.add_patch(plt.Rectangle((0.05, 0.06), 0.9, 0.12, color=GREEN,
                                        alpha=0.2 + 0.4 * a, lw=0))
-            ax.text(0.5, 0.12, "exactly one theory on the union", ha="center",
+            ax.text(0.5, 0.12, "one global object on the union", ha="center",
                     va="center", color=GREEN, fontsize=11, alpha=a)
-        tag.set_text("the same proof as ordinary descent, run where infinite "
-                     "sums behave")
+        tag.set_text("Theorem 9.8 is descent for the derived module categories")
         return ()
 
     save_anim(fig, update, frames, d / "gluing.gif", fps=FPS)
@@ -458,13 +447,13 @@ def six():
     fig, ax = plt.subplots(figsize=(7.8, 4.4))
     fig.subplots_adjust(left=0.03, right=0.97, top=0.9, bottom=0.06)
     style_axes(ax, (0, 1), (0, 1), equal=False)
-    ax.set_title("six operations, in three pairs", color=INK2, fontsize=12)
-    pairs = [("combine two sheaves", "and ask what one does to another",
-              TEAL, 0.76, "easy"),
-             ("drag a sheaf backwards along a map", "and push it forwards",
-              BLUE, 0.47, "easy"),
-             ("push forwards, dropping what escapes",
-              "and its exact counterweight", VIOLET, 0.18, "the hard one")]
+    ax.set_title("the six operations as three adjoint pairs", color=INK2, fontsize=12)
+    pairs = [("tensor product", "derived internal Hom",
+              TEAL, 0.76, "standard pair"),
+             ("pullback", "ordinary pushforward",
+              BLUE, 0.47, "standard pair"),
+             ("compactly supported pushforward",
+              "its right adjoint", VIOLET, 0.18, "boundary pair")]
     for left, right, colour, y, tag in pairs:
         ax.add_patch(plt.Rectangle((0.04, y), 0.4, 0.19, fc="white",
                                    ec=colour, lw=1.8))
@@ -479,7 +468,7 @@ def six():
         ax.annotate("", (0.45, y + 0.07), (0.55, y + 0.07),
                     arrowprops=dict(arrowstyle="-|>", color=colour, lw=1.6))
         ax.text(0.5, y - 0.05, tag, ha="center",
-                color=RED if tag != "easy" else MUTED, fontsize=9.5)
+                color=VIOLET if tag == "boundary pair" else MUTED, fontsize=9.5)
     save_fig(fig, d / "six.png")
 
 
@@ -519,10 +508,10 @@ def duality():
         style_3d(ax)
         ax.set_axis_off()
         ax.view_init(elev=25, azim=spin(f, frames))
-        ax.set_title("a class, and its partner", color=INK2, fontsize=11.5)
+        ax.set_title("complementary classes on a smooth surface", color=INK2, fontsize=11.5)
 
         style_axes(axb, (0, 1), (0, 1), equal=False)
-        axb.set_title("the pairing, collapsed by the trace", color=INK2,
+        axb.set_title("pairing followed by the trace", color=INK2,
                       fontsize=11.5)
         for k in range(holes):
             y = 0.76 - k * 0.16
@@ -531,9 +520,9 @@ def duality():
             axb.add_patch(plt.Rectangle((0.62, y), 0.28, 0.11, color=TEAL,
                                         lw=0))
             axb.plot([0.36, 0.6], [y + 0.055, y + 0.055], color=GREEN, lw=1.4)
-        axb.text(0.2, 0.92, "one side", ha="center", color=VIOLET,
+        axb.text(0.2, 0.92, "classes in one degree", ha="center", color=VIOLET,
                  fontsize=10.5)
-        axb.text(0.76, 0.92, "its partner", ha="center", color=TEAL,
+        axb.text(0.76, 0.92, "complementary degree", ha="center", color=TEAL,
                  fontsize=10.5)
         axb.annotate("", (0.48, 0.3), (0.2, 0.48),
                      arrowprops=dict(arrowstyle="-|>", color=GREEN, lw=1.6))
@@ -541,7 +530,7 @@ def duality():
                      arrowprops=dict(arrowstyle="-|>", color=GREEN, lw=1.6))
         axb.add_patch(plt.Rectangle((0.3, 0.1), 0.36, 0.15, fc="none",
                                     ec=GREEN, lw=2))
-        axb.text(0.48, 0.175, "one number", ha="center", va="center",
+        axb.text(0.48, 0.175, "scalar on the base", ha="center", va="center",
                  color=GREEN, fontsize=11)
         return ()
 
@@ -553,17 +542,16 @@ def pairing():
     genera = [1, 2, 3, 4, 5]
     fig, ax = plt.subplots(figsize=(7.2, 4.0))
     fig.subplots_adjust(left=0.11, right=0.97, top=0.86, bottom=0.17)
-    plot_axes(ax, "how many holes the surface has", "how many classes")
-    ax.set_title("the two sides always have the same size", color=INK2,
+    plot_axes(ax, "genus of the surface", "dimension of each side")
+    ax.set_title("dimensions in a finite model of a perfect pairing", color=INK2,
                  fontsize=12)
     x = np.arange(len(genera))
-    ax.bar(x - 0.19, genera, width=0.36, color=VIOLET, label="one side")
-    ax.bar(x + 0.19, genera, width=0.36, color=TEAL, label="its partner")
+    ax.bar(x - 0.19, genera, width=0.36, color=VIOLET, label="first vector space")
+    ax.bar(x + 0.19, genera, width=0.36, color=TEAL, label="dual vector space")
     ax.set_xticks(x)
     ax.set_xticklabels([str(g) for g in genera])
     ax.legend(frameon=False, fontsize=9.5, loc="upper left")
-    fig.text(0.5, 0.025, "matching sizes is what perfect means; the trace "
-                         "turns each matched pair into a single number",
+    fig.text(0.5, 0.025, "equal dimensions are necessary for perfection; Theorem 11.1 proves the pairing itself",
              ha="center", color=INK2, fontsize=10)
     save_fig(fig, d / "pairing.png")
 

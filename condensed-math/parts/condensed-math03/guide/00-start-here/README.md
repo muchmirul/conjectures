@@ -4,7 +4,7 @@
 
 *Part three of three on condensed mathematics. Part two gave abelian groups a rule for integrating integer-valued measures. This final part lets each ring carry an appropriate theory of measures, including one suited to the real numbers. With multiplication and integration available together, the same framework builds functions near a boundary, compactly supported cohomology, the six operations, and coherent duality. Parts one and two are assumed.*
 
-![The unit ball of the measure size turning as its exponent changes, bulging outward, passing through the diamond, and collapsing into a concave star](hero.gif)
+![The unit region changes from a rounded convex shape to a diamond and then to a nonconvex inward-curving shape as the exponent falls](hero.gif)
 
 The animation previews the central example. Each shape contains the pairs of weights whose size is at most one, and the exponent determines how that size is measured. For exponents above one, the region is convex and rounded. At one it becomes a diamond, while below one it bends inward and is no longer convex. At the same time, merging several boxes preserves the size bound only when the exponent is at most one. The real theory must therefore work in the nonconvex range, which explains why ordinary functional analysis is not sufficient.
 

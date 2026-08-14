@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Build a probe · condensed mathematics, part 1</title>
+<title>Build the finite stages · condensed mathematics, part 1</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>0 · Build a probe</h1>
-<p class="lede">A probe is one box, split, and split again, forever. Below the tree is the dust it cuts out: the points you reach by following the splits all the way down.</p>
-<p class="try"><strong>Try this.</strong> Push the depth up one step at a time and watch the boxes halve. Every single stage is a finite picture. Only the whole endless stack is infinite, and it is the only infinite thing in the definition.</p>
+<h1>0 · Build the finite stages</h1>
+<p class="lede">A profinite probe is assembled from finite stages. This example starts with one box and divides every box into two at the next stage. A point of the completed probe is a compatible path through all the stages.</p>
+<p class="try"><strong>Try this.</strong> Increase the depth one level at a time. Each displayed stage contains finitely many boxes, although there is no final stage in the completed probe. Select a box to see which finer boxes lie above it.</p>
 <canvas id="c" width="720" height="400"></canvas>
 <div class="controls"><div class="row"><label for="depth">how many splits</label><input type="range" id="depth" min="0" max="6" step="1" value="3"><span class="val" id="depthv"></span></div><div class="row"><label for="branch">pieces per split</label><input type="range" id="branch" min="2" max="4" step="1" value="2"><span class="val" id="branchv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">Splitting in two gives the Cantor set, the probe the guide calls the halving probe. Splitting in p gives the base-p probe of part two. The tree and the counts are built by the same code as the figures.</p>
+<p class="note">Binary splitting gives the Cantor probe. Replacing two children by p children gives the base-p probe used in part two. The browser and Python code construct the same finite sets and transition maps.</p>
 <div class="nav"><a href="index.html">all of them</a>  ·  <a href="01.html">next →</a></div>
 </main>
 <script>
@@ -357,10 +357,10 @@ function draw(){
   const S=branchProbe(d,b);
   ctx.clearRect(0,0,cv.width,cv.height);
   drawTree(ctx,S,d,{x:40,y:18,w:640,h:210},{r:4.2});
-  // the dust: the intervals the deepest level cuts out
+  // the discrete real line: the intervals the deepest level cuts out
   const n=S.levels[d].length,y=300,W=640,seg=W/n;
   ctx.fillStyle='#52514e';ctx.font='12px system-ui';ctx.textAlign='left';
-  ctx.fillText('the dust the splits cut out',40,278);
+  ctx.fillText('the discrete real line the splits cut out',40,278);
   for(let k=0;k<n;k++){
     const w=Math.max(1.2,seg*0.62);
     ctx.fillStyle='#4a3aa7';

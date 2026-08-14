@@ -10,11 +10,10 @@ Writes, under the repository's root docs/ folder:
     docs/condensed-math/condensed-math03/index.html    part three
 
 Each part's ARTICLE.md is the single source of truth; nothing here is written
-by hand twice.  The Markdown subset understood is exactly the one the articles
-use: headings, paragraphs, images, tables, block quotes, lists and fenced
-code.  There is deliberately no maths markup, because these articles carry no
-formulas: every formula in the lectures is either drawn as a picture or
-linked to by number.
+by hand twice. The Markdown subset understood is exactly the one the articles
+use: headings, paragraphs, images, tables, block quotes, lists, fenced code,
+and fenced mathematics. MathJax renders each cited definition or theorem,
+which remains paired with a plain reading and its interactive example.
 """
 
 from __future__ import annotations
@@ -201,7 +200,8 @@ def render_html(blocks, part: Part) -> str:
             out.append(f'<div class="scroll"><table{cls}><thead><tr>{cells}</tr>'
                        f"</thead><tbody>{rows}</tbody></table></div>")
         elif kind == "math":
-            out.append(f'<div class="eq">$$ {payload} $$</div>')
+            # TeX comparisons such as q<p are text to MathJax, not HTML tags.
+            out.append(f'<div class="eq">$$ {html.escape(payload)} $$</div>')
         elif kind == "code":
             out.append(f"<pre><code>{html.escape(payload)}</code></pre>")
 

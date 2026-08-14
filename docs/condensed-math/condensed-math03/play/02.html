@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>What each rule lets you add · condensed mathematics, part 3</title>
+<title>Compare two analytic rules · condensed mathematics, part 3</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>2 · What each rule lets you add</h1>
-<p class="lede">Two rules that work, and one thing each of them can sum that ordinary algebra cannot.</p>
-<p class="try"><strong>Try this.</strong> Push the term count up. The base-p rule swallows the doubling sum of part two. The solid rule over a plain ring swallows a sum spread across infinitely many dials. Neither has a finite answer in ordinary algebra.</p>
+<h1>2 · Compare two analytic rules</h1>
+<p class="lede">The p-adic rule and the solid rule over a discrete ring are both analytic. Each permits an infinite operation that ordinary algebra alone does not define.</p>
+<p class="try"><strong>Try this.</strong> Increase the number of terms in each example. The p-adic panel follows a convergent series, while the discrete-ring panel allows a measure with entries in an unrestricted product.</p>
 <canvas id="c" width="720" height="400"></canvas>
 <div class="controls"><div class="row"><label>which rule</label><div class="pick" id="rule2" style="flex:1"><button data-v="padic" class="on">the base-p rule</button><button data-v="solid" class="">the solid rule</button></div></div><div class="row"><label for="nterm">terms added</label><input type="range" id="nterm" min="1" max="14" step="1" value="7"><span class="val" id="ntermv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">That both of these pass the test is Proposition 7.8 of the lectures. The second is the workhorse: the ring carries no topology, and all the topology lives in the modules.</p>
+<p class="note">Proposition 7.8 proves that both rules are analytic. In the discrete-ring example the coefficient ring itself has no topology; completion is carried by the selected category of modules.</p>
 <div class="nav"><a href="01.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="03.html">next →</a></div>
 </main>
 <script>
@@ -389,7 +389,7 @@ function draw(){
       'answer under this rule '+lim+'\n'+
       'the base-p rule is exactly what makes this sum legal';
   }else{
-    ctx.fillText('the solid rule: a sum spread across every dial',40,30);
+    ctx.fillText('the solid rule: a sum spread across every coordinate',40,30);
     const D=18;
     for(let k=0;k<D;k++){
       const on=(k<n);
@@ -401,7 +401,7 @@ function draw(){
     ctx.fillStyle='#898781';ctx.font='12px system-ui';ctx.textAlign='left';
     ctx.fillText('... and on, forever',58+D*36-18,88);
     ctx.fillStyle='#52514e';ctx.font='13px system-ui';
-    ctx.fillText('with finitely many dials allowed, this leaves the group '+
+    ctx.fillText('with finitely many coordinates allowed, this leaves the group '+
                  'the moment',40,150);
     ctx.fillText('more than finitely many are set',40,170);
     ctx.fillStyle='#008300';
@@ -413,7 +413,7 @@ function draw(){
       ctx.fillRect(48+k*36,270,22,Math.max(4,40/(1+k*0.5)));
     }
     document.getElementById('out').textContent=
-      'dials set              '+n+' and rising\n'+
+      'coordinates set              '+n+' and rising\n'+
       'finitely many allowed  fails once the count passes any bound\n'+
       'the solid rule         accepts it, with exactly one total\n'+
       'this is why the rule is stated about modules, not about the ring';

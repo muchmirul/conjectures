@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Build a ghost · condensed mathematics, part 1</title>
+<title>Inspect the point-invisible quotient · condensed mathematics, part 1</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>5 · Build a ghost</h1>
-<p class="lede">On the halving probe, choose how much each split shifts the value. The result is a landing the ruler allows and the dust does not, which is one entry of the group with no points.</p>
-<p class="try"><strong>Try this.</strong> Set the wobble to zero: the landing is flat on every box, so the dust can do it too, and the ghost entry is zero. Turn the wobble up and no box is ever flat, however deep you look. The point count stays at zero throughout.</p>
+<h1>5 · Inspect the point-invisible quotient</h1>
+<p class="lede">A continuous real-valued function on the halving probe represents an element of the quotient from Example 1.9. It vanishes in the quotient only when it comes from a locally constant function.</p>
+<p class="try"><strong>Try this.</strong> Set the variation to zero and the function becomes locally constant. Increase it and refine the probe. The function keeps varying at every visible depth even though the quotient still has no value on the one-point probe.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label for="wobble">how much each split shifts</label><input type="range" id="wobble" min="0" max="100" step="1" value="60"><span class="val" id="wobblev"></span></div><div class="row"><label for="gdepth">how deep you look</label><input type="range" id="gdepth" min="1" max="7" step="1" value="5"><span class="val" id="gdepthv"></span></div></div>
+<div class="controls"><div class="row"><label for="deformation">how much each split shifts</label><input type="range" id="deformation" min="0" max="100" step="1" value="60"><span class="val" id="deformationv"></span></div><div class="row"><label for="gdepth">how deep you look</label><input type="range" id="gdepth" min="1" max="7" step="1" value="5"><span class="val" id="gdepthv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">This is Example 1.9 of the lectures made concrete. The point count is zero for every setting; the probe entry is not, and that difference is exactly what topological groups could not express.</p>
+<p class="note">Example 1.9 identifies this value as a continuous function modulo locally constant functions. The activity constructs one finite approximation; it does not prove that the pattern continues through every stage.</p>
 <div class="nav"><a href="04.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="06.html">next →</a></div>
 </main>
 <script>
@@ -351,7 +351,7 @@ function drawTree(ctx,S,depth,box,opts){
 
 
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
-const wob=document.getElementById('wobble'),gd=document.getElementById('gdepth');
+const wob=document.getElementById('deformation'),gd=document.getElementById('gdepth');
 function draw(){
   const w=parseInt(wob.value)/100,d=parseInt(gd.value);
   ctx.clearRect(0,0,cv.width,cv.height);
@@ -381,15 +381,15 @@ function draw(){
   ctx.strokeStyle='#c3c2b7';ctx.lineWidth=2;
   ctx.beginPath();ctx.moveTo(x0,326);ctx.lineTo(x0+W,326);ctx.stroke();
   ctx.fillStyle='#898781';ctx.font='12px system-ui';ctx.textAlign='center';
-  ctx.fillText('nothing: the ghost has no points at all',x0+W/2,348);
-  wobblev.textContent=w.toFixed(2);gdepthv.textContent=String(d);
+  ctx.fillText('nothing: the quotient has no points at all',x0+W/2,348);
+  deformationv.textContent=w.toFixed(2);gdepthv.textContent=String(d);
   const flat=spread<1e-9;
   const out=document.getElementById('out');
   out.textContent=
-    'points the ghost has            0\n'+
+    'points the quotient has            0\n'+
     'widest gap inside a finest box  '+spread.toFixed(4)+'\n'+
-    (flat?'flat on every box, so the dust can do it too: this entry is zero'
-         :'never flat, however deep you look: a nonzero entry of the ghost');
+    (flat?'flat on every box, so the discrete real line can do it too: this entry is zero'
+         :'never flat, however deep you look: a nonzero entry of the quotient');
   out.className='readout '+(flat?'':'verdict-ok');
 }
 wob.addEventListener('input',draw);gd.addEventListener('input',draw);draw();

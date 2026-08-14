@@ -40,5 +40,5 @@ play:
 all: guide play docs
 
 # `make part1` etc: re-render a single part's figures
-part%:
-	cd src/viz && $(PY) part$*_figures.py
+part1 part2 part3:
+	cd src/viz && $(PY) $@_figures.py

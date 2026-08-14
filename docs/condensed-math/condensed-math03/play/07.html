@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Move a sheaf · condensed mathematics, part 3</title>
+<title>Follow the six operations · condensed mathematics, part 3</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>7 · Move a sheaf</h1>
-<p class="lede">Six operations, in three pairs. Pick one and watch where a sheaf on one space ends up on the other.</p>
-<p class="try"><strong>Try this.</strong> Try pushing forward with compact support on a map where something escapes to the edge, and again on one where nothing does. When nothing escapes, it is the same as ordinary pushforward. That coincidence is what pins the whole formalism down.</p>
+<h1>7 · Follow the six operations</h1>
+<p class="lede">The six operations are tensor product, internal Hom, pullback, ordinary pushforward, compactly supported pushforward, and its right adjoint. They occur in three adjoint pairs.</p>
+<p class="try"><strong>Try this.</strong> Choose compactly supported pushforward for a proper map and for a map with a boundary. In the proper case it agrees with ordinary pushforward; in the other case it removes contributions that escape through the boundary.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>which operation</label><div class="pick" id="op" style="flex:1"><button data-v="pull" class="on">pull back</button><button data-v="push" class="">push forward</button><button data-v="shriek" class="">push with compact support</button><button data-v="upper" class="">the counterweight</button></div></div><div class="row"><label for="proper">does anything escape to the edge</label><input type="range" id="proper" min="0" max="1" step="1" value="1"><span class="val" id="properv"></span></div></div>
+<div class="controls"><div class="row"><label>which operation</label><div class="pick" id="op" style="flex:1"><button data-v="pull" class="on">pull back</button><button data-v="push" class="">push forward</button><button data-v="shriek" class="">push with compact support</button><button data-v="upper" class="">the right adjoint</button></div></div><div class="row"><label for="proper">does anything escape to the edge</label><input type="range" id="proper" min="0" max="1" step="1" value="1"><span class="val" id="properv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The two rules really do force the compactly supported pushforward everywhere, by factoring any reasonable map into an open inclusion followed by a proper one. The lectures note that the work is then in checking the answer does not depend on the factoring.</p>
+<p class="note">Nagata compactification factors a separated finite-type map into an open immersion followed by a proper map. The stated rules determine the candidate compactly supported pushforward, while the theorem must prove independence of the chosen factorization.</p>
 <div class="nav"><a href="06.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="08.html">next →</a></div>
 </main>
 <script>
@@ -366,12 +366,12 @@ const pr=document.getElementById('proper');
 let op='pull';
 pick('op',v=>{op=v;draw();});
 const INFO={
-  pull:['pull back','drag a sheaf backwards along the map','easy'],
-  push:['push forward','send a sheaf forwards, keeping everything','easy'],
-  shriek:['push with compact support','send forwards, discarding what runs '+
-          'off the edge','the hard one'],
-  upper:['the counterweight','the exact partner of the compactly supported '+
-         'pushforward','defined by being the partner']
+  pull:['pullback','transfer an object from the target to the source','standard'],
+  push:['ordinary pushforward','transfer all sections from source to target','standard'],
+  shriek:['compactly supported pushforward','transfer only the sections '+
+          'controlled at the boundary','boundary operation'],
+  upper:['upper shriek','right adjoint of compactly supported pushforward',
+         'defined by adjunction']
 };
 function draw(){
   const escapes=parseInt(pr.value)===1;
@@ -397,7 +397,7 @@ function draw(){
   }
   if(lost){
     ctx.fillStyle='#d03b3b';ctx.font='12px system-ui';ctx.textAlign='center';
-    ctx.fillText(lost+' sections ran off the edge and were discarded',540,196);
+    ctx.fillText(lost+' sections meet the boundary and are omitted',540,196);
   }
   // the arrow
   const ax=src===0?300:420,bx2=src===0?420:300;
@@ -410,12 +410,12 @@ function draw(){
   ctx.fillText(name,360,96);
   // the two rules that force the definition
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('the two rules that force the compactly supported one',60,240);
+  ctx.fillText('two required special cases',60,240);
   const rules=[
-    ['nothing escapes to the edge',
-     'compactly supported pushforward is ordinary pushforward',!escapes],
+    ['the map is proper',
+     'compactly supported pushforward equals ordinary pushforward',!escapes],
     ['the map is an open inclusion',
-     'the counterweight is just the pullback',true]];
+     'upper shriek equals pullback',true]];
   rules.forEach(([a,b,on],i)=>{
     const y=270+i*36;
     ctx.fillStyle=on?'#008300':'#c3c2b7';
@@ -427,9 +427,9 @@ function draw(){
   const out=document.getElementById('out');
   out.textContent=name+'\n'+what+'\n'+
     (op==='shriek'
-      ? (escapes?'sections that run off the edge are discarded here'
-                :'nothing escapes, so this is exactly ordinary pushforward')
-      : 'this one is among the four that are easy to build');
+      ? (escapes?'boundary behaviour changes the compactly supported result'
+                :'for a proper map this equals ordinary pushforward')
+      : 'this belongs to one of the two standard adjoint pairs');
   out.className='readout '+(op==='shriek'&&escapes?'':'verdict-ok');
 }
 pr.addEventListener('input',draw);draw();

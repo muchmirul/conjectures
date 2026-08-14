@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Divide forever · condensed mathematics, part 2</title>
+<title>Compare divisible and nondivisible groups · condensed mathematics, part 2</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>6 · Divide forever</h1>
-<p class="lede">Take a number and divide it, by two, then three, then four, and on without end. Whether you stay inside the group is what decides the previous section's last row.</p>
-<p class="try"><strong>Try this.</strong> Run the ruler and it never leaves. Run the whole numbers and it leaves at the first step. The consequence is at the bottom: a group that can always be divided has nothing to say to a dial, because the answer would have to be divisible by everything.</p>
+<h1>6 · Compare divisible and nondivisible groups</h1>
+<p class="lede">A divisible group allows division by every positive integer. The additive real numbers are divisible, while the integers are not.</p>
+<p class="try"><strong>Try this.</strong> Choose a group and increase the number of divisions. Record the first step that leaves the group. The final line shows why a map from a divisible group to an integer coordinate must be zero.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>which group</label><div class="pick" id="dgrp" style="flex:1"><button data-v="R" class="on">the ruler</button><button data-v="Z" class="">whole numbers</button><button data-v="Zp" class="">base-p numbers</button></div></div><div class="row"><label for="steps">how many divisions</label><input type="range" id="steps" min="1" max="10" step="1" value="5"><span class="val" id="stepsv"></span></div></div>
+<div class="controls"><div class="row"><label>which group</label><div class="pick" id="dgrp" style="flex:1"><button data-v="R" class="on">the usual real line</button><button data-v="Z" class="">whole numbers</button><button data-v="Zp" class="">base-p numbers</button></div></div><div class="row"><label for="steps">how many divisions</label><input type="range" id="steps" min="1" max="10" step="1" value="5"><span class="val" id="stepsv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The divisibility shown here settles the building blocks: the ruler reaches none of them. Going from that to the full statement, that the solidified ruler is zero, is Corollary 6.1 (iii) of the lectures, and needs the computation of Theorem 4.3.</p>
+<p class="note">This arithmetic explains why the real line has no map to the compact projective generators of solid groups. Corollary 6.1 (iii), using Theorem 4.3, proves the stronger statement that derived solidification sends the real line to zero.</p>
 <div class="nav"><a href="05.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="07.html">next →</a></div>
 </main>
 <script>
@@ -376,7 +376,7 @@ function draw(){
     let ok;
     if(g==='R')ok=true;
     else if(g==='Z')ok=Number.isInteger(nv);
-    else ok=Number.isInteger(nv);      // the base-p numbers still need whole
+    else ok=Number.isInteger(nv);      // the p-adic integers still need whole
     if(!ok&&inside){inside=false;firstOut=k;}
     const y=56+k*30;
     ctx.fillStyle=(ok&&inside)?'#008300':'#d03b3b';
@@ -388,19 +388,19 @@ function draw(){
     v=nv;
   }
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('so what can this group send to a single dial?',40,368);
+  ctx.fillText('so what can this group send to a single coordinate?',40,368);
   const divisible=(g==='R');
   ctx.fillStyle=divisible?'#d03b3b':'#008300';ctx.font='13px system-ui';
   ctx.fillText(divisible?'nothing but zero':'whatever you like',400,368);
   stepsv.textContent=String(n);
   const out=document.getElementById('out');
   out.textContent=
-    (g==='R'?'the ruler':g==='Z'?'the whole numbers':'the base-p numbers')+'\n'+
+    (g==='R'?'the usual real line':g==='Z'?'the integers':'the p-adic integers')+'\n'+
     'divisions survived   '+(inside?n:firstOut)+' of '+n+'\n'+
     (divisible
-      ? 'divisible by everything, so it maps to zero in every row of dials,\n'+
+      ? 'divisible by everything, so it maps to zero in every row of coordinates,\n'+
         'which is every building block the solid world is assembled from'
-      : 'not divisible by everything, so it has room to map into dials');
+      : 'not divisible by everything, so it has room to map into coordinates');
   out.className='readout '+(divisible?'verdict-no':'verdict-ok');
 }
 steps.addEventListener('input',draw);draw();

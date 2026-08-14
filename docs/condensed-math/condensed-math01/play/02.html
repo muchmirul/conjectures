@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Switch the probe · condensed mathematics, part 1</title>
+<title>Compare three probes · condensed mathematics, part 1</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>2 · Switch the probe</h1>
-<p class="lede">The three probes this guide uses. The tree is the stack of finite stages; click any box to light up everything inside it.</p>
-<p class="try"><strong>Try this.</strong> Compare the counts. The halving probe doubles, the approaching probe adds one separated point per stage and keeps the rest in a single box, and the base-p probe multiplies by p. All three are built from finite stages only.</p>
+<h1>2 · Compare three probes</h1>
+<p class="lede">The diagram shows finite stages of the halving probe, the approaching-sequence probe, and a base-p probe. Selecting a box highlights all finer boxes that map back to it.</p>
+<p class="try"><strong>Try this.</strong> Compare the number of boxes at successive stages. Binary branching doubles the count, the sequence probe separates one additional point, and base-p branching multiplies the count by p.</p>
 <canvas id="c" width="720" height="400"></canvas>
 <div class="controls"><div class="row"><label>which probe</label><div class="pick" id="kind" style="flex:1"><button data-v="cantor" class="on">halving</button><button data-v="seq" class="">approaching</button><button data-v="padic" class="">base-p</button></div></div><div class="row"><label for="depth2">stages shown</label><input type="range" id="depth2" min="1" max="5" step="1" value="4"><span class="val" id="depth2v"></span></div><div class="row"><label for="pval">p, for the base-p probe</label><input type="range" id="pval" min="2" max="5" step="1" value="3"><span class="val" id="pvalv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">These are the profinite sets of Definition 1.2. The counts and the boxes-inside-a-box are computed live by the same recipe as the Python library, and the tests compare the two.</p>
+<p class="note">These are inverse systems of finite sets, the profinite sets used in Definition 1.2. The stage sizes and fibres are computed in the browser and checked against the Python implementation.</p>
 <div class="nav"><a href="01.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="03.html">next →</a></div>
 </main>
 <script>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Slide out to the edge · condensed mathematics, part 3</title>
+<title>Separate global terms from boundary terms · condensed mathematics, part 3</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>4 · Slide out to the edge</h1>
-<p class="lede">An endless line, and a function on it. Slide the viewpoint outward and watch which terms of the function still matter out there.</p>
-<p class="try"><strong>Try this.</strong> Far out, the coordinate is huge and its reciprocal is tiny, so the natural terms to keep are the negative powers. The positive ones become the part you are allowed to throw away, and what is left is the tail.</p>
+<h1>4 · Separate global terms from boundary terms</h1>
+<p class="lede">Near infinity, a function is expanded in the inverse coordinate. Global polynomials form one part of this expansion, while negative powers describe the formal boundary tail.</p>
+<p class="try"><strong>Try this.</strong> Move the observation point outward and compare the terms. Then form the quotient conceptually: polynomial terms are removed because they already extend globally, and inverse-power tails remain.</p>
 <canvas id="c" width="720" height="400"></canvas>
 <div class="controls"><div class="row"><label for="far">how far out you stand</label><input type="range" id="far" min="0" max="100" step="1" value="30"><span class="val" id="farv"></span></div><div class="row"><label for="tails">tails kept</label><input type="range" id="tails" min="1" max="8" step="1" value="4"><span class="val" id="tailsv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The count is computed by truncation and does not depend on how far up the polynomial part is allowed to reach, which is the point: only the tails survive.</p>
+<p class="note">The displayed calculation uses a finite truncation of the Laurent series. Increasing the allowed polynomial degree does not change the number of retained tail coordinates at a fixed tail depth.</p>
 <div class="nav"><a href="03.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="05.html">next →</a></div>
 </main>
 <script>

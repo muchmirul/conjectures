@@ -6,7 +6,7 @@ Start with the set of all real numbers and give it two different rules about nea
 
 In the second copy, keep the usual notion of distance. In this copy, 0.999 is close to 1, sequences can approach limits, and continuous motion makes sense. We will call this copy **the ruler**, which is the ordinary topological real line.
 
-![The same numbers drawn twice, as separated grains and as a continuous ruler, with every grain matched to its point](bijection.gif)
+![Two copies of the real numbers, one shown as separate dots and one as a continuous line, with equal values joined](bijection.gif)
 
 Send each number in the dust to the same number on the ruler. The animation shows this matching. Every input has one output, different inputs remain different, and every point on the ruler is reached. As a map of underlying sets, it is a perfect one-to-one correspondence.
 
@@ -18,19 +18,28 @@ The lectures begin with this example ([Example 1.9, page 9](https://arxiv.org/pd
 
 ### The mathematics
 
-Write $\mathbb{R}_{\mathrm{disc}}$ for the dust and $\mathbb{R}$ for the ruler, both taken as topological abelian groups. Sending each number to itself is a continuous homomorphism between them, and in the category of topological abelian groups it has no kernel and no cokernel:
+[Example 1.9, page 9 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=9) writes the identity map and its condensed cokernel explicitly. In topological abelian groups the same map has zero kernel and cokernel, although it is not an isomorphism:
 
 ```math
 \mathbb{R}_{\mathrm{disc}} \xrightarrow{\;\mathrm{id}\;} \mathbb{R},
-\qquad \ker = 0, \qquad \mathrm{coker} = 0,
-\qquad \text{yet } \mathbb{R}_{\mathrm{disc}} \not\cong \mathbb{R}.
+\qquad \ker(\mathrm{id})=0, \qquad \operatorname{coker}(\mathrm{id})=0,
+\qquad \mathbb{R}_{\mathrm{disc}}\not\cong\mathbb{R}.
 ```
 
-**Reading the symbols.** The symbol $\mathbb{R}$ means the real numbers, and the subscript $\mathrm{disc}$ says that distinct numbers are treated as separate, with no usual notion of nearness. The arrow labelled $\mathrm{id}$ sends every number to itself. The symbol $\ker$ names the kernel, or everything sent to zero, while $\mathrm{coker}$ names the cokernel, or what remains unaccounted for in the target. Both are $0$, meaning that neither detects a difference. The symbol $\not\cong$ says that the two topological groups are nevertheless not isomorphic.
+After passing to condensed abelian groups, the cokernel $Q$ is no longer zero. Its value on a profinite probe $S$ is
 
-**Why it matters.** In an abelian category, a map whose kernel and cokernel are both zero must be an isomorphism. This example violates that implication, so the category of topological abelian groups is not abelian. As a result, the usual tools of homological algebra cannot simply be applied there.
+```math
+Q(*)=0,
+\qquad
+Q(S)=\frac{C(S,\mathbb{R})}{C_{\mathrm{lc}}(S,\mathbb{R})}\neq 0
+\quad\text{for suitable }S.
+```
 
-**In the simulation.** The slider controls how closely you inspect the two copies of the real line. The two rows represent $\mathbb{R}_{\mathrm{disc}}$ and $\mathbb{R}$, and the vertical lines show the identity map matching equal numbers. The readout displays the kernel and cokernel, which remain zero even while the pictures retain different notions of nearness.
+**Reading the symbols.** The symbol $\mathbb{R}$ means the real numbers, and $\mathrm{disc}$ gives them the discrete topology. The label $\mathrm{id}$ means that each number is sent to itself. The symbols $\ker$ and $\operatorname{coker}$ mean kernel and cokernel. The symbol $0$ is the zero group, while $\not\cong$ means “is not isomorphic to.” The letter $Q$ names the condensed cokernel, and $*$ is the one-point probe. The notation $C(S,\mathbb{R})$ means all continuous maps from $S$ to the usual real line. The subscript $\mathrm{lc}$ restricts this to locally constant maps, which are exactly the continuous maps into the discrete real line. The fraction bar means quotient group, and $\neq 0$ says that this quotient has a nonzero element for some probe.
+
+**Why it matters.** Points see $Q(*)=0$, but a larger probe can see $Q(S)\neq0$. Condensed groups therefore retain the missing topological quotient. [Theorem 1.10, page 9](https://arxiv.org/pdf/2605.03658v1#page=9) then states that condensed abelian groups form an abelian category, so zero kernel and zero cokernel once again force a map to be an isomorphism.
+
+**In the simulation.** The two rows represent $\mathbb{R}_{\mathrm{disc}}$ and $\mathbb{R}$. Each vertical line is one value of $\mathrm{id}$. The point-level kernel and cokernel stay at zero, even though the two rows still have different rules for nearness.
 
 **[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/01.html)** to inspect the matching and see why its empty kernel and cokernel do not make it an isomorphism.
 

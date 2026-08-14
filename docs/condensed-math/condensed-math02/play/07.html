@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The multiplication table · condensed mathematics, part 2</title>
+<title>Read a completed tensor product · condensed mathematics, part 2</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>7 · The multiplication table</h1>
-<p class="lede">Two solid groups combined into one that handles pairs. Pick a row and a column, and read off what the combination is.</p>
-<p class="try"><strong>Try this.</strong> Find the entry where the base-two numbers meet the base-three numbers. It is zero, and the two rulers beneath show why: the nestings shrink by different factors and never share a scale.</p>
+<h1>7 · Read a completed tensor product</h1>
+<p class="lede">The completed tensor product combines two solid groups while retaining compatible completion directions. The table lists the examples stated in Lecture VI and direct consequences of the coordinate rule.</p>
+<p class="try"><strong>Try this.</strong> Select the p-adic groups for two distinct primes and observe the zero entry. Then compare equal prime directions and power-series directions, which remain in the result.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>first factor</label><div class="pick" id="ta" style="flex:1"><button data-v="Z_p" class="on">base-p</button><button data-v="Z_l" class="">base-l</button><button data-v="Z[[T]]" class="">series in T</button><button data-v="Z[[U]]" class="">series in U</button><button data-v="R" class="">the ruler</button></div></div><div class="row"><label>second factor</label><div class="pick" id="tb" style="flex:1"><button data-v="Z_p" class="">base-p</button><button data-v="Z_l" class="on">base-l</button><button data-v="Z[[T]]" class="">series in T</button><button data-v="Z[[U]]" class="">series in U</button><button data-v="R" class="">the ruler</button></div></div></div>
+<div class="controls"><div class="row"><label>first factor</label><div class="pick" id="ta" style="flex:1"><button data-v="Z_p" class="on">base-p</button><button data-v="Z_l" class="">base-l</button><button data-v="Z[[T]]" class="">series in T</button><button data-v="Z[[U]]" class="">series in U</button><button data-v="R" class="">the usual real line</button></div></div><div class="row"><label>second factor</label><div class="pick" id="tb" style="flex:1"><button data-v="Z_p" class="">base-p</button><button data-v="Z_l" class="on">base-l</button><button data-v="Z[[T]]" class="">series in T</button><button data-v="Z[[U]]" class="">series in U</button><button data-v="R" class="">the usual real line</button></div></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The grid is Example 6.4 of the lectures, transcribed. The one entry derived rather than quoted is the series row, which follows from index sets multiplying, Proposition 6.3, and the tests check that pairing.</p>
+<p class="note">Example 6.4 states five identities. Proposition 6.3 explains the power-series case by pairing coordinate sets. The readout distinguishes directly quoted entries from entries obtained by relabelling that rule.</p>
 <div class="nav"><a href="06.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="08.html">next →</a></div>
 </main>
 <script>
@@ -363,10 +363,10 @@ function pick(id,onChange){
 
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 const NAMES=[["Z_p","base-p"],["Z_l","base-l"],["Z[[T]]","series in T"],
-             ["Z[[U]]","series in U"],["R","the ruler"]];
+             ["Z[[U]]","series in U"],["R","the usual real line"]];
 function pretty(k){
   if(k==="0")return "nothing at all";
-  if(k==="R")return "the ruler";
+  if(k==="R")return "the usual real line";
   if(k==="Z")return "whole numbers";
   const m=k.match(/^Z(?:_([pl]))?(?:\[\[(.+)\]\])?$/);
   if(!m)return k;

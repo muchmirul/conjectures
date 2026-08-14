@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Merge the boxes · condensed mathematics, part 3</title>
+<title>Measure the effect of merging · condensed mathematics, part 3</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>3 · Merge the boxes</h1>
-<p class="lede">Weights in boxes, and the same weights after neighbouring boxes are merged. A weighting exists at every stage at once, so merging must never make it bigger.</p>
-<p class="try"><strong>Try this.</strong> Set the exponent above one and merge: the size goes up, and the stages can no longer fit together. Bring the exponent to one or below and merging is safe. This one reading is what fixes the whole theory.</p>
+<h1>3 · Measure the effect of merging</h1>
+<p class="lede">A measure on the full probe must remain within the same size bound when fine boxes are merged into coarse boxes. The chart computes this change for equal weights.</p>
+<p class="try"><strong>Try this.</strong> Choose an exponent above one and merge several boxes; the size can increase. Move to one or below and repeat. The ratio is then at most one, so the finite-stage bounds remain compatible.</p>
 <canvas id="c" width="720" height="400"></canvas>
 <div class="controls"><div class="row"><label for="expo2">the exponent</label><input type="range" id="expo2" min="30" max="250" step="5" value="200"><span class="val" id="expo2v"></span></div><div class="row"><label for="group">boxes merged into one</label><input type="range" id="group" min="2" max="8" step="1" value="4"><span class="val" id="groupv"></span></div><div class="row"><label for="spread">how uneven the weights are</label><input type="range" id="spread" min="0" max="100" step="1" value="0"><span class="val" id="spreadv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">With equal weights the ratio is the box count raised to one minus the reciprocal of the exponent, which the tests check in closed form. At or below exponent one, merging shrinks the size whatever the weights are. Above it, merging can grow the size, and equal weights are the case that grows most.</p>
+<p class="note">For equal weights the ratio is n raised to one minus one over p. The tests check this formula directly. Equal weights give the worst growth above one, while the general subadditivity inequality controls all weights at or below one.</p>
 <div class="nav"><a href="02.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="04.html">next →</a></div>
 </main>
 <script>

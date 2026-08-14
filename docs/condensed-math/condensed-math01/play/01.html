@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The two real lines · condensed mathematics, part 1</title>
+<title>Compare two topologies · condensed mathematics, part 1</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>1 · The two real lines</h1>
-<p class="lede">The same numbers twice: as separated grains with no notion of nearness, and as a ruler where nearness is everything. The slider is how closely you look.</p>
-<p class="try"><strong>Try this.</strong> Zoom in as far as you like. On the ruler, every window you open holds endlessly many other points. On the dust, every window eventually holds one point and nothing else. The two are the same list of numbers and different objects.</p>
+<h1>1 · Compare two topologies</h1>
+<p class="lede">Both rows contain the same real numbers. The upper row gives them the discrete topology, so every point is isolated. The lower row uses the usual topology, where each interval contains more points.</p>
+<p class="try"><strong>Try this.</strong> Move the inspection slider toward a smaller scale. A neighbourhood in the discrete row eventually contains one point, while every interval in the usual real line still contains infinitely many points.</p>
 <canvas id="c" width="720" height="400"></canvas>
 <div class="controls"><div class="row"><label for="zoom">how closely you look</label><input type="range" id="zoom" min="0" max="100" step="1" value="20"><span class="val" id="zoomv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The kill-list and miss-list really are empty, which is why ordinary algebra concludes the two are the same object and is wrong. Part one, section 5, names what it is missing.</p>
+<p class="note">The identity map has zero kernel and zero cokernel when only individual values are checked, but it is not an isomorphism of topological groups. Example 1.9 explains how condensed groups retain the missing quotient.</p>
 <div class="nav"><a href="00.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="02.html">next →</a></div>
 </main>
 <script>
@@ -357,17 +357,17 @@ function draw(){
   const half=Math.pow(10,-z/25);       // half-width of the window
   ctx.clearRect(0,0,cv.width,cv.height);
   const x0=60,x1=680,cx=(x0+x1)/2;
-  // the ruler
+  // the usual real line
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('the ruler: nearness kept',x0,42);
+  ctx.fillText('the usual real line: nearness kept',x0,42);
   ctx.strokeStyle='#4a3aa7';ctx.lineWidth=3;
   ctx.beginPath();ctx.moveTo(x0,70);ctx.lineTo(x1,70);ctx.stroke();
   ctx.fillStyle='#4a3aa7';ctx.beginPath();ctx.arc(cx,70,6,0,7);ctx.fill();
   ctx.fillStyle='#898781';ctx.font='12px system-ui';ctx.textAlign='center';
   ctx.fillText('every window holds endlessly many others',cx,96);
-  // the dust
+  // the discrete real line
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('the dust: nearness forgotten',x0,168);
+  ctx.fillText('the discrete real line: nearness forgotten',x0,168);
   const grains=Math.max(1,Math.round(28*Math.min(1,half*40)));
   for(let k=0;k<=grains;k++){
     const x=grains===0?cx:x0+(x1-x0)*k/grains;

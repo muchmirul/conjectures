@@ -65,38 +65,27 @@ chapter's statement together with its plain reading and its simulation as
 `<section class="mathpair">`, opened by the heading `### The mathematics` and
 closed at the next `##` so the activity iframe falls inside the box.
 
-`tests/test_guide.py` no longer forbids formulas. It now checks that wherever a
-statement exists it is paired with a "Reading the symbols" paragraph, an "In
-the simulation" paragraph and a link to that chapter's activity, that the
-built page renders one boxed pair per statement with MathJax loaded, and it
-reports coverage.
+`tests/test_guide.py` requires a formal statement in all 24 numbered chapters.
+Each statement is paired with a "Reading the symbols" paragraph, a "Why it
+matters" paragraph, an "In the simulation" paragraph, and a link to that
+chapter's activity. The built pages render all eight boxed pairs per part with
+MathJax loaded.
 
-Part one chapter one carries the pattern block the rest are meant to copy. It
-runs lead-in, display statement, "Reading the symbols", "Why it matters", "In
-the simulation", and then the existing activity link. Copying that shape keeps
-the three parts consistent.
+All three source articles now follow the same sequence: a cited definition or
+theorem in LaTeX, a complete plain-language reading, its role in the argument,
+and the corresponding activity. The generated chapter files and published
+HTML are rebuilt from those source articles.
+
+The image captions and activity explanations were also revised together. The
+activity copy is kept separately from the numerical JavaScript in
+`build_interactive.py`, so later prose edits do not risk changing a checked
+calculation.
 
 ### Not done
 
-**1 of 24 chapters.** The workflow written to produce the other 23 lost all 23
-agents to the usage limit before any of them wrote anything.
-
-    .venv/bin/python -m pytest condensed-math/tests/test_guide.py \
-        -k how_much_of_the_mathematics -q -s
-
-prints the current coverage.
-
-**To resume:** re-run the workflow script at
-`workflows/scripts/condensed-math-add-mathematics-*.js`. One thing to fix
-before re-running: it puts 23 agents on only three files, eight chapters per
-file, so concurrent Edit calls can silently drop a block. Either give each
-agent worktree isolation, or serialise the eight chapters within each part and
-run the three parts in parallel. After it runs, count the
-`### The mathematics` headings per part; each must be 8.
-
-Also reconcile `CLAUDE.md`, which still carries the older rule that equations
-must never appear in the prose. That rule now holds for every topic except
-condensed-math, where the owner asked for the opposite.
+No mathematics blocks remain to be added. Future changes should keep all 24
+blocks and rerun `make all` inside `condensed-math` so the source articles,
+chapter READMEs, activities, and published pages stay synchronized.
 
 ## Rebuilding
 

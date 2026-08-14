@@ -2229,12 +2229,12 @@ const pr=document.getElementById('proper');
 let op='pull';
 pick('op',v=>{op=v;draw();});
 const INFO={
-  pull:['pull back','drag a sheaf backwards along the map','easy'],
-  push:['push forward','send a sheaf forwards, keeping everything','easy'],
-  shriek:['push with compact support','send forwards, discarding what runs '+
-          'off the edge','the hard one'],
-  upper:['the counterweight','the exact partner of the compactly supported '+
-         'pushforward','defined by being the partner']
+  pull:['pullback','transfer an object from the target to the source','standard'],
+  push:['ordinary pushforward','transfer all sections from source to target','standard'],
+  shriek:['compactly supported pushforward','transfer only the sections '+
+          'controlled at the boundary','boundary operation'],
+  upper:['upper shriek','right adjoint of compactly supported pushforward',
+         'defined by adjunction']
 };
 function draw(){
   const escapes=parseInt(pr.value)===1;
@@ -2260,7 +2260,7 @@ function draw(){
   }
   if(lost){
     ctx.fillStyle='#d03b3b';ctx.font='12px system-ui';ctx.textAlign='center';
-    ctx.fillText(lost+' sections ran off the edge and were discarded',540,196);
+    ctx.fillText(lost+' sections meet the boundary and are omitted',540,196);
   }
   // the arrow
   const ax=src===0?300:420,bx2=src===0?420:300;
@@ -2273,12 +2273,12 @@ function draw(){
   ctx.fillText(name,360,96);
   // the two rules that force the definition
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('the two rules that force the compactly supported one',60,240);
+  ctx.fillText('two required special cases',60,240);
   const rules=[
-    ['nothing escapes to the edge',
-     'compactly supported pushforward is ordinary pushforward',!escapes],
+    ['the map is proper',
+     'compactly supported pushforward equals ordinary pushforward',!escapes],
     ['the map is an open inclusion',
-     'the counterweight is just the pullback',true]];
+     'upper shriek equals pullback',true]];
   rules.forEach(([a,b,on],i)=>{
     const y=270+i*36;
     ctx.fillStyle=on?'#008300':'#c3c2b7';
@@ -2290,9 +2290,9 @@ function draw(){
   const out=document.getElementById('out');
   out.textContent=name+'\n'+what+'\n'+
     (op==='shriek'
-      ? (escapes?'sections that run off the edge are discarded here'
-                :'nothing escapes, so this is exactly ordinary pushforward')
-      : 'this one is among the four that are easy to build');
+      ? (escapes?'boundary behaviour changes the compactly supported result'
+                :'for a proper map this equals ordinary pushforward')
+      : 'this belongs to one of the two standard adjoint pairs');
   out.className='readout '+(op==='shriek'&&escapes?'':'verdict-ok');
 }
 pr.addEventListener('input',draw);draw();
@@ -2379,10 +2379,179 @@ function draw(){
      "duality is an adjointness rather than a theorem to be proved."),
 ]
 
+# Keep the explanatory copy separate from the drawing code. This makes it
+# possible to revise every activity in one pass without touching the numerical
+# implementation that the JavaScript tests compare with Python.
+REVISED_COPY = {
+    "condensed-math01": [
+        ("Build the finite stages",
+         "A profinite probe is assembled from finite stages. This example starts with one box and divides every box into two at the next stage. A point of the completed probe is a compatible path through all the stages.",
+         "Increase the depth one level at a time. Each displayed stage contains finitely many boxes, although there is no final stage in the completed probe. Select a box to see which finer boxes lie above it.",
+         "Binary splitting gives the Cantor probe. Replacing two children by p children gives the base-p probe used in part two. The browser and Python code construct the same finite sets and transition maps."),
+        ("Compare two topologies",
+         "Both rows contain the same real numbers. The upper row gives them the discrete topology, so every point is isolated. The lower row uses the usual topology, where each interval contains more points.",
+         "Move the inspection slider toward a smaller scale. A neighbourhood in the discrete row eventually contains one point, while every interval in the usual real line still contains infinitely many points.",
+         "The identity map has zero kernel and zero cokernel when only individual values are checked, but it is not an isomorphism of topological groups. Example 1.9 explains how condensed groups retain the missing quotient."),
+        ("Compare three probes",
+         "The diagram shows finite stages of the halving probe, the approaching-sequence probe, and a base-p probe. Selecting a box highlights all finer boxes that map back to it.",
+         "Compare the number of boxes at successive stages. Binary branching doubles the count, the sequence probe separates one additional point, and base-p branching multiplies the count by p.",
+         "These are inverse systems of finite sets, the profinite sets used in Definition 1.2. The stage sizes and fibres are computed in the browser and checked against the Python implementation."),
+        ("Test continuity with a sequence",
+         "The points on the left approach a limit point. Their images on the target approach the value chosen by the first control, while the image of the limit is chosen independently by the second control.",
+         "Choose different values and observe the break at the limit. Then make the values equal. The map is continuous precisely when the images of the sequence approach the image assigned to its limit.",
+         "Remark 1.6 states that convergent sequences determine every metrizable space. The activity therefore shows a complete continuity test for spaces whose topology comes from a distance."),
+        ("Test the cut and glue rules",
+         "A condensed set must handle disjoint pieces independently and must combine compatible answers on a cover. These are the cut and glue forms of the sheaf condition.",
+         "In cut mode, choose any two values; both are accepted because the pieces are disjoint. In glue mode, compare equal and unequal overlap values. A single answer below exists exactly when they agree.",
+         "Definition 1.2 states these two conditions. Proposition 2.8 later shows that the glue condition is automatic on extremally disconnected probes because every cover of such a probe splits."),
+        ("Inspect the point-invisible quotient",
+         "A continuous real-valued function on the halving probe represents an element of the quotient from Example 1.9. It vanishes in the quotient only when it comes from a locally constant function.",
+         "Set the variation to zero and the function becomes locally constant. Increase it and refine the probe. The function keeps varying at every visible depth even though the quotient still has no value on the one-point probe.",
+         "Example 1.9 identifies this value as a continuous function modulo locally constant functions. The activity constructs one finite approximation; it does not prove that the pattern continues through every stage."),
+        ("Try to choose a continuous section",
+         "A cover places two possible lifts above each point of the probe. A section chooses one lift per point, and that choice must vary continuously.",
+         "Use an alternating choice on the approaching-sequence probe. No value above the limit makes that section continuous. Then select the extremally disconnected case, where the defining property guarantees that some continuous section exists.",
+         "Definition 2.4 calls a compact Hausdorff space extremally disconnected when every surjection onto it splits. Warning 2.6 states that every convergent sequence in such a space is eventually constant."),
+        ("Translate a space and recover it",
+         "The first step records every continuous map from a profinite probe into a space. The second step recovers a topology from those probe values.",
+         "Run the circle, interval, and finite set through both steps. Each returns with its original topology. The final example has a nonclosed point and stops because Warning 2.14 excludes it.",
+         "Proposition 1.7 proves full faithfulness on compactly generated spaces, and Theorem 2.16 identifies compact Hausdorff spaces with qcqs condensed sets. The rejected example lies outside their hypotheses."),
+        ("Measure the winding number",
+         "A closed path around a circle has an integer winding number. Continuous deformation may change the shape of the path, but it cannot change that integer without breaking the path.",
+         "Change the number of turns, then increase the deformation. The measured winding number remains equal to the chosen integer. Switch to the torus to compare its two independent loop directions.",
+         "The circle calculation gives its first cohomology generator. Proposition 3.1 describes products of circles by an exterior algebra; the displayed torus ranks are recomputed here from that formula."),
+    ],
+    "condensed-math02": [
+        ("Distribute a compatible weight",
+         "A weighting assigns a number to every box at every stage. The number on a coarse box must equal the sum of the numbers on the finer boxes inside it.",
+         "Change the split and the number of stages. The weights on individual branches move, but the total at each level remains the initial value. This is the compatibility equation for a measure.",
+         "Definition 5.1 constructs the free solid group as an inverse limit with one integer coordinate per finite-stage box. The activity uses real-valued display weights so that the split can move smoothly, while the compatibility calculation is the same."),
+        ("Compare ordinary and p-adic distance",
+         "The partial sums add one, p, p squared, and successive powers of p. They grow in ordinary distance but converge when distance is measured p-adically.",
+         "Increase the term count for several bases. The ordinary error is multiplied by p at each step, while the p-adic error is divided by p. Compare the displayed limit with one divided by one minus p.",
+         "The browser computes the partial sums and both errors live. The Python tests repeat the calculation with exact fractions. For base two, the p-adic limit is minus one."),
+        ("Integrate at two stages",
+         "A continuous integer-valued function is already constant on the boxes of some finite stage. It can be integrated there or repeated on every box of a finer stage.",
+         "Change the stage at which the function is first read. The bars become finer after refinement, but the weighted total remains unchanged because the child weights add to the parent weight.",
+         "Stage independence makes integration against a compatible weighting well defined. The tests calculate the same integral at coarse and fine stages and require exact agreement."),
+        ("Build a function from a basis",
+         "At a finite stage, the indicator of one box is one on that box and zero on the others. Integer combinations of these indicators reconstruct every integer-valued function on the stage.",
+         "Add basis functions until the filled bars match the target outline. The labels are integer coefficients. No fractions are needed, and all boxes match when the final basis function is added.",
+         "Nöbeling's theorem extends freeness to continuous integer-valued functions on the complete profinite probe. This activity verifies only a finite stage, where freeness is elementary."),
+        ("Test the finite-coordinate property",
+         "An element of an infinite product may have a nonzero value in every coordinate. Specker's theorem says that a homomorphism from this product to the integers can depend on only finitely many coordinates.",
+         "Choose the coordinates read by the homomorphism, then change a coordinate inside or outside that range. A coordinate beyond the finite range cannot affect the output.",
+         "Specker's theorem is quoted rather than tested by a finite model. Together with Nöbeling's theorem, it yields Corollary 5.5: the free solid group on a probe is a product of copies of the integers."),
+        ("Check the unique-extension rule",
+         "A condensed group is solid when every map from probe points extends uniquely to all compatible integer measures. The selector compares groups that satisfy or fail this condition.",
+         "Select each group and read the reason for its result. The integers, their products, p-adic integers, and power-series groups pass. A direct sum and the usual real line fail for different reasons.",
+         "Definition 5.1 gives the extension condition. Theorem 5.8 and Corollary 6.1 prove the structural results used for these examples; the activity presents their consequences rather than proving them."),
+        ("Compare divisible and nondivisible groups",
+         "A divisible group allows division by every positive integer. The additive real numbers are divisible, while the integers are not.",
+         "Choose a group and increase the number of divisions. Record the first step that leaves the group. The final line shows why a map from a divisible group to an integer coordinate must be zero.",
+         "This arithmetic explains why the real line has no map to the compact projective generators of solid groups. Corollary 6.1 (iii), using Theorem 4.3, proves the stronger statement that derived solidification sends the real line to zero."),
+        ("Read a completed tensor product",
+         "The completed tensor product combines two solid groups while retaining compatible completion directions. The table lists the examples stated in Lecture VI and direct consequences of the coordinate rule.",
+         "Select the p-adic groups for two distinct primes and observe the zero entry. Then compare equal prime directions and power-series directions, which remain in the result.",
+         "Example 6.4 states five identities. Proposition 6.3 explains the power-series case by pairing coordinate sets. The readout distinguishes directly quoted entries from entries obtained by relabelling that rule."),
+        ("Recover homology from solidification",
+         "Derived solidification of the free condensed group on a CW complex recovers its integral homology. The bars separate free classes from finite-order torsion classes.",
+         "Rotate the sphere and torus, then compare all five examples. For the Klein bottle, use the bars rather than the surface drawing: it has an order-two homology class that is killed when doubled.",
+         "The homology groups are computed here from cellular boundary matrices using Smith normal form. Example 6.5 supplies the quoted theorem identifying those groups with derived solidification."),
+    ],
+    "condensed-math03": [
+        ("Compare exponents",
+         "The exponent determines both the unit region for the measure size and the effect of merging boxes. These are separate tests, and their boundaries meet at exponent one.",
+         "Lower the exponent through one. The unit region stops being convex below one, while the merge ratio becomes no greater than one. Read both panels before deciding which exponents are allowed.",
+         "For n equal boxes, the merge ratio is n raised to one minus the reciprocal of the exponent. The browser evaluates this expression, and the Python tests independently check the ratio and the convexity result."),
+        ("Check the data of a measure rule",
+         "A proposed rule consists of a condensed ring and one module of measures for every extremally disconnected probe. It must include point masses and turn finite disjoint unions into products.",
+         "Toggle each requirement separately. Without Dirac measures, points cannot enter the measure module. Without the disjoint-union rule, independent pieces no longer receive independent data.",
+         "Definition 7.1 gives these data. Definition 7.4 adds the derived compatibility test that defines an analytic ring. The finite toggles illustrate necessary inputs but cannot establish that derived condition."),
+        ("Compare two analytic rules",
+         "The p-adic rule and the solid rule over a discrete ring are both analytic. Each permits an infinite operation that ordinary algebra alone does not define.",
+         "Increase the number of terms in each example. The p-adic panel follows a convergent series, while the discrete-ring panel allows a measure with entries in an unrestricted product.",
+         "Proposition 7.8 proves that both rules are analytic. In the discrete-ring example the coefficient ring itself has no topology; completion is carried by the selected category of modules."),
+        ("Measure the effect of merging",
+         "A measure on the full probe must remain within the same size bound when fine boxes are merged into coarse boxes. The chart computes this change for equal weights.",
+         "Choose an exponent above one and merge several boxes; the size can increase. Move to one or below and repeat. The ratio is then at most one, so the finite-stage bounds remain compatible.",
+         "For equal weights the ratio is n raised to one minus one over p. The tests check this formula directly. Equal weights give the worst growth above one, while the general subadditivity inequality controls all weights at or below one."),
+        ("Separate global terms from boundary terms",
+         "Near infinity, a function is expanded in the inverse coordinate. Global polynomials form one part of this expansion, while negative powers describe the formal boundary tail.",
+         "Move the observation point outward and compare the terms. Then form the quotient conceptually: polynomial terms are removed because they already extend globally, and inverse-power tails remain.",
+         "The displayed calculation uses a finite truncation of the Laurent series. Increasing the allowed polynomial degree does not change the number of retained tail coordinates at a fixed tail depth."),
+        ("Compute a boundary quotient",
+         "Compactly supported pushforward is built from the difference between functions near the boundary and functions defined everywhere. The line and coordinate cross provide finite models of that quotient.",
+         "Use the same truncation depth for both shapes. The line retains one tail. The cross retains one tail from each branch plus one contribution from the relation at their shared point.",
+         "Remark 8.5 gives the exact dualizing-complex formula for the cross. The activity checks only the rank pattern of finite truncations and identifies the additional contribution from the crossing relation."),
+        ("Match bounded functions with valuations",
+         "A subring of functions declared to have size at most one determines a region in the valuation space. Proposition 9.2 says that, under its hypotheses, the region also recovers the subring.",
+         "Add and remove boundedness conditions. Each condition removes valuations that assign the chosen function a size greater than one. Compare the remaining region after every change.",
+         "The correspondence is Proposition 9.2. The two plotted directions are schematic independent valuation parameters, not coordinates on a specific ring, so the drawing illustrates inclusion rather than a particular valuation space."),
+        ("Follow the six operations",
+         "The six operations are tensor product, internal Hom, pullback, ordinary pushforward, compactly supported pushforward, and its right adjoint. They occur in three adjoint pairs.",
+         "Choose compactly supported pushforward for a proper map and for a map with a boundary. In the proper case it agrees with ordinary pushforward; in the other case it removes contributions that escape through the boundary.",
+         "Nagata compactification factors a separated finite-type map into an open immersion followed by a proper map. The stated rules determine the candidate compactly supported pushforward, while the theorem must prove independence of the chosen factorization."),
+        ("Pair complementary degrees",
+         "Coherent duality pairs a class with one in the complementary degree and applies a trace to obtain a scalar on the base. A perfect pairing identifies either side with the dual of the other.",
+         "Rotate the surface to see its three-dimensional model, then change its genus. Compare the dimensions on the two sides and follow a paired class through the trace.",
+         "The equal dimensions provide a finite classical model of the pairing. Theorem 11.1 constructs compactly supported pushforward, the trace, and the duality isomorphism for a separated smooth finite-type map; the activity does not prove that theorem."),
+    ],
+}
+
+
+WIDGET_TERMS = [
+    ("the base-two numbers", "the 2-adic integers"),
+    ("the base-three numbers", "the 3-adic integers"),
+    ("the base-p numbers", "the p-adic integers"),
+    ("the whole numbers", "the integers"),
+    ("whole-number", "integer"),
+    ("the ruler", "the usual real line"),
+    ("the dust", "the discrete real line"),
+    ("the ghost", "the quotient"),
+    ("unfoldable", "extremally disconnected"),
+    ("answer sheet", "probe data"),
+    ("marching points", "sequence points"),
+    ("the march", "the sequence"),
+    ("chain snaps", "limits differ"),
+    ("one answer glues below", "one answer descends"),
+    ("doughnut", "torus"),
+    ("plain ring", "discrete ring"),
+    ("the counterweight", "the right adjoint"),
+    ("dials", "coordinates"),
+    ("dial", "coordinate"),
+    ("a question", "a homomorphism"),
+    ("the question", "the homomorphism"),
+    ("switches", "basis functions"),
+    ("switch", "basis function"),
+    ("measurement", "function"),
+    ("wobble", "deformation"),
+]
+
+
+def _naturalize_widget_copy(text):
+    for old, new in WIDGET_TERMS:
+        text = text.replace(old, new)
+    return text
+
+
+def _apply_revised_copy(slug, chapters):
+    copy = REVISED_COPY[slug]
+    assert len(copy) == len(chapters)
+    revised = []
+    for chapter, words in zip(chapters, copy):
+        num, _, _, _, controls, widget, _ = chapter
+        heading, lede, prompt, note = words
+        controls = _naturalize_widget_copy(controls)
+        widget = _naturalize_widget_copy(widget)
+        revised.append((num, heading, lede, prompt, controls, widget, note))
+    return revised
+
+
 CHAPTERS = {
-    "condensed-math01": PART_ONE_CHAPTERS,
-    "condensed-math02": PART_TWO_CHAPTERS,
-    "condensed-math03": PART_THREE_CHAPTERS,
+    "condensed-math01": _apply_revised_copy("condensed-math01", PART_ONE_CHAPTERS),
+    "condensed-math02": _apply_revised_copy("condensed-math02", PART_TWO_CHAPTERS),
+    "condensed-math03": _apply_revised_copy("condensed-math03", PART_THREE_CHAPTERS),
 }
 
 

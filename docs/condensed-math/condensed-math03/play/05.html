@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Form the quotient · condensed mathematics, part 3</title>
+<title>Compute a boundary quotient · condensed mathematics, part 3</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>5 · Form the quotient</h1>
-<p class="lede">Functions near the edge, functions everywhere, and what is left when you divide one by the other. The line has one edge; the coordinate cross has two.</p>
-<p class="try"><strong>Try this.</strong> Compare the two shapes at the same depth. The line keeps exactly its tails. The cross keeps both branches' tails and one extra piece, and that extra piece is the crossing point showing up in the arithmetic.</p>
+<h1>5 · Compute a boundary quotient</h1>
+<p class="lede">Compactly supported pushforward is built from the difference between functions near the boundary and functions defined everywhere. The line and coordinate cross provide finite models of that quotient.</p>
+<p class="try"><strong>Try this.</strong> Use the same truncation depth for both shapes. The line retains one tail. The cross retains one tail from each branch plus one contribution from the relation at their shared point.</p>
 <canvas id="c" width="720" height="400"></canvas>
 <div class="controls"><div class="row"><label>which shape</label><div class="pick" id="geom" style="flex:1"><button data-v="line" class="on">the line</button><button data-v="cross" class="">the cross</button></div></div><div class="row"><label for="tails2">tails kept</label><input type="range" id="tails2" min="1" max="8" step="1" value="4"><span class="val" id="tails2v"></span></div><div class="row"><label for="top2">how far the polynomials reach</label><input type="range" id="top2" min="1" max="8" step="1" value="3"><span class="val" id="top2v"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">This is the counting side of the formula Remark 8.5 of the lectures computes for the cross. The extra piece is the crossing point: the two branches share one value there, so one constant is not free.</p>
+<p class="note">Remark 8.5 gives the exact dualizing-complex formula for the cross. The activity checks only the rank pattern of finite truncations and identifies the additional contribution from the crossing relation.</p>
 <div class="nav"><a href="04.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="06.html">next →</a></div>
 </main>
 <script>

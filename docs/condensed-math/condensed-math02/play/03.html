@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Take a measurement apart · condensed mathematics, part 2</title>
+<title>Build a function from a basis · condensed mathematics, part 2</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>3 · Take a measurement apart</h1>
-<p class="lede">A whole-number measurement on the probe, and the switch functions it is built from. Each switch is one box on and everything else off.</p>
-<p class="try"><strong>Try this.</strong> Add switches one at a time and watch the outline close on the measurement. The coefficients are whole numbers and never fractions, which is exactly the statement that the measurements form a free group.</p>
+<h1>3 · Build a function from a basis</h1>
+<p class="lede">At a finite stage, the indicator of one box is one on that box and zero on the others. Integer combinations of these indicators reconstruct every integer-valued function on the stage.</p>
+<p class="try"><strong>Try this.</strong> Add basis functions until the filled bars match the target outline. The labels are integer coefficients. No fractions are needed, and all boxes match when the final basis function is added.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label for="used">switches used</label><input type="range" id="used" min="0" max="16" step="1" value="0"><span class="val" id="usedv"></span></div><div class="row"><label for="target">which measurement</label><input type="range" id="target" min="0" max="100" step="1" value="35"><span class="val" id="targetv"></span></div></div>
+<div class="controls"><div class="row"><label for="used">basis functions used</label><input type="range" id="used" min="0" max="16" step="1" value="0"><span class="val" id="usedv"></span></div><div class="row"><label for="target">which function</label><input type="range" id="target" min="0" max="100" step="1" value="35"><span class="val" id="targetv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">That the switches always form a basis, for every probe including the infinite ones, is Nöbeling's theorem, given in the lectures with Bergman's proof. The construction is run in Python by the tests; at a finite level like this one the result is not surprising, and the theorem's content is the limit.</p>
+<p class="note">Nöbeling's theorem extends freeness to continuous integer-valued functions on the complete profinite probe. This activity verifies only a finite stage, where freeness is elementary.</p>
 <div class="nav"><a href="02.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="04.html">next →</a></div>
 </main>
 <script>
@@ -359,13 +359,13 @@ function draw(){
   const target=[];
   for(let i=0;i<n;i++)
     target.push(Math.round(2+5*Math.abs(Math.sin(2.3+7*t*(i+1)/n))));
-  // the switches: one box each, taken in order, with whole coefficients
+  // the basis functions: one box each, taken in order, with whole coefficients
   const built=new Array(n).fill(0);
   for(let i=0;i<k&&i<n;i++)built[i]=target[i];
   ctx.clearRect(0,0,cv.width,cv.height);
   const seg=640/n,base=250;
   ctx.fillStyle='#52514e';ctx.font='12px system-ui';ctx.textAlign='left';
-  ctx.fillText('the measurement you want (outline) and what the switches give',
+  ctx.fillText('the function you want (outline) and what the basis functions give',
                40,30);
   for(let i=0;i<n;i++){
     ctx.fillStyle=(i<k)?'#00787a':'rgba(0,120,122,0.16)';
@@ -377,7 +377,7 @@ function draw(){
   ctx.beginPath();ctx.moveTo(40,base);ctx.lineTo(680,base);ctx.stroke();
   // the coefficients used
   ctx.fillStyle='#52514e';ctx.font='12px system-ui';ctx.textAlign='left';
-  ctx.fillText('whole-number coefficients used so far',40,290);
+  ctx.fillText('integer coefficients used so far',40,290);
   for(let i=0;i<k&&i<n;i++){
     ctx.fillStyle='#008300';ctx.font='12px ui-monospace,monospace';
     ctx.fillText(String(built[i]),40+i*seg+seg/2-4,312);
@@ -387,10 +387,10 @@ function draw(){
   const out=document.getElementById('out');
   out.textContent=
     'boxes at this level      '+n+'\n'+
-    'switches used            '+k+'\n'+
+    'basis functions used            '+k+'\n'+
     'boxes still uncovered    '+Math.max(0,n-k)+'\n'+
     (done?'rebuilt exactly, with whole numbers and no fractions'
-         :'keep adding switches');
+         :'keep adding basis functions');
   out.className='readout '+(done?'verdict-ok':'');
 }
 used.addEventListener('input',draw);tgt.addEventListener('input',draw);draw();

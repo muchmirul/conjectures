@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cut, then glue · condensed mathematics, part 1</title>
+<title>Test the cut and glue rules · condensed mathematics, part 1</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>4 · Cut, then glue</h1>
-<p class="lede">Two rules tie an answer sheet together. Cut: a probe in separate pieces is answered piece by piece. Glue: answers on a covering that agree on the overlap come from exactly one answer below.</p>
-<p class="try"><strong>Try this.</strong> Set the two pieces to different values and the cut rule is happy, since nothing connects them. Then move to gluing and make the overlap disagree: the answers refuse to become one.</p>
+<h1>4 · Test the cut and glue rules</h1>
+<p class="lede">A condensed set must handle disjoint pieces independently and must combine compatible answers on a cover. These are the cut and glue forms of the sheaf condition.</p>
+<p class="try"><strong>Try this.</strong> In cut mode, choose any two values; both are accepted because the pieces are disjoint. In glue mode, compare equal and unequal overlap values. A single answer below exists exactly when they agree.</p>
 <canvas id="c" width="720" height="400"></canvas>
 <div class="controls"><div class="row"><label>which rule</label><div class="pick" id="rule" style="flex:1"><button data-v="cut" class="on">cut</button><button data-v="glue" class="">glue</button></div></div><div class="row"><label for="left">answer on the left piece</label><input type="range" id="left" min="0" max="5" step="1" value="2"><span class="val" id="leftv"></span></div><div class="row"><label for="right">answer on the right piece</label><input type="range" id="right" min="0" max="5" step="1" value="4"><span class="val" id="rightv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">These are the two sheaf conditions listed under Definition 1.2. On an unfoldable probe the glue rule holds automatically, which is why part one, section 6, is worth its strangeness.</p>
+<p class="note">Definition 1.2 states these two conditions. Proposition 2.8 later shows that the glue condition is automatic on extremally disconnected probes because every cover of such a probe splits.</p>
 <div class="nav"><a href="03.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="05.html">next →</a></div>
 </main>
 <script>
@@ -409,7 +409,7 @@ function draw(){
     }
     document.getElementById('out').textContent=
       'left piece    '+a+'\nright piece   '+b+'\n'+
-      (ok?'they agree on the overlap, so exactly one answer glues below'
+      (ok?'they agree on the overlap, so exactly one answer descends'
          :'they disagree on the overlap, so nothing glues');
     document.getElementById('out').className='readout '+(ok?'verdict-ok':'verdict-no');
   }

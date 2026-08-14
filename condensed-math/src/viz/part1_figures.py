@@ -34,8 +34,8 @@ def hero():
                         hspace=0.24)
     style_axes(ax, (-0.03, 1.03), (-depth - 0.5, 0.6), equal=False)
     style_axes(axd, (-0.03, 1.03), (-0.6, 0.6), equal=False)
-    ax.set_title("one box, split, and split again", color=INK2, fontsize=12)
-    axd.set_title("the dust the splits leave behind", color=INK2, fontsize=11)
+    ax.set_title("finite stages of a binary probe", color=INK2, fontsize=12)
+    axd.set_title("intervals selected by the visible stage", color=INK2, fontsize=11)
     tag = note_below(fig)
 
     per_level = 14
@@ -46,9 +46,9 @@ def hero():
         axd.clear()
         style_axes(ax, (-0.03, 1.03), (-depth - 0.5, 0.6), equal=False)
         style_axes(axd, (-0.03, 1.03), (-0.6, 0.6), equal=False)
-        ax.set_title("one box, split, and split again", color=INK2,
+        ax.set_title("finite stages of a binary probe", color=INK2,
                      fontsize=12)
-        axd.set_title("the dust the splits leave behind", color=INK2,
+        axd.set_title("intervals selected by the visible stage", color=INK2,
                       fontsize=11)
 
         shown = min(depth, f // per_level)
@@ -91,7 +91,7 @@ def hero():
                                         max(0.0016, width), 0.44,
                                         color=VIOLET, lw=0))
         tag.set_text(f"splits {level}     boxes {n}     "
-                     f"every stage finite, the stack endless")
+                     f"each displayed stage is finite")
         return ()
 
     save_anim(fig, update, frames, d / "hero.gif", fps=FPS)
@@ -111,10 +111,10 @@ def bijection():
     def update(f):
         ax.clear()
         style_axes(ax, (0, 1), (-0.55, 0.95), equal=False)
-        ax.set_title("send each number to itself", color=INK2, fontsize=12)
-        ax.text(0.5, 0.86, "the dust: nearness forgotten", ha="center",
+        ax.set_title("the identity map between two topologies", color=INK2, fontsize=12)
+        ax.text(0.5, 0.86, "discrete real line: every point isolated", ha="center",
                 color=BROWN, fontsize=11)
-        ax.text(0.5, -0.5, "the ruler: nearness kept", ha="center",
+        ax.text(0.5, -0.5, "usual real line: nearby values remain nearby", ha="center",
                 color=VIOLET, fontsize=11)
         ax.scatter(xs, np.full(n, 0.62), s=54, color=BROWN, zorder=3,
                    edgecolors="none")
@@ -126,10 +126,8 @@ def bijection():
                     alpha=0.75, zorder=1)
             ax.scatter([xs[k]], [-0.28], s=34, color=GREEN, zorder=4,
                        edgecolors="none")
-        tag.set_text(f"matched {done} of {n}     "
-                     f"left over at the front 0     left over at the back 0"
-                     + ("     and still not the same object" if done == n
-                        else ""))
+        tag.set_text(f"matched {done}/{n}     kernel 0     cokernel 0"
+                     + ("     topologies differ" if done == n else ""))
         return ()
 
     save_anim(fig, update, frames, d / "bijection.gif", fps=FPS)
@@ -175,12 +173,12 @@ def probes():
                         wspace=0.14)
     # each probe is drawn to the depth where its own pattern is clearest, and
     # the depth is written under it so the counts can be read honestly
-    specs = [(C.cantor(4), 4, "the halving probe",
-              "every box splits in two"),
-             (C.convergent_sequence(5), 5, "the approaching probe",
-              "one point separated per stage"),
-             (C.p_adic(3, 3), 3, "the counting-in-base-p probe",
-              "every box splits in p, here three")]
+    specs = [(C.cantor(4), 4, "halving probe",
+              "each box has two children"),
+             (C.convergent_sequence(5), 5, "approaching-sequence probe",
+              "one more point is separated at each stage"),
+             (C.p_adic(3, 3), 3, "base-p probe",
+              "each box has p children, with p equal to three")]
     deepest = max(depth for _, depth, _, _ in specs)
     for ax, (S, depth, name, sub) in zip(axes, specs):
         style_axes(ax, (-0.06, 1.06), (-deepest - 0.8, 0.55), equal=False)
@@ -188,7 +186,7 @@ def probes():
         ax.set_title(name, color=INK, fontsize=11.5, pad=16)
         ax.text(0.5, 0.42, sub, ha="center", color=MUTED, fontsize=9.5)
         counts = " ".join(str(c) for c in S.sizes())
-        ax.text(0.5, -deepest - 0.45, f"boxes per stage\n{counts}",
+        ax.text(0.5, -deepest - 0.45, f"number of boxes at each stage\n{counts}",
                 ha="center", va="top", color=INK2, fontsize=9.5,
                 family="monospace")
     save_fig(fig, d / "probes.png")
@@ -211,7 +209,7 @@ def landing():
         torn = f >= hold
         step = min(1.0, (f % hold) / (hold * 0.55)) if not torn else \
             min(1.0, (f - hold) / (hold * 0.55))
-        ax.set_title("laying the approaching probe into a curve", color=INK2,
+        ax.set_title("testing continuity with an approaching sequence", color=INK2,
                      fontsize=12)
         # the probe: marching points and their limit
         pys = np.array([0.92 - 0.075 * k for k in range(n)])
@@ -227,7 +225,7 @@ def landing():
         ax.plot(0.52 + 0.34 * np.cos(2 * np.pi * ts) * 0, ts, color=BASELINE,
                 lw=0)
         ax.plot(np.full_like(ts, 0.86), ts, color=BASELINE, lw=2)
-        ax.text(0.86, 1.0, "the target", ha="center", color=MUTED,
+        ax.text(0.86, 1.0, "target space", ha="center", color=MUTED,
                 fontsize=10)
         # where the marching points land
         landings = 0.5 + 0.36 / (np.arange(n) + 1.4)
@@ -247,15 +245,15 @@ def landing():
             if torn:
                 ax.plot([0.9, 0.9], [0.5, limit_land], color=RED, lw=3,
                         zorder=4)
-                ax.text(0.93, (0.5 + limit_land) / 2, "the chain snaps",
+                ax.text(0.93, (0.5 + limit_land) / 2, "different limits",
                         color=RED, fontsize=10, va="center", rotation=90)
             else:
-                ax.text(0.93, 0.5, "accepted", color=GREEN, fontsize=10,
+                ax.text(0.93, 0.5, "continuous", color=GREEN, fontsize=10,
                         va="center", rotation=90)
-        tag.set_text("the marching points head for 0.50     "
-                     + (f"the limit lands at {limit_land:.2f}     refused"
+        tag.set_text("the sequence images approach 0.50     "
+                     + (f"the limit image is {limit_land:.2f}     discontinuous"
                         if torn else
-                        "the limit lands at 0.50     accepted"))
+                        "the limit image is 0.50     continuous"))
         return ()
 
     save_anim(fig, update, frames, d / "landing.gif", fps=FPS)
@@ -266,12 +264,12 @@ def sequence_test():
     fig, ax = plt.subplots(figsize=(6.6, 4.0))
     fig.subplots_adjust(left=0.04, right=0.96, top=0.88, bottom=0.08)
     style_axes(ax, (-1.35, 1.35), (-1.15, 1.35))
-    ax.set_title("the probe finds the missing limit", color=INK2, fontsize=12)
+    ax.set_title("a convergent sequence detects a missing boundary point", color=INK2, fontsize=12)
     th = np.linspace(0, 2 * np.pi, 400)
     ax.fill(1.0 * np.cos(th), 1.0 * np.sin(th), color=VIOLET, alpha=0.13,
             zorder=1)
     ax.plot(np.cos(th), np.sin(th), color=VIOLET, lw=1.6, ls="--", zorder=2)
-    ax.text(0, -1.08, "a set, drawn with its edge left out", ha="center",
+    ax.text(0, -1.08, "the dashed boundary is not included", ha="center",
             color=VIOLET, fontsize=10.5)
     ks = np.arange(1, 11)
     r = 1 - 0.55 / ks
@@ -281,14 +279,14 @@ def sequence_test():
     ax.plot(r * np.cos(ang), r * np.sin(ang), color=BLUE, lw=1.1, zorder=3)
     ax.scatter([np.cos(np.pi / 4)], [np.sin(np.pi / 4)], s=110, color=RED,
                zorder=5, edgecolors="none")
-    ax.annotate("the sequence is inside", (r[3] * np.cos(ang[0]),
+    ax.annotate("all sequence terms lie in the set", (r[3] * np.cos(ang[0]),
                                            r[3] * np.sin(ang[0])),
-                xytext=(-1.25, 0.55), color=BLUE, fontsize=10.5,
+                xytext=(-1.25, 0.25), color=BLUE, fontsize=10.5,
                 arrowprops=dict(arrowstyle="-", color=BLUE, lw=1))
-    ax.annotate("its limit is not", (np.cos(np.pi / 4), np.sin(np.pi / 4)),
+    ax.annotate("the limit point is outside", (np.cos(np.pi / 4), np.sin(np.pi / 4)),
                 xytext=(0.25, 1.18), color=RED, fontsize=10.5,
                 arrowprops=dict(arrowstyle="-", color=RED, lw=1))
-    ax.text(0, -1.32, "so the probe reports the set is not closed",
+    ax.text(0, -1.32, "therefore the set is not closed",
             ha="center", color=INK2, fontsize=10.5)
     save_fig(fig, d / "sequence_test.png")
 
@@ -300,7 +298,7 @@ def cut():
     fig, ax = plt.subplots(figsize=(7.4, 3.2))
     fig.subplots_adjust(left=0.03, right=0.97, top=0.88, bottom=0.06)
     style_axes(ax, (0, 1), (0, 1), equal=False)
-    ax.set_title("a probe in two separate pieces is answered piece by piece",
+    ax.set_title("answers on disjoint pieces are independent",
                  color=INK2, fontsize=12)
     for x0, x1, colour, name in [(0.05, 0.42, BLUE, "left piece"),
                                  (0.58, 0.95, TEAL, "right piece")]:
@@ -319,10 +317,9 @@ def cut():
                 arrowprops=dict(arrowstyle="-|>", color=MUTED, lw=1.4))
     ax.add_patch(plt.Rectangle((0.28, 0.18), 0.44, 0.26, fc="white",
                                ec=GREEN, lw=2))
-    ax.text(0.5, 0.31, "the answer for the whole probe:\na pair, one from each",
+    ax.text(0.5, 0.31, "answer on the whole probe:\none value from each piece",
             ha="center", va="center", color=INK, fontsize=11)
-    ax.text(0.5, 0.06, "accepted for every pair, because nothing "
-                       "connects the pieces",
+    ax.text(0.5, 0.06, "every pair is valid because the pieces are disjoint",
             ha="center", color=GREEN, fontsize=10.5)
     save_fig(fig, d / "cut.png")
 
@@ -338,7 +335,7 @@ def glue():
     def update(f):
         ax.clear()
         style_axes(ax, (0, 1), (0, 1), equal=False)
-        ax.set_title("answers that agree on the overlap become one answer",
+        ax.set_title("compatible answers on a cover descend uniquely",
                      color=INK2, fontsize=12)
         t = min(1.0, f / (steps * 0.7))
         ax.add_patch(plt.Rectangle((0.06, 0.66), 0.5, 0.2, color=BLUE,
@@ -349,18 +346,18 @@ def glue():
                                    ec=INK, ls="--", lw=1.3))
         ax.text(0.5, 0.34, "the overlap", ha="center", color=INK2,
                 fontsize=10)
-        ax.text(0.31, 0.89, "one covering piece", ha="center", color=BLUE,
+        ax.text(0.31, 0.89, "first covering piece", ha="center", color=BLUE,
                 fontsize=10.5)
-        ax.text(0.69, 0.65, "the other", ha="center", color=TEAL,
+        ax.text(0.69, 0.65, "second covering piece", ha="center", color=TEAL,
                 fontsize=10.5)
         if t > 0.35:
             a = (t - 0.35) / 0.65
             ax.add_patch(plt.Rectangle((0.06, 0.1), 0.88, 0.16, color=GREEN,
                                        alpha=0.2 + 0.5 * a, lw=0))
-            ax.text(0.5, 0.18, "exactly one answer below", ha="center",
+            ax.text(0.5, 0.18, "one resulting answer on the base", ha="center",
                     va="center", color=GREEN, fontsize=11.5, alpha=a)
-        tag.set_text("the two pieces agree on the overlap"
-                     + ("     so exactly one answer glues below"
+        tag.set_text("the two restrictions agree on the overlap"
+                     + ("     one answer descends to the base"
                         if t > 0.95 else ""))
         return ()
 
@@ -385,7 +382,7 @@ def ghost():
         axp.clear()
         style_axes(ax, (0, 1), (-0.03, 1.03), equal=False)
         style_axes(axp, (0, 1), (-1, 1), equal=False)
-        ax.set_title("a landing the ruler allows and the dust does not",
+        ax.set_title("continuous maps modulo locally constant maps",
                      color=INK2, fontsize=12)
         lvl = min(depth, f // per)
         n = 2 ** lvl
@@ -403,11 +400,9 @@ def ghost():
         if n >= 2:
             spread = float(np.max(np.abs(vals[0::2] - vals[1::2])))
         axp.plot([0.02, 0.98], [0, 0], color=BASELINE, lw=2)
-        axp.text(0.5, -0.62, "what a single point can see: nothing at all",
+        axp.text(0.5, -0.62, "value on the one-point probe: zero",
                  ha="center", color=MUTED, fontsize=10.5)
-        tag.set_text(f"splits {lvl}     boxes {n}     "
-                     f"widest gap inside a finest box {spread:.4f}     "
-                     f"points 0")
+        tag.set_text(f"level {lvl}     boxes {n}     variation {spread:.4f}     Q(*) = 0")
         return ()
 
     save_anim(fig, update, frames, d / "ghost.gif", fps=FPS)
@@ -426,7 +421,7 @@ def folding():
     def update(f):
         ax.clear()
         style_axes(ax, (0, 1), (0, 1), equal=False)
-        ax.set_title("choosing a lift, one point at a time", color=INK2,
+        ax.set_title("testing whether a cover has a continuous section", color=INK2,
                      fontsize=12)
         xs = np.linspace(0.06, 0.78, n)
         for x in xs:
@@ -439,9 +434,9 @@ def folding():
         ax.scatter([0.9], [0.2], s=80, color=VIOLET, zorder=3,
                    edgecolors="none")
         ax.text(0.9, 0.1, "the limit", ha="center", color=VIOLET, fontsize=10)
-        ax.text(0.03, 0.94, "two copies above every point", color=INK2,
+        ax.text(0.03, 0.94, "two possible lifts above each point", color=INK2,
                 fontsize=10.5)
-        ax.text(0.03, 0.06, "the probe below", color=INK2, fontsize=10.5)
+        ax.text(0.03, 0.06, "base probe", color=INK2, fontsize=10.5)
         done = min(n, f)
         for k in range(done):
             y = 0.78 if k % 2 == 0 else 0.52
@@ -453,10 +448,10 @@ def folding():
             for y in (0.78, 0.52):
                 ax.scatter([0.9], [y], s=110, facecolors="none",
                            edgecolors=RED, linewidths=2.2, zorder=4)
-            ax.text(0.9, 0.36, "neither copy\nworks", ha="center", color=RED,
+            ax.text(0.9, 0.36, "no continuous\nchoice", ha="center", color=RED,
                     fontsize=10.5)
-        tag.set_text("the choices alternate and never settle"
-                     + ("     so the limit point cannot be lifted"
+        tag.set_text("selected lifts alternate"
+                     + ("     no continuous section at the limit"
                         if f >= n + 6 else ""))
         return ()
 
@@ -468,7 +463,7 @@ def no_convergence():
     fig, ax = plt.subplots(figsize=(7.2, 3.6))
     fig.subplots_adjust(left=0.04, right=0.96, top=0.86, bottom=0.14)
     style_axes(ax, (0, 1), (0, 1), equal=False)
-    ax.set_title("in an unfoldable probe a sequence is torn in half",
+    ax.set_title("a nonconstant sequence cannot converge here",
                  color=INK2, fontsize=12)
     n = 14
     xs = np.linspace(0.07, 0.72, n)
@@ -476,9 +471,9 @@ def no_convergence():
                                alpha=0.12, lw=0))
     ax.add_patch(plt.Rectangle((0.03, 0.16), 0.94, 0.3, color=BROWN,
                                alpha=0.12, lw=0))
-    ax.text(0.955, 0.67, "one clopen region", ha="right", color=GREEN,
+    ax.text(0.79, 0.67, "region A", ha="left", color=GREEN,
             fontsize=10.5, va="center")
-    ax.text(0.955, 0.31, "and its complement", ha="right", color=BROWN,
+    ax.text(0.79, 0.31, "region B, its complement", ha="left", color=BROWN,
             fontsize=10.5, va="center")
     for k, x in enumerate(xs):
         y = 0.67 if k % 2 == 0 else 0.31
@@ -486,8 +481,7 @@ def no_convergence():
                    zorder=3, edgecolors="none")
         ax.text(x, y + 0.09 if k % 2 == 0 else y - 0.12, str(k + 1),
                 ha="center", color=MUTED, fontsize=8.5)
-    ax.text(0.5, 0.03, "both halves are infinite, so the sequence "
-                       "settles nowhere",
+    ax.text(0.5, 0.03, "infinitely many terms remain in both separated regions",
             ha="center", color=INK2, fontsize=10.5)
     save_fig(fig, d / "no_convergence.png")
 
@@ -499,14 +493,14 @@ def nesting():
     fig, ax = plt.subplots(figsize=(7.2, 4.4))
     fig.subplots_adjust(left=0.03, right=0.97, top=0.93, bottom=0.05)
     style_axes(ax, (0, 1), (0, 1), equal=False)
-    ax.set_title("what sits inside what", color=INK2, fontsize=12)
+    ax.set_title("ordinary spaces inside condensed sets", color=INK2, fontsize=12)
     # nested frames rather than nested ovals: a band of an oval is narrowest
     # exactly where a label wants to sit, and every label here is a phrase
     bands = [(0.02, 0.98, 0.94, "#e8e6f7", VIOLET, "condensed sets"),
-             (0.09, 0.91, 0.80, "#dfeaf8", BLUE, "answer sheets of spaces"),
+             (0.09, 0.91, 0.80, "#dfeaf8", BLUE, "condensed sets represented by spaces"),
              (0.16, 0.84, 0.66, "#dff0ea", TEAL,
-              "spaces with a distance, and cell shapes"),
-             (0.23, 0.77, 0.52, "#e3f0dd", GREEN, "compact shapes")]
+              "metric spaces and CW complexes"),
+             (0.23, 0.77, 0.52, "#e3f0dd", GREEN, "compact Hausdorff spaces")]
     floor = 0.13
     for x0, x1, top, fill, edge, label in bands:
         ax.add_patch(plt.Rectangle((x0, floor), x1 - x0, top - floor,
@@ -517,10 +511,9 @@ def nesting():
     # the ghost: inside condensed sets, outside everything that came from a
     # space, so it is drawn in the outermost band and nowhere else
     ax.scatter([0.055], [0.45], s=64, color=RED, zorder=4, edgecolors="none")
-    ax.text(0.055, 0.38, "the\nghost", ha="center", va="top", color=RED,
+    ax.text(0.055, 0.38, "point-invisible\nquotient", ha="center", va="top", color=RED,
             fontsize=10, zorder=4, linespacing=1.3)
-    ax.text(0.5, 0.05, "the ghost of section 5 is a condensed set that no "
-                       "space gives",
+    ax.text(0.5, 0.05, "the quotient from section 5 does not come from an ordinary space",
             ha="center", color=INK2, fontsize=10)
     save_fig(fig, d / "nesting.png")
 
@@ -536,7 +529,7 @@ def roundtrip():
     def update(f):
         ax.clear()
         style_axes(ax, (0, 1), (0, 1), equal=False)
-        ax.set_title("out to the answer sheet, and back", color=INK2,
+        ax.set_title("translate by probes, then recover the topology", color=INK2,
                      fontsize=12)
         t = min(1.0, f / (steps * 0.85))
         th = np.linspace(0, 2 * np.pi, 200)
@@ -549,7 +542,7 @@ def roundtrip():
             ax.add_patch(plt.Rectangle((0.4, 0.42 + 0.09 * i), 0.2, 0.065,
                                        fc="none", ec=BLUE, lw=1.5,
                                        alpha=alpha))
-        ax.text(0.5, 0.24, "the answer sheet", ha="center", color=INK2,
+        ax.text(0.5, 0.24, "all probe values", ha="center", color=INK2,
                 fontsize=10.5)
         if t > 0.55:
             a = (t - 0.55) / 0.45
@@ -559,16 +552,16 @@ def roundtrip():
                     fontsize=10.5, alpha=a)
         ax.annotate("", (0.37, 0.6), (0.21, 0.6),
                     arrowprops=dict(arrowstyle="-|>", color=BLUE, lw=1.6))
-        ax.text(0.29, 0.68, "read by probes", ha="center", color=BLUE,
+        ax.text(0.29, 0.68, "record probe maps", ha="center", color=BLUE,
                 fontsize=9.5)
         if t > 0.55:
             ax.annotate("", (0.79, 0.6), (0.63, 0.6),
                         arrowprops=dict(arrowstyle="-|>", color=GREEN,
                                         lw=1.6))
-            ax.text(0.71, 0.68, "points read back", ha="center", color=GREEN,
+            ax.text(0.71, 0.68, "recover the topology", ha="center", color=GREEN,
                     fontsize=9.5)
-        tag.set_text("the same space, and the same continuous maps out of it"
-                     if t > 0.95 else "sending the space out to its probes")
+        tag.set_text("the recovered space has the original topology and maps"
+                     if t > 0.95 else "recording the space's continuous probe maps")
         return ()
 
     save_anim(fig, update, frames, d / "roundtrip.gif", fps=FPS)
@@ -588,7 +581,7 @@ def winding():
     def update(f):
         ax.clear()
         style_axes(ax, (-1.7, 1.7), (-1.7, 1.7))
-        ax.set_title("count the turns", color=INK2, fontsize=12)
+        ax.set_title("winding number of a closed path", color=INK2, fontsize=12)
         th = np.linspace(0, 2 * np.pi, 300)
         ax.plot(np.cos(th), np.sin(th), color=BASELINE, lw=18, zorder=1,
                 solid_capstyle="round")
@@ -602,9 +595,8 @@ def winding():
             ax.scatter([rad[-1] * np.cos(ang[-1])], [rad[-1] * np.sin(ang[-1])],
                        s=64, color=BLUE, zorder=4, edgecolors="none")
         done = int(np.floor(t * turns + 1e-9))
-        tag.set_text(f"whole turns completed {done} of {turns}"
-                     + ("     the count survives any wobble" if t >= 1
-                        else ""))
+        tag.set_text(f"winding {done}/{turns}"
+                     + ("     unchanged by deformation" if t >= 1 else ""))
         return ()
 
     save_anim(fig, update, frames, d / "winding.gif", fps=FPS)
@@ -641,7 +633,7 @@ def torus():
         style_3d(ax)
         ax.set_axis_off()             # the surface is the picture, not the box
         ax.view_init(elev=26, azim=spin(f, frames))
-        ax.set_title("blue: the long way round.   green: through the hole.",
+        ax.set_title("two independent loop directions on the torus",
                      color=INK2, fontsize=11)
         return ()
 
@@ -665,9 +657,9 @@ def ranks():
     # the legend sits above the drawing, where no bar can ever reach it
     ax.legend(frameon=False, fontsize=9, ncol=6, loc="lower center",
               bbox_to_anchor=(0.5, 1.02), columnspacing=1.1, handlelength=1.1)
-    fig.suptitle("the hole counts of a stack of circles", color=INK2,
+    fig.suptitle("cohomology ranks of products of circles", color=INK2,
                  fontsize=12, y=0.975)
-    fig.text(0.5, 0.025, "every row is a row of Pascal's triangle",
+    fig.text(0.5, 0.025, "each row agrees with the corresponding row of Pascal's triangle",
              ha="center", color=INK2, fontsize=10)
     save_fig(fig, d / "ranks.png")
 

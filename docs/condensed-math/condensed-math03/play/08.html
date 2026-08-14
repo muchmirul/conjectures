@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pair, and trace · condensed mathematics, part 3</title>
+<title>Pair complementary degrees · condensed mathematics, part 3</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>8 · Pair, and trace</h1>
-<p class="lede">Duality is a perfect pairing: a class in one degree, a partner in the complementary degree, and a single number out. Change the shape and the two sides move together.</p>
-<p class="try"><strong>Try this.</strong> Turn the camera so the surface is genuinely three-dimensional, then change the number of holes. The two columns always match, which is what perfect means, and the trace is the one canonical way of collapsing the pairing to a number.</p>
+<h1>8 · Pair complementary degrees</h1>
+<p class="lede">Coherent duality pairs a class with one in the complementary degree and applies a trace to obtain a scalar on the base. A perfect pairing identifies either side with the dual of the other.</p>
+<p class="try"><strong>Try this.</strong> Rotate the surface to see its three-dimensional model, then change its genus. Compare the dimensions on the two sides and follow a paired class through the trace.</p>
 <canvas id="c" width="720" height="400"></canvas>
 <div class="controls"><div class="row"><label for="genus">how many holes the surface has</label><input type="range" id="genus" min="1" max="4" step="1" value="2"><span class="val" id="genusv"></span></div><div class="row"><label for="spin3">turn the camera</label><input type="range" id="spin3" min="0" max="360" step="1" value="40"><span class="val" id="spin3v"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The matching dimensions shown here are the classical statement of Serre duality on a curve. What the lectures add is that the dualizing object is not constructed but defined as the counterweight, so the duality is an adjointness rather than a theorem to be proved.</p>
+<p class="note">The equal dimensions provide a finite classical model of the pairing. Theorem 11.1 constructs compactly supported pushforward, the trace, and the duality isomorphism for a separated smooth finite-type map; the activity does not prove that theorem.</p>
 <div class="nav"><a href="07.html">← previous</a>  ·  <a href="index.html">all of them</a></div>
 </main>
 <script>
@@ -361,7 +361,7 @@ function rot(p,a,b){
 function draw(){
   const g=parseInt(gs.value),a=parseInt(sp3.value)*Math.PI/180,b=0.5;
   ctx.clearRect(0,0,cv.width,cv.height);
-  // g doughnuts in a row, turned together
+  // g toruss in a row, turned together
   const cx=230,cy=170,s=30;
   ctx.strokeStyle='#c3c2b7';ctx.lineWidth=0.9;
   for(let h=0;h<g;h++){

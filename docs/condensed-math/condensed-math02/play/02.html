@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Read it at two levels · condensed mathematics, part 2</title>
+<title>Integrate at two stages · condensed mathematics, part 2</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,13 +53,13 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>2 · Read it at two levels</h1>
-<p class="lede">A weighting on the halving probe, and a measurement to integrate against it. The same measurement can be read on coarse boxes or on fine ones.</p>
-<p class="try"><strong>Try this.</strong> Change the level the measurement is read at. The picture gets finer and the total does not move. That is what makes a weighting an honest way to add up infinitely many things.</p>
+<h1>2 · Integrate at two stages</h1>
+<p class="lede">A continuous integer-valued function is already constant on the boxes of some finite stage. It can be integrated there or repeated on every box of a finer stage.</p>
+<p class="try"><strong>Try this.</strong> Change the stage at which the function is first read. The bars become finer after refinement, but the weighted total remains unchanged because the child weights add to the parent weight.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label for="readlvl">level the measurement is read at</label><input type="range" id="readlvl" min="1" max="4" step="1" value="2"><span class="val" id="readlvlv"></span></div><div class="row"><label for="shape">the measurement's shape</label><input type="range" id="shape" min="0" max="100" step="1" value="40"><span class="val" id="shapev"></span></div></div>
+<div class="controls"><div class="row"><label for="readlvl">level the function is read at</label><input type="range" id="readlvl" min="1" max="4" step="1" value="2"><span class="val" id="readlvlv"></span></div><div class="row"><label for="shape">the function's shape</label><input type="range" id="shape" min="0" max="100" step="1" value="40"><span class="val" id="shapev"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The independence of the level is the property that makes integrating against a weighting well posed, and the tests recompute both readings in Python and compare them.</p>
+<p class="note">Stage independence makes integration against a compatible weighting well defined. The tests calculate the same integral at coarse and fine stages and require exact agreement.</p>
 <div class="nav"><a href="01.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="03.html">next →</a></div>
 </main>
 <script>
@@ -359,7 +359,7 @@ function draw(){
   const leaves={};
   for(const l of S.levels[DEPTH])leaves[l]=1;      // one unit per finest box
   const w=measureFromLeaves(S,leaves);
-  // a measurement decided at `lvl`, then read at every finer level too
+  // a function decided at `lvl`, then read at every finer level too
   const f={};
   S.levels[lvl].forEach((l,k)=>{
     f[l]=Math.round(1+9*Math.abs(Math.sin(3.1*s*(k+1))));
@@ -368,7 +368,7 @@ function draw(){
   for(let j=lvl;j<=DEPTH;j++)
     totals.push(integrate(S,w,refineFn(S,f,lvl,j),j));
   ctx.clearRect(0,0,cv.width,cv.height);
-  // the measurement, drawn at the read level and at the finest level
+  // the function, drawn at the read level and at the finest level
   function bars(y,level,fn,colour,caption){
     const n=S.levels[level].length,seg=640/n;
     ctx.fillStyle='#52514e';ctx.font='12px system-ui';ctx.textAlign='left';
@@ -379,9 +379,9 @@ function draw(){
       ctx.fillRect(40+k*seg,y+100-h,Math.max(1,seg-1),h);
     }
   }
-  bars(40,lvl,f,'#00787a','the measurement, read on '+S.levels[lvl].length+' boxes');
+  bars(40,lvl,f,'#00787a','the function, read on '+S.levels[lvl].length+' boxes');
   bars(190,DEPTH,refineFn(S,f,lvl,DEPTH),'#4a3aa7',
-       'the same measurement, read on '+S.levels[DEPTH].length+' boxes');
+       'the same function, read on '+S.levels[DEPTH].length+' boxes');
   ctx.fillStyle='#008300';ctx.font='13px system-ui';ctx.textAlign='left';
   ctx.fillText('total, level by level: '+totals.join('  =  '),40,346);
   readlvlv.textContent=String(lvl);shapev.textContent=s.toFixed(2);
