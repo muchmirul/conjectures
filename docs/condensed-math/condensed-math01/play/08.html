@@ -55,9 +55,9 @@
 <a class="back" href="../index.html">back to the article</a>
 <h1>8 · Measure the winding number</h1>
 <p class="lede">A closed path around a circle has an integer winding number. Continuous deformation may change the shape of the path, but it cannot change that integer without breaking the path.</p>
-<p class="try"><strong>Try this.</strong> Change the number of turns, then increase the deformation. The measured winding number remains equal to the chosen integer. Switch to the torus to compare its two independent loop directions.</p>
+<p class="try"><strong>Try this.</strong> Change the number of turns, then increase the deformation. The measured winding number remains equal to the chosen integer, and a path with zero turns stays a small loop that goes nowhere. Switch to the torus and set both counts: the drawn loop follows them, and the deformation changes its shape without changing either count.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>which shape</label><div class="pick" id="holes" style="flex:1"><button data-v="ring" class="on">ring</button><button data-v="torus" class="">torus</button></div></div><div class="row"><label for="turns">turns the path makes</label><input type="range" id="turns" min="-3" max="3" step="1" value="2"><span class="val" id="turnsv"></span></div><div class="row"><label for="turns2">turns the second way, for the torus</label><input type="range" id="turns2" min="-3" max="3" step="1" value="1"><span class="val" id="turns2v"></span></div><div class="row"><label for="wob2">how much to deformation the path</label><input type="range" id="wob2" min="0" max="100" step="1" value="0"><span class="val" id="wob2v"></span></div></div>
+<div class="controls"><div class="row"><label>which shape</label><div class="pick" id="holes" style="flex:1"><button data-v="ring" class="on">ring</button><button data-v="torus" class="">torus</button></div></div><div class="row"><label for="turns">turns the path makes</label><input type="range" id="turns" min="-3" max="3" step="1" value="2"><span class="val" id="turnsv"></span></div><div class="row"><label for="turns2">turns the second way, for the torus</label><input type="range" id="turns2" min="-3" max="3" step="1" value="1"><span class="val" id="turns2v"></span></div><div class="row"><label for="wob2">deformation applied to the path</label><input type="range" id="wob2" min="0" max="100" step="1" value="0"><span class="val" id="wob2v"></span></div></div>
 <div class="readout" id="out"></div>
 <p class="note">The circle calculation gives its first cohomology generator. Proposition 3.1 describes products of circles by an exterior algebra; the displayed torus ranks are recomputed here from that formula.</p>
 <div class="nav"><a href="07.html">← previous</a>  ·  <a href="index.html">all of them</a></div>
@@ -366,79 +366,94 @@ const T1=document.getElementById('turns'),T2=document.getElementById('turns2');
 const WB=document.getElementById('wob2');
 let mode='ring';
 pick('holes',v=>{mode=v;draw();});
+// the running angle, unwrapped: how the turn counter reads any closed path
+function windingCount(f){
+  let total=0;
+  for(let i=1;i<=600;i++){
+    const a=f(i/600*2*Math.PI),b=f((i-1)/600*2*Math.PI);
+    let d=a-b;while(d>Math.PI)d-=2*Math.PI;while(d<-Math.PI)d+=2*Math.PI;
+    total+=d;
+  }
+  return Math.round(total/(2*Math.PI));
+}
 function draw(){
   const n1=parseInt(T1.value),n2=parseInt(T2.value),w=parseInt(WB.value)/100;
   ctx.clearRect(0,0,cv.width,cv.height);
   const cx=360,cy=190;
   if(mode==='ring'){
+    // a zero-turn path still has to be a visible closed loop, so it gets a
+    // small non-winding circle to live on
+    const ang=t=>n1*t+(n1===0?0.35*Math.sin(t):0)+w*1.9*Math.sin(5*t);
+    const rad=t=>120+(n1===0?20*Math.cos(t):0)+w*26*Math.sin(7*t);
     ctx.strokeStyle='#c3c2b7';ctx.lineWidth=26;
     ctx.beginPath();ctx.arc(cx,cy,120,0,7);ctx.stroke();
     ctx.strokeStyle='#2a78d6';ctx.lineWidth=2.6;ctx.beginPath();
     const N=1400;
     for(let i=0;i<=N;i++){
       const t=i/N*2*Math.PI;
-      const ang=n1*t+w*1.9*Math.sin(5*t);
-      const rad=120+w*26*Math.sin(7*t);
-      const x=cx+rad*Math.cos(ang),y=cy+rad*Math.sin(ang);
+      const x=cx+rad(t)*Math.cos(ang(t)),y=cy+rad(t)*Math.sin(ang(t));
       if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
     }
     ctx.stroke();
-    // the running angle, unwrapped, is what the counter reads
-    let total=0,prev=0;
-    for(let i=1;i<=600;i++){
-      const t=i/600*2*Math.PI,tp=(i-1)/600*2*Math.PI;
-      const a=n1*t+w*1.9*Math.sin(5*t),b=n1*tp+w*1.9*Math.sin(5*tp);
-      let d=a-b;while(d>Math.PI)d-=2*Math.PI;while(d<-Math.PI)d+=2*Math.PI;
-      total+=d;
-    }
-    const count=Math.round(total/(2*Math.PI));
+    const count=windingCount(ang);
     document.getElementById('out').textContent=
       'turns you asked for   '+n1+'\n'+
       'turns measured        '+count+'\n'+
       'deformation                '+w.toFixed(2)+'\n'+
-      'the count is a whole number and the deformation cannot move it';
+      (n1===0?'a loop that goes nowhere counts zero, however it deformations'
+             :'the count is a whole number and the deformation cannot move it');
     document.getElementById('out').className='readout '+
       (count===n1?'verdict-ok':'verdict-no');
   }else{
-    // a torus seen at an angle, with the two independent loops on it
+    // a torus seen at an angle, with the chosen path drawn on it
     const R=132,r=48,tilt=0.42;
+    const P=(u,v)=>[cx+(R+r*Math.cos(v))*Math.cos(u),
+                    cy+((R+r*Math.cos(v))*Math.sin(u))*tilt
+                      +r*Math.sin(v)*0.86];
     ctx.strokeStyle='#c3c2b7';ctx.lineWidth=1;
     for(let k=0;k<28;k++){
       const u=k/28*2*Math.PI;
       ctx.beginPath();
       for(let j=0;j<=40;j++){
-        const v=j/40*2*Math.PI;
-        const x=cx+(R+r*Math.cos(v))*Math.cos(u);
-        const y=cy+((R+r*Math.cos(v))*Math.sin(u))*tilt+r*Math.sin(v)*0.86;
-        if(j===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+        const q=P(u,j/40*2*Math.PI);
+        if(j===0)ctx.moveTo(q[0],q[1]);else ctx.lineTo(q[0],q[1]);
       }
       ctx.stroke();
     }
-    ctx.strokeStyle='#2a78d6';ctx.lineWidth=3;ctx.beginPath();
-    for(let j=0;j<=400;j++){
-      const u=j/400*2*Math.PI;
-      const x=cx+(R+r)*Math.cos(u),y=cy+(R+r)*Math.sin(u)*tilt;
-      if(j===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
-    }
+    // the two reference loops, drawn thin: the axes the counts are read on
+    ctx.strokeStyle='rgba(42,120,214,0.55)';ctx.lineWidth=1.6;ctx.beginPath();
+    for(let j=0;j<=200;j++){const q=P(j/200*2*Math.PI,0);
+      if(j===0)ctx.moveTo(q[0],q[1]);else ctx.lineTo(q[0],q[1]);}
     ctx.stroke();
-    ctx.strokeStyle='#008300';ctx.lineWidth=3;ctx.beginPath();
-    for(let j=0;j<=400;j++){
-      const v=j/400*2*Math.PI;
-      const x=cx+(R+r*Math.cos(v)),y=cy+(R+r*Math.cos(v))*0+r*Math.sin(v)*0.86;
-      if(j===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    ctx.strokeStyle='rgba(0,131,0,0.55)';ctx.lineWidth=1.6;ctx.beginPath();
+    for(let j=0;j<=200;j++){const q=P(0,j/200*2*Math.PI);
+      if(j===0)ctx.moveTo(q[0],q[1]);else ctx.lineTo(q[0],q[1]);}
+    ctx.stroke();
+    // the path itself: n1 turns the long way, n2 through the hole, deformationd;
+    // with both counts zero it becomes a small loop that goes nowhere
+    const still=(n1===0&&n2===0);
+    const U=t=>n1*t+(still?0.45*Math.sin(t):0)+w*1.1*Math.sin(3*t);
+    const V=t=>n2*t+(still?0.45*Math.cos(t):0)+w*1.6*Math.sin(2*t+1);
+    ctx.strokeStyle='#4a3aa7';ctx.lineWidth=2.8;ctx.beginPath();
+    for(let i=0;i<=1600;i++){
+      const t=i/1600*2*Math.PI,q=P(U(t),V(t));
+      if(i===0)ctx.moveTo(q[0],q[1]);else ctx.lineTo(q[0],q[1]);
     }
     ctx.stroke();
     ctx.fillStyle='#2a78d6';ctx.font='12px system-ui';ctx.textAlign='center';
     ctx.fillText('the long way round',cx,cy-124);
     ctx.fillStyle='#008300';
     ctx.fillText('through the hole',cx+R+r+2,cy+r+34);
+    const m1=windingCount(U),m2=windingCount(V);
     const ranks=exteriorRanks(2);
     document.getElementById('out').textContent=
-      'turns the long way    '+n1+'\n'+
-      'turns through the hole '+n2+'\n'+
+      'turns the long way     asked '+n1+', measured '+m1+'\n'+
+      'turns through the hole  asked '+n2+', measured '+m2+'\n'+
       'hole counts by degree  '+ranks.join(', ')+'\n'+
-      'two independent loops, and their combination in degree two';
-    document.getElementById('out').className='readout verdict-ok';
+      (still?'a loop that goes nowhere counts zero both ways'
+            :'two independent counts, and the deformation moves neither');
+    document.getElementById('out').className='readout '+
+      (m1===n1&&m2===n2?'verdict-ok':'verdict-no');
   }
   turnsv.textContent=String(n1);turns2v.textContent=String(n2);
   wob2v.textContent=w.toFixed(2);

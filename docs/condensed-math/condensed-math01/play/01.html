@@ -369,8 +369,12 @@ function draw(){
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
   ctx.fillText('the discrete real line: nearness forgotten',x0,168);
   const grains=Math.max(1,Math.round(28*Math.min(1,half*40)));
-  for(let k=0;k<=grains;k++){
-    const x=grains===0?cx:x0+(x1-x0)*k/grains;
+  if(grains<=1){
+    // fully zoomed: exactly one grain stands alone in the window
+    ctx.fillStyle='#d03b3b';
+    ctx.beginPath();ctx.arc(cx,196,5,0,7);ctx.fill();
+  }else for(let k=0;k<=grains;k++){
+    const x=x0+(x1-x0)*k/grains;
     ctx.fillStyle=(Math.abs(x-cx)<8)?'#d03b3b':'#8a5a2c';
     ctx.beginPath();ctx.arc(x,196,5,0,7);ctx.fill();
   }

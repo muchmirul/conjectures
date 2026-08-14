@@ -486,8 +486,12 @@ function draw(){
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
   ctx.fillText('the dust: nearness forgotten',x0,168);
   const grains=Math.max(1,Math.round(28*Math.min(1,half*40)));
-  for(let k=0;k<=grains;k++){
-    const x=grains===0?cx:x0+(x1-x0)*k/grains;
+  if(grains<=1){
+    // fully zoomed: exactly one grain stands alone in the window
+    ctx.fillStyle='#d03b3b';
+    ctx.beginPath();ctx.arc(cx,196,5,0,7);ctx.fill();
+  }else for(let k=0;k<=grains;k++){
+    const x=x0+(x1-x0)*k/grains;
     ctx.fillStyle=(Math.abs(x-cx)<8)?'#d03b3b':'#8a5a2c';
     ctx.beginPath();ctx.arc(x,196,5,0,7);ctx.fill();
   }
@@ -952,86 +956,101 @@ draw();
      picker("holes", "which shape", [("ring", "ring"), ("torus", "doughnut")]) +
      slider("turns", "turns the path makes", -3, 3, 1, 2) +
      slider("turns2", "turns the second way, for the doughnut", -3, 3, 1, 1) +
-     slider("wob2", "how much to wobble the path", 0, 100, 1, 0),
+     slider("wob2", "wobble applied to the path", 0, 100, 1, 0),
      PICKER_JS + r"""
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 const T1=document.getElementById('turns'),T2=document.getElementById('turns2');
 const WB=document.getElementById('wob2');
 let mode='ring';
 pick('holes',v=>{mode=v;draw();});
+// the running angle, unwrapped: how the turn counter reads any closed path
+function windingCount(f){
+  let total=0;
+  for(let i=1;i<=600;i++){
+    const a=f(i/600*2*Math.PI),b=f((i-1)/600*2*Math.PI);
+    let d=a-b;while(d>Math.PI)d-=2*Math.PI;while(d<-Math.PI)d+=2*Math.PI;
+    total+=d;
+  }
+  return Math.round(total/(2*Math.PI));
+}
 function draw(){
   const n1=parseInt(T1.value),n2=parseInt(T2.value),w=parseInt(WB.value)/100;
   ctx.clearRect(0,0,cv.width,cv.height);
   const cx=360,cy=190;
   if(mode==='ring'){
+    // a zero-turn path still has to be a visible closed loop, so it gets a
+    // small non-winding circle to live on
+    const ang=t=>n1*t+(n1===0?0.35*Math.sin(t):0)+w*1.9*Math.sin(5*t);
+    const rad=t=>120+(n1===0?20*Math.cos(t):0)+w*26*Math.sin(7*t);
     ctx.strokeStyle='#c3c2b7';ctx.lineWidth=26;
     ctx.beginPath();ctx.arc(cx,cy,120,0,7);ctx.stroke();
     ctx.strokeStyle='#2a78d6';ctx.lineWidth=2.6;ctx.beginPath();
     const N=1400;
     for(let i=0;i<=N;i++){
       const t=i/N*2*Math.PI;
-      const ang=n1*t+w*1.9*Math.sin(5*t);
-      const rad=120+w*26*Math.sin(7*t);
-      const x=cx+rad*Math.cos(ang),y=cy+rad*Math.sin(ang);
+      const x=cx+rad(t)*Math.cos(ang(t)),y=cy+rad(t)*Math.sin(ang(t));
       if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
     }
     ctx.stroke();
-    // the running angle, unwrapped, is what the counter reads
-    let total=0,prev=0;
-    for(let i=1;i<=600;i++){
-      const t=i/600*2*Math.PI,tp=(i-1)/600*2*Math.PI;
-      const a=n1*t+w*1.9*Math.sin(5*t),b=n1*tp+w*1.9*Math.sin(5*tp);
-      let d=a-b;while(d>Math.PI)d-=2*Math.PI;while(d<-Math.PI)d+=2*Math.PI;
-      total+=d;
-    }
-    const count=Math.round(total/(2*Math.PI));
+    const count=windingCount(ang);
     document.getElementById('out').textContent=
       'turns you asked for   '+n1+'\n'+
       'turns measured        '+count+'\n'+
       'wobble                '+w.toFixed(2)+'\n'+
-      'the count is a whole number and the wobble cannot move it';
+      (n1===0?'a loop that goes nowhere counts zero, however it wobbles'
+             :'the count is a whole number and the wobble cannot move it');
     document.getElementById('out').className='readout '+
       (count===n1?'verdict-ok':'verdict-no');
   }else{
-    // a doughnut seen at an angle, with the two independent loops on it
+    // a doughnut seen at an angle, with the chosen path drawn on it
     const R=132,r=48,tilt=0.42;
+    const P=(u,v)=>[cx+(R+r*Math.cos(v))*Math.cos(u),
+                    cy+((R+r*Math.cos(v))*Math.sin(u))*tilt
+                      +r*Math.sin(v)*0.86];
     ctx.strokeStyle='#c3c2b7';ctx.lineWidth=1;
     for(let k=0;k<28;k++){
       const u=k/28*2*Math.PI;
       ctx.beginPath();
       for(let j=0;j<=40;j++){
-        const v=j/40*2*Math.PI;
-        const x=cx+(R+r*Math.cos(v))*Math.cos(u);
-        const y=cy+((R+r*Math.cos(v))*Math.sin(u))*tilt+r*Math.sin(v)*0.86;
-        if(j===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+        const q=P(u,j/40*2*Math.PI);
+        if(j===0)ctx.moveTo(q[0],q[1]);else ctx.lineTo(q[0],q[1]);
       }
       ctx.stroke();
     }
-    ctx.strokeStyle='#2a78d6';ctx.lineWidth=3;ctx.beginPath();
-    for(let j=0;j<=400;j++){
-      const u=j/400*2*Math.PI;
-      const x=cx+(R+r)*Math.cos(u),y=cy+(R+r)*Math.sin(u)*tilt;
-      if(j===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
-    }
+    // the two reference loops, drawn thin: the axes the counts are read on
+    ctx.strokeStyle='rgba(42,120,214,0.55)';ctx.lineWidth=1.6;ctx.beginPath();
+    for(let j=0;j<=200;j++){const q=P(j/200*2*Math.PI,0);
+      if(j===0)ctx.moveTo(q[0],q[1]);else ctx.lineTo(q[0],q[1]);}
     ctx.stroke();
-    ctx.strokeStyle='#008300';ctx.lineWidth=3;ctx.beginPath();
-    for(let j=0;j<=400;j++){
-      const v=j/400*2*Math.PI;
-      const x=cx+(R+r*Math.cos(v)),y=cy+(R+r*Math.cos(v))*0+r*Math.sin(v)*0.86;
-      if(j===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    ctx.strokeStyle='rgba(0,131,0,0.55)';ctx.lineWidth=1.6;ctx.beginPath();
+    for(let j=0;j<=200;j++){const q=P(0,j/200*2*Math.PI);
+      if(j===0)ctx.moveTo(q[0],q[1]);else ctx.lineTo(q[0],q[1]);}
+    ctx.stroke();
+    // the path itself: n1 turns the long way, n2 through the hole, wobbled;
+    // with both counts zero it becomes a small loop that goes nowhere
+    const still=(n1===0&&n2===0);
+    const U=t=>n1*t+(still?0.45*Math.sin(t):0)+w*1.1*Math.sin(3*t);
+    const V=t=>n2*t+(still?0.45*Math.cos(t):0)+w*1.6*Math.sin(2*t+1);
+    ctx.strokeStyle='#4a3aa7';ctx.lineWidth=2.8;ctx.beginPath();
+    for(let i=0;i<=1600;i++){
+      const t=i/1600*2*Math.PI,q=P(U(t),V(t));
+      if(i===0)ctx.moveTo(q[0],q[1]);else ctx.lineTo(q[0],q[1]);
     }
     ctx.stroke();
     ctx.fillStyle='#2a78d6';ctx.font='12px system-ui';ctx.textAlign='center';
     ctx.fillText('the long way round',cx,cy-124);
     ctx.fillStyle='#008300';
     ctx.fillText('through the hole',cx+R+r+2,cy+r+34);
+    const m1=windingCount(U),m2=windingCount(V);
     const ranks=exteriorRanks(2);
     document.getElementById('out').textContent=
-      'turns the long way    '+n1+'\n'+
-      'turns through the hole '+n2+'\n'+
+      'turns the long way     asked '+n1+', measured '+m1+'\n'+
+      'turns through the hole  asked '+n2+', measured '+m2+'\n'+
       'hole counts by degree  '+ranks.join(', ')+'\n'+
-      'two independent loops, and their combination in degree two';
-    document.getElementById('out').className='readout verdict-ok';
+      (still?'a loop that goes nowhere counts zero both ways'
+            :'two independent counts, and the wobble moves neither');
+    document.getElementById('out').className='readout '+
+      (m1===n1&&m2===n2?'verdict-ok':'verdict-no');
   }
   turnsv.textContent=String(n1);turns2v.textContent=String(n2);
   wob2v.textContent=w.toFixed(2);
@@ -1439,17 +1458,19 @@ draw();
      "would have to be divisible by everything.",
      picker("dgrp", "which group",
             [("R", "the ruler"), ("Z", "whole numbers"),
-             ("Zp", "base-p numbers")]) +
+             ("Zp", "base-p numbers, with p = 2")]) +
      slider("steps", "how many divisions", 1, 10, 1, 5),
      PICKER_JS + r"""
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 const steps=document.getElementById('steps');
 let g='R';
 pick('dgrp',v=>{g=v;draw();});
+// how many times two divides a whole number
+function val2(m){let v=0;while(m%2===0){m/=2;v++;}return v;}
 function draw(){
   const n=parseInt(steps.value);
   ctx.clearRect(0,0,cv.width,cv.height);
-  let v=720,inside=true,firstOut=-1;
+  let v=720,inside=true,firstOut=-1,v2=val2(720);
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
   ctx.fillText('start at 720, then divide by 2, 3, 4, ...',40,30);
   for(let k=0;k<n;k++){
@@ -1457,7 +1478,7 @@ function draw(){
     let ok;
     if(g==='R')ok=true;
     else if(g==='Z')ok=Number.isInteger(nv);
-    else ok=Number.isInteger(nv);      // the base-p numbers still need whole
+    else {v2-=val2(d);ok=(v2>=0);}   // base-2: only factors of two matter
     if(!ok&&inside){inside=false;firstOut=k;}
     const y=56+k*30;
     ctx.fillStyle=(ok&&inside)?'#008300':'#d03b3b';
@@ -1476,7 +1497,7 @@ function draw(){
   stepsv.textContent=String(n);
   const out=document.getElementById('out');
   out.textContent=
-    (g==='R'?'the ruler':g==='Z'?'the whole numbers':'the base-p numbers')+'\n'+
+    (g==='R'?'the ruler':g==='Z'?'the whole numbers':'the base-two numbers')+'\n'+
     'divisions survived   '+(inside?n:firstOut)+' of '+n+'\n'+
     (divisible
       ? 'divisible by everything, so it maps to zero in every row of dials,\n'+
@@ -2418,7 +2439,7 @@ REVISED_COPY = {
          "Proposition 1.7 proves full faithfulness on compactly generated spaces, and Theorem 2.16 identifies compact Hausdorff spaces with qcqs condensed sets. The rejected example lies outside their hypotheses."),
         ("Measure the winding number",
          "A closed path around a circle has an integer winding number. Continuous deformation may change the shape of the path, but it cannot change that integer without breaking the path.",
-         "Change the number of turns, then increase the deformation. The measured winding number remains equal to the chosen integer. Switch to the torus to compare its two independent loop directions.",
+         "Change the number of turns, then increase the deformation. The measured winding number remains equal to the chosen integer, and a path with zero turns stays a small loop that goes nowhere. Switch to the torus and set both counts: the drawn loop follows them, and the deformation changes its shape without changing either count.",
          "The circle calculation gives its first cohomology generator. Proposition 3.1 describes products of circles by an exterior algebra; the displayed torus ranks are recomputed here from that formula."),
     ],
     "condensed-math02": [
@@ -2448,7 +2469,7 @@ REVISED_COPY = {
          "Definition 5.1 gives the extension condition. Theorem 5.8 and Corollary 6.1 prove the structural results used for these examples; the activity presents their consequences rather than proving them."),
         ("Compare divisible and nondivisible groups",
          "A divisible group allows division by every positive integer. The additive real numbers are divisible, while the integers are not.",
-         "Choose a group and increase the number of divisions. Record the first step that leaves the group. The final line shows why a map from a divisible group to an integer coordinate must be zero.",
+         "Choose a group and increase the number of divisions. Record the first step that leaves the group: the integers leave at the first fraction, while the 2-adic integers survive division by odd numbers and leave only when the factors of two run out. The final line shows why a map from a divisible group to an integer coordinate must be zero.",
          "This arithmetic explains why the real line has no map to the compact projective generators of solid groups. Corollary 6.1 (iii), using Theorem 4.3, proves the stronger statement that derived solidification sends the real line to zero."),
         ("Read a completed tensor product",
          "The completed tensor product combines two solid groups while retaining compatible completion directions. The table lists the examples stated in Lecture VI and direct consequences of the coordinate rule.",
