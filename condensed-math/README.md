@@ -11,6 +11,13 @@ distance on it and builds everything else.
 
 **Read it on the web:** [muchmirul.github.io/conjectures/condensed-math](https://muchmirul.github.io/conjectures/condensed-math/)
 
+**Or discover it instead:** [the game](game/README.md) is the same subject with
+the explaining taken out. Eight worlds, starting from three objects on a table,
+assuming no mathematics at all. Every idea runs concept, then intuition ending
+in a guess, then an experiment you perform yourself, and only then gets its name
+and its symbols.
+[Play it](https://muchmirul.github.io/conjectures/condensed-math/game/).
+
 ## The three parts
 
 | part | lectures | what it adds |
@@ -30,17 +37,21 @@ concrete, so every chapter comes with a control that pokes at its own claim.
 parts/condensed-mathNN/
     ARTICLE.md          the source of truth for that part's prose
     guide/NN-.../       one folder per chapter: generated README plus figures
+game/                   the eight worlds of the game, and their builder
 src/condensed_guide/    the computable core, plus the drawing helpers
 src/viz/partN_figures.py  every figure of part N
 build_guide.py          ARTICLE.md  ->  guide/NN-.../README.md
 build_docs.py           ARTICLE.md  ->  ../docs/condensed-math/
 build_interactive.py    the 27 playable pages
+game/build_game.py      the eight worlds of the game
 notes/                  the curriculum, and what is computed versus quoted
 tests/                  every claim above, recomputed
 ```
 
-`ARTICLE.md` is the only file to edit by hand. The chapter READMEs, the web
-pages and the playable pages are all generated; run `make all` after editing.
+`ARTICLE.md` is the only file to edit by hand for the written guide, and
+`game/worlds/` the only one for the game. The chapter READMEs, the web pages,
+the playable pages and the game's pages are all generated; run `make all` after
+editing.
 
 Figures are grouped one script per part rather than one per chapter, because
 the figures inside a part share their layout helpers heavily and share almost
@@ -53,7 +64,8 @@ cd condensed-math
 make venv        # prepare the software once
 make test        # recompute every number the articles quote
 make figures     # rebuild all 45 figures
-make all         # regenerate the chapter files, the pages and the simulations
+make game        # rebuild the eight worlds of the game
+make all         # regenerate the chapters, the pages, the simulations and the game
 ```
 
 ## What is checked, and what is not
@@ -76,6 +88,13 @@ repository computes is the finite machinery underneath:
 `notes/research-content.md` lists every claim the three articles make and
 marks it computed, a finite shadow of an infinite statement, or quoted. The
 articles say which is which where it matters.
+
+The game is checked the same way, and its teaching is checked too.
+`tests/test_game.py` plays every world from the first press to the last through
+a DOM stub, moving every control of every widget afterwards, and it enforces the
+shape of every brick: state the concept, declare what it assumes, ask for a
+guess before answering, give the reader something to run, and only then name the
+idea and show the symbols.
 
 The simulations are checked twice over. `tests/test_interactive.py` runs their
 JavaScript and compares it against the Python library at sample points, and it

@@ -5,7 +5,7 @@ VENV := $(CURDIR)/../.venv
 
 PART_SCRIPTS := $(wildcard src/viz/part*_figures.py)
 
-.PHONY: help venv test figures docs guide play all part1 part2 part3
+.PHONY: help venv test figures docs guide play game all part1 part2 part3
 
 help:
 	@echo "make venv      create the shared ../.venv and install the package + dev deps"
@@ -14,7 +14,8 @@ help:
 	@echo "make guide     rebuild every parts/*/guide/NN-.../README.md from the articles"
 	@echo "make docs      rebuild ../docs/condensed-math/ from the articles"
 	@echo "make play      rebuild the 27 playable pages"
-	@echo "make all       guide, docs and play in one go"
+	@echo "make game      rebuild the eight worlds of the game"
+	@echo "make all       guide, docs, play and game in one go"
 	@echo "make part2     re-render one part's figures"
 
 venv:
@@ -37,7 +38,10 @@ docs:
 play:
 	$(PY) build_interactive.py
 
-all: guide play docs
+game:
+	$(PY) game/build_game.py
+
+all: guide play game docs
 
 # `make part1` etc: re-render a single part's figures
 part1 part2 part3:
