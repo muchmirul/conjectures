@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Test the cut and glue rules · condensed mathematics, part 1</title>
+<title>Use the cut and glue rules · condensed mathematics, part 1</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,14 +53,14 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>4 · Test the cut and glue rules</h1>
-<p class="lede">A condensed set must handle disjoint pieces independently and must combine compatible answers on a cover. These are the cut and glue forms of the sheaf condition.</p>
-<p class="try"><strong>Try this.</strong> In cut mode, choose any two values; both are accepted because the pieces are disjoint. In glue mode, compare equal and unequal overlap values. A single answer below exists exactly when they agree.</p>
+<h1>4 · Use the cut and glue rules</h1>
+<p class="lede">A condensed set treats separate pieces independently. It also joins answers on a cover when they agree wherever the cover repeats the same point.</p>
+<p class="try"><strong>Try this.</strong> In cut mode, choose any value on each separate piece. In glue mode, try equal and unequal values on the overlap. A value below exists only when the overlap values match.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>which rule</label><div class="pick" id="rule" style="flex:1"><button data-v="cut" class="on">cut</button><button data-v="glue" class="">glue</button></div></div><div class="row"><label for="left">answer on the left piece</label><input type="range" id="left" min="0" max="5" step="1" value="2"><span class="val" id="leftv"></span></div><div class="row"><label for="right">answer on the right piece</label><input type="range" id="right" min="0" max="5" step="1" value="4"><span class="val" id="rightv"></span></div></div>
+<div class="controls"><div class="row"><label>rule</label><div class="pick" id="rule" style="flex:1"><button data-v="cut" class="on">cut</button><button data-v="glue" class="">glue</button></div></div><div class="row"><label for="left">value on the left piece</label><input type="range" id="left" min="0" max="5" step="1" value="2"><span class="val" id="leftv"></span></div><div class="row"><label for="right">value on the right piece</label><input type="range" id="right" min="0" max="5" step="1" value="4"><span class="val" id="rightv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">Definition 1.2 states these two conditions. Proposition 2.8 later shows that the glue condition is automatic on extremally disconnected probes because every cover of such a probe splits.</p>
-<div class="nav"><a href="03.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="05.html">next →</a></div>
+<p class="note">These are the sheaf conditions in Definition 1.2. Proposition 2.8 says that gluing is automatic on extremally disconnected probes because every cover of such a probe has a section.</p>
+<div class="nav"><a href="03.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="05.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -376,21 +376,21 @@ function draw(){
   ctx.clearRect(0,0,cv.width,cv.height);
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
   if(mode==='cut'){
-    ctx.fillText('one probe, falling into two separate pieces',40,34);
+    ctx.fillText('one probe divided into two disjoint pieces',40,34);
     band(40,54,300,44,COL[a],'answer '+a);
     band(380,54,300,44,COL[b],'answer '+b);
     ctx.fillStyle='#52514e';ctx.textAlign='left';
-    ctx.fillText('answering the whole probe',40,150);
+    ctx.fillText('values on the whole probe',40,150);
     band(40,170,640,44,'#898781','the pair ('+a+', '+b+')');
     ctx.fillStyle='#008300';ctx.font='13px system-ui';
-    ctx.fillText('accepted for every choice: nothing connects the pieces',40,246);
+    ctx.fillText('Every pair is valid because the pieces are disjoint.',40,246);
     document.getElementById('out').textContent=
       'left piece    '+a+'\nright piece   '+b+'\n'+
       'the whole     ('+a+', '+b+')\n'+
-      'the cut rule accepts every pair, always';
+      'The cut rule accepts every pair of values.';
     document.getElementById('out').className='readout verdict-ok';
   }else{
-    ctx.fillText('a covering: two pieces, overlapping in the middle',40,34);
+    ctx.fillText('a cover with two pieces that overlap',40,34);
     band(40,54,400,44,COL[a],'answer '+a);
     band(280,116,400,44,COL[b],'answer '+b);
     ctx.strokeStyle='#0b0b0b';ctx.setLineDash([4,4]);ctx.lineWidth=1.4;
@@ -400,17 +400,17 @@ function draw(){
     const ok=(a===b);
     ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
     ctx.fillText('the probe underneath',40,224);
-    if(ok){ band(40,244,640,44,COL[a],'exactly one answer: '+a); }
+    if(ok){ band(40,244,640,44,COL[a],'one value below: '+a); }
     else {
       ctx.strokeStyle='#d03b3b';ctx.lineWidth=2.5;ctx.setLineDash([6,5]);
       ctx.strokeRect(40,244,640,44);ctx.setLineDash([]);
       ctx.fillStyle='#d03b3b';ctx.textAlign='center';
-      ctx.fillText('no answer below: the pieces disagree on the overlap',360,271);
+      ctx.fillText('No value exists below because the overlap values differ.',360,271);
     }
     document.getElementById('out').textContent=
       'left piece    '+a+'\nright piece   '+b+'\n'+
-      (ok?'they agree on the overlap, so exactly one answer descends'
-         :'they disagree on the overlap, so nothing glues');
+      (ok?'The overlap values agree, so exactly one value descends.'
+         :'The overlap values differ, so they cannot be glued.');
     document.getElementById('out').className='readout '+(ok?'verdict-ok':'verdict-no');
   }
   leftv.textContent=String(a);rightv.textContent=String(b);

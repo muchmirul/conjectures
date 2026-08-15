@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Compare three probes · condensed mathematics, part 1</title>
+<title>Compare three kinds of probes · condensed mathematics, part 1</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,14 +53,14 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>2 · Compare three probes</h1>
-<p class="lede">The diagram shows finite stages of the halving probe, the approaching-sequence probe, and a base-p probe. Selecting a box highlights all finer boxes that map back to it.</p>
-<p class="try"><strong>Try this.</strong> Compare the number of boxes at successive stages. Binary branching doubles the count, the sequence probe separates one additional point, and base-p branching multiplies the count by p.</p>
+<h1>2 · Compare three kinds of probes</h1>
+<p class="lede">These diagrams show finite stages of a halving probe, an approaching sequence, and a base-p probe. Every box has a precise parent in the stage above it.</p>
+<p class="try"><strong>Try this.</strong> Choose a probe and add stages. Select a box to highlight all the smaller boxes inside it. Compare how the number of boxes changes from one stage to the next.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>which probe</label><div class="pick" id="kind" style="flex:1"><button data-v="cantor" class="on">halving</button><button data-v="seq" class="">approaching</button><button data-v="padic" class="">base-p</button></div></div><div class="row"><label for="depth2">stages shown</label><input type="range" id="depth2" min="1" max="5" step="1" value="4"><span class="val" id="depth2v"></span></div><div class="row"><label for="pval">p, for the base-p probe</label><input type="range" id="pval" min="2" max="5" step="1" value="3"><span class="val" id="pvalv"></span></div></div>
+<div class="controls"><div class="row"><label>probe</label><div class="pick" id="kind" style="flex:1"><button data-v="cantor" class="on">halving</button><button data-v="seq" class="">approaching</button><button data-v="padic" class="">base-p</button></div></div><div class="row"><label for="depth2">number of stages</label><input type="range" id="depth2" min="1" max="5" step="1" value="4"><span class="val" id="depth2v"></span></div><div class="row"><label for="pval">base p</label><input type="range" id="pval" min="2" max="5" step="1" value="3"><span class="val" id="pvalv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">These are inverse systems of finite sets, the profinite sets used in Definition 1.2. The stage sizes and fibres are computed in the browser and checked against the Python implementation.</p>
-<div class="nav"><a href="01.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="03.html">next →</a></div>
+<p class="note">Definition 1.2 describes these probes as inverse systems of finite sets. The activity calculates their stage sizes and fibres, and the tests compare those calculations with the Python implementation.</p>
+<div class="nav"><a href="01.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="03.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -386,7 +386,7 @@ function draw(){
   const sizes=probeSizes(S);
   // the counts as bars
   ctx.fillStyle='#52514e';ctx.font='12px system-ui';ctx.textAlign='left';
-  ctx.fillText('boxes per stage',40,318);
+  ctx.fillText('boxes at each stage',40,318);
   for(let i=0;i<sizes.length;i++){
     const w=Math.min(560,sizes[i]*10);
     ctx.fillStyle='#00787a';ctx.fillRect(120,328+i*13,Math.max(2,w),8);
@@ -397,11 +397,11 @@ function draw(){
   depth2v.textContent=String(d);pvalv.textContent=String(pval.value);
   document.getElementById('out').textContent=
     S.name+' probe\n'+
-    'boxes per stage   '+sizes.join(', ')+'\n'+
-    (chosen?('clicked a stage-'+chosen.lvl+' box: '+
+    'boxes at each stage   '+sizes.join(', ')+'\n'+
+    (chosen?('selected a stage-'+chosen.lvl+' box: '+
              fibre(S,chosen.label,d,chosen.lvl).length+
-             ' of the finest boxes sit inside it')
-           :'click a box to light up everything inside it');
+             ' final-stage boxes lie inside it')
+           :'Select a box to highlight all finer boxes inside it.');
 }
 cv.addEventListener('click',e=>{
   const r=cv.getBoundingClientRect();

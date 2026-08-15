@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Measure the winding number · condensed mathematics, part 1</title>
+<title>Keep track of winding · condensed mathematics, part 1</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,14 +53,14 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>8 · Measure the winding number</h1>
-<p class="lede">A closed path around a circle has an integer winding number. Continuous deformation may change the shape of the path, but it cannot change that integer without breaking the path.</p>
-<p class="try"><strong>Try this.</strong> Change the number of turns, then increase the deformation. The measured winding number remains equal to the chosen integer, and a path with zero turns stays a small loop that goes nowhere. Switch to the torus and set both counts: the drawn loop follows them, and the deformation changes its shape without changing either count.</p>
+<h1>8 · Keep track of winding</h1>
+<p class="lede">A closed path around a circle has an integer winding number. A continuous deformation may change the path's shape, but it cannot change that number without breaking the path.</p>
+<p class="try"><strong>Try this.</strong> Change the turn count and then deform the path. On the torus, choose both independent turn counts. The drawing changes shape while the selected winding data stay fixed.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>which shape</label><div class="pick" id="holes" style="flex:1"><button data-v="ring" class="on">ring</button><button data-v="torus" class="">torus</button></div></div><div class="row"><label for="turns">turns the path makes</label><input type="range" id="turns" min="-3" max="3" step="1" value="2"><span class="val" id="turnsv"></span></div><div class="row"><label for="turns2">turns the second way, for the torus</label><input type="range" id="turns2" min="-3" max="3" step="1" value="1"><span class="val" id="turns2v"></span></div><div class="row"><label for="wob2">deformation applied to the path</label><input type="range" id="wob2" min="0" max="100" step="1" value="0"><span class="val" id="wob2v"></span></div></div>
+<div class="controls"><div class="row"><label>shape</label><div class="pick" id="holes" style="flex:1"><button data-v="ring" class="on">circle</button><button data-v="torus" class="">torus</button></div></div><div class="row"><label for="turns">turns around the circle</label><input type="range" id="turns" min="-3" max="3" step="1" value="2"><span class="val" id="turnsv"></span></div><div class="row"><label for="turns2">turns in the second torus direction</label><input type="range" id="turns2" min="-3" max="3" step="1" value="1"><span class="val" id="turns2v"></span></div><div class="row"><label for="wob2">amount of deformation</label><input type="range" id="wob2" min="0" max="100" step="1" value="0"><span class="val" id="wob2v"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The circle calculation gives its first cohomology generator. Proposition 3.1 describes products of circles by an exterior algebra; the displayed torus ranks are recomputed here from that formula.</p>
-<div class="nav"><a href="07.html">← previous</a>  ·  <a href="index.html">all of them</a></div>
+<p class="note">The circle gives one generator in first cohomology. Proposition 3.1 describes products of circles with an exterior algebra, and the activity recomputes the displayed torus ranks from that formula.</p>
+<div class="nav"><a href="07.html">← previous</a>  ·  <a href="index.html">all activities</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -399,9 +399,9 @@ function draw(){
     document.getElementById('out').textContent=
       'turns you asked for   '+n1+'\n'+
       'turns measured        '+count+'\n'+
-      'deformation                '+w.toFixed(2)+'\n'+
-      (n1===0?'a loop that goes nowhere counts zero, however it deformations'
-             :'the count is a whole number and the deformation cannot move it');
+      'deformation           '+w.toFixed(2)+'\n'+
+      (n1===0?'A zero-winding loop still has winding number zero after deformation.'
+             :'The winding number is an integer and deformation does not change it.');
     document.getElementById('out').className='readout '+
       (count===n1?'verdict-ok':'verdict-no');
   }else{
@@ -429,7 +429,7 @@ function draw(){
     for(let j=0;j<=200;j++){const q=P(0,j/200*2*Math.PI);
       if(j===0)ctx.moveTo(q[0],q[1]);else ctx.lineTo(q[0],q[1]);}
     ctx.stroke();
-    // the path itself: n1 turns the long way, n2 through the hole, deformationd;
+    // the path itself: n1 turns around the opening, n2 around the tube, deformationd;
     // with both counts zero it becomes a small loop that goes nowhere
     const still=(n1===0&&n2===0);
     const U=t=>n1*t+(still?0.45*Math.sin(t):0)+w*1.1*Math.sin(3*t);
@@ -441,17 +441,17 @@ function draw(){
     }
     ctx.stroke();
     ctx.fillStyle='#2a78d6';ctx.font='12px system-ui';ctx.textAlign='center';
-    ctx.fillText('the long way round',cx,cy-124);
+    ctx.fillText('around the main opening',cx,cy-124);
     ctx.fillStyle='#008300';
-    ctx.fillText('through the hole',cx+R+r+2,cy+r+34);
+    ctx.fillText('around the tube',cx+R+r+2,cy+r+34);
     const m1=windingCount(U),m2=windingCount(V);
     const ranks=exteriorRanks(2);
     document.getElementById('out').textContent=
-      'turns the long way     asked '+n1+', measured '+m1+'\n'+
-      'turns through the hole  asked '+n2+', measured '+m2+'\n'+
-      'hole counts by degree  '+ranks.join(', ')+'\n'+
-      (still?'a loop that goes nowhere counts zero both ways'
-            :'two independent counts, and the deformation moves neither');
+      'turns around the opening     asked '+n1+', measured '+m1+'\n'+
+      'turns around the tube  asked '+n2+', measured '+m2+'\n'+
+      'cohomology ranks by degree  '+ranks.join(', ')+'\n'+
+      (still?'A contractible loop has zero winding in both directions.'
+            :'The torus has two independent winding numbers, and deformation preserves both.');
     document.getElementById('out').className='readout '+
       (m1===n1&&m2===n2?'verdict-ok':'verdict-no');
   }

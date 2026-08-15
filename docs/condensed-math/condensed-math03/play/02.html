@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Compare two analytic rules · condensed mathematics, part 3</title>
+<title>Compare two analytic measure rules · condensed mathematics, part 3</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,14 +53,14 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>2 · Compare two analytic rules</h1>
-<p class="lede">The p-adic rule and the solid rule over a discrete ring are both analytic. Each permits an infinite operation that ordinary algebra alone does not define.</p>
-<p class="try"><strong>Try this.</strong> Increase the number of terms in each example. The p-adic panel follows a convergent series, while the discrete-ring panel allows a measure with entries in an unrestricted product.</p>
+<h1>2 · Compare two analytic measure rules</h1>
+<p class="lede">The p-adic rule and the solid rule over a discrete ring both pass the analytic test. They support different infinite operations because their coefficient rings and measure modules differ.</p>
+<p class="try"><strong>Try this.</strong> Add terms in both examples. The p-adic side follows a convergent series. The discrete-ring side shows a measure with an unrestricted family of coordinates.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>which rule</label><div class="pick" id="rule2" style="flex:1"><button data-v="padic" class="on">the base-p rule</button><button data-v="solid" class="">the solid rule</button></div></div><div class="row"><label for="nterm">terms added</label><input type="range" id="nterm" min="1" max="14" step="1" value="7"><span class="val" id="ntermv"></span></div></div>
+<div class="controls"><div class="row"><label>measure rule</label><div class="pick" id="rule2" style="flex:1"><button data-v="padic" class="on">the base-p rule</button><button data-v="solid" class="">the solid rule</button></div></div><div class="row"><label for="nterm">number of terms</label><input type="range" id="nterm" min="1" max="14" step="1" value="7"><span class="val" id="ntermv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">Proposition 7.8 proves that both rules are analytic. In the discrete-ring example the coefficient ring itself has no topology; completion is carried by the selected category of modules.</p>
-<div class="nav"><a href="01.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="03.html">next →</a></div>
+<p class="note">Proposition 7.8 proves that both rules are analytic. In the discrete example, the ring itself has no topology; the completion is carried by the chosen category of modules.</p>
+<div class="nav"><a href="01.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="03.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -371,7 +371,7 @@ function draw(){
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
   if(mode==='padic'){
     const sums=geomPartialSums(2,n),lim=geomLimitTimes(2);
-    ctx.fillText('the base-p rule: adding 1, 2, 4, 8, and on',40,30);
+    ctx.fillText('the base-p rule: adding 1, 2, 4, 8, and further powers',40,30);
     for(let k=0;k<n;k++){
       const gap=Math.pow(2,-(k+1));
       const w=Math.max(3,gap*600*8);
@@ -381,15 +381,15 @@ function draw(){
                    ' away',Math.min(610,w)+48,62+k*20);
     }
     ctx.fillStyle='#008300';ctx.font='13px system-ui';
-    ctx.fillText('the gap halves every step, so the sum lands: '+lim,40,
+    ctx.fillText('the p-adic error halves at each step, so the sum converges: '+lim,40,
                  68+n*20+16);
     document.getElementById('out').textContent=
-      'terms added            '+n+'\n'+
-      'ordinary answer        none, the totals run away\n'+
-      'answer under this rule '+lim+'\n'+
-      'the base-p rule is exactly what makes this sum legal';
+      'number of terms            '+n+'\n'+
+      'ordinary limit         none; the partial sums grow\n'+
+      'limit under this rule '+lim+'\n'+
+      'The p-adic measure rule gives this series a limit.';
   }else{
-    ctx.fillText('the solid rule: a sum spread across every coordinate',40,30);
+    ctx.fillText('the solid rule: a compatible measure using many coordinates',40,30);
     const D=18;
     for(let k=0;k<D;k++){
       const on=(k<n);
@@ -399,24 +399,22 @@ function draw(){
         ctx.beginPath();ctx.arc(58+k*36,84,7,0,7);ctx.fill();}
     }
     ctx.fillStyle='#898781';ctx.font='12px system-ui';ctx.textAlign='left';
-    ctx.fillText('... and on, forever',58+D*36-18,88);
+    ctx.fillText('and further coordinates',58+D*36-18,88);
     ctx.fillStyle='#52514e';ctx.font='13px system-ui';
-    ctx.fillText('with finitely many coordinates allowed, this leaves the group '+
-                 'the moment',40,150);
-    ctx.fillText('more than finitely many are set',40,170);
+    ctx.fillText('A direct sum fails as soon as infinitely many',40,150);
+    ctx.fillText('coordinates are nonzero.',40,170);
     ctx.fillStyle='#008300';
-    ctx.fillText('with the solid rule, a weighting spreads across all of '+
-                 'them and still',40,214);
-    ctx.fillText('has exactly one total',40,234);
+    ctx.fillText('The solid completion allows all coordinates',40,214);
+    ctx.fillText('and gives one compatible result.',40,234);
     for(let k=0;k<D;k++){
       ctx.fillStyle='#00787a';
       ctx.fillRect(48+k*36,270,22,Math.max(4,40/(1+k*0.5)));
     }
     document.getElementById('out').textContent=
-      'coordinates set              '+n+' and rising\n'+
-      'finitely many allowed  fails once the count passes any bound\n'+
-      'the solid rule         accepts it, with exactly one total\n'+
-      'this is why the rule is stated about modules, not about the ring';
+      'coordinates set        '+n+' and rising\n'+
+      'direct sum             fails when support is not finite\n'+
+      'solid completion       contains one compatible result\n'+
+      'The completion rule concerns modules over the ring, not only elements of the ring.';
   }
   document.getElementById('out').className='readout verdict-ok';
   

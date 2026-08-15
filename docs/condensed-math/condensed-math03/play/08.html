@@ -54,13 +54,13 @@
 <main>
 <a class="back" href="../index.html">back to the article</a>
 <h1>8 · Pair complementary degrees</h1>
-<p class="lede">Coherent duality pairs a class with one in the complementary degree and applies a trace to obtain a scalar on the base. A perfect pairing identifies either side with the dual of the other.</p>
-<p class="try"><strong>Try this.</strong> Rotate the surface to see its three-dimensional model, then change its genus. Compare the dimensions on the two sides and follow a paired class through the trace.</p>
+<p class="lede">Coherent duality pairs a class with one in the complementary degree. Their product reaches the top degree, and a trace map then produces a scalar on the base.</p>
+<p class="try"><strong>Try this.</strong> Rotate the surface and change its genus. Compare the number of classes on both sides, then follow a paired class through the trace.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label for="genus">how many holes the surface has</label><input type="range" id="genus" min="1" max="4" step="1" value="2"><span class="val" id="genusv"></span></div><div class="row"><label for="spin3">turn the camera</label><input type="range" id="spin3" min="0" max="360" step="1" value="40"><span class="val" id="spin3v"></span></div></div>
+<div class="controls"><div class="row"><label for="genus">genus of the surface</label><input type="range" id="genus" min="1" max="4" step="1" value="2"><span class="val" id="genusv"></span></div><div class="row"><label for="spin3">camera angle</label><input type="range" id="spin3" min="0" max="360" step="1" value="40"><span class="val" id="spin3v"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The equal dimensions provide a finite classical model of the pairing. Theorem 11.1 constructs compactly supported pushforward, the trace, and the duality isomorphism for a separated smooth finite-type map; the activity does not prove that theorem.</p>
-<div class="nav"><a href="07.html">← previous</a>  ·  <a href="index.html">all of them</a></div>
+<p class="note">Equal finite dimensions provide a classical model of a perfect pairing. Theorem 11.1 constructs compactly supported pushforward, the trace, and the duality isomorphism; this activity does not prove the theorem.</p>
+<div class="nav"><a href="07.html">← previous</a>  ·  <a href="index.html">all activities</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -383,7 +383,7 @@ function draw(){
   ctx.fillText(g+(g===1?' hole':' holes'),cx,300);
   // the two columns of the pairing
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('one side',430,44);ctx.fillText('its partner',560,44);
+  ctx.fillText('one vector space',430,44);ctx.fillText('the complementary vector space',560,44);
   for(let k=0;k<g;k++){
     ctx.fillStyle='#4a3aa7';ctx.fillRect(430,58+k*30,72,22);
     ctx.fillStyle='#00787a';ctx.fillRect(560,58+k*30,72,22);
@@ -397,15 +397,15 @@ function draw(){
   ctx.fillStyle='#008300';ctx.font='13px system-ui';ctx.textAlign='center';
   ctx.fillText('the trace',531,y+26);
   ctx.strokeStyle='#008300';ctx.lineWidth=2;ctx.strokeRect(496,y+34,70,28);
-  ctx.fillStyle='#008300';ctx.fillText('one number',531,y+52);
+  ctx.fillStyle='#008300';ctx.fillText('one scalar',531,y+52);
   genusv.textContent=String(g);spin3v.textContent=sp3.value+'°';
   const out=document.getElementById('out');
   out.textContent=
-    'holes in the surface        '+g+'\n'+
-    'classes on one side         '+g+'\n'+
-    'classes on the partner side '+g+'\n'+
-    'the two sides match for every shape, which is what perfect means\n'+
-    'the trace turns the top-degree classes into a single number';
+    'genus of the surface        '+g+'\n'+
+    'dimension on one side         '+g+'\n'+
+    'dimension on the other side '+g+'\n'+
+    'This finite model gives the same dimension on both sides.\n'+
+    'The trace sends each top-degree result to one scalar.';
   out.className='readout verdict-ok';
 }
 [gs,sp3].forEach(x=>x.addEventListener('input',draw));draw();

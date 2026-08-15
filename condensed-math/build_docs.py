@@ -393,15 +393,15 @@ MathJax = {
 BODY
 
 <footer>
-<p>Written August 2026. This is one topic in <a href="../../">conjectures</a>, and
-one part of <a href="../">condensed mathematics</a>. Every figure is generated from
-the <a href="REPOHERE">repository</a>: <code>make figures</code> rebuilds the
-pictures, and <code>make test</code> checks the computed claims.</p>
-<p>This guide retells Peter Scholze's <em>Lectures on Condensed Mathematics</em>
-(<a href="https://arxiv.org/abs/2605.03658">arXiv:2605.03658</a>), joint work with
-Dustin Clausen. It was written with AI assistance and careful human review. Claims
-about finite objects are backed by the test suite; statements about categories are
-quoted from the lectures, and the article says which is which.</p>
+<p>Written in August 2026 as part of <a href="../../">conjectures</a>. The
+<a href="REPOHERE">repository</a> contains the source for every figure.
+<code>make figures</code> rebuilds the pictures, and <code>make test</code> reruns
+the finite calculations.</p>
+<p>The guide is based on Peter Scholze's <em>Lectures on Condensed Mathematics</em>
+(<a href="https://arxiv.org/abs/2605.03658">arXiv:2605.03658</a>), which present
+joint work with Dustin Clausen. It was written with AI assistance and human review.
+Each chapter clearly separates calculations checked by the code from categorical
+results quoted from the lectures.</p>
 </footer>
 </main>
 <script>LOADERHERE</script>
@@ -418,7 +418,7 @@ LANDING = """<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Condensed Mathematics</title>
-<meta name="description" content="A beginner's visual guide to condensed mathematics, in three parts, with a simulation in every chapter.">
+<meta name="description" content="A step-by-step visual introduction to condensed mathematics, with an interactive activity in every chapter.">
 <style>STYLEHERE
   .part { display: block; background: var(--card); border: 1px solid var(--line);
           border-radius: 10px; overflow: hidden; margin: 1.6rem 0; color: inherit; }
@@ -442,50 +442,47 @@ LANDING = """<!DOCTYPE html>
 
 <header class="hero">
   <h1>Condensed Mathematics</h1>
-  <p class="subtitle">A set with a distance on it is two structures badly glued
-  together, and the glue fails in a way that breaks ordinary algebra. This is the
-  repair, built from nothing, in three parts, with something to move in every
-  chapter.</p>
+  <p class="subtitle">A step-by-step introduction for readers who are new to the
+  subject. Each chapter explains one idea in plain language and includes an
+  activity that lets you change the mathematical example.</p>
 </header>
 
-<p>Condensed mathematics replaces a space by everything that space says to
-probes, where a probe is an endlessly refined finite picture. That one change
-makes subtraction work, gives infinite sums a home, and turns a duality theorem
-that used to be built by hand into a single adjoint. This guide retells Peter
-Scholze's <a href="https://arxiv.org/abs/2605.03658"><em>Lectures on Condensed
-Mathematics</em></a>, joint work with Dustin Clausen, from a standing start.</p>
+<p>Condensed mathematics describes a space by looking at every continuous map
+from a profinite probe into it. A probe is built from finite stages, so its basic
+behavior can be explored through concrete pictures. This description repairs
+some problems in topological algebra and leads to precise ways of handling
+infinite sums, rings, and geometry.</p>
 
-<p>Read the parts in order. Each is self-contained given the one before, and each
-chapter carries a simulation you can move.</p>
+<p>The guide follows Peter Scholze's <a href="https://arxiv.org/abs/2605.03658"><em>Lectures
+on Condensed Mathematics</em></a>, which present joint work with Dustin Clausen.
+Begin with part one and read the three parts in order. Each part assumes only the
+ideas explained in the earlier parts.</p>
 
 CARDS
 
-<h2>Or discover it instead</h2>
+<h2>Learn through the game</h2>
 
-<p>The three parts above explain the subject. <a href="game/">The game</a> makes
-you find it: eight worlds, starting from three objects on a table, assuming no
-mathematics at all. Every idea arrives as a brick that runs the same three
-stages &mdash; the concept stated plainly, then an intuition ending in a guess
-you make before the answer exists on the page, then an experiment you run
-yourself, followed by the name the literature uses and the mathematics with
-every symbol read out.</p>
+<p>The three parts above explain the subject chapter by chapter. The
+<a href="game/">game</a> teaches the same ideas through eight worlds and assumes
+no previous mathematics. Each idea begins with a plain explanation. The game
+then asks you to make a prediction, run an experiment, and finally learn the
+standard name and notation.</p>
 
 <p><a class="game" href="game/">Play the game &rarr;</a></p>
 
-<h2>What is checked, and what is quoted</h2>
+<h2>What the code checks</h2>
 
-<p>Condensed mathematics is foundational, so most of its statements are about whole
-categories and no program can check them. This repository computes the finite
-machinery underneath: probes as real inverse systems, measures as compatible integer
-weights, homology by Smith normal form over the integers, the norms and ranks and
-truncations. Every article says, section by section, which of its claims were
-computed here and which are quoted from the lectures, and
-<code>notes/research-content.md</code> lists them all.</p>
+<p>A program cannot prove the category-level theorems in the lectures. It can check
+the finite examples used to explain them. The tests build probes from finite sets,
+verify compatible integer measures, calculate homology with Smith normal form, and
+check the sizes and truncation counts shown in the activities. Every chapter says
+which facts are calculated here and which theorems are quoted. The full list is in
+<code>notes/research-content.md</code>.</p>
 
 <footer>
-  <p>Source, code, and every animation:
-  <a href="https://github.com/muchmirul/conjectures">github.com/muchmirul/conjectures</a>.
-  The lectures themselves are kept in <a href="paper/">paper/</a>.</p>
+  <p>The <a href="https://github.com/muchmirul/conjectures">source repository</a>
+  contains the text, code, tests, and animations. A copy of the lectures is available
+  in <a href="paper/">paper/</a>.</p>
 </footer>
 
 </main>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Separate global terms from boundary terms · condensed mathematics, part 3</title>
+<title>Separate global and boundary terms · condensed mathematics, part 3</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,14 +53,14 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>4 · Separate global terms from boundary terms</h1>
-<p class="lede">Near infinity, a function is expanded in the inverse coordinate. Global polynomials form one part of this expansion, while negative powers describe the formal boundary tail.</p>
-<p class="try"><strong>Try this.</strong> Move the observation point outward and compare the terms. Then form the quotient conceptually: polynomial terms are removed because they already extend globally, and inverse-power tails remain.</p>
+<h1>4 · Separate global and boundary terms</h1>
+<p class="lede">Near infinity, functions are expanded in the reciprocal coordinate. Polynomial terms extend across the whole line, while negative powers describe a tail that lives near the boundary.</p>
+<p class="try"><strong>Try this.</strong> Move farther toward infinity and compare the terms. In the quotient, remove every polynomial term because it is already global. The negative-power tail remains.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label for="far">how far out you stand</label><input type="range" id="far" min="0" max="100" step="1" value="30"><span class="val" id="farv"></span></div><div class="row"><label for="tails">tails kept</label><input type="range" id="tails" min="1" max="8" step="1" value="4"><span class="val" id="tailsv"></span></div></div>
+<div class="controls"><div class="row"><label for="far">distance toward infinity</label><input type="range" id="far" min="0" max="100" step="1" value="30"><span class="val" id="farv"></span></div><div class="row"><label for="tails">number of tail terms</label><input type="range" id="tails" min="1" max="8" step="1" value="4"><span class="val" id="tailsv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The displayed calculation uses a finite truncation of the Laurent series. Increasing the allowed polynomial degree does not change the number of retained tail coordinates at a fixed tail depth.</p>
-<div class="nav"><a href="03.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="05.html">next →</a></div>
+<p class="note">The activity uses a finite part of a Laurent series. Increasing the allowed polynomial degree does not change the number of retained tail coordinates at a fixed tail depth.</p>
+<div class="nav"><a href="03.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="05.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -362,14 +362,14 @@ function draw(){
   ctx.beginPath();ctx.moveTo(660,72);ctx.lineTo(648,66);ctx.lineTo(648,78);
   ctx.closePath();ctx.fillStyle='#8a5a2c';ctx.fill();
   ctx.fillStyle='#8a5a2c';ctx.font='12px system-ui';ctx.textAlign='right';
-  ctx.fillText('the edge',644,60);
+  ctx.fillText('the boundary',644,60);
   const x=40+f*580;
   ctx.fillStyle='#2a78d6';ctx.beginPath();ctx.arc(x,72,8,0,7);ctx.fill();
   ctx.fillStyle='#52514e';ctx.font='12px system-ui';ctx.textAlign='center';
-  ctx.fillText('you are here, at '+T.toFixed(1),x,100);
+  ctx.fillText('observation point '+T.toFixed(1),x,100);
   // the terms of a function, sized by how much they matter out there
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('how much each power matters where you stand',40,140);
+  ctx.fillText('size of each term at the observation point',40,140);
   const powers=[];
   for(let e=2;e>=-m;e--)powers.push(e);
   const bw=600/powers.length;
@@ -384,16 +384,16 @@ function draw(){
     ctx.fillText((e>=0?'x^'+e:'1/x^'+(-e)),44+i*bw+bw/2-2,328);
   });
   ctx.fillStyle='#d03b3b';ctx.font='12px system-ui';ctx.textAlign='left';
-  ctx.fillText('red: a polynomial part, thrown away in the quotient',44,352);
+  ctx.fillText('red: global polynomial terms removed by the quotient',44,352);
   ctx.fillStyle='#00787a';
-  ctx.fillText('teal: the tails, which are what survives',420,352);
+  ctx.fillText('teal: boundary-tail terms that remain in the quotient',420,352);
   farv.textContent=T.toFixed(1);tailsv.textContent=String(m);
   const out=document.getElementById('out');
   out.textContent=
-    'standing at            '+T.toFixed(1)+'\n'+
-    'tails kept             '+m+'\n'+
-    'surviving pieces       '+lineEdgeRank(2,m)+'\n'+
-    'the count is the number of tails, whatever the polynomial part reaches to';
+    'observation point            '+T.toFixed(1)+'\n'+
+    'number of tail terms             '+m+'\n'+
+    'terms left in the quotient       '+lineEdgeRank(2,m)+'\n'+
+    'At a fixed tail depth, changing the polynomial degree does not change the quotient rank.';
   out.className='readout verdict-ok';
 }
 far.addEventListener('input',draw);tails.addEventListener('input',draw);draw();

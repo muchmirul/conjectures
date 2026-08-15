@@ -1,22 +1,20 @@
-# 1 · A ring with a rule for sums
+# 1 · A ring and its legal measures
 
-*Part 3 of three: Rings That Know How To Integrate. Retells Lectures VII to XI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
+*Part 3 of three: Measure Rules for Rings and Geometry. Retells Lectures VII to XI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-Part two attached one particular theory of infinite summation to the integers. Other rings need different theories, so we begin by separating the underlying ring from the measures it permits. This allows p-adic numbers, ordinary discrete rings, and the real numbers to use the same framework without pretending that they share one notion of convergence.
+Part two used one fixed summation rule based on integer-valued measures. That rule does not suit every ring. The real numbers and the $p$-adic numbers have different ideas of convergence, so they should not be forced to use the same completion.
 
-A ring supports addition, subtraction, and multiplication. A module is an additive group whose elements can also be multiplied by elements of the ring. For every probe and every placement of its points in a module, we want a rule that says which weighted combinations are legal and how those combinations act on the module.
+A **ring** has addition, subtraction, and multiplication. A **module** is an additive group whose elements can also be multiplied by elements of the ring. For each probe, we want to specify which weighted combinations of its points are allowed in a module and how those combinations behave.
 
-The general definition contains two pieces of data ([Definition 7.1, page 45](https://arxiv.org/pdf/2605.03658v1#page=45)):
+The general definition has two pieces ([Definition 7.1, page 45](https://arxiv.org/pdf/2605.03658v1#page=45)). First, we choose a condensed ring $A$. As in part one, its probe values contain topological information together with algebraic operations. Second, for every extremally disconnected probe $S$, we choose an $A$-module $\mathcal M[S]$ of allowed measures.
 
-**The ring** is treated as a condensed ring, meaning an answer sheet of the kind introduced in part one, with compatible addition and multiplication. This description allows topological information to live inside the algebra rather than beside it.
+The measure modules must include all **Dirac measures**, which place unit weight at one point. They must also respect finite disjoint unions. Measures on two separate probes should be the same as one independent measure on each probe.
 
-**The theory of measures** assigns an A-module of legal measures to every unfoldable probe. It respects finite disjoint unions, and it includes every Dirac measure, the unit weight concentrated at one point. Thus, ordinary points remain available inside the larger space of measures.
+![A probe maps to its module of allowed measures, and every point enters as a Dirac measure](measures.png)
 
-![A diagram sends a probe to its module of allowed measures and includes each probe point as a Dirac measure](measures.png)
+These visible rules are necessary but not sufficient. The proposed measure theory must remain stable when its modules are used in exact sequences and chain complexes. [Definition 7.4, page 46](https://arxiv.org/pdf/2605.03658v1#page=46) gives the derived compatibility test. A pair that passes it is called an **analytic ring**.
 
-A ring and a proposed theory of measures must also pass a compatibility test. The test ensures that modules built from the proposed free complete modules form a stable algebraic world, with the expected maps from point data agreeing with maps from measures. A pair that passes is called an **analytic ring** ([Definition 7.4, page 46](https://arxiv.org/pdf/2605.03658v1#page=46)). This guide uses the plainer phrase *a ring with a rule*.
-
-The distinction between proposing a rule and proving it analytic is important. Many assignments look reasonable on each individual probe but fail when modules are combined into exact sequences or complexes. Section 3 examines this problem for real-valued measures and shows why the first natural choices do not pass.
+This distinction matters because a rule can look sensible on each individual probe and still fail after modules are combined. Chapter 3 shows this for several natural real-valued measure rules.
 
 ### The mathematics
 
@@ -29,13 +27,13 @@ The distinction between proposing a rule and proving it analytic is important. M
 S\longmapsto\mathcal M[S],
 ```
 
-The definition also includes natural Dirac maps $S\to\mathcal M[S]$. Its disjoint-union rule is
+The definition also includes a natural Dirac map $S\to\mathcal M[S]$, which sends each point to its unit measure. For disjoint probes, the measure modules must satisfy
 
 ```math
 \mathcal M[S_1\sqcup S_2]\cong\mathcal M[S_1]\times\mathcal M[S_2].
 ```
 
-[Definition 7.4, page 46](https://arxiv.org/pdf/2605.03658v1#page=46) calls the pair analytic when, for the complexes $C$ specified there,
+[Definition 7.4, page 46](https://arxiv.org/pdf/2605.03658v1#page=46) calls the pair analytic when, for the specified complexes $C$,
 
 ```math
 R\!\operatorname{Hom}_A(\mathcal M[S],C)
@@ -43,14 +41,14 @@ R\!\operatorname{Hom}_A(\mathcal M[S],C)
 R\!\operatorname{Hom}_A(A[S],C).
 ```
 
-**Reading the symbols.** The ring is $A$, and $A$-$\operatorname{Mod}$ is the category of condensed $A$-modules. The functor $\mathcal M$ assigns the module of legal measures $\mathcal M[S]$ to each unfoldable probe $S$. The arrow $S\to\mathcal M[S]$ sends a point to its Dirac measure. The symbol $\sqcup$ means disjoint union, $\times$ means product, and $\cong$ means isomorphic. The notation $A[S]$ is the free $A$-module on the points of $S$. The letter $C$ names a chain complex assembled from free measure modules. The expression $R\!\operatorname{Hom}_A$ is the derived object of $A$-linear maps, and an arrow marked $\sim$ is an isomorphism.
+**Reading the symbols.** The ring is $A$, and $A$-$\operatorname{Mod}$ is the category of condensed $A$-modules. The functor $\mathcal M$ assigns a module of legal measures $\mathcal M[S]$ to each extremally disconnected probe $S$. The map $S\to\mathcal M[S]$ sends each point to its Dirac measure. The symbol $\sqcup$ means disjoint union, $\times$ means product, and $\cong$ means isomorphic. The notation $A[S]$ is the free $A$-module on the points of $S$. The letter $C$ names a chain complex made from free measure modules. The expression $R\!\operatorname{Hom}_A$ is the derived object of $A$-linear maps. An arrow marked $\sim$ is an isomorphism.
 
-**Why it matters.** The first two lines propose a summation rule. The final isomorphism is the test that makes the proposal stable under the homological operations used later. A pair may satisfy the visible finite rules and still fail this analytic test.
+**Why it matters.** The first two displays describe a proposed summation rule. The final isomorphism tests whether that rule survives the homological constructions used later. Passing the finite rules alone does not prove that a pair is analytic.
 
-**In the simulation.** The controls first select the ring $A$, then a candidate module $\mathcal M[S]$, and finally check that points enter as Dirac measures and disjoint pieces produce a product. The final verdict represents the extra analytic condition rather than pretending that the finite checks prove it.
+**In the simulation.** Choose a ring $A$ and a proposed module $\mathcal M[S]$. Two controls check whether point masses are included and whether disjoint pieces give a product. The final result represents the additional analytic condition as a quoted fact rather than treating the finite checks as a proof.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/01.html)** to assemble the two pieces of a proposed rule and check its basic requirements in order.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/01.html)** to assemble the data of a measure rule and check each basic requirement.
 
 ---
 
-[← Start here](../00-start-here/README.md)  ·  [Two rules that work →](../02-two-that-work/README.md)  ·  [all of part 3 on one page](../../ARTICLE.md)
+[← Start here](../00-start-here/README.md)  ·  [Two analytic examples →](../02-two-that-work/README.md)  ·  [all of part 3 on one page](../../ARTICLE.md)

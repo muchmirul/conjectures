@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Compare two topologies · condensed mathematics, part 1</title>
+<title>Compare two ideas of closeness · condensed mathematics, part 1</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,14 +53,14 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>1 · Compare two topologies</h1>
-<p class="lede">Both rows contain the same real numbers. The upper row gives them the discrete topology, so every point is isolated. The lower row uses the usual topology, where each interval contains more points.</p>
-<p class="try"><strong>Try this.</strong> Move the inspection slider toward a smaller scale. A neighbourhood in the discrete row eventually contains one point, while every interval in the usual real line still contains infinitely many points.</p>
+<h1>1 · Compare two ideas of closeness</h1>
+<p class="lede">The two rows contain the same real numbers. In the top row, every point stands alone. In the bottom row, the numbers have their usual distance, so nearby values remain close.</p>
+<p class="try"><strong>Try this.</strong> Make the viewing window smaller. The discrete row eventually isolates one point. An interval in the usual real line always contains more points, however small the interval becomes.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label for="zoom">how closely you look</label><input type="range" id="zoom" min="0" max="100" step="1" value="20"><span class="val" id="zoomv"></span></div></div>
+<div class="controls"><div class="row"><label for="zoom">size of the viewing window</label><input type="range" id="zoom" min="0" max="100" step="1" value="20"><span class="val" id="zoomv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The identity map has zero kernel and zero cokernel when only individual values are checked, but it is not an isomorphism of topological groups. Example 1.9 explains how condensed groups retain the missing quotient.</p>
-<div class="nav"><a href="00.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="02.html">next →</a></div>
+<p class="note">The identity map has zero point-level kernel and cokernel, but it is not an isomorphism of topological groups. Example 1.9 shows how condensed groups keep the quotient that the pointwise test misses.</p>
+<div class="nav"><a href="00.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="02.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -359,15 +359,15 @@ function draw(){
   const x0=60,x1=680,cx=(x0+x1)/2;
   // the usual real line
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('the usual real line: nearness kept',x0,42);
+  ctx.fillText('usual real line: nearby values remain close',x0,42);
   ctx.strokeStyle='#4a3aa7';ctx.lineWidth=3;
   ctx.beginPath();ctx.moveTo(x0,70);ctx.lineTo(x1,70);ctx.stroke();
   ctx.fillStyle='#4a3aa7';ctx.beginPath();ctx.arc(cx,70,6,0,7);ctx.fill();
   ctx.fillStyle='#898781';ctx.font='12px system-ui';ctx.textAlign='center';
-  ctx.fillText('every window holds endlessly many others',cx,96);
+  ctx.fillText('every interval still contains infinitely many points',cx,96);
   // the discrete real line
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('the discrete real line: nearness forgotten',x0,168);
+  ctx.fillText('discrete real line: every point is isolated',x0,168);
   const grains=Math.max(1,Math.round(28*Math.min(1,half*40)));
   if(grains<=1){
     // fully zoomed: exactly one grain stands alone in the window
@@ -379,11 +379,11 @@ function draw(){
     ctx.beginPath();ctx.arc(x,196,5,0,7);ctx.fill();
   }
   ctx.fillStyle='#898781';ctx.font='12px system-ui';ctx.textAlign='center';
-  ctx.fillText(grains<=1?'the window now holds one grain and nothing else'
-                        :'grains, each one alone',cx,224);
+  ctx.fillText(grains<=1?'the window now contains one point'
+                        :'isolated points',cx,224);
   // the matching
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('send each number to itself',x0,278);
+  ctx.fillText('map each number to the same value',x0,278);
   for(let k=0;k<=10;k++){
     const x=x0+(x1-x0)*k/10;
     ctx.strokeStyle='#c3c2b7';ctx.lineWidth=1;
@@ -396,11 +396,11 @@ function draw(){
   zoomv.textContent='window '+half.toExponential(1);
   const out=document.getElementById('out');
   out.textContent=
-    'numbers left over at the front   0\n'+
-    'numbers left over at the back    0\n'+
-    'so the map kills nothing and misses nothing\n'+
-    (grains<=1?'and yet: this window separates a grain but not a ruler point'
-              :'keep zooming until one grain stands alone');
+    'point-level kernel      0\n'+
+    'point-level cokernel    0\n'+
+    'The pointwise map loses no values and misses no values.\n'+
+    (grains<=1?'However, this window isolates a point only in the discrete row.'
+              :'Reduce the window until one discrete point stands alone.');
   out.className='readout '+(grains<=1?'verdict-no':'');
 }
 zoom.addEventListener('input',draw);draw();

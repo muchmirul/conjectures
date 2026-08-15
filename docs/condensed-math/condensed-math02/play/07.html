@@ -54,13 +54,13 @@
 <main>
 <a class="back" href="../index.html">back to the article</a>
 <h1>7 · Read a completed tensor product</h1>
-<p class="lede">The completed tensor product combines two solid groups while retaining compatible completion directions. The table lists the examples stated in Lecture VI and direct consequences of the coordinate rule.</p>
-<p class="try"><strong>Try this.</strong> Select the p-adic groups for two distinct primes and observe the zero entry. Then compare equal prime directions and power-series directions, which remain in the result.</p>
+<p class="lede">The completed tensor product combines two solid groups and keeps completion directions that are compatible with both sides.</p>
+<p class="try"><strong>Try this.</strong> Choose p-adic groups for two different primes and observe the zero result. Then compare equal prime directions and power-series directions, which remain in the answer.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>first factor</label><div class="pick" id="ta" style="flex:1"><button data-v="Z_p" class="on">base-p</button><button data-v="Z_l" class="">base-l</button><button data-v="Z[[T]]" class="">series in T</button><button data-v="Z[[U]]" class="">series in U</button><button data-v="R" class="">the usual real line</button></div></div><div class="row"><label>second factor</label><div class="pick" id="tb" style="flex:1"><button data-v="Z_p" class="">base-p</button><button data-v="Z_l" class="on">base-l</button><button data-v="Z[[T]]" class="">series in T</button><button data-v="Z[[U]]" class="">series in U</button><button data-v="R" class="">the usual real line</button></div></div></div>
+<div class="controls"><div class="row"><label>first solid group</label><div class="pick" id="ta" style="flex:1"><button data-v="Z_p" class="on">base-p</button><button data-v="Z_l" class="">base-l</button><button data-v="Z[[T]]" class="">series in T</button><button data-v="Z[[U]]" class="">series in U</button><button data-v="R" class="">the usual real line</button></div></div><div class="row"><label>second solid group</label><div class="pick" id="tb" style="flex:1"><button data-v="Z_p" class="">base-p</button><button data-v="Z_l" class="on">base-l</button><button data-v="Z[[T]]" class="">series in T</button><button data-v="Z[[U]]" class="">series in U</button><button data-v="R" class="">the usual real line</button></div></div></div>
 <div class="readout" id="out"></div>
-<p class="note">Example 6.4 states five identities. Proposition 6.3 explains the power-series case by pairing coordinate sets. The readout distinguishes directly quoted entries from entries obtained by relabelling that rule.</p>
-<div class="nav"><a href="06.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="08.html">next →</a></div>
+<p class="note">Example 6.4 states five identities. Proposition 6.3 explains the power-series example by pairing coordinate sets. The readout distinguishes quoted identities from entries obtained by relabelling that rule.</p>
+<div class="nav"><a href="06.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="08.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -365,12 +365,12 @@ const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 const NAMES=[["Z_p","base-p"],["Z_l","base-l"],["Z[[T]]","series in T"],
              ["Z[[U]]","series in U"],["R","the usual real line"]];
 function pretty(k){
-  if(k==="0")return "nothing at all";
+  if(k==="0")return "zero";
   if(k==="R")return "the usual real line";
-  if(k==="Z")return "whole numbers";
+  if(k==="Z")return "integers";
   const m=k.match(/^Z(?:_([pl]))?(?:\[\[(.+)\]\])?$/);
   if(!m)return k;
-  const base=m[1]?("base-"+m[1]):"whole numbers";
+  const base=m[1]?("base-"+m[1]):"integers";
   return m[2]?(base+" series in "+m[2].split(",").join(" and ")):base;
 }
 let A='Z_p',B='Z_l';
@@ -402,7 +402,7 @@ function draw(){
   // the two nestings, as rulers that never share a scale
   const res=solidTensor(A,B);
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('the nesting each side carries',40,262);
+  ctx.fillText('completion direction of each factor',40,262);
   function ruler(y,factor,colour,label){
     ctx.fillStyle=colour;ctx.font='12px system-ui';ctx.textAlign='left';
     ctx.fillText(label,40,y-6);
@@ -415,16 +415,22 @@ function draw(){
   }
   const fa=(A==='Z_p')?2:(A==='Z_l')?3:(A==='R')?1:2;
   const fb=(B==='Z_p')?2:(B==='Z_l')?3:(B==='R')?1:2;
-  ruler(288,fa,'#4a3aa7','first factor shrinks by '+(A==='R'?'nothing':fa));
-  ruler(336,fb,'#8a5a2c','second factor shrinks by '+(B==='R'?'nothing':fb));
+  ruler(288,fa,'#4a3aa7','first solid group completes along '+(A==='R'?'no adic direction':fa));
+  ruler(336,fb,'#8a5a2c','second solid group completes along '+(B==='R'?'no adic direction':fb));
   const out=document.getElementById('out');
+  const hasReal=A==='R'||B==='R';
+  const source=quotedTensor(A,B)
+    ? 'stated in the lectures'
+    : hasReal ? 'follows from the vanishing of solidified real groups'
+              : 'follows by relabelling the coordinate rule';
+  const reason=res==='0'
+    ? (hasReal
+       ? 'The result is zero because the usual real line becomes zero under solidification.'
+       : 'The result is zero because the two prime-completion directions are incompatible.')
+    : 'The completion directions are compatible, so both remain in the result.';
   out.textContent=
     pretty(A)+'  combined with  '+pretty(B)+'\n'+
-    'gives  '+pretty(res)+
-    (quotedTensor(A,B)?'   (stated in the lectures)':'   (the same rule, relabelled)')+'\n'+
-    (res==='0'
-      ? 'nothing survives: the two sides carry nestings that never agree'
-      : 'the nestings are compatible, so both are kept');
+    'gives  '+pretty(res)+'   ('+source+')\n'+reason;
   out.className='readout '+(res==='0'?'verdict-no':'verdict-ok');
 }
 draw();

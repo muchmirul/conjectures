@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Measure the effect of merging · condensed mathematics, part 3</title>
+<title>Measure what happens when boxes merge · condensed mathematics, part 3</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,14 +53,14 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>3 · Measure the effect of merging</h1>
-<p class="lede">A measure on the full probe must remain within the same size bound when fine boxes are merged into coarse boxes. The chart computes this change for equal weights.</p>
-<p class="try"><strong>Try this.</strong> Choose an exponent above one and merge several boxes; the size can increase. Move to one or below and repeat. The ratio is then at most one, so the finite-stage bounds remain compatible.</p>
+<h1>3 · Measure what happens when boxes merge</h1>
+<p class="lede">A fine-stage measure must stay within its size limit after its boxes are merged at a coarser stage. This chart calculates the change for equal weights.</p>
+<p class="try"><strong>Try this.</strong> Choose an exponent above one and merge several boxes. Then move to one or below. The ratio is now at most one, so the same size limit works at both stages.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label for="expo2">the exponent</label><input type="range" id="expo2" min="30" max="250" step="5" value="200"><span class="val" id="expo2v"></span></div><div class="row"><label for="group">boxes merged into one</label><input type="range" id="group" min="2" max="8" step="1" value="4"><span class="val" id="groupv"></span></div><div class="row"><label for="spread">how uneven the weights are</label><input type="range" id="spread" min="0" max="100" step="1" value="0"><span class="val" id="spreadv"></span></div></div>
+<div class="controls"><div class="row"><label for="expo2">exponent p</label><input type="range" id="expo2" min="30" max="250" step="5" value="200"><span class="val" id="expo2v"></span></div><div class="row"><label for="group">number of boxes merged</label><input type="range" id="group" min="2" max="8" step="1" value="4"><span class="val" id="groupv"></span></div><div class="row"><label for="spread">difference among the weights</label><input type="range" id="spread" min="0" max="100" step="1" value="0"><span class="val" id="spreadv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">For equal weights the ratio is n raised to one minus one over p. The tests check this formula directly. Equal weights give the worst growth above one, while the general subadditivity inequality controls all weights at or below one.</p>
-<div class="nav"><a href="02.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="04.html">next →</a></div>
+<p class="note">For equal weights, the ratio is n raised to one minus one over p. Equal weights give the worst growth above one, while subadditivity controls all weights at or below one.</p>
+<div class="nav"><a href="02.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="04.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -377,7 +377,7 @@ function draw(){
   ctx.beginPath();ctx.moveTo(300,178);ctx.lineTo(295,169);ctx.lineTo(305,169);
   ctx.closePath();ctx.fillStyle='#8a5a2c';ctx.fill();
   ctx.font='12px system-ui';ctx.textAlign='left';
-  ctx.fillText('the boxes merge, the weights add',312,164);
+  ctx.fillText('merging adds all the weights',312,164);
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';
   ctx.fillText('the coarse stage: one box',40,204);
   const total=vals.reduce((a,b)=>a+b,0);
@@ -389,17 +389,17 @@ function draw(){
   const ratio=after/before,ok=ratio<=1+1e-9;
   ctx.fillStyle=ok?'#008300':'#d03b3b';ctx.font='14px system-ui';
   ctx.textAlign='left';
-  ctx.fillText(ok?'the size did not grow: the stages fit together'
-                 :'the size grew: these stages cannot be one weighting',40,344);
+  ctx.fillText(ok?'The size did not grow, so the same bound works at both stages.'
+                 :'The size grew, so one bound cannot define a compatible measure at both stages.',40,344);
   expo2v.textContent=p.toFixed(2);groupv.textContent=String(g);
   spreadv.textContent=u.toFixed(2);
   const out=document.getElementById('out');
   out.textContent=
-    'the exponent        '+p.toFixed(2)+'\n'+
+    'exponent p        '+p.toFixed(2)+'\n'+
     'size before merging '+before.toFixed(4)+'\n'+
     'size after merging  '+after.toFixed(4)+'\n'+
     'ratio               '+ratio.toFixed(4)+'\n'+
-    (ok?'allowed' :'forbidden: this is why the exponent must not pass one');
+    (ok?'allowed' :'The size grows above exponent one, so the finite-stage bounds are not compatible.');
   out.className='readout '+(ok?'verdict-ok':'verdict-no');
 }
 [e2,gp,sp].forEach(x=>x.addEventListener('input',draw));draw();

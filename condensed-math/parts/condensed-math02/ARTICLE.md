@@ -1,45 +1,45 @@
-# Infinite Sums That Finally Land
+# Giving Infinite Sums a Meaning
 
-*Part two of three on condensed mathematics. Part one made subtraction reliable by replacing spaces with their answers to probes. We now ask when an infinite sum has one well-defined value. Compatible weights on the finite stages of a probe lead to the solid rule, reveal the basic structure of solid groups, and recover the holes of familiar spaces. Only part one is assumed.*
+*This is the second of three parts on condensed mathematics. Part one replaced a space by the continuous maps from probes into it, which made kernels and cokernels reliable. We now use those probes to understand infinite sums. Compatible weights on their finite stages lead to solid groups and also recover the holes of familiar spaces. Only part one is assumed.*
 
-![An initial weight is divided among finer branches while every level keeps the same total](guide/00-start-here/hero.gif)
+![A number on one box is divided among finer branches while every stage keeps the same total](guide/00-start-here/hero.gif)
 
-The animation shows the main construction of this part. Place an integer weight on the first box of a probe. Whenever a box splits, divide its weight among the new boxes so that their weights add back to the old one. Repeating this at every level produces a compatible family called a **weighting**, or, in standard language, an integer-valued measure. Because every level is finite and the totals agree between levels, a weighting gives a controlled way to interpret sums over all the points of a probe.
+Place an integer weight on the first box of a probe. When the box splits, distribute its weight among the new boxes so that their weights add up to the old one. Repeat this at every stage. The result is a **compatible weighting**, or an integer-valued measure. Every stage contains only finitely many weights, and compatibility makes the total independent of the stage where we calculate it.
 
-This is part two of three, covering Lectures IV to VI of Peter Scholze's *Lectures on Condensed Mathematics* ([arXiv:2605.03658](https://arxiv.org/abs/2605.03658), May 2026), joint work with Dustin Clausen. [Part one](../condensed-math01/ARTICLE.md) introduced probes and condensed sets, and those ideas will be used here. Part three extends the resulting theory from groups to rings and geometry. Most sections include a [page you can play with](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/index.html), so each new definition can be tested on a finite example.
+This part covers Lectures IV to VI of Peter Scholze's *Lectures on Condensed Mathematics* ([arXiv:2605.03658](https://arxiv.org/abs/2605.03658), May 2026), which present joint work with Dustin Clausen. [Part one](../condensed-math01/ARTICLE.md) introduced profinite probes and condensed sets. Part three will give different rings their own theories of measures. Each chapter below includes an activity that turns its main definition into a finite example. The [part-two activity list](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/index.html) links to all nine pages.
 
 ```
-    the problem again           1  sums with nowhere to land
-    the answer                  2  weights that agree
-                                3  every function is a stack of steps
-                                4  products in, sums out
-    the rule                    5  the solid rule
-    two consequences            6  where the real line goes
-                                7  the multiplication table
-    the payoff                  8  solidify a shape, get its holes
+    understand the problem      1  one series and two ideas of distance
+    build the ingredients       2  compatible weights on a probe
+                               3  integer-valued functions have a basis
+                               4  products and direct sums exchange roles
+    state the rule              5  unique extension from points to measures
+    follow two consequences     6  why the usual real line disappears
+                               7  completed tensor products
+    return to topology          8  solidification recovers homology
 ```
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/00.html)** to distribute weights through a probe and check that every refinement preserves the total above it.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/00.html)** by distributing weights through several stages and checking that every stage has the same total.
 
-## 1 · Sums with nowhere to land
+## 1 · One series, two ideas of distance
 
-Part one repaired kernels and cokernels, but it did not define infinite addition. Consider the series obtained by adding 1, then 2, then 4, then 8, and continuing to double. Its partial sums are 1, 3, 7, 15, 31, and so on. With ordinary distance, these values move farther and farther away, so the series does not converge.
+Consider the series that begins with 1 and then keeps doubling: 1, 2, 4, 8, and so on. Its partial sums are 1, 3, 7, 15, and 31. Under the usual distance, these totals grow without bound, so the series does not converge.
 
-Now use a different measure of size. Fix the number two and declare an integer to be smaller when it is divisible by a larger power of two. Under this rule, 16 is smaller than 4, and 1024 is smaller than 16. This is the 2-adic absolute value, the notion of size carried by the base-two probe from part one.
+Now choose an integer $p$ and use a different measure of size. A number is small when it is divisible by a high power of $p$. For $p=2$, this makes 1024 smaller than 16, and 16 smaller than 4. This rule is the **2-adic absolute value**.
 
-![Partial sums grow without bound in ordinary distance but enter successively smaller nested regions in 2-adic distance](guide/01-sums-with-nowhere-to-land/padic_walk.gif)
+![The same partial sums move away on the usual number line but enter smaller nested regions in 2-adic distance](guide/01-sums-with-nowhere-to-land/padic_walk.gif)
 
-The same partial sums now have a different behaviour. Consecutive gaps are 2, 4, 8, and 16, which become progressively smaller in 2-adic size. The partial sums therefore settle into finer and finer boxes of the base-two probe. The animation places this convergence beside their divergence on the ordinary real line.
+Under 2-adic distance, the gaps between successive partial sums are 2, 4, 8, 16, and so on. Each new gap is smaller than the previous one because it has another factor of two. The partial sums settle into smaller and smaller regions of the base-two probe even while they grow on the usual real line.
 
-![A logarithmic chart shows ordinary error doubling and 2-adic error halving with each added term](guide/01-sums-with-nowhere-to-land/distance.png)
+![A logarithmic chart shows the usual error increasing and the 2-adic error decreasing](guide/01-sums-with-nowhere-to-land/distance.png)
 
-The chart uses exact arithmetic from this repository. The ordinary distance from the partial sum to minus one doubles at each step, while its 2-adic distance halves. Thus, in the 2-adic number system, the series converges to minus one. There is no contradiction: convergence depends on the chosen notion of distance, and the ordinary and 2-adic distances are different.
+The calculation uses exact arithmetic. The usual distance from a partial sum to minus one doubles after each term. Its 2-adic distance to minus one is cut in half. The series therefore converges to minus one in the 2-adic integers. It still diverges under the usual distance, and there is no contradiction because the two distances define different notions of convergence.
 
-This example identifies what an infinite sum needs in addition to its terms. It needs a rule that says when partial sums are close and what their limit should be. In other words, infinite addition depends on topology or an equivalent completion rule. Condensed sets already carry topological information inside their responses to probes, so the next task is to express summation through those responses rather than by adding an external topology again.
+This example shows that a list of terms does not determine the value of an infinite sum. We also need a completion rule that says when the partial sums become close and what their limit is. Condensed sets already carry topological information through probes, so we will express this rule using probe data rather than adding a separate topology afterward.
 
 ### The mathematics
 
-The convergence problem that opens [Lecture V, page 33 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=33) can be seen in a geometric series. For an integer base $p\ge2$, the first $n$ terms form a finite sum, and the same algebraic identity gives its limit in the $p$-adic numbers:
+The motivation at the start of [Lecture V, page 33 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=33) can be illustrated by a geometric series. Let $p\ge2$. The sum of the first $n$ terms and its $p$-adic limit satisfy
 
 ```math
 s_n=\sum_{k=0}^{n-1}p^k=\frac{p^n-1}{p-1},
@@ -49,72 +49,72 @@ s_n-\frac{1}{1-p}=\frac{p^n}{p-1},
 s_n\xrightarrow[n\to\infty]{\,p\text{-adic}\,}\frac{1}{1-p}.
 ```
 
-The base-two case gives the example used in the pictures. Its limit is
+For $p=2$, this becomes
 
 ```math
 1+2+4+8+\cdots=-1\quad\text{in }\mathbb Z_2.
 ```
 
-**Reading the symbols.** The integer $p$ is the chosen base and is at least two. The symbol $s_n$ names the running total after $n$ terms. The summation sign adds $p^k$ as the exponent $k$ runs from zero to $n-1$. The fractions are ordinary algebraic rearrangements of that finite sum. The long arrow says that $s_n$ converges as $n$ tends to infinity when distance is measured $p$-adically. The dots mean that the powers continue forever. The symbol $\mathbb Z_2$ means the 2-adic integers, not the ordinary integers.
+**Reading the symbols.** The integer $p$ is the chosen base and is at least two. The symbol $s_n$ means the total after $n$ terms. The summation sign adds $p^k$ while $k$ runs from zero to $n-1$. The fractions are algebraic forms of the same finite sum and its error. The long arrow says that $s_n$ converges as $n$ tends to infinity when distance is measured $p$-adically. The dots mean that the powers continue forever. The symbol $\mathbb Z_2$ means the 2-adic integers.
 
-**Why it matters.** The error is a multiple of $p^n$, so its $p$-adic size is $p^{-n}$ and tends to zero. Its ordinary size grows instead. The terms alone therefore do not determine convergence; the chosen completion does.
+**Why it matters.** The error contains a factor $p^n$, so its $p$-adic size is $p^{-n}$ and approaches zero. Its usual size increases instead. The chosen completion, not just the terms, determines whether the series converges.
 
-**In the simulation.** The base control chooses $p$, and the terms control chooses $n$. The ordinary panel shows $s_n$ growing. The nested panel shows the $p$-adic error shrinking toward $1/(1-p)$, which equals minus one when $p=2$.
+**In the simulation.** The base control chooses $p$, and the term control chooses $n$. One panel shows $s_n$ growing under ordinary distance. The nested panel shows its $p$-adic error shrinking toward $1/(1-p)$, which is minus one when $p=2$.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/01.html)** to change the base and compare the ordinary and base-p distances of the same partial sums.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/01.html)** to change the base and compare both distances for the same partial sums.
 
-## 2 · Weights that agree
+## 2 · Compatible weights on a probe
 
-A weighting turns the opening animation into a definition. Begin with one integer on the coarsest box of a probe. When that box is refined, assign integers to its smaller boxes whose sum equals the original integer. Continue at every level. The resulting family is compatible because the weight of any box always equals the sum of all weights immediately below it.
+A measure on a probe is built from finite lists of integer weights. Begin with one weight on the first stage. Whenever a box is divided, give integer weights to its children whose sum is the parent's weight. Continue through every stage. The weight on any box must always equal the total weight of the finer boxes inside it.
 
-![Coarse and fine bar charts represent the same function and display an equal weighted total](guide/02-weights-that-agree/integral.png)
+![Coarse and fine bars show the same function and produce the same weighted total](guide/02-weights-that-agree/integral.png)
 
-This compatibility makes integration independent of the chosen level. A continuous integer-valued function on a probe is constant on the boxes of some finite stage. Multiply each of those values by its box's weight and add the finite list. If the stage is refined, the function value is repeated on the smaller boxes and their weights add back to the old weight, so the answer stays the same. The figure compares these two calculations, and the tests verify their agreement for both the halving and base-p probes.
+This rule makes integration independent of the stage. A continuous integer-valued function on a compact probe is constant on the boxes of some finite stage. To integrate it, multiply each value by the weight of its box and add the finite list. At a finer stage, the function value repeats on the child boxes and their weights add back to the parent weight. The total therefore stays unchanged.
 
-The lectures call the group of all such weightings the free solid group on the probe. They define it as an inverse limit of finite groups, with one copy of the integers for every box and with refinement maps that add weights back together ([Definition 5.1, page 33](https://arxiv.org/pdf/2605.03658v1#page=33)). An element of this inverse limit is also called a measure because it assigns a compatible integer size to every box.
+The lectures define the **free solid abelian group** on a probe as the group of all these compatible weightings ([Definition 5.1, page 33](https://arxiv.org/pdf/2605.03658v1#page=33)). It is an inverse limit of finite groups, one integer coordinate for every box at every stage. The word *measure* is appropriate because each element gives a compatible integer size to every box.
 
-The simplest example concentrates one unit at a single point. Follow the branch leading to that point, place weight one on its box at every stage, and place zero on all other boxes. This is a Dirac measure. The code constructs these point measures, checks their compatibility, and uses them as the point-level data that more general weightings must extend.
+A simple example puts one unit of weight at one point. Follow the branch leading to that point. Put weight one on its box at each stage and zero on every other box. This is a **Dirac measure**. More general measures spread positive and negative integer weights across many branches.
 
-The important simplification is that each stage contains only finite data. A weighting may involve infinitely many levels, but each level is just a finite list of integers, and compatibility is checked by finite addition. The next two sections study the functions being integrated and use their algebraic structure to classify all weightings.
+Each visible stage still contains only finite data. The infinite part is the requirement that all these finite lists agree. The next two chapters study the functions we integrate and describe the full group of compatible measures.
 
 ### The mathematics
 
-Let the profinite probe be $S=\varprojlim_i S_i$. [Definition 5.1, page 33 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=33) defines its free solid abelian group by
+Let $S=\varprojlim_i S_i$ be a profinite probe. [Definition 5.1, page 33 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=33) defines its free solid abelian group by
 
 ```math
 \mathbb Z[S]^{\blacksquare}:=\varprojlim_i\mathbb Z[S_i]
 \cong \operatorname{Hom}(C(S,\mathbb Z),\mathbb Z).
 ```
 
-A compatible weighting is a family $\mu=(\mu_i)_i$. For every coarse box $a\in S_i$, it obeys
+A compatible weighting is a family $\mu=(\mu_i)_i$. For every box $a\in S_i$, it satisfies
 
 ```math
 \mu_i(a)=\sum_{b\in S_{i+1}:\,\pi_{i+1,i}(b)=a}\mu_{i+1}(b).
 ```
 
-**Reading the symbols.** The probe $S$ is the inverse limit of finite stages $S_i$. The group $\mathbb Z[S_i]$ consists of finite integer weights on the boxes at stage $i$. The black square marks solid completion, and $\varprojlim$ keeps exactly the families that agree between stages. The notation $\operatorname{Hom}$ means additive maps, while $C(S,\mathbb Z)$ means continuous integer-valued functions on $S$. The weighting $\mu$ has one finite-stage list $\mu_i$ at each level. The symbol $a\in S_i$ means that $a$ is a coarse box. The sum runs over every finer box $b$ whose parent under $\pi_{i+1,i}$ is $a$.
+**Reading the symbols.** The probe $S$ is the inverse limit of its finite stages $S_i$. The group $\mathbb Z[S_i]$ contains finite integer weights on the boxes at stage $i$. The black square marks solid completion. The inverse limit $\varprojlim$ keeps the families that agree at every stage. The notation $\operatorname{Hom}$ means additive maps, and $C(S,\mathbb Z)$ means continuous integer-valued functions on $S$. The measure $\mu$ has one list $\mu_i$ at each stage. The expression $a\in S_i$ says that $a$ is a box at stage $i$. The sum includes every child box $b$ whose parent under $\pi_{i+1,i}$ is $a$.
 
-**Why it matters.** The compatibility equation is what makes integration independent of the stage. Refining a box repeats the function value, while the weights below add back to the old weight.
+**Why it matters.** The compatibility equation guarantees that refining a stage does not change an integral. The function value repeats on the children, and their weights add up to the old weight.
 
-**In the simulation.** Each slider changes the entries $\mu_{i+1}(b)$. The number shown on the parent is their sum. The assignment is accepted exactly when this equals $\mu_i(a)$ for every visible box.
+**In the simulation.** Each slider changes one child weight $\mu_{i+1}(b)$. The number on the parent is their sum. A weighting is accepted only when that sum equals $\mu_i(a)$ for every displayed parent.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/02.html)** to split weights across finer boxes and see which assignments satisfy the compatibility rule.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/02.html)** to split weights among child boxes and test the compatibility rule.
 
-## 3 · Every function is a stack of steps
+## 3 · A basis for integer-valued functions
 
-We first examine continuous functions from a probe to the integers. Since distinct integers are separated from one another, continuity prevents such a function from changing indefinitely inside smaller and smaller nearby regions. On a compact probe, it becomes constant on every box of some finite stage. The function can therefore be read as a finite list of integer values.
+We next study continuous functions from a probe to the integers. Different integers are separated from one another. Because the probe is compact, a continuous integer-valued function must become constant on every box at some finite stage. We can then read it as a finite list of integers.
 
-![Indicator functions fill one box at a time until their integer combination matches the target function](guide/03-stacks-of-steps/steps.gif)
+![Indicator functions are added one box at a time until they reproduce the chosen integer-valued function](guide/03-stacks-of-steps/steps.gif)
 
-At one finite stage, the basic step functions are easy to see. For each box, use the function that equals one on that box and zero elsewhere. Multiplying these indicators by integers and adding them reconstructs any function on the stage. The animation performs this reconstruction one basis element at a time, without introducing fractions.
+At one finite stage, define one **indicator function** for each box. It equals one on that box and zero on all the others. Multiplying these functions by integers and adding them reproduces any integer-valued function on the stage. The animation builds the chosen function in this way.
 
-The deeper statement concerns all stages at once. Under addition, the continuous integer-valued functions on a probe form an abelian group. Nöbeling's theorem says that this group is free: there is a collection of basis functions such that every continuous integer-valued function has one unique expression as a finite integer combination of them. Freeness is special because a general abelian group need not have any basis of this kind.
+The stronger statement covers all stages at once. The continuous integer-valued functions on a complete profinite probe form an abelian group under addition. Nöbeling's theorem says that this group is free. In other words, it has a basis such that every function has one unique expression using finitely many basis functions and integer coefficients.
 
-![Paired bars show equal counts for finite-stage boxes and the basis elements constructed from them](guide/03-stacks-of-steps/basis_size.png)
+![For each tested finite stage, the number of constructed basis elements equals the number of boxes](guide/03-stacks-of-steps/basis_size.png)
 
-The theorem is due to Nöbeling, extending work of Specker, and the lectures present Bergman's proof ([Theorem 5.4, page 34](https://arxiv.org/pdf/2605.03658v1#page=34)). The implementation in this repository follows the finite stages of that construction. It orders products of indicator functions, retains a function when earlier choices do not already generate it, and checks that the retained functions form a basis. The chart confirms that the basis size matches the number of boxes at each tested stage.
+Nöbeling extended earlier work by Specker, and the lectures present a proof due to Bergman ([Theorem 5.4, page 34](https://arxiv.org/pdf/2605.03658v1#page=34)). The code follows the construction at finite stages. It keeps a new indicator product only when the functions already selected cannot generate it. The tests then verify that the selected functions form a basis.
 
-This finite calculation does not prove Nöbeling's theorem. At a fixed finite stage, the group is automatically free, while the theorem's real content is that a compatible basis exists for the full infinite object. The repository therefore labels its calculation as a finite shadow and quotes the infinite theorem from the lectures.
+This finite calculation is only an illustration. Every group of functions on one finite set is automatically free. Nöbeling's theorem says something deeper: the full group of continuous functions on the infinite probe is also free. We quote that theorem from the lectures rather than claiming that a finite test proves it.
 
 ### The mathematics
 
@@ -124,7 +124,7 @@ This finite calculation does not prove Nöbeling's theorem. At a fixed finite st
 C(S,\mathbb Z)\cong\bigoplus_{e\in E}\mathbb Z e.
 ```
 
-This freeness gives every $f\in C(S,\mathbb Z)$ one finite expression. Explicitly,
+Thus every $f\in C(S,\mathbb Z)$ has one finite expression. The display below records the basis elements and coefficients used for that function:
 
 ```math
 f=\sum_{e\in F}n_e e,
@@ -132,37 +132,33 @@ f=\sum_{e\in F}n_e e,
 \qquad n_e\in\mathbb Z.
 ```
 
-**Reading the symbols.** The group $C(S,\mathbb Z)$ contains the continuous integer-valued functions on the probe $S$. The set $E$ is a basis of step functions. The direct-sum symbol $\bigoplus$ says that each function uses only finitely many basis elements. The expression $\mathbb Z e$ means all integer multiples of the basis element $e$. The letter $f$ names one continuous function, $F$ is the finite subset of basis elements used for it, and $n_e$ is the integer coefficient attached to $e$. The membership sign $\in$ means “belongs to,” and $\subset$ means “is a subset of.”
+**Reading the symbols.** The group $C(S,\mathbb Z)$ contains the continuous integer-valued functions on $S$. The set $E$ is a basis. The direct sum $\bigoplus$ means that each function uses only finitely many basis elements. The expression $\mathbb Z e$ means all integer multiples of $e$. The letter $f$ names one function. The finite subset $F$ lists the basis functions used to build it, and $n_e$ is the integer coefficient of $e$. The symbol $\in$ means “belongs to,” and $\subset$ means “is a subset of.”
 
-**Why it matters.** Freeness for the full infinite probe is the theorem's content. It lets an integer-valued measure be described by choosing its value independently on every basis function, which leads to the product description in the next chapter.
+**Why it matters.** A measure can be viewed as an additive map from $C(S,\mathbb Z)$ to $\mathbb Z$. Once this function group has a basis, such a map is determined by an independent integer value on each basis element. This gives the product description in the next chapter.
 
-**In the simulation.** The target control chooses $f$ at one finite stage. The switches used control enlarges $F$. Each filled bar is one coefficient $n_e e$, and the reconstruction is complete when their finite sum equals $f$ on every box. This finite activity illustrates the construction but does not prove the infinite theorem.
+**In the simulation.** The target control chooses a function $f$ on one finite stage. Adding basis functions enlarges $F$. Each filled bar shows a term $n_e e$. The reconstruction is complete when their sum equals $f$ on every box. This demonstrates the finite case only.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/03.html)** to choose an integer-valued function and watch the basis functions rebuild it.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/03.html)** to rebuild an integer-valued function from indicator functions.
 
-## 4 · Products in, sums out
+## 4 · Products and direct sums
 
-Nöbeling's theorem lets us describe weightings by comparing two ways to store an infinite family of integers. A **product** is an unlimited row of integer dials. Every dial can be set independently, and infinitely many of them may be nonzero. A **direct sum** uses the same row but allows only finitely many nonzero dials in any one element. This finite-support condition creates an important duality between the two constructions.
+There are two common ways to store a family of integers. A **product** allows an integer in every coordinate, with no limit on how many are nonzero. A **direct sum** uses the same coordinates but requires each element to have only finitely many nonzero entries.
 
-![A product allows nonzero entries across an unlimited row, while a direct sum has only finitely many nonzero entries](guide/04-products-in-sums-out/product_sum.png)
+![An infinite product allows nonzero values everywhere, while a direct sum allows only finitely many nonzero values](guide/04-products-in-sums-out/product_sum.png)
 
-A homomorphism from a product to the integers cannot depend on infinitely many dials. Although one might try to assign a coefficient to every position, Specker's theorem says that every additive map reads only finitely many coordinates. Therefore, the collection of homomorphisms from a product is a direct sum of copies of the integers.
+Specker's theorem says that an additive map from a countable product of integers to the integers can depend on only finitely many coordinates. Therefore, all such maps form a direct sum of copies of the integers.
 
-![A homomorphism reads a finite initial group of coordinates and ignores all later coordinates in the product](guide/04-products-in-sums-out/finite_reach.gif)
+![A homomorphism reads only a finite group of coordinates and ignores the rest of the product](guide/04-products-in-sums-out/finite_reach.gif)
 
-The underlying obstruction comes from divisibility. Data placed sufficiently far along the row can be arranged to be divisible by arbitrarily high powers of an integer. Any output that respects all those divisions would have to be divisible by every such power, and the only integer with that property is zero. Specker's proof makes this argument precise; the theorem is quoted here rather than reproduced.
+The proof uses divisibility. Far enough along the product, one can arrange data divisible by increasingly high powers of an integer. Any output that respected all those divisibility relations would have to be divisible by every power. The only integer with that property is zero. The full proof is quoted rather than reproduced here.
 
-A homomorphism from a direct sum behaves in the opposite way. Because each input has finite support, one may choose an independent integer coefficient for every dial without creating an infinite numerical sum. The collection of homomorphisms from a direct sum is therefore a product.
+Maps from a direct sum behave in the opposite way. Each input has finite support, so we may choose one coefficient for every coordinate without ever evaluating an infinite numerical sum. The group of maps from a direct sum to the integers is therefore a product.
 
-This applies directly to measures. By Nöbeling's theorem, the continuous integer-valued functions on a probe form a free group, so they are a direct sum of copies of the integers indexed by a basis. A weighting is exactly an integer-valued homomorphism on this function group, obtained by integration. Taking the homomorphisms turns that direct sum into a product:
-
-> Every collection of weightings on a probe is an endless product of copies of the whole numbers.
-
-This is Corollary 5.5 of the lectures ([page 34](https://arxiv.org/pdf/2605.03658v1#page=34)). The branching pattern of the probe determines the indexing set, but once a basis is chosen, every weighting is represented by an unrestricted row of integer coordinates. These products will become the basic projective building blocks of solid groups.
+Nöbeling's theorem says that $C(S,\mathbb Z)$ is a direct sum indexed by a basis. A measure is an integer-valued homomorphism on this group. Taking all such homomorphisms changes the direct sum into a product. This is [Corollary 5.5, page 34](https://arxiv.org/pdf/2605.03658v1#page=34): the free solid group on a probe is a product of copies of the integers. These products will serve as the basic projective objects in the category of solid groups.
 
 ### The mathematics
 
-Products and direct sums exchange roles under integer duality. Specker's theorem and [Corollary 5.5, page 34 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=34) give the two descriptions
+Specker's theorem describes maps from a product to the integers. Together with [Corollary 5.5, page 34 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=34), it gives
 
 ```math
 \operatorname{Hom}_{\mathrm{Ab}}\!\left(
@@ -174,43 +170,37 @@ Products and direct sums exchange roles under integer duality. Specker's theorem
 \cong\prod_{i\in I}\mathbb Z.
 ```
 
-The index set depends on the probe $S$. Consequently, for some such set $I$,
+The basis, and therefore its index set, depends on the probe. For the resulting index set $I$, we obtain
 
 ```math
 \mathbb Z[S]^{\blacksquare}\cong\prod_{i\in I}\mathbb Z.
 ```
 
-**Reading the symbols.** The notation $\operatorname{Hom}_{\mathrm{Ab}}$ means additive maps of ordinary abelian groups. The first product has one coordinate for each natural number $n\in\mathbb N$. The more general index set in the second formula is $I$. A product $\prod$ allows an integer in every coordinate, including infinitely many nonzero entries. A direct sum $\bigoplus$ allows only finitely many nonzero entries. Specker's theorem is the first isomorphism: an integer-valued homomorphism on a countable product reads only finitely many coordinates. The second isomorphism says that a homomorphism on a direct sum may choose one coefficient for every coordinate. The black square on $\mathbb Z[S]^{\blacksquare}$ marks the free solid group on $S$. The next displayed isomorphism follows by applying the second duality to Nöbeling's basis of $C(S,\mathbb Z)$.
+**Reading the symbols.** The notation $\operatorname{Hom}_{\mathrm{Ab}}$ means additive maps of abelian groups. The first product has one coordinate for each natural number $n\in\mathbb N$. The letter $I$ is a general index set. A product $\prod$ permits infinitely many nonzero coordinates. A direct sum $\bigoplus$ permits only finitely many. The first isomorphism says that a homomorphism from a countable product to $\mathbb Z$ reads only finitely many coordinates. The second says that a homomorphism from a direct sum may choose one coefficient for every coordinate. The black square on $\mathbb Z[S]^{\blacksquare}$ marks the free solid group on $S$.
 
-**Why it matters.** Nöbeling makes $C(S,\mathbb Z)$ a direct sum of copies of $\mathbb Z$. Taking its integer dual changes that direct sum into the product displayed above. Products of integer groups are therefore the basic free objects of solid mathematics.
+**Why it matters.** Nöbeling's theorem writes the function group as a direct sum. Taking its integer dual turns that direct sum into the product shown above. Products of integer groups are therefore the basic free objects for solid mathematics.
 
-**In the simulation.** The reach control chooses the finite set of coordinates used by one homomorphism in Specker's formula. Moving a coordinate outside that set leaves the output unchanged. The endless row represents the countable product, while the finite reach represents its direct-sum dual.
+**In the simulation.** The reach control chooses the finite set of coordinates read by one homomorphism. Changing a coordinate inside that set can change the output. Changing one outside it cannot. The finite model illustrates Specker's conclusion but does not prove the infinite theorem.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/04.html)** to compare products with direct sums and test how many coordinates an integer-valued homomorphism can use.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/04.html)** to change coordinates inside and outside a homomorphism's finite range.
 
-## 5 · The solid rule
+## 5 · The unique-extension rule
 
-We can now define the property that gives this part its name. The definition uses the compatible weightings from section 2 and asks whether point-level data determine how every such weighting should be integrated.
+We can now define a **solid abelian group**. Start with a map from the points of a probe into a condensed group. Each point gives a Dirac measure, but the probe also has general compatible integer measures. The group is solid when every point map extends in exactly one way to all these measures.
 
-A condensed abelian group is **solid** when any map from the points of a probe into the group extends uniquely to the free solid group of weightings on that probe. Informally, once the values of individual points are known, there must be exactly one compatible way to assign a value to every integer weighting.
+![Values assigned to probe points extend to one map on every compatible measure](guide/05-the-solid-rule/extension.gif)
 
-![A map from probe points into a group extends to a single map defined on all compatible weightings](guide/05-the-solid-rule/extension.gif)
+Existence means that every compatible measure can be integrated in the group. Uniqueness means that the values on points cannot lead to two different results. Together, these requirements make summation part of the group's structure rather than an extra choice for each infinite expression.
 
-The two parts of "extends uniquely" serve different purposes. Existence ensures that every weighting described by the probe can be integrated in the group. Uniqueness ensures that the point values do not lead to two conflicting answers. Together, they make the summation rule part of the group's structure rather than an extra choice made for each series.
+The lectures give the definition in [Definition 5.1, page 33](https://arxiv.org/pdf/2605.03658v1#page=33). They then prove that solid groups form an abelian category closed under limits, colimits, and extensions. Products of copies of $\mathbb Z$ are compact projective generators. In addition, every condensed abelian group has a **solidification**, which is the universal map from that group into the solid setting. These facts come from [Theorem 5.8, page 35](https://arxiv.org/pdf/2605.03658v1#page=35) and [Corollary 6.1, page 42](https://arxiv.org/pdf/2605.03658v1#page=42).
 
-The lectures give this definition in one line ([Definition 5.1, page 33](https://arxiv.org/pdf/2605.03658v1#page=33)) and then establish the structure of the resulting category. The main conclusions needed here can be summarized as follows:
+![Sample groups are marked according to whether point maps extend uniquely to compatible measures](guide/05-the-solid-rule/solid_or_not.png)
 
-> Solid groups form an abelian category closed under limits, colimits, and extensions. Products of copies of the integers are compact projective generators, and every condensed group has a universal solidification.
-
-This statement combines Theorem 5.8 ([page 35](https://arxiv.org/pdf/2605.03658v1#page=35)) with Corollary 6.1 ([page 42](https://arxiv.org/pdf/2605.03658v1#page=42)). The word **universal** means that the map to the solidification factors uniquely through every other map from the original group to a solid group. Compact projective generators are equally practical: maps from the products in section 4 detect objects and help build the rest of the solid category.
-
-![Six sample groups are shown with a pass or fail result for the unique-extension condition](guide/05-the-solid-rule/solid_or_not.png)
-
-The figure classifies several recurring examples. The integers are solid, as is every product of copies of the integers. The p-adic integers and formal power-series groups are also solid. The usual real numbers are not solid under this integer-based rule, and understanding that failure will prepare us for the different rule introduced in part three.
+The integers are solid, as is every product of copies of the integers. The $p$-adic integers and formal power-series groups are also solid. A direct sum of infinitely many integer groups is not solid because it does not contain every needed infinite coordinate family. The usual real numbers also fail this integer-based rule, for a different reason explained next.
 
 ### The mathematics
 
-[Definition 5.1, page 33 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=33) says that a condensed abelian group $A$ is solid exactly when every map from a probe extends uniquely:
+[Definition 5.1, page 33 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=33) says that a condensed abelian group $A$ is solid when every point map extends uniquely:
 
 ```math
 \forall S,\quad
@@ -219,7 +209,7 @@ The figure classifies several recurring examples. The integers are solid, as is 
 \operatorname{Hom}(\mathbb Z[S],A).
 ```
 
-[Theorem 5.8, page 35](https://arxiv.org/pdf/2605.03658v1#page=35) supplies the universal solidification
+[Theorem 5.8, page 35](https://arxiv.org/pdf/2605.03658v1#page=35) provides universal solidification:
 
 ```math
 (-)^{\blacksquare}:\operatorname{Cond}(\mathrm{Ab})\longrightarrow\operatorname{Solid},
@@ -229,79 +219,77 @@ The figure classifies several recurring examples. The integers are solid, as is 
 \operatorname{Hom}_{\operatorname{Cond}(\mathrm{Ab})}(M,A).
 ```
 
-**Reading the symbols.** The phrase $\forall S$ means “for every profinite probe $S$.” The group $\mathbb Z[S]$ is the free condensed group on its points, and the black square gives its free solid completion. The arrow marked $\sim$ is a bijection: restricting a map from all weightings to the point weights loses no choices and creates none. The functor $(-)^{\blacksquare}$ sends any condensed abelian group $M$ to its solidification $M^{\blacksquare}$. The notation $\operatorname{Solid}$ names the category of solid groups, while $\operatorname{Cond}(\mathrm{Ab})$ names condensed abelian groups. The second line is the universal property: maps from the solidification to a solid group $A$ are the same as maps from $M$ itself.
+**Reading the symbols.** The phrase $\forall S$ means “for every profinite probe $S$.” The group $\mathbb Z[S]$ is the free condensed group on the points of $S$, and the black square gives its free solid completion. The arrow marked $\sim$ is a bijection. It says that restricting a map from all compatible measures to the point measures loses no information and introduces no choice. The functor $(-)^{\blacksquare}$ sends a condensed abelian group $M$ to its solidification $M^{\blacksquare}$. The notation $\operatorname{Solid}$ names the category of solid groups, and $\operatorname{Cond}(\mathrm{Ab})$ names condensed abelian groups. The second line is the universal property: maps from $M^{\blacksquare}$ to a solid group $A$ are the same as maps from $M$ to $A$.
 
-**Why it matters.** The first bijection combines existence and uniqueness of integration. The theorem says that solid groups form an abelian category closed under limits, colimits, and extensions, with products of copies of $\mathbb Z$ as compact projective generators.
+**Why it matters.** The first bijection combines the existence and uniqueness of integration. The theorem creates a universal way to turn any condensed group into a solid one and gives the solid category the algebraic closure properties needed later.
 
-**In the simulation.** Selecting a group chooses $A$. A green result means the point map on the right has one extension on the left. A red result marks a failure of existence or uniqueness. The activity illustrates listed examples; the categorical theorem is quoted from the lectures.
+**In the simulation.** Selecting a group chooses $A$. A green result means that every point map in the listed example has one extension. A red result reports a failure of existence or uniqueness. The examples use the cited theorems; the finite activity does not prove those theorems.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/05.html)** to compare sample groups and see which requirement supports each solidity verdict.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/05.html)** to compare familiar groups and read why each one passes or fails the solid rule.
 
-## 6 · Where the real line goes
+## 6 · Why the usual real line disappears
 
-The solidification of the usual real numbers is zero. This is Corollary 6.1 (iii) of the lectures ([Corollary 6.1 (iii), page 42](https://arxiv.org/pdf/2605.03658v1#page=42)). A simple divisibility argument explains why zero is the expected result, although the full theorem requires more than that argument alone.
+Derived solidification sends the usual additive real line to zero ([Corollary 6.1 (iii), page 42](https://arxiv.org/pdf/2605.03658v1#page=42)). A divisibility argument explains the main obstruction, although the full proof needs an additional derived calculation.
 
-![Repeated division remains inside the real numbers but eventually leaves the integers](guide/06-where-the-real-line-goes/divisible.gif)
+![Repeated division stays inside the real numbers but eventually leaves the integers](guide/06-where-the-real-line-goes/divisible.gif)
 
-Every real number can be divided by any positive integer and remain a real number. An abelian group with this property is called **divisible**. The integers do not have it, because an integer such as one cannot be divided by two while staying inside the integers. The animation contrasts these two behaviours.
+Every real number can be divided by any positive integer and remain a real number. A group with this property is called **divisible**. The integers are not divisible because, for example, one divided by two is not an integer.
 
-Now consider a homomorphism from the additive real numbers to one copy of the integers. If a real number is divisible by every positive integer, its image must have the same property because homomorphisms respect addition and division relations. The only integer divisible by every positive integer is zero. Every such homomorphism is therefore zero, and the same coordinate-by-coordinate argument applies to a product of integer groups.
+Consider an additive map from the real numbers to the integers. A real number is divisible by every positive integer, and an additive map preserves those divisibility relations. Its image would have to be an integer divisible by every positive integer. Only zero has that property, so every such map is zero. The same argument works one coordinate at a time for a product of integer groups.
 
-![A map from the divisible real group to each integer coordinate is forced to have value zero](guide/06-where-the-real-line-goes/no_map.png)
+![Every coordinate of a map from the divisible real group into an integer product is forced to be zero](guide/06-where-the-real-line-goes/no_map.png)
 
-This argument shows that the real line maps trivially into the projective building blocks of the solid category. It does not by itself prove that solidification sends the real line to zero. That stronger conclusion also uses the universal-resolution calculation from Lecture IV ([Theorem 4.3, page 25](https://arxiv.org/pdf/2605.03658v1#page=25)), after which the stated vanishing follows.
+This argument proves that the real line maps trivially into the projective building blocks of the solid category. It does not by itself prove that derived solidification sends the real line to zero. The complete result also uses the universal-resolution calculation in [Theorem 4.3, page 25](https://arxiv.org/pdf/2605.03658v1#page=25).
 
-**This does not make the real numbers unimportant.** The solid rule in this part is designed for nonarchimedean notions of size, such as the p-adic size from section 1, where high divisibility means smallness. The ordinary real absolute value behaves differently and requires a different theory of measures. The lectures note this when solidity is introduced ([page 33](https://arxiv.org/pdf/2605.03658v1#page=33)), and part three explains the real-valued replacement.
+The result does not say that real analysis is unimportant. The solid rule in this part is based on integer-valued measures and suits nonarchimedean sizes such as the $p$-adic absolute value. The usual real absolute value behaves differently, as the lectures note when introducing solidity ([page 33](https://arxiv.org/pdf/2605.03658v1#page=33)). Part three introduces a separate real-valued theory of measures.
 
-**The vanishing also has a mathematical use.** Real-valued correction terms disappear from certain condensed calculations instead of creating obstructions. Part one encountered a related result when higher cohomology with real coefficients vanished. The computation in Lecture IV uses this behaviour ([Theorem 4.3, page 25](https://arxiv.org/pdf/2605.03658v1#page=25)), and that computation supports the structure theorem for solid groups.
+The vanishing also has a use. Real-valued correction terms disappear in some condensed calculations instead of creating additional obstructions. Lecture IV uses this fact in the calculation that supports the structure theorem for solid groups.
 
 ### The mathematics
 
-Divisibility is the property used in this chapter. An abelian group $D$ is divisible when
+An abelian group $D$ is divisible if every element can be divided by every positive integer. In symbols, this means
 
 ```math
 \forall x\in D,\ \forall n\ge1,\ \exists y\in D\text{ such that }ny=x.
 ```
 
-Every homomorphism from a divisible group to an integer product is zero:
+Every homomorphism from a divisible group to a product of integer groups is zero:
 
 ```math
 \operatorname{Hom}\!\left(D,\prod_{i\in I}\mathbb Z\right)=0.
 ```
 
-The usual additive real line is divisible. For this group, [Corollary 6.1 (iii), page 42 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=42) gives the stronger derived statement
+The usual additive real line is divisible, but the lectures prove a stronger result than the homomorphism calculation alone. [Corollary 6.1 (iii), page 42 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=42) gives
 
 ```math
 \mathbb R^{L\blacksquare}=0.
 ```
 
-**Reading the symbols.** The letter $D$ names an abelian group. The symbols $\forall$ and $\exists$ mean “for every” and “there exists.” The relation $x\in D$ says that $x$ belongs to $D$, and $n\ge1$ chooses any positive integer. The equation $ny=x$ means that adding $y$ to itself $n$ times gives $x$. The product sign denotes an arbitrary row of integer groups indexed by $I$. The equation $\operatorname{Hom}=0$ says that every additive map to that product is the zero map. The superscript $L\blacksquare$ means derived solidification, and its value $0$ is the zero object.
+**Reading the symbols.** The letter $D$ names an abelian group. The symbols $\forall$ and $\exists$ mean “for every” and “there exists.” The relation $x\in D$ says that $x$ belongs to $D$, while $n\ge1$ chooses any positive integer. The equation $ny=x$ means that adding $y$ to itself $n$ times gives $x$. The product has one integer group for each label in $I$. The equation $\operatorname{Hom}=0$ means that every additive map to this product is the zero map. The superscript $L\blacksquare$ means derived solidification, and the final $0$ is the zero object.
 
-**Why it matters.** The divisibility argument proves that the reals map trivially to every compact projective building block of the solid category. The full vanishing $\mathbb R^{L\blacksquare}=0$ also uses [Theorem 4.3, page 25](https://arxiv.org/pdf/2605.03658v1#page=25), so the simulation is an explanation of the obstruction rather than a proof of the corollary.
+**Why it matters.** Divisibility explains why the reals have no nonzero map to the compact projective generators of solid groups. The stronger equation $\mathbb R^{L\blacksquare}=0$ also relies on [Theorem 4.3, page 25](https://arxiv.org/pdf/2605.03658v1#page=25), so the arithmetic argument explains the obstruction without claiming to prove the corollary.
 
-**In the simulation.** The group selector chooses $D$, and the divisions control chooses values of $n$. The real line always supplies a $y=x/n$, while the integers eventually cannot. The final readout shows the consequence for maps into one product coordinate.
+**In the simulation.** Choose a group $D$ and increase the divisor $n$. The real line always contains $y=x/n$, while the integers eventually do not. The final readout shows what this implies for a map into one integer coordinate.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/06.html)** to divide elements repeatedly and compare divisible groups with the integers.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/06.html)** to compare repeated division in the reals, integers, and $p$-adic examples.
 
-## 7 · The multiplication table
+## 7 · Completed tensor products
 
-The category of solid groups has a product operation called the **completed tensor product**. It combines two solid groups into a third group that represents additive operations depending on one input from each side. The examples below show that this product remembers which completion, or adic topology, each group carries.
+Solid groups have a product operation called the **completed tensor product**. It combines two solid groups while keeping track of the completion carried by each one. The resulting group represents additive operations that depend on one input from each side.
 
-![A table lists completed tensor products for p-adic groups, power-series groups, integers, and reals](guide/07-the-multiplication-table/tensor_table.png)
+![A table gives completed tensor products of integer, p-adic, power-series, and real groups](guide/07-the-multiplication-table/tensor_table.png)
 
-Read the grid by choosing one label from its row and one from its column. The 2-adic integers tensored with the 3-adic integers give zero, while the 2-adic integers tensored with themselves return the 2-adic integers. Combining the 2-adic integers with the real numbers also gives zero, consistent with section 6. Combining power series in one variable with power series in another produces power series in both variables.
+Choose one group from a row and another from a column. The 2-adic integers tensored with the 3-adic integers give zero. The 2-adic integers tensored with themselves give the 2-adic integers again. Tensoring the 2-adic integers with the real numbers also gives zero, in agreement with chapter 6. Two one-variable power-series groups combine into a two-variable power-series group.
 
-![Nested scales based on powers of two and powers of three are compared without a common completion direction](guide/07-the-multiplication-table/rulers.gif)
+![Scales formed from powers of two and powers of three do not share a common direction of completion](guide/07-the-multiplication-table/rulers.gif)
 
-The animation gives an intuition for the mixed 2-adic and 3-adic entry. The 2-adic completion is organized by divisibility by powers of two, while the 3-adic completion is organized by powers of three. In the 2-adic setting, three is invertible and does not produce a finer scale; in the 3-adic setting, the same is true of two. The two scales are therefore incompatible. The picture illustrates the exact vanishing stated in the table, but does not prove it.
+The mixed 2-adic and 3-adic case can be understood through their scales. The 2-adic completion uses divisibility by powers of two. In that setting, three is invertible and does not define a finer scale. The 3-adic completion reverses these roles. The two completion directions are incompatible. The picture illustrates the vanishing in [Example 6.4, page 44](https://arxiv.org/pdf/2605.03658v1#page=44), but it is not a proof.
 
-The lectures describe the general pattern by saying that the completed tensor product asks which adic topologies the two factors carry and retains the compatible ones ([Example 6.4, page 44](https://arxiv.org/pdf/2605.03658v1#page=44)). Matching completions reinforce one another, while incompatible completions can give zero. The table is a set of precise instances of that rule.
-
-The power-series entry can also be understood through the coordinates from section 4. A one-variable power series has one coefficient for each nonnegative power of its variable. Combining two such products gives coordinates indexed by pairs of powers ([Proposition 6.3, page 43](https://arxiv.org/pdf/2605.03658v1#page=43)). A pair of powers is exactly a monomial in two variables, so the resulting coordinate system is the group of two-variable power series. The repository tests this indexing argument; the remaining table entries are quoted from the lectures.
+For power series, a series in $U$ has one coordinate for every nonnegative power of $U$, and a series in $T$ has one for every nonnegative power of $T$. Pairing the coordinate sets gives one coordinate for every pair of powers. Such a pair is a monomial in $U$ and $T$, so the result is a two-variable power series ([Proposition 6.3, page 43](https://arxiv.org/pdf/2605.03658v1#page=43)). The repository tests this indexing calculation. The other displayed identities are quoted from the lectures.
 
 ### The mathematics
 
-[Proposition 6.3, page 43 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=43) states that completed tensor product multiplies the coordinate sets of integer products:
+[Proposition 6.3, page 43 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=43) states that the completed tensor product multiplies the coordinate sets of integer products:
 
 ```math
 \left(\prod_{i\in I}\mathbb Z\right)\otimes^{L}_{\blacksquare}
@@ -310,7 +298,7 @@ The power-series entry can also be understood through the coordinates from secti
 \prod_{(i,j)\in I\times J}\mathbb Z.
 ```
 
-[Example 6.4, page 44](https://arxiv.org/pdf/2605.03658v1#page=44) lists the concrete identities for distinct primes $p\neq\ell$:
+The result depends on whether the completion directions agree. For distinct primes $p\neq\ell$, [Example 6.4, page 44](https://arxiv.org/pdf/2605.03658v1#page=44) gives
 
 ```math
 \mathbb Z_p\otimes^{L}_{\blacksquare}\mathbb R=0,
@@ -327,29 +315,29 @@ The power-series entry can also be understood through the coordinates from secti
 \cong\mathbb Z[[U,T]].
 ```
 
-**Reading the symbols.** The sets $I$ and $J$ index the two rows of integer coordinates, and $I\times J$ is the set of ordered pairs of indices. The product signs allow unrestricted coordinates. The symbol $\otimes^{L}_{\blacksquare}$ is the derived solid tensor product from [Theorem 6.2, page 43](https://arxiv.org/pdf/2605.03658v1#page=43). The groups $\mathbb Z_p$ and $\mathbb Z_\ell$ are the $p$-adic and $\ell$-adic integers for distinct primes. The notation $\mathbb Z[[T]]$ means formal power series in $T$, and $\mathbb Z[[U,T]]$ means formal power series in both variables. The symbol $0$ is the zero object, and $\cong$ means isomorphic.
+**Reading the symbols.** The sets $I$ and $J$ label two families of integer coordinates, and $I\times J$ is the set of ordered pairs of labels. The product signs permit unrestricted coordinates. The symbol $\otimes^{L}_{\blacksquare}$ is the derived solid tensor product from [Theorem 6.2, page 43](https://arxiv.org/pdf/2605.03658v1#page=43). The groups $\mathbb Z_p$ and $\mathbb Z_\ell$ are the $p$-adic and $\ell$-adic integers for different primes. The notation $\mathbb Z[[T]]$ means formal power series in $T$, and $\mathbb Z[[U,T]]$ means formal power series in both variables. The symbol $0$ is the zero object, and $\cong$ means isomorphic.
 
-**Why it matters.** Compatible completion directions survive together, while incompatible prime directions produce zero. Pairing the coefficient indices of a series in $U$ with those of a series in $T$ gives exactly the monomials of a two-variable series.
+**Why it matters.** Compatible completion directions remain together, while incompatible prime directions give zero. For products of integer coordinates, the tensor product pairs every coordinate on one side with every coordinate on the other.
 
-**In the simulation.** The row and column selectors choose the two tensor factors. The highlighted cell reports the corresponding identity. The nested rulers visualize the completion directions, while the readout marks whether an entry is stated directly in Example 6.4 or obtained by the same coordinate rule.
+**In the simulation.** Row and column controls choose the tensor factors. The selected cell displays the corresponding identity. The readout also says whether the lectures state the entry directly or whether it follows by relabelling the coordinate rule.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/07.html)** to select two solid groups and inspect the completion rule behind their tensor product.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/07.html)** to choose two solid groups and inspect their completed tensor product.
 
-## 8 · Solidify a shape, get its holes
+## 8 · Solidification recovers homology
 
-We can now connect the summation rule back to topology. Begin with an ordinary space, such as a circle, sphere, or torus. Form the free condensed abelian group on its points, which allows finite formal integer combinations of those points, and then apply derived solidification.
+We can now return from infinite sums to topology. Begin with a circle, sphere, torus, or another space built from cells. Form the free condensed abelian group on its points, then apply derived solidification.
 
-![A torus rotates in three dimensions beside bars for its homology in degrees zero, one, and two](guide/08-solidify-a-shape/solidify.gif)
+![A torus rotates in three dimensions beside bars for homology in degrees zero, one, and two](guide/08-solidify-a-shape/solidify.gif)
 
-The homology groups of the resulting object are the classical integral homology groups of the original space ([Example 6.5, page 44](https://arxiv.org/pdf/2605.03658v1#page=44)). Thus, the degrees record connected pieces, loops, enclosed surfaces, and higher-dimensional analogues. Torsion information is retained as well, so the result contains more than numerical hole counts.
+The homology groups of the result are the classical integral homology groups of the original space ([Example 6.5, page 44](https://arxiv.org/pdf/2605.03658v1#page=44)). Degree zero records connected components, degree one records loop classes, and degree two can record enclosed surfaces. Higher degrees describe higher-dimensional versions. The result also keeps torsion, which is information about classes killed by multiplication by an integer.
 
-![Free and torsion homology groups are compared for a circle, figure eight, sphere, torus, and Klein bottle](guide/08-solidify-a-shape/homology_bars.png)
+![Free and torsion homology classes are compared for a circle, figure eight, sphere, torus, and Klein bottle](guide/08-solidify-a-shape/homology_bars.png)
 
-The chart is computed from cellular boundary maps using Smith normal form over the integers. A circle has one free class in degree one, and a figure eight has two. A sphere has one class in degree two and none in degree one. A torus has two degree-one classes and one degree-two class. The Klein bottle has one free degree-one class together with a torsion class of order two, which disappears when doubled.
+The chart is computed from cellular boundary maps using Smith normal form over the integers. A circle has one degree-one class, and a figure eight has two. A sphere has one degree-two class and no degree-one class. A torus has two degree-one classes and one degree-two class. A Klein bottle has one free degree-one class and one torsion class of order two. Doubling that torsion class gives zero.
 
-The connection follows the ideas already developed. Part one showed that integral cohomology agrees before and after translating a compact space into condensed mathematics. In this part, solidification is characterized through maps from products of integer groups, while maps out of the free group on a space correspond to integer-valued data on that space. The lectures turn this correspondence into the precise identification with singular homology.
+The theorem connects the ideas from both parts. Part one showed that translating a compact space into condensed mathematics preserves integral cohomology. This part described solidification through maps from products of integers. The lectures combine these facts to identify derived solidification of the free group on a space with singular homology.
 
-This result explains why solidity matters beyond the original convergence problem. The definition mentions compatible infinite sums, not loops or surfaces. Nevertheless, applying its universal completion to the free group of a space recovers established topological invariants. The same framework can therefore handle completion and topology without treating them as unrelated constructions.
+The definition of solidity mentions compatible sums rather than loops or surfaces. Even so, its universal completion recovers a standard topological invariant. Completion and topology therefore fit inside the same framework.
 
 ### The mathematics
 
@@ -359,7 +347,7 @@ For a CW complex $X$, [Example 6.5, page 44 of the lectures](https://arxiv.org/p
 \mathbb Z[X]^{L\blacksquare}\cong H_\bullet(X;\mathbb Z).
 ```
 
-The figure uses three familiar spaces. For these examples, the theorem gives
+We can apply the theorem to several familiar spaces. For the circle, sphere, and torus, it gives
 
 ```math
 H_\bullet(S^1;\mathbb Z)=(\mathbb Z,\mathbb Z),
@@ -369,38 +357,38 @@ H_\bullet(S^2;\mathbb Z)=(\mathbb Z,0,\mathbb Z),
 H_\bullet(T^2;\mathbb Z)=(\mathbb Z,\mathbb Z^2,\mathbb Z).
 ```
 
-**Reading the symbols.** The space $X$ is built from cells. The object $\mathbb Z[X]$ is the free condensed abelian group on its points. The superscript $L\blacksquare$ means derived solidification. The notation $H_\bullet(X;\mathbb Z)$ means all singular homology groups of $X$ with integer coefficients, arranged by degree. The circle and sphere are $S^1$ and $S^2$, and $T^2$ is the two-dimensional torus. Each parenthesized list gives degree zero first, then degree one, then degree two when present. The expression $\mathbb Z^2$ means two independent copies of the integers.
+**Reading the symbols.** The space $X$ is a CW complex, meaning that it is built from cells. The object $\mathbb Z[X]$ is the free condensed abelian group on its points. The superscript $L\blacksquare$ means derived solidification. The notation $H_\bullet(X;\mathbb Z)$ means all singular homology groups of $X$ with integer coefficients, arranged by degree. The symbols $S^1$ and $S^2$ are the circle and sphere, while $T^2$ is the torus. Each list begins with degree zero and then gives the higher degrees in order. The expression $\mathbb Z^2$ means two independent copies of the integers.
 
-**Why it matters.** A completion defined through compatible infinite sums recovers a classical topological invariant. Because the statement is derived, nonzero homology may appear in several degrees, and integer torsion such as the Klein bottle's order-two class is retained.
+**Why it matters.** A completion defined by compatible infinite sums recovers integral homology. Because the construction is derived, groups can appear in several degrees, and it keeps integer torsion such as the order-two class of the Klein bottle.
 
-**In the simulation.** The shape selector chooses $X$. The bars display the groups on the right side degree by degree, and the camera control rotates the three-dimensional models. A brown bar labelled by two represents a $\mathbb Z/2\mathbb Z$ torsion class rather than a free copy of $\mathbb Z$.
+**In the simulation.** The shape control chooses $X$. Bars display the homology groups by degree, and the camera rotates the three-dimensional examples. A brown bar labelled two represents a $\mathbb Z/2\mathbb Z$ torsion class, not two free copies of $\mathbb Z$.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/08.html)** to select a space, rotate the three-dimensional examples, and compare their free and torsion homology classes.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/08.html)** to compare the homology of five spaces and rotate the three-dimensional models.
 
-## Where part two leaves you
+## What part two established
 
-A weighting is a compatible family of finite integer assignments on a probe. A solid group is one in which point-level data extend uniquely to all such weightings, giving a consistent form of infinite summation. Nöbeling's theorem identifies the weightings as products of copies of the integers, and solidification provides a universal way to enter the solid category. Applied to a space, its derived form recovers integral homology.
+A measure on a profinite probe is a compatible family of finite integer weightings. A solid group is a condensed group in which values on points extend uniquely to all such measures. Nöbeling's theorem and integer duality describe the free solid groups as products of copies of the integers. Universal solidification places any condensed group in this setting, and derived solidification of a space recovers its integral homology.
 
-This rule is deliberately nonarchimedean, so it sends the usual real line to zero rather than modelling real analysis. Part three replaces the fixed integer-valued theory with the more general idea of a ring together with its own theory of measures. That extension brings back the real numbers and adds multiplication, which is the step needed to move from groups into geometry.
+This integer-based rule is nonarchimedean. It sends the usual real line to zero, so it cannot be the measure theory for real analysis. Part three allows a ring to carry its own theory of measures. That change brings back the real numbers, adds multiplication, and opens the way to geometry.
 
-**[Part three: Rings That Know How To Integrate](../condensed-math03/ARTICLE.md)**
+**[Part three: Measure Rules for Rings and Geometry](../condensed-math03/ARTICLE.md)**
 
 ## How this part lines up with the lectures
 
 | this guide | in the lectures |
 |---|---|
-| section 1, sums with nowhere to land | the motivation opening Lecture V, page 33 |
-| section 2, weights that agree | Definition 5.1, page 33, the free solid group |
-| section 3, every function is a stack of steps | Theorem 5.4, page 34, Nöbeling's theorem with Bergman's proof |
-| section 4, products in, sums out | Corollary 5.5, page 34, and the biduality inside Proposition 5.7, page 35 |
-| section 5, the solid rule | Definition 5.1, page 33; Theorem 5.8, page 35; Corollary 6.1, page 42 |
-| section 6, where the real line goes | Corollary 6.1 (iii), page 42; Theorem 4.3, page 25; the footnote on page 33 |
-| section 7, the multiplication table | Theorem 6.2 and Proposition 6.3, page 43; Example 6.4, page 44 |
-| section 8, solidify a shape | Example 6.5, page 44 |
+| chapter 1, two distances | the motivation opening Lecture V, page 33 |
+| chapter 2, compatible weights | Definition 5.1, page 33, the free solid group |
+| chapter 3, integer-valued functions | Theorem 5.4, page 34, Nöbeling's theorem and Bergman's proof |
+| chapter 4, products and direct sums | Corollary 5.5, page 34, and the biduality in Proposition 5.7, page 35 |
+| chapter 5, the solid rule | Definition 5.1, page 33; Theorem 5.8, page 35; Corollary 6.1, page 42 |
+| chapter 6, the real line | Corollary 6.1 (iii), page 42; Theorem 4.3, page 25; the footnote on page 33 |
+| chapter 7, completed tensor products | Theorem 6.2 and Proposition 6.3, page 43; Example 6.4, page 44 |
+| chapter 8, homology | Example 6.5, page 44 |
 
 ## Checking it yourself
 
-The following commands rebuild the figures used in this part. They also rerun the finite examples that support the visual explanations.
+You can regenerate the figures and rerun the finite calculations used in this part. Run the following commands from a terminal:
 
 ```
 cd condensed-math
@@ -411,38 +399,39 @@ make figures
 
 For this part, the tests:
 
-- recompute the running totals of the doubling sum in exact arithmetic and confirm the ordinary distance doubles while the base-two distance halves, converging to minus one
-- build weightings on the halving probe and the base-p probe and confirm the agreement rule at every level
-- confirm that integrating a measurement read at a coarse level and at a refined one gives the same total
-- run Bergman's basis construction and confirm the basis size equals the box count at each level
-- check the pairing behind the power series row of the multiplication table: the dials of a two-variable series correspond exactly to pairs of dials of one-variable series
-- confirm the transcribed multiplication table is symmetric and consistent with the nesting rule the lectures describe
-- compute the holes of five shapes from boundary data by Smith normal form over the whole numbers, torsion included, and confirm the Klein bottle's piece of order two
+- calculate the doubling series exactly and compare its usual and 2-adic errors
+- build compatible measures on halving and base-$p$ probes
+- verify that integration gives the same result at coarse and fine stages
+- run Bergman's finite-stage basis construction and compare basis size with box count
+- pair the coordinate sets of one-variable power series and recover the coordinates of a two-variable series
+- check that the recorded tensor-product table is symmetric and follows the stated completion rule
+- compute homology from cellular boundary maps using Smith normal form, including the Klein bottle's order-two class
 
-The infinite and categorical results are quoted rather than established by these tests. They include Nöbeling's theorem, the structural theorem for solid groups, the vanishing of the solidified real line, and the identification of derived solidification with homology. The file `notes/research-content.md` marks each claim as computed, a finite shadow, derived, or quoted.
+The tests do not prove the infinite and categorical theorems. Nöbeling's theorem, the structure theorem for solid groups, the vanishing of the solidified real line, and the identification with homology are quoted from the lectures. The file `notes/research-content.md` labels each claim as computed, a finite illustration, derived, or quoted.
 
 ## Glossary
 
-| this guide's plain phrase | the standard mathematical term |
+| phrase used in this guide | standard mathematical term |
 |---|---|
-| a weighting | a measure on a profinite set, an element of the free solid abelian group |
-| the agreement rule | compatibility in the inverse limit |
-| small when divisible by a high power | the p-adic absolute value |
-| the base-p numbers | the p-adic integers |
-| a row of dials, a product | a product of copies of the integers |
-| a sum | a direct sum of copies of the integers |
-| a question | a group homomorphism to the integers |
-| solid | solid, in the lectures' sense |
-| solidification | the left adjoint to the inclusion of solid groups |
-| the completed tensor product | the solid tensor product |
-| a nesting | an adic topology |
-| divisible | divisible |
-| the holes of a shape | the singular homology groups |
-| a hole you go round twice | a torsion class of order two |
-| the building blocks | the compact projective generators |
+| a compatible weighting | a measure on a profinite set |
+| the rule that child weights add to the parent | compatibility in an inverse limit |
+| small when divisible by a high power of $p$ | the $p$-adic absolute value |
+| the base-$p$ integers | the $p$-adic integers |
+| weight one at one point | a Dirac measure |
+| an unrestricted family of coordinates | a product |
+| a family with finite support | a direct sum |
+| an additive map | a group homomorphism |
+| a group with unique integration of compatible measures | a solid abelian group |
+| the universal passage to a solid group | solidification |
+| the product that keeps completion data | the solid tensor product |
+| a direction of completion | an adic topology |
+| divisible by every positive integer | a divisible group |
+| the topological invariants recovered after solidification | singular homology groups |
+| a class killed by a nonzero integer | a torsion class |
+| the basic product objects | compact projective generators |
 
 ## Further reading
 
-- The lectures: Peter Scholze, "Lectures on Condensed Mathematics", [arXiv:2605.03658](https://arxiv.org/abs/2605.03658), May 2026, joint work with Dustin Clausen. Lectures IV to VI are this part.
-- For section 4: E. Specker, "Additive Gruppen von Folgen ganzer Zahlen" (1950), and G. Nöbeling, "Verallgemeinerung eines Satzes von Herrn E. Specker" (1968), both cited in the lectures for Theorem 5.4.
-- `notes/research-content.md` marks every claim above as computed here or quoted.
+- Peter Scholze, *Lectures on Condensed Mathematics*, [arXiv:2605.03658](https://arxiv.org/abs/2605.03658), May 2026, joint work with Dustin Clausen. Lectures IV to VI are the source for this part.
+- E. Specker, “Additive Gruppen von Folgen ganzer Zahlen” (1950), and G. Nöbeling, “Verallgemeinerung eines Satzes von Herrn E. Specker” (1968), cited by the lectures for Theorem 5.4.
+- `notes/research-content.md`, for a claim-by-claim record of what is computed and what is quoted.

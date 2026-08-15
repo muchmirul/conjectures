@@ -672,7 +672,7 @@ tend.addEventListener('input',draw);limit.addEventListener('input',draw);draw();
      "Set the two pieces to different values and the cut rule is happy, "
      "since nothing connects them. Then move to gluing and make the overlap "
      "disagree: the answers refuse to become one.",
-     picker("rule", "which rule", [("cut", "cut"), ("glue", "glue")]) +
+     picker("rule", "rule", [("cut", "cut"), ("glue", "glue")]) +
      slider("left", "answer on the left piece", 0, 5, 1, 2) +
      slider("right", "answer on the right piece", 0, 5, 1, 4),
      PICKER_JS + r"""
@@ -926,18 +926,18 @@ function draw(){
   }
   if(bad){
     ctx.fillStyle='#d03b3b';ctx.font='12px system-ui';
-    ctx.fillText('no answer sheet exists',390,250);
+    ctx.fillText('the construction stops',390,250);
   }
-  arrow(470,150,580,'points read back',bad);
+  arrow(470,150,580,'recover the topology',bad);
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';
-  ctx.fillText('the space again',650,50);shape(650,150,1,bad);
+  ctx.fillText('the recovered space',650,50);shape(650,150,1,bad);
   const out=document.getElementById('out');
   out.textContent=bad
     ? 'a point of this space is not closed\n'+
-      'such a space never becomes an answer sheet, at any size bound\n'+
-      'the lectures flag exactly this case as the failure'
-    : 'sent out and read back: the same space\n'+
-      'the continuous maps out of it are the same maps too';
+      'A space with a nonclosed point does not define the required condensed set.\n'+
+      'Warning 2.14 identifies this exact failure.'
+    : 'The recovered topology is the original topology.\n'+
+      'The translation also preserves all continuous maps.';
   out.className='readout '+(bad?'verdict-no':'verdict-ok');
 }
 draw();
@@ -953,7 +953,7 @@ draw();
      "Change the turns and watch the counter follow. Then push the wobble as "
      "far as it goes: the path deforms wildly and the count does not move. "
      "Switch to the doughnut and there are two counts to keep.",
-     picker("holes", "which shape", [("ring", "ring"), ("torus", "doughnut")]) +
+     picker("holes", "which shape", [("ring", "circle"), ("torus", "torus")]) +
      slider("turns", "turns the path makes", -3, 3, 1, 2) +
      slider("turns2", "turns the second way, for the doughnut", -3, 3, 1, 1) +
      slider("wob2", "wobble applied to the path", 0, 100, 1, 0),
@@ -996,9 +996,9 @@ function draw(){
     document.getElementById('out').textContent=
       'turns you asked for   '+n1+'\n'+
       'turns measured        '+count+'\n'+
-      'wobble                '+w.toFixed(2)+'\n'+
-      (n1===0?'a loop that goes nowhere counts zero, however it wobbles'
-             :'the count is a whole number and the wobble cannot move it');
+      'deformation           '+w.toFixed(2)+'\n'+
+      (n1===0?'A zero-winding loop still has winding number zero after deformation.'
+             :'The winding number is an integer and deformation does not change it.');
     document.getElementById('out').className='readout '+
       (count===n1?'verdict-ok':'verdict-no');
   }else{
@@ -1158,10 +1158,10 @@ function draw(){
     ctx.fillStyle='#52514e';ctx.font='11px system-ui';ctx.textAlign='left';
     ctx.fillText(String(sums[k]),46+w,52+k*15);
   }
-  // base-p reading: nested boxes closing in
+  // p-adic reading: nested boxes closing in
   const y0=250;
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('the base-'+p+' size: the totals close in',40,y0-16);
+  ctx.fillText(p+'-adic distance: the totals approach a limit',40,y0-16);
   let x=40,w=620;
   for(let k=0;k<n;k++){
     ctx.strokeStyle='#00787a';ctx.lineWidth=1.6;
@@ -1172,7 +1172,7 @@ function draw(){
   }
   ctx.fillStyle='#008300';ctx.beginPath();ctx.arc(x+w/2,y0+60,6,0,7);ctx.fill();
   ctx.fillStyle='#008300';ctx.font='12px system-ui';ctx.textAlign='center';
-  ctx.fillText('the value the totals reach: '+lim.toFixed(4),x+w/2,y0+92);
+  ctx.fillText('p-adic limit: '+lim.toFixed(4),x+w/2,y0+92);
   const ordDist=Math.abs(sums[n-1]-lim);
   const padic=Math.pow(p,-n);
   basev.textContent=String(p);termsv.textContent=String(n);
@@ -1180,8 +1180,9 @@ function draw(){
     'terms added                '+n+'\n'+
     'last running total         '+sums[n-1]+'\n'+
     'ordinary distance to the value  '+ordDist.toFixed(1)+'\n'+
-    'base-'+p+' distance to the value    '+padic.toExponential(3)+'\n'+
-    'one climbs by a factor of '+p+', the other falls by a factor of '+p;
+    p+'-adic distance to the limit    '+padic.toExponential(3)+'\n'+
+    'The ordinary error grows by a factor of '+p+
+    ', while the p-adic error shrinks by a factor of '+p+'.';
   document.getElementById('out').className='readout verdict-ok';
 }
 base.addEventListener('input',draw);terms.addEventListener('input',draw);draw();
@@ -1345,10 +1346,10 @@ function draw(){
   ctx.strokeStyle='#2a78d6';ctx.setLineDash([5,4]);ctx.lineWidth=1.6;
   ctx.strokeRect(x0-4,50,R*seg,46);ctx.setLineDash([]);
   ctx.fillStyle='#2a78d6';ctx.font='12px system-ui';ctx.textAlign='left';
-  ctx.fillText('what the question can reach',x0-4,116);
+  ctx.fillText('coordinates read by the homomorphism',x0-4,116);
   // the divisibility argument, drawn as a shrinking bar
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';
-  ctx.fillText('why no question reaches the whole row',20,168);
+  ctx.fillText('why the map cannot read infinitely many coordinates',20,168);
   for(let k=0;k<8;k++){
     const w=560/Math.pow(2,k);
     ctx.fillStyle='rgba(74,58,167,'+(0.85-0.09*k)+')';
@@ -1358,16 +1359,16 @@ function draw(){
     ctx.fillText('divisible by 2^'+(k+1),612,196+k*17);
   }
   ctx.fillStyle='#d03b3b';ctx.font='12px system-ui';ctx.textAlign='left';
-  ctx.fillText('an answer divisible by every power must be zero',44,342);
-  reachv.textContent=String(R);pokev.textContent='dial '+P;
+  ctx.fillText('An integer divisible by every power of two must be zero.',44,342);
+  reachv.textContent=String(R);pokev.textContent='coordinate '+P;
   const seen=(P<=R);
   const out=document.getElementById('out');
   out.textContent=
-    'the question reaches   dial 1 to '+R+'\n'+
-    'you set                dial '+P+'\n'+
-    'the answer             '+(seen?'moves':'does not move')+'\n'+
-    (seen?'that dial is inside the reach'
-         :'that dial is past the reach, so the question cannot see it');
+    'the homomorphism reads   coordinate 1 to '+R+'\n'+
+    'you change              coordinate '+P+'\n'+
+    'the output              '+(seen?'moves':'does not move')+'\n'+
+    (seen?'That coordinate is inside the finite range, so it changes the output.'
+         :'That coordinate is outside the finite range, so it cannot change the output.');
   out.className='readout '+(seen?'':'verdict-ok');
 }
 reach.addEventListener('input',draw);poke.addEventListener('input',draw);draw();
@@ -1386,26 +1387,26 @@ reach.addEventListener('input',draw);poke.addEventListener('input',draw);draw();
      picker("grp", "which group",
             [("Z", "whole numbers"), ("prod", "a row of dials"),
              ("Zp", "base-p numbers"), ("ser", "power series"),
-             ("sum", "finitely many dials"), ("R", "the ruler")]),
+             ("sum", "a direct sum of integer groups"), ("R", "the ruler")]),
      PICKER_JS + r"""
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 let g='Z';
 pick('grp',v=>{g=v;draw();});
 const FACTS={
-  "Z":[true,'the whole numbers',
-       'a weighting has a finite total, so integrating lands back in it'],
-  "prod":[true,'a row of dials',
-       'integrate dial by dial: each one is the whole numbers again'],
-  "Zp":[true,'the base-p numbers',
-       'this is exactly the group the base-p probe was built to complete'],
+  "Z":[true,'the integers',
+       'A finite integer weighting integrates to another integer.'],
+  "prod":[true,'a product of integer groups',
+       'Integration is performed in each integer coordinate.'],
+  "Zp":[true,'the p-adic integers',
+       'The p-adic completion supports the corresponding compatible sums.'],
   "ser":[true,'power series in one variable',
-       'one dial per power, so it is a row of dials in disguise'],
-  "sum":[false,'finitely many dials at a time',
-       'a weighting can spread across infinitely many dials, and the total '+
-       'then has infinitely many nonzero slots, which this group forbids'],
-  "R":[false,'the ruler',
-       'every real number can be divided by every whole number, and the '+
-       'building blocks cannot receive anything divisible like that']
+       'One coefficient for each power makes this an integer product.'],
+  "sum":[false,'a direct sum allows only finite support',
+       'A compatible weighting may use infinitely many coordinates, so the result '+
+       'may have infinite support, which a direct sum does not allow.'],
+  "R":[false,'the usual real line',
+       'The real group is divisible, while the integer-product generators '+
+       'receive no nonzero map from a divisible group.']
 };
 function draw(){
   const [ok,name,why]=FACTS[g];
@@ -1566,7 +1567,7 @@ function draw(){
   // the two nestings, as rulers that never share a scale
   const res=solidTensor(A,B);
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('the nesting each side carries',40,262);
+  ctx.fillText('completion direction of each factor',40,262);
   function ruler(y,factor,colour,label){
     ctx.fillStyle=colour;ctx.font='12px system-ui';ctx.textAlign='left';
     ctx.fillText(label,40,y-6);
@@ -1579,16 +1580,22 @@ function draw(){
   }
   const fa=(A==='Z_p')?2:(A==='Z_l')?3:(A==='R')?1:2;
   const fb=(B==='Z_p')?2:(B==='Z_l')?3:(B==='R')?1:2;
-  ruler(288,fa,'#4a3aa7','first factor shrinks by '+(A==='R'?'nothing':fa));
-  ruler(336,fb,'#8a5a2c','second factor shrinks by '+(B==='R'?'nothing':fb));
+  ruler(288,fa,'#4a3aa7','first factor completes along '+(A==='R'?'no adic direction':fa));
+  ruler(336,fb,'#8a5a2c','second factor completes along '+(B==='R'?'no adic direction':fb));
   const out=document.getElementById('out');
+  const hasReal=A==='R'||B==='R';
+  const source=quotedTensor(A,B)
+    ? 'stated in the lectures'
+    : hasReal ? 'follows from the vanishing of solidified real groups'
+              : 'follows by relabelling the coordinate rule';
+  const reason=res==='0'
+    ? (hasReal
+       ? 'The result is zero because the usual real line becomes zero under solidification.'
+       : 'The result is zero because the two prime-completion directions are incompatible.')
+    : 'The completion directions are compatible, so both remain in the result.';
   out.textContent=
     pretty(A)+'  combined with  '+pretty(B)+'\n'+
-    'gives  '+pretty(res)+
-    (quotedTensor(A,B)?'   (stated in the lectures)':'   (the same rule, relabelled)')+'\n'+
-    (res==='0'
-      ? 'nothing survives: the two sides carry nestings that never agree'
-      : 'the nestings are compatible, so both are kept');
+    'gives  '+pretty(res)+'   ('+source+')\n'+reason;
   out.className='readout '+(res==='0'?'verdict-no':'verdict-ok');
 }
 draw();
@@ -1888,7 +1895,7 @@ function draw(){
      "part two. The solid rule over a plain ring swallows a sum spread "
      "across infinitely many dials. Neither has a finite answer in ordinary "
      "algebra.",
-     picker("rule2", "which rule",
+     picker("rule2", "measure rule",
             [("padic", "the base-p rule"), ("solid", "the solid rule")]) +
      slider("nterm", "terms added", 1, 14, 1, 7),
      PICKER_JS + r"""
@@ -1932,22 +1939,20 @@ function draw(){
     ctx.fillStyle='#898781';ctx.font='12px system-ui';ctx.textAlign='left';
     ctx.fillText('... and on, forever',58+D*36-18,88);
     ctx.fillStyle='#52514e';ctx.font='13px system-ui';
-    ctx.fillText('with finitely many dials allowed, this leaves the group '+
-                 'the moment',40,150);
-    ctx.fillText('more than finitely many are set',40,170);
+    ctx.fillText('A direct sum fails as soon as infinitely many',40,150);
+    ctx.fillText('coordinates are nonzero.',40,170);
     ctx.fillStyle='#008300';
-    ctx.fillText('with the solid rule, a weighting spreads across all of '+
-                 'them and still',40,214);
-    ctx.fillText('has exactly one total',40,234);
+    ctx.fillText('The solid completion allows all coordinates',40,214);
+    ctx.fillText('and gives one compatible result.',40,234);
     for(let k=0;k<D;k++){
       ctx.fillStyle='#00787a';
       ctx.fillRect(48+k*36,270,22,Math.max(4,40/(1+k*0.5)));
     }
     document.getElementById('out').textContent=
-      'dials set              '+n+' and rising\n'+
-      'finitely many allowed  fails once the count passes any bound\n'+
-      'the solid rule         accepts it, with exactly one total\n'+
-      'this is why the rule is stated about modules, not about the ring';
+      'coordinates set        '+n+' and rising\n'+
+      'direct sum             fails when support is not finite\n'+
+      'solid completion       contains one compatible result\n'+
+      'The completion rule concerns modules over the ring, not only elements of the ring.';
   }
   document.getElementById('out').className='readout verdict-ok';
   
@@ -2239,10 +2244,10 @@ G.forEach(s=>s.addEventListener('input',draw));draw();
      "escapes to the edge, and again on one where nothing does. When nothing "
      "escapes, it is the same as ordinary pushforward. That coincidence is "
      "what pins the whole formalism down.",
-     picker("op", "which operation",
-            [("pull", "pull back"), ("push", "push forward"),
-             ("shriek", "push with compact support"),
-             ("upper", "the counterweight")]) +
+     picker("op", "operation",
+            [("pull", "pullback"), ("push", "ordinary pushforward"),
+             ("shriek", "compactly supported pushforward"),
+             ("upper", "upper shriek")]) +
      slider("proper", "does anything escape to the edge", 0, 1, 1, 1),
      PICKER_JS + r"""
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
@@ -2521,6 +2526,126 @@ REVISED_COPY = {
 }
 
 
+# Plain-language copy shown on the playable pages. Each entry contains the
+# heading, short explanation, instruction, and source note for one chapter.
+PLAIN_COPY = {
+    "condensed-math01": [
+        ("Build a probe from finite stages",
+         "A probe begins with one box. Each new stage divides the boxes into smaller ones. A point in the finished probe is a path that makes one compatible choice at every stage.",
+         "Add one stage at a time. Notice that every stage has finitely many boxes, even though the completed probe has no last stage. Change the number of pieces to compare different branching patterns.",
+         "The standard name for this object is a profinite set. The browser builds the same finite sets and transition maps as the Python code, and the tests compare their results."),
+        ("Compare two ideas of closeness",
+         "The two rows contain the same real numbers. In the top row, every point stands alone. In the bottom row, the numbers have their usual distance, so nearby values remain close.",
+         "Make the viewing window smaller. The discrete row eventually isolates one point. An interval in the usual real line always contains more points, however small the interval becomes.",
+         "The identity map has zero point-level kernel and cokernel, but it is not an isomorphism of topological groups. Example 1.9 shows how condensed groups keep the quotient that the pointwise test misses."),
+        ("Compare three kinds of probes",
+         "These diagrams show finite stages of a halving probe, an approaching sequence, and a base-p probe. Every box has a precise parent in the stage above it.",
+         "Choose a probe and add stages. Select a box to highlight all the smaller boxes inside it. Compare how the number of boxes changes from one stage to the next.",
+         "Definition 1.2 describes these probes as inverse systems of finite sets. The activity calculates their stage sizes and fibres, and the tests compare those calculations with the Python implementation."),
+        ("Check continuity with a sequence",
+         "The sequence points approach a limit. A continuous map must send those points toward the value assigned to the limit point.",
+         "Choose where the sequence images approach, then choose the image of the limit. Try unequal values first. Make them equal and see why the continuity result changes.",
+         "Remark 1.6 says that convergent sequences determine the topology of every metrizable space. For spaces defined by a distance, this activity shows the full sequence test for continuity."),
+        ("Use the cut and glue rules",
+         "A condensed set treats separate pieces independently. It also joins answers on a cover when they agree wherever the cover repeats the same point.",
+         "In cut mode, choose any value on each separate piece. In glue mode, try equal and unequal values on the overlap. A value below exists only when the overlap values match.",
+         "These are the sheaf conditions in Definition 1.2. Proposition 2.8 says that gluing is automatic on extremally disconnected probes because every cover of such a probe has a section."),
+        ("Find a quotient that points miss",
+         "A probe can support a continuous real-valued function that is not locally constant. Such a function gives information that the one-point probe cannot detect.",
+         "Set the variation to zero, then increase it and add finer stages. At zero, the map is locally constant. With variation, it keeps changing on smaller visible boxes.",
+         "Example 1.9 identifies the quotient as continuous functions modulo locally constant functions. This activity shows finite approximations to one nonzero class and does not prove that the pattern continues forever."),
+        ("Try to choose a continuous section",
+         "A cover gives possible points above each point of a probe. A section chooses one point above each point, and those choices must vary continuously.",
+         "Alternate between the two choices above the approaching sequence. No choice at the limit can make that section continuous. Then switch to the extremally disconnected case, where every cover has some continuous section.",
+         "Definition 2.4 calls a compact Hausdorff space extremally disconnected when every surjection onto it splits. Warning 2.6 says that a convergent sequence in such a space must eventually be constant."),
+        ("Recover a familiar space",
+         "First record every continuous map from a profinite probe into a space. Then use those probe maps to recover a topology on its points.",
+         "Send the circle, interval, and finite set through both steps. Each one returns with its original topology. The final example stops because it has a point that is not closed.",
+         "Proposition 1.7 proves this recovery for compactly generated spaces, and Theorem 2.16 gives the compact Hausdorff case. Warning 2.14 explains why the rejected example lies outside the assumptions."),
+        ("Keep track of winding",
+         "A closed path around a circle has an integer winding number. A continuous deformation may change the path's shape, but it cannot change that number without breaking the path.",
+         "Change the turn count and then deform the path. On the torus, choose both independent turn counts. The drawing changes shape while the selected winding data stay fixed.",
+         "The circle gives one generator in first cohomology. Proposition 3.1 describes products of circles with an exterior algebra, and the activity recomputes the displayed torus ranks from that formula."),
+    ],
+    "condensed-math02": [
+        ("Distribute compatible weights",
+         "A measure gives a weight to every box at every stage. Each parent weight must equal the sum of the child weights inside it.",
+         "Change the way the weight is divided and add more stages. Individual branch weights change, but every stage keeps the same total.",
+         "Definition 5.1 builds the free solid group as an inverse limit of integer weights. The display uses movable real weights, but it checks the same addition rule between parent and child boxes."),
+        ("Compare ordinary and p-adic distance",
+         "Add 1, then p, then p squared, and continue with higher powers. The totals grow under ordinary distance but settle toward a limit under p-adic distance.",
+         "Increase the number of terms for several bases. Compare the growing ordinary error with the shrinking p-adic error, then read the limit shown below the picture.",
+         "The browser calculates both errors directly. The Python tests repeat the calculation with exact fractions. In base two, the p-adic limit is minus one."),
+        ("Integrate at a coarse or fine stage",
+         "A continuous integer-valued function is constant on the boxes of some finite stage. We can repeat its values on finer boxes without changing the function.",
+         "Move the reading stage. The bars split into finer bars, but the weighted total stays fixed because the child weights add up to their parent weight.",
+         "This stage independence makes integration against a compatible measure well defined. The tests compute the same integral at coarse and fine stages and require exact equality."),
+        ("Build a function from simple pieces",
+         "For each box, an indicator function is one on that box and zero on all the others. Integer multiples of these simple functions can build any integer-valued function on a finite stage.",
+         "Add the basis functions until the filled bars match the target outline. Each label is an integer coefficient, and the final function uses no fractions.",
+         "Nöbeling's theorem proves the stronger result for all continuous integer-valued functions on a complete profinite probe. This activity checks only one finite stage, where the basis is elementary."),
+        ("See which coordinates a map can read",
+         "A product may have a nonzero integer in every coordinate. Specker's theorem says that an additive map from a countable product to the integers can read only finitely many of them.",
+         "Choose how many coordinates the map reads. Change one coordinate inside that range and one outside it. Only a coordinate inside the range can change the output.",
+         "The finite picture illustrates Specker's conclusion but cannot prove the infinite theorem. Together with Nöbeling's theorem, it gives the product description of the free solid group in Corollary 5.5."),
+        ("Check the unique-extension rule",
+         "A condensed group is solid when every assignment on probe points extends in exactly one way to all compatible integer measures.",
+         "Choose each example and read why it passes or fails. Pay attention to whether the problem is that an extension does not exist or that the group cannot contain all needed values.",
+         "Definition 5.1 gives the extension rule. Theorem 5.8 and Corollary 6.1 prove the facts used to classify these examples, so the activity reports consequences rather than proving them."),
+        ("Compare divisible groups",
+         "A divisible group allows division by every positive integer. The additive real numbers have this property, but the integers do not.",
+         "Choose a group and increase the number of divisions. Watch for the first result that leaves the group. The final line explains why every map from a divisible group to an integer coordinate is zero.",
+         "This arithmetic explains an obstruction to mapping the reals into the projective building blocks of solid groups. Corollary 6.1 (iii), using Theorem 4.3, proves the stronger derived vanishing result."),
+        ("Read a completed tensor product",
+         "The completed tensor product combines two solid groups and keeps completion directions that are compatible with both sides.",
+         "Choose p-adic groups for two different primes and observe the zero result. Then compare equal prime directions and power-series directions, which remain in the answer.",
+         "Example 6.4 states five identities. Proposition 6.3 explains the power-series example by pairing coordinate sets. The readout distinguishes quoted identities from entries obtained by relabelling that rule."),
+        ("Recover homology from solidification",
+         "Derived solidification of the free condensed group on a space recovers its integral homology. The bars separate free classes from classes of finite order.",
+         "Compare all five spaces and rotate the sphere or torus. For the Klein bottle, notice the order-two class: adding that class to itself gives zero.",
+         "The activity computes homology from cellular boundary matrices using Smith normal form. Example 6.5 supplies the theorem that identifies these groups with derived solidification."),
+    ],
+    "condensed-math03": [
+        ("Compare the two exponent tests",
+         "An exponent controls both the shape of the unit region and the effect of merging boxes. Convexity and stable merging are different conditions, although both change at exponent one.",
+         "Move the exponent through one. Below one, the unit region is not convex, but merging no longer increases the size. Read both results before deciding which condition has passed.",
+         "For n equal boxes, the merge ratio is n raised to one minus the reciprocal of the exponent. The browser evaluates this formula, and the Python tests check both the ratio and the convexity result."),
+        ("Check the parts of a measure rule",
+         "A proposed rule needs a condensed ring and a module of allowed measures for every extremally disconnected probe. Point masses must be included, and separate pieces must receive independent data.",
+         "Turn each requirement off and on. Without Dirac measures, points cannot enter the measure module. Without the disjoint-union rule, two separate pieces cannot be handled independently.",
+         "Definition 7.1 lists these data. Definition 7.4 adds the derived condition that defines an analytic ring. The controls check necessary inputs but cannot prove that final condition."),
+        ("Compare two analytic measure rules",
+         "The p-adic rule and the solid rule over a discrete ring both pass the analytic test. They support different infinite operations because their coefficient rings and measure modules differ.",
+         "Add terms in both examples. The p-adic side follows a convergent series. The discrete-ring side shows a measure with an unrestricted family of coordinates.",
+         "Proposition 7.8 proves that both rules are analytic. In the discrete example, the ring itself has no topology; the completion is carried by the chosen category of modules."),
+        ("Measure what happens when boxes merge",
+         "A fine-stage measure must stay within its size limit after its boxes are merged at a coarser stage. This chart calculates the change for equal weights.",
+         "Choose an exponent above one and merge several boxes. Then move to one or below. The ratio is now at most one, so the same size limit works at both stages.",
+         "For equal weights, the ratio is n raised to one minus one over p. Equal weights give the worst growth above one, while subadditivity controls all weights at or below one."),
+        ("Separate global and boundary terms",
+         "Near infinity, functions are expanded in the reciprocal coordinate. Polynomial terms extend across the whole line, while negative powers describe a tail that lives near the boundary.",
+         "Move farther toward infinity and compare the terms. In the quotient, remove every polynomial term because it is already global. The negative-power tail remains.",
+         "The activity uses a finite part of a Laurent series. Increasing the allowed polynomial degree does not change the number of retained tail coordinates at a fixed tail depth."),
+        ("Compute a boundary quotient",
+         "Compactly supported pushforward compares functions near the boundary with functions defined everywhere. A line and a coordinate cross give small models of this quotient.",
+         "Use the same truncation for both shapes. The line keeps one tail. The cross keeps a tail from each branch and one extra contribution from the relation at their shared point.",
+         "Remark 8.5 gives the exact dualizing-complex formula for the cross. This activity checks only the ranks of finite truncations and identifies the extra contribution from the crossing relation."),
+        ("Match bounded functions with valuations",
+         "A chosen subring of bounded functions selects the valuations that give every one of those functions size at most one. Under the theorem's assumptions, the selected region also recovers the subring.",
+         "Add one bound at a time. Each new condition removes valuations that make the selected function too large. Compare the remaining region after every change.",
+         "This correspondence is Proposition 9.2. The plotted points are a simple model of independent valuation parameters, not the valuation space of a particular ring, so the picture shows inclusion only."),
+        ("Follow the six operations",
+         "The six operations are tensor product, internal Hom, pullback, ordinary pushforward, compactly supported pushforward, and its right adjoint. They form three adjoint pairs.",
+         "Choose compactly supported pushforward for a proper map and then for a map with a boundary. In the proper case, it equals ordinary pushforward. Otherwise, it removes contributions that escape through the boundary.",
+         "Nagata compactification factors a separated finite-type map into an open immersion followed by a proper map. These rules define a candidate operation, while the theorem proves that it is independent of the chosen factorization."),
+        ("Pair complementary degrees",
+         "Coherent duality pairs a class with one in the complementary degree. Their product reaches the top degree, and a trace map then produces a scalar on the base.",
+         "Rotate the surface and change its genus. Compare the number of classes on both sides, then follow a paired class through the trace.",
+         "Equal finite dimensions provide a classical model of a perfect pairing. Theorem 11.1 constructs compactly supported pushforward, the trace, and the duality isomorphism; this activity does not prove the theorem."),
+    ],
+}
+
+
 WIDGET_TERMS = [
     ("the base-two numbers", "the 2-adic integers"),
     ("the base-three numbers", "the 3-adic integers"),
@@ -2549,15 +2674,284 @@ WIDGET_TERMS = [
     ("wobble", "deformation"),
 ]
 
+# Labels and readouts share the drawing code with the calculations. These
+# replacements keep that on-canvas copy direct and grammatical without changing
+# any numerical behavior.
+WIDGET_POLISH = [
+    # Part one
+    ("how many splits", "number of stages"),
+    ("pieces per split", "children of each box"),
+    ("the discrete real line the splits cut out", "points represented by the final stage"),
+    ("boxes at the finest", "boxes in the final stage"),
+    ("every stage is finite; only the endless stack is not", "Every displayed stage is finite. The completed probe has no final stage."),
+    ("how closely you look", "size of the viewing window"),
+    ("the usual real line: nearness kept", "usual real line: nearby values remain close"),
+    ("every window holds endlessly many others", "every interval still contains infinitely many points"),
+    ("the discrete real line: nearness forgotten", "discrete real line: every point is isolated"),
+    ("the window now holds one grain and nothing else", "the window now contains one point"),
+    ("grains, each one alone", "isolated points"),
+    ("send each number to itself", "map each number to the same value"),
+    ("numbers left over at the front   0", "point-level kernel      0"),
+    ("numbers left over at the back    0", "point-level cokernel    0"),
+    ("so the map kills nothing and misses nothing", "The pointwise map loses no values and misses no values."),
+    ("and yet: this window separates a grain but not a ruler point", "However, this window isolates a point only in the discrete row."),
+    ("keep zooming until one grain stands alone", "Reduce the window until one discrete point stands alone."),
+    ("which probe", "probe"),
+    ("stages shown", "number of stages"),
+    ("p, for the base-p probe", "base p"),
+    ("boxes per stage", "boxes at each stage"),
+    ("clicked a stage-", "selected a stage-"),
+    (" of the finest boxes sit inside it", " final-stage boxes lie inside it"),
+    ("click a box to light up everything inside it", "Select a box to highlight all finer boxes inside it."),
+    ("where the sequence points head", "limit approached by the sequence"),
+    ("where the limit point lands", "image of the limit point"),
+    ("where the sequence heads", "limit approached by the sequence"),
+    ("the limits differ here", "the two limit values differ"),
+    ("the sequence heads to", "the sequence approaches"),
+    ("the limit lands at", "the limit maps to"),
+    ("accepted: nearby points of the probe go to nearby points", "Continuous: the sequence approaches the image of its limit."),
+    ("refused: the probe was torn at its limit", "Not continuous: the sequence and its limit have different images."),
+    ("answer on the left piece", "value on the left piece"),
+    ("answer on the right piece", "value on the right piece"),
+    ("one probe, falling into two separate pieces", "one probe divided into two disjoint pieces"),
+    ("answering the whole probe", "values on the whole probe"),
+    ("accepted for every choice: nothing connects the pieces", "Every pair is valid because the pieces are disjoint."),
+    ("the cut rule accepts every pair, always", "The cut rule accepts every pair of values."),
+    ("a covering: two pieces, overlapping in the middle", "a cover with two pieces that overlap"),
+    ("exactly one answer: ", "one value below: "),
+    ("no answer below: the pieces disagree on the overlap", "No value exists below because the overlap values differ."),
+    ("they agree on the overlap, so exactly one answer descends", "The overlap values agree, so exactly one value descends."),
+    ("they disagree on the overlap, so nothing glues", "The overlap values differ, so they cannot be glued."),
+    ("how much each split shifts", "variation at each split"),
+    ("how deep you look", "number of stages"),
+    ("the landing, box by box", "function values on the final-stage boxes"),
+    ("what a single point can see", "value on the one-point probe"),
+    ("nothing: the quotient has no points at all", "zero: one point detects no quotient value"),
+    ("points the quotient has", "point-level quotient values"),
+    ("widest gap inside a finest box", "largest variation in a final box"),
+    ("flat on every box, so the discrete real line can do it too: this entry is zero", "The map is locally constant, so its quotient class is zero."),
+    ("never flat, however deep you look: a nonzero entry of the quotient", "The map still varies at every visible stage. This is the finite pattern used for a nonzero quotient class."),
+    ("which probe below", "probe below the cover"),
+    ("how often the choice flips", "period of the alternating choice"),
+    ("the covering: two copies above every point", "the cover: two possible lifts above each point"),
+    ("neither copy works", "neither limit choice is continuous"),
+    ("nothing converges here, so no limit point can be blocked", "there is no nonconstant convergent sequence to create this obstruction"),
+    ("every covering of an extremally disconnected probe lifts, whatever you choose", "By definition, every cover of an extremally disconnected probe has at least one continuous section."),
+    ("the choices settle, so the limit lifts too", "The choices eventually agree, so they extend continuously to the limit."),
+    ("the choices never settle, so the limit cannot be lifted", "The choices keep alternating, so no value at the limit makes this section continuous."),
+    ("which space", "space"),
+    ("read by probes", "record all probe maps"),
+    ("points read back", "recover the topology"),
+    ("no probe data exists", "the construction stops"),
+    ("the lectures flag exactly this case as the failure", "Warning 2.14 identifies this exact failure."),
+    ("sent out and read back: the same space", "The recovered topology is the original topology."),
+    ("the continuous maps out of it are the same maps too", "The translation also preserves all continuous maps."),
+    ("which shape", "shape"),
+    ("turns the path makes", "turns around the circle"),
+    ("turns the second way, for the torus", "turns in the second torus direction"),
+    ("deformation applied to the path", "amount of deformation"),
+    ("the count is a whole number and the deformation cannot move it", "The winding number is an integer and deformation does not change it."),
+    ("the long way round", "around the main opening"),
+    ("through the hole", "around the tube"),
+    ("turns the long way", "turns around the opening"),
+    ("turns through the hole", "turns around the tube"),
+    ("hole counts by degree", "cohomology ranks by degree"),
+    ("a loop that goes nowhere counts zero both ways", "A contractible loop has zero winding in both directions."),
+    ("two independent counts, and the deformation moves neither", "The torus has two independent winding numbers, and deformation preserves both."),
+    # Part two
+    ("how each split leans", "how the weight is divided"),
+    ("the number at the top", "initial weight"),
+    ("boxes at the finest", "boxes in the final stage"),
+    ("every stage agrees: this is a legal weighting", "Every stage has the same total, so the weighting is compatible."),
+    ("the stages disagree, so this is not a weighting", "The stage totals differ, so the weighting is not compatible."),
+    ("the base p", "base p"),
+    ("terms added", "number of terms"),
+    ("the ordinary size: the totals run away", "ordinary distance: the totals grow"),
+    (" size: the totals close in", "-adic distance: the totals approach a limit"),
+    ("the value the totals reach", "p-adic limit"),
+    ("last running total", "last partial sum"),
+    ("ordinary distance to the value", "ordinary distance to the limit"),
+    (" distance to the value", "-adic distance to the limit"),
+    ("one climbs by a factor of ", "The ordinary error grows by a factor of "),
+    (", the other falls by a factor of ", ", while the p-adic error shrinks by a factor of "),
+    ("level the function is read at", "stage where the function is read"),
+    ("the function's shape", "function pattern"),
+    ("the level you read at makes no difference", "Both stages give the same integral."),
+    ("the readings disagree, which cannot happen for a weighting", "The integrals differ, so the displayed weights are not compatible."),
+    ("basis functions used", "number of basis functions"),
+    ("which function", "target function"),
+    ("the function you want (outline) and what the basis functions give", "target function (outline) and current reconstruction"),
+    ("boxes still uncovered", "boxes not yet matched"),
+    ("rebuilt exactly, with whole numbers and no fractions", "The integer coefficients rebuild the function exactly."),
+    ("keep adding basis functions", "Add more basis functions to match every box."),
+    ("how far the homomorphism reaches", "coordinates read by the homomorphism"),
+    ("which coordinate you set", "coordinate to change"),
+    ("the coordinates: every one may be set, forever", "the product: every coordinate may be nonzero"),
+    ("what the homomorphism can reach", "coordinates read by the homomorphism"),
+    ("why no question reaches the whole row", "why the map cannot read infinitely many coordinates"),
+    ("an answer divisible by every power must be zero", "An integer divisible by every power of two must be zero."),
+    ("the homomorphism reaches", "the homomorphism reads"),
+    ("that coordinate is inside the reach", "That coordinate is inside the finite range, so it changes the output."),
+    ("that coordinate is past the reach, so the homomorphism cannot see it", "That coordinate is outside the finite range, so it cannot change the output."),
+    ("which group", "group"),
+    ("a row of coordinates", "a product of integer groups"),
+    ("base-p numbers", "p-adic integers"),
+    ("a weighting has a finite total, so integrating lands back in it", "A finite integer weighting integrates to another integer."),
+    ("integrate coordinate by coordinate: each one is the integers again", "Integration is performed in each integer coordinate."),
+    ("this is exactly the group the base-p probe was built to complete", "The p-adic completion supports the corresponding compatible sums."),
+    ("one coordinate per power, so it is a row of coordinates in disguise", "One coefficient for each power makes this an integer product."),
+    ("a weighting can spread across infinitely many coordinates, and the total ", "A compatible weighting may use infinitely many coordinates, so the result "),
+    ("then has infinitely many nonzero slots, which this group forbids", "may have infinite support, which a direct sum does not allow."),
+    ("every real number can be divided by every whole number, and the ", "The real group is divisible, while the integer-product "),
+    ("building blocks cannot receive anything divisible like that", "generators receive no nonzero map from a divisible group."),
+    ("the extension exists, and only one does", "Exactly one extension exists."),
+    ("no such extension", "The required extension does not exist."),
+    ("weightings can be integrated here", "Compatible measures can be integrated here."),
+    ("what the rule asks for", "Requirements of the solid rule"),
+    ("how many divisions", "number of divisions"),
+    ("start at 720, then divide by 2, 3, 4, ...", "start at 720 and divide successively by 2, 3, 4, and so on"),
+    ("so what can this group send to a single coordinate?", "possible image in one integer coordinate"),
+    ("nothing but zero", "only zero"),
+    ("whatever you like", "a possible nonzero integer"),
+    ("divisible by everything, so it maps to zero in every row of coordinates,", "This group is divisible, so every map to an integer product is zero."),
+    ("which is every building block the solid world is assembled from", "Integer products are the compact projective generators of solid groups."),
+    ("not divisible by everything, so it has room to map into coordinates", "This group is not divisible, so this particular obstruction does not apply."),
+    ("first factor", "first solid group"),
+    ("second factor", "second solid group"),
+    ("nothing at all", "zero"),
+    ("the nesting each side carries", "completion direction of each factor"),
+    ("first factor shrinks by", "first factor completes along"),
+    ("second factor shrinks by", "second factor completes along"),
+    ("nothing survives: the two sides carry nestings that never agree", "The result is zero because the two completion directions are incompatible."),
+    ("the nestings are compatible, so both are kept", "The completion directions are compatible, so both remain in the result."),
+    ("turn the camera", "camera angle"),
+    ("the holes that fall out", "computed homology"),
+    ("computed from cell boundaries over the integers", "The groups are computed from cellular boundary maps over the integers."),
+    # Part three
+    ("the exponent", "exponent p"),
+    ("the midpoint stays inside", "the midpoint is inside the unit region"),
+    ("the midpoint escapes", "the midpoint is outside the unit region"),
+    ("size after merging, over before", "size after merging divided by size before"),
+    ("the ball is", "the unit region is"),
+    ("allowed: merging never makes a measure bigger", "Compatible: merging does not increase the size."),
+    ("forbidden: merging makes the measure bigger, so the stages cannot fit together", "Not compatible: merging increases the size, so one bound cannot work at every stage."),
+    ("each point counts as a unit weight", "include every Dirac point mass"),
+    ("separate pieces answered separately", "treat disjoint pieces independently"),
+    ("the legal weightings on that probe", "the allowed measures on that probe"),
+    ("nothing to integrate against", "no measure module has been chosen"),
+    ("without it, no point of the probe can enter at all", "Without Dirac measures, probe points cannot enter the measure module."),
+    ("without it, the pieces of a probe stop being independent", "Without the product rule, disjoint pieces cannot be handled independently."),
+    ("both requirements met: a rule for sums is defined here", "Both basic requirements are present."),
+    ("a requirement is missing, so there is no rule yet", "A basic requirement is missing, so this is not a measure rule."),
+    ("whether the rule then passes the further test is what makes it analytic", "The separate derived test determines whether the rule is analytic."),
+    ("adding 1, 2, 4, 8, and on", "adding 1, 2, 4, 8, and further powers"),
+    ("the gap halves every step, so the sum lands", "the p-adic error halves at each step, so the sum converges"),
+    ("ordinary answer        none, the totals run away", "ordinary limit         none; the partial sums grow"),
+    ("answer under this rule", "limit under this rule"),
+    ("the base-p rule is exactly what makes this sum legal", "The p-adic measure rule gives this series a limit."),
+    ("the solid rule: a sum spread across every coordinate", "the solid rule: a compatible measure using many coordinates"),
+    ("... and on, forever", "and further coordinates"),
+    ("finitely many allowed  fails once the count passes any bound", "direct sum             fails when support is not finite"),
+    ("the solid rule         accepts it, with exactly one total", "solid completion       contains one compatible result"),
+    ("this is why the rule is stated about modules, not about the ring", "The completion rule concerns modules over the ring, not only elements of the ring."),
+    ("boxes merged into one", "number of boxes merged"),
+    ("how uneven the weights are", "difference among the weights"),
+    ("the boxes merge, the weights add", "merging adds all the weights"),
+    ("the size did not grow: the stages fit together", "The size did not grow, so the same bound works at both stages."),
+    ("the size grew: these stages cannot be one weighting", "The size grew, so one bound cannot define a compatible measure at both stages."),
+    ("forbidden: this is why the exponent must not pass one", "The size grows above exponent one, so the finite-stage bounds are not compatible."),
+    ("how far out you stand", "distance toward infinity"),
+    ("tails kept", "number of tail terms"),
+    ("the edge", "the boundary"),
+    ("you are here, at", "observation point"),
+    ("how much each power matters where you stand", "size of each term at the observation point"),
+    ("red: a polynomial part, thrown away in the quotient", "red: global polynomial terms removed by the quotient"),
+    ("teal: the tails, which are what survives", "teal: boundary-tail terms that remain in the quotient"),
+    ("standing at", "observation point"),
+    ("surviving pieces", "terms left in the quotient"),
+    ("the count is the number of tails, whatever the polynomial part reaches to", "At a fixed tail depth, changing the polynomial degree does not change the quotient rank."),
+    ("how far the polynomials reach", "maximum polynomial degree"),
+    ("one edge", "one boundary branch"),
+    ("the crossing point", "shared origin"),
+    ("pieces of a function near the edge", "truncated boundary functions"),
+    ("pieces of a function everywhere", "truncated global functions"),
+    ("what is left over", "quotient rank"),
+    ("near the edge", "near the boundary"),
+    ("left over", "quotient"),
+    ("   (exactly the tails)", "   (one boundary tail)"),
+    ("   (both branches' tails, plus one)", "   (two boundary tails plus one shared-origin contribution)"),
+    ("stable: pushing the polynomials further out does not move it", "The rank is stable when the polynomial degree increases."),
+    ("declare the coordinate small", "bound the coordinate by one"),
+    ("declare its reciprocal small", "bound its reciprocal by one"),
+    ("declare a prime small", "bound a prime by one"),
+    ("every consistent way of measuring how big each function is", "possible valuations"),
+    (" is small", " is bounded"),
+    (" is free", " is unrestricted"),
+    ("declarations made", "bounds selected"),
+    ("valuations left in", "valuations remaining"),
+    ("nothing left: these declarations are incompatible", "No valuation satisfies all the selected bounds."),
+    ("each declaration cuts the region down, and the region determines the declarations back", "Each bound shrinks the valuation region. Under Proposition 9.2, the region recovers the bounded subring."),
+    ("does anything escape to the edge", "does support reach the boundary"),
+    ("transfer an object from the target to the source", "move an object from the target space to the source space"),
+    ("transfer all sections from source to target", "move all sections from the source space to the target space"),
+    ("transfer only the sections controlled at the boundary", "move only sections whose support is controlled at the boundary"),
+    ("boundary operation", "right adjoint of compact support"),
+    ("right adjoint of compactly supported pushforward", "the right adjoint of compactly supported pushforward"),
+    ("the space above", "source space"),
+    ("the space below", "target space"),
+    (" sections meet the boundary and are omitted", " sections reach the boundary and are omitted"),
+    ("two required special cases", "two special cases"),
+    ("boundary behaviour changes the compactly supported result", "Boundary support makes compactly supported pushforward differ from ordinary pushforward."),
+    ("for a proper map this equals ordinary pushforward", "For a proper map, compactly supported pushforward equals ordinary pushforward."),
+    ("this belongs to one of the two standard adjoint pairs", "This operation belongs to one of the three adjoint pairs."),
+    ("how many holes the surface has", "genus of the surface"),
+    ("one side", "one vector space"),
+    ("its partner", "the complementary vector space"),
+    ("one number", "one scalar"),
+    ("holes in the surface", "genus of the surface"),
+    ("classes on one side", "dimension on one side"),
+    ("classes on the partner side", "dimension on the other side"),
+    ("the two sides match for every shape, which is what perfect means", "This finite model gives the same dimension on both sides."),
+    ("the trace turns the top-degree classes into a single number", "The trace sends each top-degree result to one scalar."),
+    # Corrections after broader substitutions above.
+    ("whole numbers", "integers"),
+    ("boxes in the final stage level", "boxes in the final stage"),
+    ("a direct sum of integer groups at a time", "finitely many coordinates at a time"),
+    ("first solid group shrinks by", "first factor completes along"),
+    ("second solid group shrinks by", "second factor completes along"),
+    ("forbidden: merging makes the measure bigger, so the stages ", "Not compatible: merging increases the size, so "),
+    ("cannot fit together", "one bound cannot work at every stage."),
+    ("forbidden: this is why exponent p must not pass one", "The size grows above exponent one, so the finite-stage bounds are not compatible."),
+    ("with finitely many coordinates allowed, this leaves the group ", "A direct sum fails "),
+    ("the moment", "as soon as "),
+    ("more than finitely many are set", "infinitely many coordinates are nonzero."),
+    ("with the solid rule, a weighting spreads across all of ", "The solid completion allows all of "),
+    ("them and still", "these coordinates and "),
+    ("has exactly one total", "gives one compatible result."),
+    ("pieces of a function near the boundary", "truncated boundary functions"),
+    ("   (both branches\\' tails, plus one)", "   (two boundary tails plus one shared-origin contribution)"),
+    ("unexpected count", "The calculated rank does not match the expected formula."),
+    ("each declaration cuts the region down, and the region determines ", "Each bound shrinks the valuation region. Under Proposition 9.2, the region "),
+    ("the declarations back", "recovers the bounded subring."),
+    ("which operation", "operation"),
+    ("does anything escape to the boundary", "does support reach the boundary"),
+    ("push with compact support", "compactly supported pushforward"),
+    ("transfer only the sections ", "move only sections whose support is "),
+    ("controlled at the boundary", "controlled at the boundary"),
+    ("classes on one vector space", "dimension on one side"),
+]
+
 
 def _naturalize_widget_copy(text):
     for old, new in WIDGET_TERMS:
+        text = text.replace(old, new)
+    for old, new in WIDGET_POLISH:
         text = text.replace(old, new)
     return text
 
 
 def _apply_revised_copy(slug, chapters):
-    copy = REVISED_COPY[slug]
+    copy = PLAIN_COPY[slug]
     assert len(copy) == len(chapters)
     revised = []
     for chapter, words in zip(chapters, copy):
@@ -2587,7 +2981,7 @@ def build() -> None:
             nav = []
             if i > 0:
                 nav.append(f'<a href="{chapters[i-1][0]:02d}.html">← previous</a>')
-            nav.append('<a href="index.html">all of them</a>')
+            nav.append('<a href="index.html">all activities</a>')
             if i + 1 < len(chapters):
                 nav.append(f'<a href="{chapters[i+1][0]:02d}.html">next →</a>')
             page = (SHELL
@@ -2609,19 +3003,20 @@ def build() -> None:
             f"<span>{lede}</span></li>"
             for num, heading, lede, *_ in chapters)
         index = (SHELL
-                 .replace("TITLE", f"Play with it · condensed mathematics, "
+                 .replace("TITLE", f"Activities · condensed mathematics, "
                                    f"part {part.number}")
-                 .replace("HEADING", f"Play with part {part.number}")
-                 .replace("LEDE", "One page per chapter. Every claim in the "
-                                  "article is a control on one of these.")
+                 .replace("HEADING", f"Activities for part {part.number}")
+                 .replace("LEDE", "Choose a chapter activity below. Each page "
+                                  "turns one mathematical idea into a finite "
+                                  "example that you can change.")
                  .replace('<p class="try"><strong>Try this.</strong> TRY</p>', "")
                  .replace('<canvas id="c" width="720" height="400"></canvas>', "")
                  .replace('<div class="controls">CONTROLS</div>',
                           f'<ul class="list">{rows}</ul>')
                  .replace('<div class="readout" id="out"></div>', "")
-                 .replace("NOTE", "Each page is self contained: no libraries "
-                                  "and no network, so they work offline and "
-                                  "from a file.")
+                 .replace("NOTE", "Every activity is self-contained and uses no "
+                                  "network connection or external library. You "
+                                  "can therefore save and run the pages offline.")
                  .replace("NAV", '<a href="../index.html">back to the article</a>')
                  .replace("MATHS", "").replace("WIDGET", "")
                  .replace("</style>",

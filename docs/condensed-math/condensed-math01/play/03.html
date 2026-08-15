@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Test continuity with a sequence · condensed mathematics, part 1</title>
+<title>Check continuity with a sequence · condensed mathematics, part 1</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,14 +53,14 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>3 · Test continuity with a sequence</h1>
-<p class="lede">The points on the left approach a limit point. Their images on the target approach the value chosen by the first control, while the image of the limit is chosen independently by the second control.</p>
-<p class="try"><strong>Try this.</strong> Choose different values and observe the break at the limit. Then make the values equal. The map is continuous precisely when the images of the sequence approach the image assigned to its limit.</p>
+<h1>3 · Check continuity with a sequence</h1>
+<p class="lede">The sequence points approach a limit. A continuous map must send those points toward the value assigned to the limit point.</p>
+<p class="try"><strong>Try this.</strong> Choose where the sequence images approach, then choose the image of the limit. Try unequal values first. Make them equal and see why the continuity result changes.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label for="tend">where the sequence points head</label><input type="range" id="tend" min="-100" max="100" step="1" value="30"><span class="val" id="tendv"></span></div><div class="row"><label for="limit">where the limit point lands</label><input type="range" id="limit" min="-100" max="100" step="1" value="30"><span class="val" id="limitv"></span></div></div>
+<div class="controls"><div class="row"><label for="tend">limit approached by the sequence</label><input type="range" id="tend" min="-100" max="100" step="1" value="30"><span class="val" id="tendv"></span></div><div class="row"><label for="limit">image of the limit point</label><input type="range" id="limit" min="-100" max="100" step="1" value="30"><span class="val" id="limitv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">Remark 1.6 states that convergent sequences determine every metrizable space. The activity therefore shows a complete continuity test for spaces whose topology comes from a distance.</p>
-<div class="nav"><a href="02.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="04.html">next →</a></div>
+<p class="note">Remark 1.6 says that convergent sequences determine the topology of every metrizable space. For spaces defined by a distance, this activity shows the full sequence test for continuity.</p>
+<div class="nav"><a href="02.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="04.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -383,21 +383,21 @@ function draw(){
   ctx.beginPath();ctx.moveTo(rx-70,Y(a));ctx.lineTo(rx+70,Y(a));ctx.stroke();
   ctx.setLineDash([]);
   ctx.fillStyle='#008300';ctx.font='12px system-ui';ctx.textAlign='left';
-  ctx.fillText('where the sequence heads',rx+14,Y(a)-8);
+  ctx.fillText('limit approached by the sequence',rx+14,Y(a)-8);
   const gap=Math.abs(a-b),ok=gap<0.02;
   if(!ok){
     ctx.strokeStyle='#d03b3b';ctx.lineWidth=3;
     ctx.beginPath();ctx.moveTo(rx+4,Y(a));ctx.lineTo(rx+4,Y(b));ctx.stroke();
     ctx.fillStyle='#d03b3b';ctx.textAlign='left';
-    ctx.fillText('the limits differ here',rx+14,(Y(a)+Y(b))/2+4);
+    ctx.fillText('the two limit values differ',rx+14,(Y(a)+Y(b))/2+4);
   }
   tendv.textContent=a.toFixed(2);limitv.textContent=b.toFixed(2);
   const out=document.getElementById('out');
-  out.textContent='the sequence heads to   '+a.toFixed(2)+'\n'+
-    'the limit lands at   '+b.toFixed(2)+'\n'+
+  out.textContent='the sequence approaches   '+a.toFixed(2)+'\n'+
+    'the limit maps to   '+b.toFixed(2)+'\n'+
     'gap                  '+gap.toFixed(2)+'\n'+
-    (ok?'accepted: nearby points of the probe go to nearby points'
-       :'refused: the probe was torn at its limit');
+    (ok?'Continuous: the sequence approaches the image of its limit.'
+       :'Not continuous: the sequence and its limit have different images.');
   out.className='readout '+(ok?'verdict-ok':'verdict-no');
 }
 tend.addEventListener('input',draw);limit.addEventListener('input',draw);draw();

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Check the data of a measure rule · condensed mathematics, part 3</title>
+<title>Check the parts of a measure rule · condensed mathematics, part 3</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,14 +53,14 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>1 · Check the data of a measure rule</h1>
-<p class="lede">A proposed rule consists of a condensed ring and one module of measures for every extremally disconnected probe. It must include point masses and turn finite disjoint unions into products.</p>
-<p class="try"><strong>Try this.</strong> Toggle each requirement separately. Without Dirac measures, points cannot enter the measure module. Without the disjoint-union rule, independent pieces no longer receive independent data.</p>
+<h1>1 · Check the parts of a measure rule</h1>
+<p class="lede">A proposed rule needs a condensed ring and a module of allowed measures for every extremally disconnected probe. Point masses must be included, and separate pieces must receive independent data.</p>
+<p class="try"><strong>Try this.</strong> Turn each requirement off and on. Without Dirac measures, points cannot enter the measure module. Without the disjoint-union rule, two separate pieces cannot be handled independently.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>the ring</label><div class="pick" id="ring" style="flex:1"><button data-v="Z" class="on">whole numbers</button><button data-v="Zp" class="">base-p numbers</button><button data-v="A" class="">any discrete ring</button></div></div><div class="row"><label for="dirac">each point counts as a unit weight</label><input type="range" id="dirac" min="0" max="1" step="1" value="1"><span class="val" id="diracv"></span></div><div class="row"><label for="split">separate pieces answered separately</label><input type="range" id="split" min="0" max="1" step="1" value="1"><span class="val" id="splitv"></span></div></div>
+<div class="controls"><div class="row"><label>the ring</label><div class="pick" id="ring" style="flex:1"><button data-v="Z" class="on">integers</button><button data-v="Zp" class="">p-adic integers</button><button data-v="A" class="">any discrete ring</button></div></div><div class="row"><label for="dirac">include every Dirac point mass</label><input type="range" id="dirac" min="0" max="1" step="1" value="1"><span class="val" id="diracv"></span></div><div class="row"><label for="split">treat disjoint pieces independently</label><input type="range" id="split" min="0" max="1" step="1" value="1"><span class="val" id="splitv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">Definition 7.1 gives these data. Definition 7.4 adds the derived compatibility test that defines an analytic ring. The finite toggles illustrate necessary inputs but cannot establish that derived condition.</p>
-<div class="nav"><a href="00.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="02.html">next →</a></div>
+<p class="note">Definition 7.1 lists these data. Definition 7.4 adds the derived condition that defines an analytic ring. The controls check necessary inputs but cannot prove that final condition.</p>
+<div class="nav"><a href="00.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="02.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -390,21 +390,21 @@ function draw(){
   ctx.strokeStyle=(d&&s)?'#00787a':'#c3c2b7';ctx.lineWidth=2;
   ctx.strokeRect(410,90,270,150);
   ctx.fillStyle=(d&&s)?'#00787a':'#c3c2b7';ctx.font='13px system-ui';
-  ctx.fillText('the legal weightings on that probe',545,116);
+  ctx.fillText('the allowed measures on that probe',545,116);
   for(let k=0;k<8&&d&&s;k++){
     ctx.fillStyle='#00787a';
     ctx.fillRect(432+k*30,140,20,Math.max(6,14+9*Math.sin(k)));
   }
   if(!(d&&s)){
     ctx.fillStyle='#d03b3b';ctx.font='13px system-ui';ctx.textAlign='center';
-    ctx.fillText('nothing to integrate against',545,180);
+    ctx.fillText('no measure module has been chosen',545,180);
   }
   // the two basis functions, shown as their consequences
   const rows=[
-    ['each point counts as a unit weight',d,
-     'without it, no point of the probe can enter at all'],
-    ['separate pieces answered separately',s,
-     'without it, the pieces of a probe stop being independent']];
+    ['include every Dirac point mass',d,
+     'Without Dirac measures, probe points cannot enter the measure module.'],
+    ['treat disjoint pieces independently',s,
+     'Without the product rule, disjoint pieces cannot be handled independently.']];
   rows.forEach(([t,on,why],i)=>{
     const y=290+i*40;
     ctx.fillStyle=on?'#008300':'#d03b3b';
@@ -419,9 +419,9 @@ function draw(){
   diracv.textContent=d?'on':'off';splitv.textContent=s?'on':'off';
   const out=document.getElementById('out');
   out.textContent='ring   '+RN[R]+'\n'+
-    (d&&s?'both requirements met: a rule for sums is defined here'
-         :'a requirement is missing, so there is no rule yet')+'\n'+
-    'whether the rule then passes the further test is what makes it analytic';
+    (d&&s?'Both basic requirements are present.'
+         :'A basic requirement is missing, so this is not a measure rule.')+'\n'+
+    'The separate derived test determines whether the rule is analytic.';
   out.className='readout '+(d&&s?'verdict-ok':'verdict-no');
 }
 [dirac,split].forEach(x=>x.addEventListener('input',draw));draw();

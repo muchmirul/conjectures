@@ -1,42 +1,42 @@
-# 2 · Weights that agree
+# 2 · Compatible weights on a probe
 
-*Part 2 of three: Infinite Sums That Finally Land. Retells Lectures IV to VI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
+*Part 2 of three: Giving Infinite Sums a Meaning. Retells Lectures IV to VI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-A weighting turns the opening animation into a definition. Begin with one integer on the coarsest box of a probe. When that box is refined, assign integers to its smaller boxes whose sum equals the original integer. Continue at every level. The resulting family is compatible because the weight of any box always equals the sum of all weights immediately below it.
+A measure on a probe is built from finite lists of integer weights. Begin with one weight on the first stage. Whenever a box is divided, give integer weights to its children whose sum is the parent's weight. Continue through every stage. The weight on any box must always equal the total weight of the finer boxes inside it.
 
-![Coarse and fine bar charts represent the same function and display an equal weighted total](integral.png)
+![Coarse and fine bars show the same function and produce the same weighted total](integral.png)
 
-This compatibility makes integration independent of the chosen level. A continuous integer-valued function on a probe is constant on the boxes of some finite stage. Multiply each of those values by its box's weight and add the finite list. If the stage is refined, the function value is repeated on the smaller boxes and their weights add back to the old weight, so the answer stays the same. The figure compares these two calculations, and the tests verify their agreement for both the halving and base-p probes.
+This rule makes integration independent of the stage. A continuous integer-valued function on a compact probe is constant on the boxes of some finite stage. To integrate it, multiply each value by the weight of its box and add the finite list. At a finer stage, the function value repeats on the child boxes and their weights add back to the parent weight. The total therefore stays unchanged.
 
-The lectures call the group of all such weightings the free solid group on the probe. They define it as an inverse limit of finite groups, with one copy of the integers for every box and with refinement maps that add weights back together ([Definition 5.1, page 33](https://arxiv.org/pdf/2605.03658v1#page=33)). An element of this inverse limit is also called a measure because it assigns a compatible integer size to every box.
+The lectures define the **free solid abelian group** on a probe as the group of all these compatible weightings ([Definition 5.1, page 33](https://arxiv.org/pdf/2605.03658v1#page=33)). It is an inverse limit of finite groups, one integer coordinate for every box at every stage. The word *measure* is appropriate because each element gives a compatible integer size to every box.
 
-The simplest example concentrates one unit at a single point. Follow the branch leading to that point, place weight one on its box at every stage, and place zero on all other boxes. This is a Dirac measure. The code constructs these point measures, checks their compatibility, and uses them as the point-level data that more general weightings must extend.
+A simple example puts one unit of weight at one point. Follow the branch leading to that point. Put weight one on its box at each stage and zero on every other box. This is a **Dirac measure**. More general measures spread positive and negative integer weights across many branches.
 
-The important simplification is that each stage contains only finite data. A weighting may involve infinitely many levels, but each level is just a finite list of integers, and compatibility is checked by finite addition. The next two sections study the functions being integrated and use their algebraic structure to classify all weightings.
+Each visible stage still contains only finite data. The infinite part is the requirement that all these finite lists agree. The next two chapters study the functions we integrate and describe the full group of compatible measures.
 
 ### The mathematics
 
-Let the profinite probe be $S=\varprojlim_i S_i$. [Definition 5.1, page 33 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=33) defines its free solid abelian group by
+Let $S=\varprojlim_i S_i$ be a profinite probe. [Definition 5.1, page 33 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=33) defines its free solid abelian group by
 
 ```math
 \mathbb Z[S]^{\blacksquare}:=\varprojlim_i\mathbb Z[S_i]
 \cong \operatorname{Hom}(C(S,\mathbb Z),\mathbb Z).
 ```
 
-A compatible weighting is a family $\mu=(\mu_i)_i$. For every coarse box $a\in S_i$, it obeys
+A compatible weighting is a family $\mu=(\mu_i)_i$. For every box $a\in S_i$, it satisfies
 
 ```math
 \mu_i(a)=\sum_{b\in S_{i+1}:\,\pi_{i+1,i}(b)=a}\mu_{i+1}(b).
 ```
 
-**Reading the symbols.** The probe $S$ is the inverse limit of finite stages $S_i$. The group $\mathbb Z[S_i]$ consists of finite integer weights on the boxes at stage $i$. The black square marks solid completion, and $\varprojlim$ keeps exactly the families that agree between stages. The notation $\operatorname{Hom}$ means additive maps, while $C(S,\mathbb Z)$ means continuous integer-valued functions on $S$. The weighting $\mu$ has one finite-stage list $\mu_i$ at each level. The symbol $a\in S_i$ means that $a$ is a coarse box. The sum runs over every finer box $b$ whose parent under $\pi_{i+1,i}$ is $a$.
+**Reading the symbols.** The probe $S$ is the inverse limit of its finite stages $S_i$. The group $\mathbb Z[S_i]$ contains finite integer weights on the boxes at stage $i$. The black square marks solid completion. The inverse limit $\varprojlim$ keeps the families that agree at every stage. The notation $\operatorname{Hom}$ means additive maps, and $C(S,\mathbb Z)$ means continuous integer-valued functions on $S$. The measure $\mu$ has one list $\mu_i$ at each stage. The expression $a\in S_i$ says that $a$ is a box at stage $i$. The sum includes every child box $b$ whose parent under $\pi_{i+1,i}$ is $a$.
 
-**Why it matters.** The compatibility equation is what makes integration independent of the stage. Refining a box repeats the function value, while the weights below add back to the old weight.
+**Why it matters.** The compatibility equation guarantees that refining a stage does not change an integral. The function value repeats on the children, and their weights add up to the old weight.
 
-**In the simulation.** Each slider changes the entries $\mu_{i+1}(b)$. The number shown on the parent is their sum. The assignment is accepted exactly when this equals $\mu_i(a)$ for every visible box.
+**In the simulation.** Each slider changes one child weight $\mu_{i+1}(b)$. The number on the parent is their sum. A weighting is accepted only when that sum equals $\mu_i(a)$ for every displayed parent.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/02.html)** to split weights across finer boxes and see which assignments satisfy the compatibility rule.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/02.html)** to split weights among child boxes and test the compatibility rule.
 
 ---
 
-[← Sums with nowhere to land](../01-sums-with-nowhere-to-land/README.md)  ·  [Every function is a stack of steps →](../03-stacks-of-steps/README.md)  ·  [all of part 2 on one page](../../ARTICLE.md)
+[← One series, two ideas of distance](../01-sums-with-nowhere-to-land/README.md)  ·  [A basis for integer-valued functions →](../03-stacks-of-steps/README.md)  ·  [all of part 2 on one page](../../ARTICLE.md)

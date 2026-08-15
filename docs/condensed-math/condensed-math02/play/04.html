@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Test the finite-coordinate property · condensed mathematics, part 2</title>
+<title>See which coordinates a map can read · condensed mathematics, part 2</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,14 +53,14 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>4 · Test the finite-coordinate property</h1>
-<p class="lede">An element of an infinite product may have a nonzero value in every coordinate. Specker's theorem says that a homomorphism from this product to the integers can depend on only finitely many coordinates.</p>
-<p class="try"><strong>Try this.</strong> Choose the coordinates read by the homomorphism, then change a coordinate inside or outside that range. A coordinate beyond the finite range cannot affect the output.</p>
+<h1>4 · See which coordinates a map can read</h1>
+<p class="lede">A product may have a nonzero integer in every coordinate. Specker's theorem says that an additive map from a countable product to the integers can read only finitely many of them.</p>
+<p class="try"><strong>Try this.</strong> Choose how many coordinates the map reads. Change one coordinate inside that range and one outside it. Only a coordinate inside the range can change the output.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label for="reach">how far the homomorphism reaches</label><input type="range" id="reach" min="1" max="20" step="1" value="6"><span class="val" id="reachv"></span></div><div class="row"><label for="poke">which coordinate you set</label><input type="range" id="poke" min="1" max="20" step="1" value="12"><span class="val" id="pokev"></span></div></div>
+<div class="controls"><div class="row"><label for="reach">coordinates read by the homomorphism</label><input type="range" id="reach" min="1" max="20" step="1" value="6"><span class="val" id="reachv"></span></div><div class="row"><label for="poke">coordinate to change</label><input type="range" id="poke" min="1" max="20" step="1" value="12"><span class="val" id="pokev"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">Specker's theorem is quoted rather than tested by a finite model. Together with Nöbeling's theorem, it yields Corollary 5.5: the free solid group on a probe is a product of copies of the integers.</p>
-<div class="nav"><a href="03.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="05.html">next →</a></div>
+<p class="note">The finite picture illustrates Specker's conclusion but cannot prove the infinite theorem. Together with Nöbeling's theorem, it gives the product description of the free solid group in Corollary 5.5.</p>
+<div class="nav"><a href="03.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="05.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -357,7 +357,7 @@ function draw(){
   ctx.clearRect(0,0,cv.width,cv.height);
   const x0=44,seg=630/N;
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('the coordinates: every one may be set, forever',20,30);
+  ctx.fillText('the product: every coordinate may be nonzero',20,30);
   for(let k=0;k<N;k++){
     const on=(k+1===P);
     const x=x0+k*seg;
@@ -372,10 +372,10 @@ function draw(){
   ctx.strokeStyle='#2a78d6';ctx.setLineDash([5,4]);ctx.lineWidth=1.6;
   ctx.strokeRect(x0-4,50,R*seg,46);ctx.setLineDash([]);
   ctx.fillStyle='#2a78d6';ctx.font='12px system-ui';ctx.textAlign='left';
-  ctx.fillText('what the homomorphism can reach',x0-4,116);
+  ctx.fillText('coordinates read by the homomorphism',x0-4,116);
   // the divisibility argument, drawn as a shrinking bar
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';
-  ctx.fillText('why no question reaches the whole row',20,168);
+  ctx.fillText('why the map cannot read infinitely many coordinates',20,168);
   for(let k=0;k<8;k++){
     const w=560/Math.pow(2,k);
     ctx.fillStyle='rgba(74,58,167,'+(0.85-0.09*k)+')';
@@ -385,16 +385,16 @@ function draw(){
     ctx.fillText('divisible by 2^'+(k+1),612,196+k*17);
   }
   ctx.fillStyle='#d03b3b';ctx.font='12px system-ui';ctx.textAlign='left';
-  ctx.fillText('an answer divisible by every power must be zero',44,342);
+  ctx.fillText('An integer divisible by every power of two must be zero.',44,342);
   reachv.textContent=String(R);pokev.textContent='coordinate '+P;
   const seen=(P<=R);
   const out=document.getElementById('out');
   out.textContent=
-    'the homomorphism reaches   coordinate 1 to '+R+'\n'+
-    'you set                coordinate '+P+'\n'+
-    'the answer             '+(seen?'moves':'does not move')+'\n'+
-    (seen?'that coordinate is inside the reach'
-         :'that coordinate is past the reach, so the homomorphism cannot see it');
+    'the homomorphism reads   coordinate 1 to '+R+'\n'+
+    'you change              coordinate '+P+'\n'+
+    'the output              '+(seen?'moves':'does not move')+'\n'+
+    (seen?'That coordinate is inside the finite range, so it changes the output.'
+         :'That coordinate is outside the finite range, so it cannot change the output.');
   out.className='readout '+(seen?'':'verdict-ok');
 }
 reach.addEventListener('input',draw);poke.addEventListener('input',draw);draw();

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Compare divisible and nondivisible groups · condensed mathematics, part 2</title>
+<title>Compare divisible groups · condensed mathematics, part 2</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,14 +53,14 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>6 · Compare divisible and nondivisible groups</h1>
-<p class="lede">A divisible group allows division by every positive integer. The additive real numbers are divisible, while the integers are not.</p>
-<p class="try"><strong>Try this.</strong> Choose a group and increase the number of divisions. Record the first step that leaves the group: the integers leave at the first fraction, while the 2-adic integers survive division by odd numbers and leave only when the factors of two run out. The final line shows why a map from a divisible group to an integer coordinate must be zero.</p>
+<h1>6 · Compare divisible groups</h1>
+<p class="lede">A divisible group allows division by every positive integer. The additive real numbers have this property, but the integers do not.</p>
+<p class="try"><strong>Try this.</strong> Choose a group and increase the number of divisions. Watch for the first result that leaves the group. The final line explains why every map from a divisible group to an integer coordinate is zero.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>which group</label><div class="pick" id="dgrp" style="flex:1"><button data-v="R" class="on">the usual real line</button><button data-v="Z" class="">whole numbers</button><button data-v="Zp" class="">base-p numbers, with p = 2</button></div></div><div class="row"><label for="steps">how many divisions</label><input type="range" id="steps" min="1" max="10" step="1" value="5"><span class="val" id="stepsv"></span></div></div>
+<div class="controls"><div class="row"><label>group</label><div class="pick" id="dgrp" style="flex:1"><button data-v="R" class="on">the usual real line</button><button data-v="Z" class="">integers</button><button data-v="Zp" class="">p-adic integers, with p = 2</button></div></div><div class="row"><label for="steps">number of divisions</label><input type="range" id="steps" min="1" max="10" step="1" value="5"><span class="val" id="stepsv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">This arithmetic explains why the real line has no map to the compact projective generators of solid groups. Corollary 6.1 (iii), using Theorem 4.3, proves the stronger statement that derived solidification sends the real line to zero.</p>
-<div class="nav"><a href="05.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="07.html">next →</a></div>
+<p class="note">This arithmetic explains an obstruction to mapping the reals into the projective building blocks of solid groups. Corollary 6.1 (iii), using Theorem 4.3, proves the stronger derived vanishing result.</p>
+<div class="nav"><a href="05.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="07.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -372,7 +372,7 @@ function draw(){
   ctx.clearRect(0,0,cv.width,cv.height);
   let v=720,inside=true,firstOut=-1,v2=val2(720);
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('start at 720, then divide by 2, 3, 4, ...',40,30);
+  ctx.fillText('start at 720 and divide successively by 2, 3, 4, and so on',40,30);
   for(let k=0;k<n;k++){
     const d=k+2;const nv=v/d;
     let ok;
@@ -390,19 +390,19 @@ function draw(){
     v=nv;
   }
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('so what can this group send to a single coordinate?',40,368);
+  ctx.fillText('possible image in one integer coordinate',40,368);
   const divisible=(g==='R');
   ctx.fillStyle=divisible?'#d03b3b':'#008300';ctx.font='13px system-ui';
-  ctx.fillText(divisible?'nothing but zero':'whatever you like',400,368);
+  ctx.fillText(divisible?'only zero':'a possible nonzero integer',400,368);
   stepsv.textContent=String(n);
   const out=document.getElementById('out');
   out.textContent=
     (g==='R'?'the usual real line':g==='Z'?'the integers':'the 2-adic integers')+'\n'+
     'divisions survived   '+(inside?n:firstOut)+' of '+n+'\n'+
     (divisible
-      ? 'divisible by everything, so it maps to zero in every row of coordinates,\n'+
-        'which is every building block the solid world is assembled from'
-      : 'not divisible by everything, so it has room to map into coordinates');
+      ? 'This group is divisible, so every map to an integer product is zero.\n'+
+        'Integer products are the compact projective generators of solid groups.'
+      : 'This group is not divisible, so this particular obstruction does not apply.');
   out.className='readout '+(divisible?'verdict-no':'verdict-ok');
 }
 steps.addEventListener('input',draw);draw();

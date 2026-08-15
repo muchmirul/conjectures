@@ -54,13 +54,13 @@
 <main>
 <a class="back" href="../index.html">back to the article</a>
 <h1>7 · Follow the six operations</h1>
-<p class="lede">The six operations are tensor product, internal Hom, pullback, ordinary pushforward, compactly supported pushforward, and its right adjoint. They occur in three adjoint pairs.</p>
-<p class="try"><strong>Try this.</strong> Choose compactly supported pushforward for a proper map and for a map with a boundary. In the proper case it agrees with ordinary pushforward; in the other case it removes contributions that escape through the boundary.</p>
+<p class="lede">The six operations are tensor product, internal Hom, pullback, ordinary pushforward, compactly supported pushforward, and its right adjoint. They form three adjoint pairs.</p>
+<p class="try"><strong>Try this.</strong> Choose compactly supported pushforward for a proper map and then for a map with a boundary. In the proper case, it equals ordinary pushforward. Otherwise, it removes contributions that escape through the boundary.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>which operation</label><div class="pick" id="op" style="flex:1"><button data-v="pull" class="on">pull back</button><button data-v="push" class="">push forward</button><button data-v="shriek" class="">push with compact support</button><button data-v="upper" class="">the right adjoint</button></div></div><div class="row"><label for="proper">does anything escape to the edge</label><input type="range" id="proper" min="0" max="1" step="1" value="1"><span class="val" id="properv"></span></div></div>
+<div class="controls"><div class="row"><label>operation</label><div class="pick" id="op" style="flex:1"><button data-v="pull" class="on">pullback</button><button data-v="push" class="">ordinary pushforward</button><button data-v="shriek" class="">compactly supported pushforward</button><button data-v="upper" class="">upper shriek</button></div></div><div class="row"><label for="proper">does support reach the boundary</label><input type="range" id="proper" min="0" max="1" step="1" value="1"><span class="val" id="properv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">Nagata compactification factors a separated finite-type map into an open immersion followed by a proper map. The stated rules determine the candidate compactly supported pushforward, while the theorem must prove independence of the chosen factorization.</p>
-<div class="nav"><a href="06.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="08.html">next →</a></div>
+<p class="note">Nagata compactification factors a separated finite-type map into an open immersion followed by a proper map. These rules define a candidate operation, while the theorem proves that it is independent of the chosen factorization.</p>
+<div class="nav"><a href="06.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="08.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -366,11 +366,11 @@ const pr=document.getElementById('proper');
 let op='pull';
 pick('op',v=>{op=v;draw();});
 const INFO={
-  pull:['pullback','transfer an object from the target to the source','standard'],
-  push:['ordinary pushforward','transfer all sections from source to target','standard'],
-  shriek:['compactly supported pushforward','transfer only the sections '+
-          'controlled at the boundary','boundary operation'],
-  upper:['upper shriek','right adjoint of compactly supported pushforward',
+  pull:['pullback','move an object from the target space to the source space','standard'],
+  push:['ordinary pushforward','move all sections from the source space to the target space','standard'],
+  shriek:['compactly supported pushforward','move only sections whose support is '+
+          'controlled at the boundary','right adjoint of compact support'],
+  upper:['upper shriek','the right adjoint of compactly supported pushforward',
          'defined by adjunction']
 };
 function draw(){
@@ -379,7 +379,7 @@ function draw(){
   const [name,what,hard]=INFO[op];
   // two spaces and the map between them
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='center';
-  ctx.fillText('the space above',180,34);ctx.fillText('the space below',540,34);
+  ctx.fillText('source space',180,34);ctx.fillText('target space',540,34);
   ctx.strokeStyle='#c3c2b7';ctx.lineWidth=2;
   ctx.strokeRect(70,50,220,120);ctx.strokeRect(430,50,220,120);
   // the sheaf, drawn as a cloud of sections
@@ -397,7 +397,7 @@ function draw(){
   }
   if(lost){
     ctx.fillStyle='#d03b3b';ctx.font='12px system-ui';ctx.textAlign='center';
-    ctx.fillText(lost+' sections meet the boundary and are omitted',540,196);
+    ctx.fillText(lost+' sections reach the boundary and are omitted',540,196);
   }
   // the arrow
   const ax=src===0?300:420,bx2=src===0?420:300;
@@ -410,7 +410,7 @@ function draw(){
   ctx.fillText(name,360,96);
   // the two rules that force the definition
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('two required special cases',60,240);
+  ctx.fillText('two special cases',60,240);
   const rules=[
     ['the map is proper',
      'compactly supported pushforward equals ordinary pushforward',!escapes],
@@ -427,9 +427,9 @@ function draw(){
   const out=document.getElementById('out');
   out.textContent=name+'\n'+what+'\n'+
     (op==='shriek'
-      ? (escapes?'boundary behaviour changes the compactly supported result'
-                :'for a proper map this equals ordinary pushforward')
-      : 'this belongs to one of the two standard adjoint pairs');
+      ? (escapes?'Boundary support makes compactly supported pushforward differ from ordinary pushforward.'
+                :'For a proper map, compactly supported pushforward equals ordinary pushforward.')
+      : 'This operation belongs to one of the three adjoint pairs.');
   out.className='readout '+(op==='shriek'&&escapes?'':'verdict-ok');
 }
 pr.addEventListener('input',draw);draw();

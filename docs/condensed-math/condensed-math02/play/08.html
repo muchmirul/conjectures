@@ -54,13 +54,13 @@
 <main>
 <a class="back" href="../index.html">back to the article</a>
 <h1>8 · Recover homology from solidification</h1>
-<p class="lede">Derived solidification of the free condensed group on a CW complex recovers its integral homology. The bars separate free classes from finite-order torsion classes.</p>
-<p class="try"><strong>Try this.</strong> Rotate the sphere and torus, then compare all five examples. For the Klein bottle, use the bars rather than the surface drawing: it has an order-two homology class that is killed when doubled.</p>
+<p class="lede">Derived solidification of the free condensed group on a space recovers its integral homology. The bars separate free classes from classes of finite order.</p>
+<p class="try"><strong>Try this.</strong> Compare all five spaces and rotate the sphere or torus. For the Klein bottle, notice the order-two class: adding that class to itself gives zero.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>which shape</label><div class="pick" id="shp" style="flex:1"><button data-v="torus" class="on">torus</button><button data-v="sphere" class="">sphere</button><button data-v="circle" class="">circle</button><button data-v="figure eight" class="">figure eight</button><button data-v="klein bottle" class="">klein bottle</button></div></div><div class="row"><label for="spin">turn the camera</label><input type="range" id="spin" min="0" max="360" step="1" value="35"><span class="val" id="spinv"></span></div></div>
+<div class="controls"><div class="row"><label>shape</label><div class="pick" id="shp" style="flex:1"><button data-v="torus" class="on">torus</button><button data-v="sphere" class="">sphere</button><button data-v="circle" class="">circle</button><button data-v="figure eight" class="">figure eight</button><button data-v="klein bottle" class="">klein bottle</button></div></div><div class="row"><label for="spin">camera angle</label><input type="range" id="spin" min="0" max="360" step="1" value="35"><span class="val" id="spinv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The homology groups are computed here from cellular boundary matrices using Smith normal form. Example 6.5 supplies the quoted theorem identifying those groups with derived solidification.</p>
-<div class="nav"><a href="07.html">← previous</a>  ·  <a href="index.html">all of them</a></div>
+<p class="note">The activity computes homology from cellular boundary matrices using Smith normal form. Example 6.5 supplies the theorem that identifies these groups with derived solidification.</p>
+<div class="nav"><a href="07.html">← previous</a>  ·  <a href="index.html">all activities</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -441,10 +441,10 @@ function draw(){
     ctx.fillText('drawn as a torus: the gluing, not the picture,',cx,300);
     ctx.fillText('is what makes it a Klein bottle',cx,316);
   }
-  // the holes that fall out
+  // computed homology
   const H=homology(shape);
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('the holes that fall out',450,44);
+  ctx.fillText('computed homology',450,44);
   H.forEach((h,k)=>{
     const y=70+k*54;
     ctx.fillStyle='#52514e';ctx.font='12px system-ui';ctx.textAlign='left';
@@ -468,7 +468,7 @@ function draw(){
     (h.torsion.length?' plus order '+h.torsion.join(' and '):'')).join('\n');
   const out=document.getElementById('out');
   out.textContent=shape+'\n'+desc+'\n'+
-    'computed from cell boundaries over the integers';
+    'The groups are computed from cellular boundary maps over the integers.';
   out.className='readout verdict-ok';
 }
 spin.addEventListener('input',draw);draw();

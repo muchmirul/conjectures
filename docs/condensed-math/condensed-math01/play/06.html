@@ -54,13 +54,13 @@
 <main>
 <a class="back" href="../index.html">back to the article</a>
 <h1>6 · Try to choose a continuous section</h1>
-<p class="lede">A cover places two possible lifts above each point of the probe. A section chooses one lift per point, and that choice must vary continuously.</p>
-<p class="try"><strong>Try this.</strong> Use an alternating choice on the approaching-sequence probe. No value above the limit makes that section continuous. Then select the extremally disconnected case, where the defining property guarantees that some continuous section exists.</p>
+<p class="lede">A cover gives possible points above each point of a probe. A section chooses one point above each point, and those choices must vary continuously.</p>
+<p class="try"><strong>Try this.</strong> Alternate between the two choices above the approaching sequence. No choice at the limit can make that section continuous. Then switch to the extremally disconnected case, where every cover has some continuous section.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>which probe below</label><div class="pick" id="base" style="flex:1"><button data-v="seq" class="on">approaching</button><button data-v="ed" class="">extremally disconnected</button></div></div><div class="row"><label for="period">how often the choice flips</label><input type="range" id="period" min="1" max="8" step="1" value="1"><span class="val" id="periodv"></span></div></div>
+<div class="controls"><div class="row"><label>probe below</label><div class="pick" id="base" style="flex:1"><button data-v="seq" class="on">approaching</button><button data-v="ed" class="">extremally disconnected</button></div></div><div class="row"><label for="period">period of the alternating choice</label><input type="range" id="period" min="1" max="8" step="1" value="1"><span class="val" id="periodv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">Definition 2.4 calls a compact Hausdorff space extremally disconnected when every surjection onto it splits. Warning 2.6 states that every convergent sequence in such a space is eventually constant.</p>
-<div class="nav"><a href="05.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="07.html">next →</a></div>
+<p class="note">Definition 2.4 calls a compact Hausdorff space extremally disconnected when every surjection onto it splits. Warning 2.6 says that a convergent sequence in such a space must eventually be constant.</p>
+<div class="nav"><a href="05.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="07.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -370,7 +370,7 @@ function draw(){
   ctx.clearRect(0,0,cv.width,cv.height);
   const N=12,x0=60,step=48,yUp=90,yDn=250,yBase=250;
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('the covering: two copies above every point',20,30);
+  ctx.fillText('the cover: two possible lifts above each point',20,30);
   ctx.fillText('the probe below',20,332);
   const choices=[];
   for(let k=0;k<N;k++)choices.push(Math.floor(k/P)%2);
@@ -402,11 +402,11 @@ function draw(){
       ctx.beginPath();ctx.arc(lx,yUp,9,0,7);ctx.stroke();
       ctx.beginPath();ctx.arc(lx,yUp+70,9,0,7);ctx.stroke();
       ctx.fillStyle='#d03b3b';ctx.font='12px system-ui';ctx.textAlign='center';
-      ctx.fillText('neither copy works',lx,yUp+108);
+      ctx.fillText('neither limit choice is continuous',lx,yUp+108);
     }
   }else{
     ctx.fillStyle='#8a5a2c';ctx.font='12px system-ui';ctx.textAlign='left';
-    ctx.fillText('nothing converges here, so no limit point can be blocked',
+    ctx.fillText('there is no nonconstant convergent sequence to create this obstruction',
                  x0,yBase+42);
   }
   periodv.textContent=P>=N?'never':('every '+P);
@@ -415,9 +415,9 @@ function draw(){
   out.textContent=(base==='seq'?'approaching probe below\n':'extremally disconnected probe below\n')+
     'choices flip   '+(P>=N?'never':'every '+P+' points')+'\n'+
     (base==='ed'
-      ? 'every covering of an extremally disconnected probe lifts, whatever you choose'
-      : (settles?'the choices settle, so the limit lifts too'
-                :'the choices never settle, so the limit cannot be lifted'));
+      ? 'By definition, every cover of an extremally disconnected probe has at least one continuous section.'
+      : (settles?'The choices eventually agree, so they extend continuously to the limit.'
+                :'The choices keep alternating, so no value at the limit makes this section continuous.'));
   out.className='readout '+(ok?'verdict-ok':'verdict-no');
 }
 per.addEventListener('input',draw);draw();

@@ -1,26 +1,26 @@
-# 6 · Gluing the local pictures
+# 6 · Gluing affine patches
 
-*Part 3 of three: Rings That Know How To Integrate. Retells Lectures VII to XI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
+*Part 3 of three: Measure Rules for Rings and Geometry. Retells Lectures VII to XI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-The preceding construction used one ring, so geometrically it described one affine patch. A general space requires many such patches joined along overlaps. To glue them, each patch must remember both its ring of functions and the local rule that decides which functions are bounded.
+So far, we have worked with one ring, which describes one affine patch. A general geometric space is built from several patches that overlap. To glue the module theories, each patch must remember both its ring of functions and which functions count as bounded.
 
-The local data form a Huber pair: a ring A together with an integrally closed subring A-plus whose elements are declared to have size at most one. From this pair one forms a valuation space. A point of that space is a consistent multiplicative way to assign sizes to all elements of A, subject to the requirement that every element of A-plus has size at most one ([Proposition 9.2, page 63](https://arxiv.org/pdf/2605.03658v1#page=63)).
+A **Huber pair** consists of a ring $A$ and an integrally closed subring $A^+$. Elements of $A^+$ are declared to have size at most one. A point of the corresponding valuation space assigns multiplicative sizes to all elements of $A$ while keeping every element of $A^+$ within that bound ([Proposition 9.2, page 63](https://arxiv.org/pdf/2605.03658v1#page=63)).
 
-![Three schematic valuation regions shrink as additional ring elements are required to have size at most one](spa.png)
+![Three regions of possible valuations become smaller as more functions are required to have size at most one](spa.png)
 
-Choosing A-plus cuts out the region of valuations that treat its elements as small. Conversely, the allowed region recovers A-plus as exactly the functions whose size is at most one at every point in that region. Within the class stated in the proposition, the algebraic choice and geometric region therefore determine one another.
+Choosing $A^+$ selects the valuations that regard all its elements as bounded. In the setting of the proposition, the selected region also recovers $A^+$: it consists exactly of the functions whose size is at most one at every point in the region. The algebraic choice and the geometric region determine each other.
 
-![Compatible module data on two overlapping patches combine into one object on their union](gluing.gif)
+![Compatible module data on two overlapping affine patches combine into one object on their union](gluing.gif)
 
-The gluing theorem says that the derived category of complete modules varies as a sheaf over these patches ([Theorem 9.8, page 65](https://arxiv.org/pdf/2605.03658v1#page=65)). If local module objects and all their comparison data agree on overlaps, they determine one global object, uniquely up to the appropriate equivalence. This result allows the affine construction of compactly supported cohomology to be used on spaces assembled from many affines.
+[Theorem 9.8, page 65](https://arxiv.org/pdf/2605.03658v1#page=65) says that the derived categories of complete modules form a sheaf over these patches. Local module objects that agree on every overlap determine one global object, including all required higher compatibility data. This theorem lets us extend the affine construction of compactly supported cohomology to spaces made from many affine pieces.
 
-The theorem requires a higher-categorical version of the derived category. Ordinary derived categories record maps only up to homotopy, but gluing also needs coherent homotopies between those homotopies and further levels of compatibility. An infinity-category retains that information. The need for this language appears at the gluing step rather than in the earlier finite pictures.
+The statement uses infinity-categories because gluing derived objects needs more than maps up to homotopy. It must also retain compatible homotopies between homotopies and all further levels. Earlier finite examples did not need this language, but the global gluing step does.
 
-Despite that technical language, the proof follows the familiar pattern of Zariski descent. Cover a space by patches where chosen functions become invertible, check the statement after localizing to each patch, and use the fact that the localized cover splits. Lecture X establishes the two required facts in this setting: localizations commute with one another, and a module that vanishes on every patch is globally zero.
+The proof follows the usual pattern of Zariski descent. Cover a space by patches where selected functions become invertible, verify the statement on each localized patch, and show that an object vanishing on every patch was already zero globally. Lecture X proves the localization facts needed for this argument.
 
 ### The mathematics
 
-For a ring $A$, [Proposition 9.2, page 63 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=63) gives the correspondence between an integrally closed subring $A^+$ and its valuation region:
+For a ring $A$, [Proposition 9.2, page 63 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=63) relates an integrally closed subring $A^+$ to its valuation region:
 
 ```math
 \operatorname{Spa}(A,A^+)
@@ -40,14 +40,14 @@ D((A,A^+)^{\blacksquare})
 \quad\text{is a sheaf of }\infty\text{-categories on }X.
 ```
 
-**Reading the symbols.** The ring $A^+$ contains the elements declared to have size at most one. The space $\operatorname{Spv}(A)$ contains equivalence classes of valuations on $A$, and $\operatorname{Spa}(A,A^+)$ is the region where every element of $A^+$ is bounded by one. Braces mean “the set of,” $\in$ means “belongs to,” and the vertical bar means “such that.” The absolute-value notation $|f(x)|$ is the size assigned to $f$ by the valuation $x$. The open patch is $U$, and $D((A,A^+)^{\blacksquare})$ is its derived category of complete modules. A sheaf means that compatible local objects glue uniquely, including all their higher compatibility data. The infinity symbol indicates that these higher homotopies are retained.
+**Reading the symbols.** The subring $A^+$ contains the functions declared to have size at most one. The space $\operatorname{Spv}(A)$ contains equivalence classes of valuations on $A$. The region $\operatorname{Spa}(A,A^+)$ keeps the valuations that bound every element of $A^+$ by one. The braces mean “the set of,” $\in$ means “belongs to,” and the vertical bar means “such that.” The expression $|f(x)|$ is the size that the valuation $x$ assigns to $f$. The open patch is $U$, and $D((A,A^+)^{\blacksquare})$ is its derived category of complete modules. Saying that these categories form a sheaf means that compatible local objects glue uniquely. The infinity symbol records all higher homotopies needed for that compatibility.
 
-**Why it matters.** The first two formulas say that the algebraic bounded subring and the geometric valuation region determine each other. The theorem then allows the local module categories attached to those regions to assemble into one global category.
+**Why it matters.** The first two displays say that the bounded subring and its valuation region determine one another. The theorem then lets the module categories on local regions assemble into one global category.
 
-**In the simulation.** Selecting bounded functions changes $A^+$. The highlighted dots are the valuations satisfying the first formula. In the overlap view, the two patches display local categories that glue only when their restrictions agree.
+**In the simulation.** Selecting bounded functions changes $A^+$. Highlighted points are the valuations that satisfy the corresponding bounds. The plotted points are a schematic model, so they show how extra conditions shrink a region rather than representing the valuation space of one specific ring.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/06.html)** to change the chosen bounded functions and watch the corresponding region of valuations change.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math03/play/06.html)** to add boundedness conditions and see which valuations remain.
 
 ---
 
-[← Cohomology with compact support](../05-compact-support/README.md)  ·  [The six operations →](../07-six-operations/README.md)  ·  [all of part 3 on one page](../../ARTICLE.md)
+[← Compactly supported cohomology](../05-compact-support/README.md)  ·  [The six operations →](../07-six-operations/README.md)  ·  [all of part 3 on one page](../../ARTICLE.md)

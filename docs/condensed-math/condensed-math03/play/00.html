@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Compare exponents · condensed mathematics, part 3</title>
+<title>Compare the two exponent tests · condensed mathematics, part 3</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,14 +53,14 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>0 · Compare exponents</h1>
-<p class="lede">The exponent determines both the unit region for the measure size and the effect of merging boxes. These are separate tests, and their boundaries meet at exponent one.</p>
-<p class="try"><strong>Try this.</strong> Lower the exponent through one. The unit region stops being convex below one, while the merge ratio becomes no greater than one. Read both panels before deciding which exponents are allowed.</p>
+<h1>0 · Compare the two exponent tests</h1>
+<p class="lede">An exponent controls both the shape of the unit region and the effect of merging boxes. Convexity and stable merging are different conditions, although both change at exponent one.</p>
+<p class="try"><strong>Try this.</strong> Move the exponent through one. Below one, the unit region is not convex, but merging no longer increases the size. Read both results before deciding which condition has passed.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label for="expo">the exponent</label><input type="range" id="expo" min="30" max="250" step="5" value="100"><span class="val" id="expov"></span></div></div>
+<div class="controls"><div class="row"><label for="expo">exponent p</label><input type="range" id="expo" min="30" max="250" step="5" value="100"><span class="val" id="expov"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">For n equal boxes, the merge ratio is n raised to one minus the reciprocal of the exponent. The browser evaluates this expression, and the Python tests independently check the ratio and the convexity result.</p>
-<div class="nav"><a href="index.html">all of them</a>  ·  <a href="01.html">next →</a></div>
+<p class="note">For n equal boxes, the merge ratio is n raised to one minus the reciprocal of the exponent. The browser evaluates this formula, and the Python tests check both the ratio and the convexity result.</p>
+<div class="nav"><a href="index.html">all activities</a>  ·  <a href="01.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -376,11 +376,11 @@ function draw(){
   ctx.fillStyle=convex?'#008300':'#d03b3b';
   ctx.beginPath();ctx.arc(cx+mid[0]*s,cy-mid[1]*s,5,0,7);ctx.fill();
   ctx.font='12px system-ui';ctx.textAlign='center';
-  ctx.fillText(convex?'the midpoint stays inside':'the midpoint escapes',
+  ctx.fillText(convex?'the midpoint is inside the unit region':'the midpoint is outside the unit region',
                cx,cy-s-28);
   // the merge reading
   const P=Plot(cv,0.3,2.5,0,3.2,{l:470,r:24,t:40,b:60});
-  P.axes('the exponent','size after merging, over before');
+  P.axes('exponent p','size after merging divided by size before');
   P.curve(x=>Math.min(3.2,worstMergeRatio(4,x)),'#00787a',2.2);
   P.hline(1,'#c3c2b7',[4,4]);
   P.vline(1,'#008300',[4,4]);
@@ -391,12 +391,12 @@ function draw(){
   const allowed=(p<=1+1e-9);
   const out=document.getElementById('out');
   out.textContent=
-    'the exponent               '+p.toFixed(2)+'\n'+
+    'exponent p               '+p.toFixed(2)+'\n'+
     'merging four equal boxes   size changes by '+ratio.toFixed(3)+'\n'+
-    'the ball is                '+(convex?'convex':'not convex')+'\n'+
-    (allowed?'allowed: merging never makes a measure bigger'
-            :'forbidden: merging makes the measure bigger, so the stages '+
-             'cannot fit together');
+    'the unit region is                '+(convex?'convex':'not convex')+'\n'+
+    (allowed?'Compatible: merging does not increase the size.'
+            :'Not compatible: merging increases the size, so '+
+             'one bound cannot work at every stage.');
   out.className='readout '+(allowed?'verdict-ok':'verdict-no');
 }
 expo.addEventListener('input',draw);draw();

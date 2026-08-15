@@ -1,20 +1,20 @@
-# 3 · Every function is a stack of steps
+# 3 · A basis for integer-valued functions
 
-*Part 2 of three: Infinite Sums That Finally Land. Retells Lectures IV to VI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
+*Part 2 of three: Giving Infinite Sums a Meaning. Retells Lectures IV to VI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-We first examine continuous functions from a probe to the integers. Since distinct integers are separated from one another, continuity prevents such a function from changing indefinitely inside smaller and smaller nearby regions. On a compact probe, it becomes constant on every box of some finite stage. The function can therefore be read as a finite list of integer values.
+We next study continuous functions from a probe to the integers. Different integers are separated from one another. Because the probe is compact, a continuous integer-valued function must become constant on every box at some finite stage. We can then read it as a finite list of integers.
 
-![Indicator functions fill one box at a time until their integer combination matches the target function](steps.gif)
+![Indicator functions are added one box at a time until they reproduce the chosen integer-valued function](steps.gif)
 
-At one finite stage, the basic step functions are easy to see. For each box, use the function that equals one on that box and zero elsewhere. Multiplying these indicators by integers and adding them reconstructs any function on the stage. The animation performs this reconstruction one basis element at a time, without introducing fractions.
+At one finite stage, define one **indicator function** for each box. It equals one on that box and zero on all the others. Multiplying these functions by integers and adding them reproduces any integer-valued function on the stage. The animation builds the chosen function in this way.
 
-The deeper statement concerns all stages at once. Under addition, the continuous integer-valued functions on a probe form an abelian group. Nöbeling's theorem says that this group is free: there is a collection of basis functions such that every continuous integer-valued function has one unique expression as a finite integer combination of them. Freeness is special because a general abelian group need not have any basis of this kind.
+The stronger statement covers all stages at once. The continuous integer-valued functions on a complete profinite probe form an abelian group under addition. Nöbeling's theorem says that this group is free. In other words, it has a basis such that every function has one unique expression using finitely many basis functions and integer coefficients.
 
-![Paired bars show equal counts for finite-stage boxes and the basis elements constructed from them](basis_size.png)
+![For each tested finite stage, the number of constructed basis elements equals the number of boxes](basis_size.png)
 
-The theorem is due to Nöbeling, extending work of Specker, and the lectures present Bergman's proof ([Theorem 5.4, page 34](https://arxiv.org/pdf/2605.03658v1#page=34)). The implementation in this repository follows the finite stages of that construction. It orders products of indicator functions, retains a function when earlier choices do not already generate it, and checks that the retained functions form a basis. The chart confirms that the basis size matches the number of boxes at each tested stage.
+Nöbeling extended earlier work by Specker, and the lectures present a proof due to Bergman ([Theorem 5.4, page 34](https://arxiv.org/pdf/2605.03658v1#page=34)). The code follows the construction at finite stages. It keeps a new indicator product only when the functions already selected cannot generate it. The tests then verify that the selected functions form a basis.
 
-This finite calculation does not prove Nöbeling's theorem. At a fixed finite stage, the group is automatically free, while the theorem's real content is that a compatible basis exists for the full infinite object. The repository therefore labels its calculation as a finite shadow and quotes the infinite theorem from the lectures.
+This finite calculation is only an illustration. Every group of functions on one finite set is automatically free. Nöbeling's theorem says something deeper: the full group of continuous functions on the infinite probe is also free. We quote that theorem from the lectures rather than claiming that a finite test proves it.
 
 ### The mathematics
 
@@ -24,7 +24,7 @@ This finite calculation does not prove Nöbeling's theorem. At a fixed finite st
 C(S,\mathbb Z)\cong\bigoplus_{e\in E}\mathbb Z e.
 ```
 
-This freeness gives every $f\in C(S,\mathbb Z)$ one finite expression. Explicitly,
+Thus every $f\in C(S,\mathbb Z)$ has one finite expression. The display below records the basis elements and coefficients used for that function:
 
 ```math
 f=\sum_{e\in F}n_e e,
@@ -32,14 +32,14 @@ f=\sum_{e\in F}n_e e,
 \qquad n_e\in\mathbb Z.
 ```
 
-**Reading the symbols.** The group $C(S,\mathbb Z)$ contains the continuous integer-valued functions on the probe $S$. The set $E$ is a basis of step functions. The direct-sum symbol $\bigoplus$ says that each function uses only finitely many basis elements. The expression $\mathbb Z e$ means all integer multiples of the basis element $e$. The letter $f$ names one continuous function, $F$ is the finite subset of basis elements used for it, and $n_e$ is the integer coefficient attached to $e$. The membership sign $\in$ means “belongs to,” and $\subset$ means “is a subset of.”
+**Reading the symbols.** The group $C(S,\mathbb Z)$ contains the continuous integer-valued functions on $S$. The set $E$ is a basis. The direct sum $\bigoplus$ means that each function uses only finitely many basis elements. The expression $\mathbb Z e$ means all integer multiples of $e$. The letter $f$ names one function. The finite subset $F$ lists the basis functions used to build it, and $n_e$ is the integer coefficient of $e$. The symbol $\in$ means “belongs to,” and $\subset$ means “is a subset of.”
 
-**Why it matters.** Freeness for the full infinite probe is the theorem's content. It lets an integer-valued measure be described by choosing its value independently on every basis function, which leads to the product description in the next chapter.
+**Why it matters.** A measure can be viewed as an additive map from $C(S,\mathbb Z)$ to $\mathbb Z$. Once this function group has a basis, such a map is determined by an independent integer value on each basis element. This gives the product description in the next chapter.
 
-**In the simulation.** The target control chooses $f$ at one finite stage. The switches used control enlarges $F$. Each filled bar is one coefficient $n_e e$, and the reconstruction is complete when their finite sum equals $f$ on every box. This finite activity illustrates the construction but does not prove the infinite theorem.
+**In the simulation.** The target control chooses a function $f$ on one finite stage. Adding basis functions enlarges $F$. Each filled bar shows a term $n_e e$. The reconstruction is complete when their sum equals $f$ on every box. This demonstrates the finite case only.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/03.html)** to choose an integer-valued function and watch the basis functions rebuild it.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/03.html)** to rebuild an integer-valued function from indicator functions.
 
 ---
 
-[← Weights that agree](../02-weights-that-agree/README.md)  ·  [Products in, sums out →](../04-products-in-sums-out/README.md)  ·  [all of part 2 on one page](../../ARTICLE.md)
+[← Compatible weights on a probe](../02-weights-that-agree/README.md)  ·  [Products and direct sums →](../04-products-in-sums-out/README.md)  ·  [all of part 2 on one page](../../ARTICLE.md)

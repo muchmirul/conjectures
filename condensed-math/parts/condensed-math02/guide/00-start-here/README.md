@@ -1,28 +1,28 @@
 # Start here
 
-*Part 2 of three: Infinite Sums That Finally Land. Retells Lectures IV to VI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
+*Part 2 of three: Giving Infinite Sums a Meaning. Retells Lectures IV to VI of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-*Part two of three on condensed mathematics. Part one made subtraction reliable by replacing spaces with their answers to probes. We now ask when an infinite sum has one well-defined value. Compatible weights on the finite stages of a probe lead to the solid rule, reveal the basic structure of solid groups, and recover the holes of familiar spaces. Only part one is assumed.*
+*This is the second of three parts on condensed mathematics. Part one replaced a space by the continuous maps from probes into it, which made kernels and cokernels reliable. We now use those probes to understand infinite sums. Compatible weights on their finite stages lead to solid groups and also recover the holes of familiar spaces. Only part one is assumed.*
 
-![An initial weight is divided among finer branches while every level keeps the same total](hero.gif)
+![A number on one box is divided among finer branches while every stage keeps the same total](hero.gif)
 
-The animation shows the main construction of this part. Place an integer weight on the first box of a probe. Whenever a box splits, divide its weight among the new boxes so that their weights add back to the old one. Repeating this at every level produces a compatible family called a **weighting**, or, in standard language, an integer-valued measure. Because every level is finite and the totals agree between levels, a weighting gives a controlled way to interpret sums over all the points of a probe.
+Place an integer weight on the first box of a probe. When the box splits, distribute its weight among the new boxes so that their weights add up to the old one. Repeat this at every stage. The result is a **compatible weighting**, or an integer-valued measure. Every stage contains only finitely many weights, and compatibility makes the total independent of the stage where we calculate it.
 
-This is part two of three, covering Lectures IV to VI of Peter Scholze's *Lectures on Condensed Mathematics* ([arXiv:2605.03658](https://arxiv.org/abs/2605.03658), May 2026), joint work with Dustin Clausen. [Part one](../condensed-math01/ARTICLE.md) introduced probes and condensed sets, and those ideas will be used here. Part three extends the resulting theory from groups to rings and geometry. Most sections include a [page you can play with](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/index.html), so each new definition can be tested on a finite example.
+This part covers Lectures IV to VI of Peter Scholze's *Lectures on Condensed Mathematics* ([arXiv:2605.03658](https://arxiv.org/abs/2605.03658), May 2026), which present joint work with Dustin Clausen. [Part one](../condensed-math01/ARTICLE.md) introduced profinite probes and condensed sets. Part three will give different rings their own theories of measures. Each chapter below includes an activity that turns its main definition into a finite example. The [part-two activity list](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/index.html) links to all nine pages.
 
 ```
-    the problem again           1  sums with nowhere to land
-    the answer                  2  weights that agree
-                                3  every function is a stack of steps
-                                4  products in, sums out
-    the rule                    5  the solid rule
-    two consequences            6  where the real line goes
-                                7  the multiplication table
-    the payoff                  8  solidify a shape, get its holes
+    understand the problem      1  one series and two ideas of distance
+    build the ingredients       2  compatible weights on a probe
+                               3  integer-valued functions have a basis
+                               4  products and direct sums exchange roles
+    state the rule              5  unique extension from points to measures
+    follow two consequences     6  why the usual real line disappears
+                               7  completed tensor products
+    return to topology          8  solidification recovers homology
 ```
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/00.html)** to distribute weights through a probe and check that every refinement preserves the total above it.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math02/play/00.html)** by distributing weights through several stages and checking that every stage has the same total.
 
 ---
 
-[Sums with nowhere to land →](../01-sums-with-nowhere-to-land/README.md)  ·  [all of part 2 on one page](../../ARTICLE.md)
+[One series, two ideas of distance →](../01-sums-with-nowhere-to-land/README.md)  ·  [all of part 2 on one page](../../ARTICLE.md)

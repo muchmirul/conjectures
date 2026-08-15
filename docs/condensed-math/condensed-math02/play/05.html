@@ -54,13 +54,13 @@
 <main>
 <a class="back" href="../index.html">back to the article</a>
 <h1>5 · Check the unique-extension rule</h1>
-<p class="lede">A condensed group is solid when every map from probe points extends uniquely to all compatible integer measures. The selector compares groups that satisfy or fail this condition.</p>
-<p class="try"><strong>Try this.</strong> Select each group and read the reason for its result. The integers, their products, p-adic integers, and power-series groups pass. A direct sum and the usual real line fail for different reasons.</p>
+<p class="lede">A condensed group is solid when every assignment on probe points extends in exactly one way to all compatible integer measures.</p>
+<p class="try"><strong>Try this.</strong> Choose each example and read why it passes or fails. Pay attention to whether the problem is that an extension does not exist or that the group cannot contain all needed values.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>which group</label><div class="pick" id="grp" style="flex:1"><button data-v="Z" class="on">whole numbers</button><button data-v="prod" class="">a row of coordinates</button><button data-v="Zp" class="">base-p numbers</button><button data-v="ser" class="">power series</button><button data-v="sum" class="">finitely many coordinates</button><button data-v="R" class="">the usual real line</button></div></div></div>
+<div class="controls"><div class="row"><label>group</label><div class="pick" id="grp" style="flex:1"><button data-v="Z" class="on">integers</button><button data-v="prod" class="">a product of integer groups</button><button data-v="Zp" class="">p-adic integers</button><button data-v="ser" class="">power series</button><button data-v="sum" class="">a direct sum of integer groups</button><button data-v="R" class="">the usual real line</button></div></div></div>
 <div class="readout" id="out"></div>
-<p class="note">Definition 5.1 gives the extension condition. Theorem 5.8 and Corollary 6.1 prove the structural results used for these examples; the activity presents their consequences rather than proving them.</p>
-<div class="nav"><a href="04.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="06.html">next →</a></div>
+<p class="note">Definition 5.1 gives the extension rule. Theorem 5.8 and Corollary 6.1 prove the facts used to classify these examples, so the activity reports consequences rather than proving them.</p>
+<div class="nav"><a href="04.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="06.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -366,19 +366,19 @@ let g='Z';
 pick('grp',v=>{g=v;draw();});
 const FACTS={
   "Z":[true,'the integers',
-       'a weighting has a finite total, so integrating lands back in it'],
-  "prod":[true,'a row of coordinates',
-       'integrate coordinate by coordinate: each one is the integers again'],
+       'A finite integer weighting integrates to another integer.'],
+  "prod":[true,'a product of integer groups',
+       'Integration is performed in each integer coordinate.'],
   "Zp":[true,'the p-adic integers',
-       'this is exactly the group the base-p probe was built to complete'],
+       'The p-adic completion supports the corresponding compatible sums.'],
   "ser":[true,'power series in one variable',
-       'one coordinate per power, so it is a row of coordinates in disguise'],
-  "sum":[false,'finitely many coordinates at a time',
-       'a weighting can spread across infinitely many coordinates, and the total '+
-       'then has infinitely many nonzero slots, which this group forbids'],
+       'One coefficient for each power makes this an integer product.'],
+  "sum":[false,'a direct sum allows only finite support',
+       'A compatible weighting may use infinitely many coordinates, so the result '+
+       'may have infinite support, which a direct sum does not allow.'],
   "R":[false,'the usual real line',
-       'every real number can be divided by every whole number, and the '+
-       'building blocks cannot receive anything divisible like that']
+       'The real group is divisible, while the integer-product generators '+
+       'receive no nonzero map from a divisible group.']
 };
 function draw(){
   const [ok,name,why]=FACTS[g];
@@ -396,12 +396,12 @@ function draw(){
   ctx.strokeRect(390,52,290,136);
   ctx.fillStyle=ok?'#008300':'#d03b3b';ctx.font='14px system-ui';
   ctx.textAlign='center';
-  ctx.fillText(ok?'the extension exists, and only one does'
-                 :'no such extension',535,110);
-  ctx.fillText(ok?'weightings can be integrated here':'the rule fails',535,134);
+  ctx.fillText(ok?'Exactly one extension exists.'
+                 :'The required extension does not exist.',535,110);
+  ctx.fillText(ok?'Compatible measures can be integrated here.':'the rule fails',535,134);
   // the two halves of the rule
   ctx.textAlign='left';ctx.font='13px system-ui';ctx.fillStyle='#52514e';
-  ctx.fillText('what the rule asks for',60,240);
+  ctx.fillText('Requirements of the solid rule',60,240);
   const items=[['an extension exists',ok],['only one extension exists',ok]];
   items.forEach(([t,good],i)=>{
     ctx.fillStyle=good?'#008300':'#d03b3b';

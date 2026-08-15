@@ -55,65 +55,63 @@ class Part:
 PART_ONE = Part(
     slug="condensed-math01",
     number=1,
-    title="Shapes You Can Only See By Probing Them",
-    blurb=("Why a set with a topology is two structures badly glued, what a "
-           "probe is, and how replacing a space by everything it says to "
-           "probes makes subtraction work again."),
+    title="Understanding Spaces Through Probes",
+    blurb=("Learn how finite branching probes record closeness, why points "
+           "alone miss important information, and how condensed sets repair "
+           "kernels and cokernels without losing familiar spaces."),
     lectures="Lectures I to III",
     chapters={
         0: ("00-start-here", "Start here"),
-        1: ("01-two-real-lines", "Two real lines"),
-        2: ("02-branching-probes", "Probes that branch"),
-        3: ("03-what-a-shape-says", "What a shape says to a probe"),
-        4: ("04-cut-and-glue", "Cut, and glue"),
-        5: ("05-the-ghost", "The quotient with no points"),
-        6: ("06-unfoldable-probes", "Probes that never need folding"),
-        7: ("07-nothing-was-lost", "Nothing was lost"),
-        8: ("08-counting-holes", "Counting holes"),
+        1: ("01-two-real-lines", "The same numbers, but different ideas of closeness"),
+        2: ("02-branching-probes", "Building a probe from finite stages"),
+        3: ("03-what-a-shape-says", "Mapping a probe into a space"),
+        4: ("04-cut-and-glue", "The cut and glue rules"),
+        5: ("05-the-ghost", "A quotient that points cannot detect"),
+        6: ("06-unfoldable-probes", "Probes on which every cover splits"),
+        7: ("07-nothing-was-lost", "Recovering familiar spaces"),
+        8: ("08-counting-holes", "Keeping track of holes"),
     },
 )
 
 PART_TWO = Part(
     slug="condensed-math02",
     number=2,
-    title="Infinite Sums That Finally Land",
-    blurb=("Endless sums are the reason topology was dragged into algebra in "
-           "the first place. Solid groups are the ones where every such sum "
-           "has exactly one answer, and their building blocks turn out to be "
-           "products of copies of the whole numbers."),
+    title="Giving Infinite Sums a Meaning",
+    blurb=("Use compatible weights on finite probe stages to define solid "
+           "groups. Then see how these groups handle infinite sums and why "
+           "derived solidification recovers ordinary homology."),
     lectures="Lectures IV to VI",
     chapters={
         0: ("00-start-here", "Start here"),
-        1: ("01-sums-with-nowhere-to-land", "Sums with nowhere to land"),
-        2: ("02-weights-that-agree", "Weights that agree"),
-        3: ("03-stacks-of-steps", "Every function is a stack of steps"),
-        4: ("04-products-in-sums-out", "Products in, sums out"),
-        5: ("05-the-solid-rule", "The solid rule"),
-        6: ("06-where-the-real-line-goes", "Where the real line goes"),
-        7: ("07-the-multiplication-table", "The multiplication table"),
-        8: ("08-solidify-a-shape", "Solidify a shape, get its holes"),
+        1: ("01-sums-with-nowhere-to-land", "One series, two ideas of distance"),
+        2: ("02-weights-that-agree", "Compatible weights on a probe"),
+        3: ("03-stacks-of-steps", "A basis for integer-valued functions"),
+        4: ("04-products-in-sums-out", "Products and direct sums"),
+        5: ("05-the-solid-rule", "The unique-extension rule"),
+        6: ("06-where-the-real-line-goes", "Why the usual real line disappears"),
+        7: ("07-the-multiplication-table", "Completed tensor products"),
+        8: ("08-solidify-a-shape", "Solidification recovers homology"),
     },
 )
 
 PART_THREE = Part(
     slug="condensed-math03",
     number=3,
-    title="Rings That Know How To Integrate",
-    blurb=("Carry the solid rule from whole numbers to rings, and geometry "
-           "follows: functions near the edge of a space, cohomology with "
-           "compact support, and a duality that was previously assembled by "
-           "hand falls out of one adjoint."),
+    title="Measure Rules for Rings and Geometry",
+    blurb=("Give each ring a measure rule suited to its own notion of "
+           "convergence. This leads from real and p-adic measures to boundary "
+           "functions, compact support, the six operations, and duality."),
     lectures="Lectures VII to XI",
     chapters={
         0: ("00-start-here", "Start here"),
-        1: ("01-a-ring-with-a-rule", "A ring with a rule for sums"),
-        2: ("02-two-that-work", "Two rules that work"),
-        3: ("03-the-real-lines-own-rule", "The real line's own rule"),
-        4: ("04-functions-near-the-edge", "Functions near the edge"),
-        5: ("05-compact-support", "Cohomology with compact support"),
-        6: ("06-gluing-the-pictures", "Gluing the local pictures"),
+        1: ("01-a-ring-with-a-rule", "A ring and its legal measures"),
+        2: ("02-two-that-work", "Two analytic examples"),
+        3: ("03-the-real-lines-own-rule", "A measure rule for the real numbers"),
+        4: ("04-functions-near-the-edge", "Global functions and boundary tails"),
+        5: ("05-compact-support", "Compactly supported cohomology"),
+        6: ("06-gluing-the-pictures", "Gluing affine patches"),
         7: ("07-six-operations", "The six operations"),
-        8: ("08-duality-watched", "Duality, watched"),
+        8: ("08-duality-watched", "Coherent duality"),
     },
 )
 

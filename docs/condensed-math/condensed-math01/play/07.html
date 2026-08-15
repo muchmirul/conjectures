@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Translate a space and recover it · condensed mathematics, part 1</title>
+<title>Recover a familiar space · condensed mathematics, part 1</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,14 +53,14 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>7 · Translate a space and recover it</h1>
-<p class="lede">The first step records every continuous map from a profinite probe into a space. The second step recovers a topology from those probe values.</p>
-<p class="try"><strong>Try this.</strong> Run the circle, interval, and finite set through both steps. Each returns with its original topology. The final example has a nonclosed point and stops because Warning 2.14 excludes it.</p>
+<h1>7 · Recover a familiar space</h1>
+<p class="lede">First record every continuous map from a profinite probe into a space. Then use those probe maps to recover a topology on its points.</p>
+<p class="try"><strong>Try this.</strong> Send the circle, interval, and finite set through both steps. Each one returns with its original topology. The final example stops because it has a point that is not closed.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>which space</label><div class="pick" id="space" style="flex:1"><button data-v="circle" class="on">circle</button><button data-v="seg" class="">interval</button><button data-v="two" class="">two points</button><button data-v="sier" class="">a point that is not closed</button></div></div></div>
+<div class="controls"><div class="row"><label>space</label><div class="pick" id="space" style="flex:1"><button data-v="circle" class="on">circle</button><button data-v="seg" class="">interval</button><button data-v="two" class="">two points</button><button data-v="sier" class="">a point that is not closed</button></div></div></div>
 <div class="readout" id="out"></div>
-<p class="note">Proposition 1.7 proves full faithfulness on compactly generated spaces, and Theorem 2.16 identifies compact Hausdorff spaces with qcqs condensed sets. The rejected example lies outside their hypotheses.</p>
-<div class="nav"><a href="06.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="08.html">next →</a></div>
+<p class="note">Proposition 1.7 proves this recovery for compactly generated spaces, and Theorem 2.16 gives the compact Hausdorff case. Warning 2.14 explains why the rejected example lies outside the assumptions.</p>
+<div class="nav"><a href="06.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="08.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -393,7 +393,7 @@ function draw(){
   ctx.clearRect(0,0,cv.width,cv.height);
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='center';
   ctx.fillText('the space',110,50);shape(110,150,1,false);
-  arrow(190,150,300,'read by probes',bad);
+  arrow(190,150,300,'record all probe maps',bad);
   // the probe data, drawn as a stack of probe entries
   ctx.fillText('the probe data',390,50);
   for(let i=0;i<5;i++){
@@ -404,18 +404,18 @@ function draw(){
   }
   if(bad){
     ctx.fillStyle='#d03b3b';ctx.font='12px system-ui';
-    ctx.fillText('no probe data exists',390,250);
+    ctx.fillText('the construction stops',390,250);
   }
-  arrow(470,150,580,'points read back',bad);
+  arrow(470,150,580,'recover the topology',bad);
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';
-  ctx.fillText('the space again',650,50);shape(650,150,1,bad);
+  ctx.fillText('the recovered space',650,50);shape(650,150,1,bad);
   const out=document.getElementById('out');
   out.textContent=bad
     ? 'a point of this space is not closed\n'+
-      'such a space never becomes an probe data, at any size bound\n'+
-      'the lectures flag exactly this case as the failure'
-    : 'sent out and read back: the same space\n'+
-      'the continuous maps out of it are the same maps too';
+      'A space with a nonclosed point does not define the required condensed set.\n'+
+      'Warning 2.14 identifies this exact failure.'
+    : 'The recovered topology is the original topology.\n'+
+      'The translation also preserves all continuous maps.';
   out.className='readout '+(bad?'verdict-no':'verdict-ok');
 }
 draw();

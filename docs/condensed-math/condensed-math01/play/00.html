@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Build the finite stages · condensed mathematics, part 1</title>
+<title>Build a probe from finite stages · condensed mathematics, part 1</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,14 +53,14 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>0 · Build the finite stages</h1>
-<p class="lede">A profinite probe is assembled from finite stages. This example starts with one box and divides every box into two at the next stage. A point of the completed probe is a compatible path through all the stages.</p>
-<p class="try"><strong>Try this.</strong> Increase the depth one level at a time. Each displayed stage contains finitely many boxes, although there is no final stage in the completed probe. Select a box to see which finer boxes lie above it.</p>
+<h1>0 · Build a probe from finite stages</h1>
+<p class="lede">A probe begins with one box. Each new stage divides the boxes into smaller ones. A point in the finished probe is a path that makes one compatible choice at every stage.</p>
+<p class="try"><strong>Try this.</strong> Add one stage at a time. Notice that every stage has finitely many boxes, even though the completed probe has no last stage. Change the number of pieces to compare different branching patterns.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label for="depth">how many splits</label><input type="range" id="depth" min="0" max="6" step="1" value="3"><span class="val" id="depthv"></span></div><div class="row"><label for="branch">pieces per split</label><input type="range" id="branch" min="2" max="4" step="1" value="2"><span class="val" id="branchv"></span></div></div>
+<div class="controls"><div class="row"><label for="depth">number of stages</label><input type="range" id="depth" min="0" max="6" step="1" value="3"><span class="val" id="depthv"></span></div><div class="row"><label for="branch">children of each box</label><input type="range" id="branch" min="2" max="4" step="1" value="2"><span class="val" id="branchv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">Binary splitting gives the Cantor probe. Replacing two children by p children gives the base-p probe used in part two. The browser and Python code construct the same finite sets and transition maps.</p>
-<div class="nav"><a href="index.html">all of them</a>  ·  <a href="01.html">next →</a></div>
+<p class="note">The standard name for this object is a profinite set. The browser builds the same finite sets and transition maps as the Python code, and the tests compare their results.</p>
+<div class="nav"><a href="index.html">all activities</a>  ·  <a href="01.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -360,7 +360,7 @@ function draw(){
   // the discrete real line: the intervals the deepest level cuts out
   const n=S.levels[d].length,y=300,W=640,seg=W/n;
   ctx.fillStyle='#52514e';ctx.font='12px system-ui';ctx.textAlign='left';
-  ctx.fillText('the discrete real line the splits cut out',40,278);
+  ctx.fillText('points represented by the final stage',40,278);
   for(let k=0;k<n;k++){
     const w=Math.max(1.2,seg*0.62);
     ctx.fillStyle='#4a3aa7';
@@ -370,8 +370,8 @@ function draw(){
   depthv.textContent=String(d);branchv.textContent=String(b);
   document.getElementById('out').textContent=
     'boxes at each stage   '+sizes.join(', ')+'\n'+
-    'boxes at the finest   '+sizes[sizes.length-1]+'\n'+
-    'every stage is finite; only the endless stack is not';
+    'boxes in the final stage   '+sizes[sizes.length-1]+'\n'+
+    'Every displayed stage is finite. The completed probe has no final stage.';
 }
 depth.addEventListener('input',draw);branch.addEventListener('input',draw);draw();
 

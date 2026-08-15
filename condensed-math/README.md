@@ -1,103 +1,70 @@
 # Condensed Mathematics
 
-A beginner's visual guide to condensed mathematics, in three parts, with
-something to move in every chapter.
+This folder contains a three-part visual introduction to condensed mathematics. It is written for readers with no background in the subject. Every chapter explains one idea and includes an activity that lets the reader change a finite example.
 
-It retells Peter Scholze's *Lectures on Condensed Mathematics*
-([arXiv:2605.03658](https://arxiv.org/abs/2605.03658), May 2026), which record
-a course taught in Bonn in 2019, joint work with Dustin Clausen. No
-mathematical background is assumed: the guide starts from a set with a
-distance on it and builds everything else.
+The guide follows Peter Scholze's *Lectures on Condensed Mathematics* ([arXiv:2605.03658](https://arxiv.org/abs/2605.03658), May 2026). The lectures record a course taught in Bonn in 2019 and present joint work with Dustin Clausen.
 
-**Read it on the web:** [muchmirul.github.io/conjectures/condensed-math](https://muchmirul.github.io/conjectures/condensed-math/)
+**Read the guide online:** [muchmirul.github.io/conjectures/condensed-math](https://muchmirul.github.io/conjectures/condensed-math/)
 
-**Or discover it instead:** [the game](game/README.md) is the same subject with
-the explaining taken out. Eight worlds, starting from three objects on a table,
-assuming no mathematics at all. Every idea runs concept, then intuition ending
-in a guess, then an experiment you perform yourself, and only then gets its name
-and its symbols.
-[Play it](https://muchmirul.github.io/conjectures/condensed-math/game/).
+**Learn by playing:** [the game](game/README.md) teaches the same subject through eight worlds and assumes no previous mathematics. Each idea begins with a plain explanation. The game then asks the player to make a prediction, try an experiment, and finally learn the standard name and notation. [Play it online](https://muchmirul.github.io/conjectures/condensed-math/game/).
 
 ## The three parts
 
-| part | lectures | what it adds |
+| part | lectures | main idea |
 |---|---|---|
-| [one, Shapes You Can Only See By Probing Them](parts/condensed-math01/ARTICLE.md) | I to III | a space is what it says to probes, and that makes subtraction work |
-| [two, Infinite Sums That Finally Land](parts/condensed-math02/ARTICLE.md) | IV to VI | an endless sum gets exactly one answer, and the objects where it does are rows of dials |
-| [three, Rings That Know How To Integrate](parts/condensed-math03/ARTICLE.md) | VII to XI | carry the rule to rings, and geometry with a duality theorem falls out |
+| [1. Understanding Spaces Through Probes](parts/condensed-math01/ARTICLE.md) | I to III | Probes record closeness that individual points cannot see, making kernels and cokernels reliable. |
+| [2. Giving Infinite Sums a Meaning](parts/condensed-math02/ARTICLE.md) | IV to VI | Compatible weights lead to solid groups and connect infinite sums with ordinary homology. |
+| [3. Measure Rules for Rings and Geometry](parts/condensed-math03/ARTICLE.md) | VII to XI | Different rings receive suitable measure rules, leading to compact support, the six operations, and duality. |
 
-Each part is nine chapters, and each chapter carries a simulation embedded in
-the article. Twenty-seven in all. The topic is deliberately simulation-heavy:
-the definitions here look forbidding and the objects underneath them are
-concrete, so every chapter comes with a control that pokes at its own claim.
+Read the parts in order. Each part has an opening activity and eight numbered chapters, for a total of 27 playable pages.
 
-## Layout
+## Files and folders
 
-```
+```text
 parts/condensed-mathNN/
-    ARTICLE.md          the source of truth for that part's prose
-    guide/NN-.../       one folder per chapter: generated README plus figures
-game/                   the eight worlds of the game, and their builder
-src/condensed_guide/    the computable core, plus the drawing helpers
-src/viz/partN_figures.py  every figure of part N
-build_guide.py          ARTICLE.md  ->  guide/NN-.../README.md
-build_docs.py           ARTICLE.md  ->  ../docs/condensed-math/
-build_interactive.py    the 27 playable pages
-game/build_game.py      the eight worlds of the game
-notes/                  the curriculum, and what is computed versus quoted
-tests/                  every claim above, recomputed
+    ARTICLE.md            source text for one part
+    guide/NN-.../         generated chapter README files and figures
+game/
+    worlds/               source text and structure for the eight game worlds
+    build_game.py         builds the published game pages
+src/condensed_guide/      finite mathematical models and drawing helpers
+src/viz/partN_figures.py  figure generator for one part
+build_guide.py            builds chapter README files from the articles
+build_docs.py             builds the published guide
+build_interactive.py      builds the 27 playable pages
+notes/                    curriculum and claim-by-claim source notes
+tests/                    checks for calculations, pages, activities, and game worlds
 ```
 
-`ARTICLE.md` is the only file to edit by hand for the written guide, and
-`game/worlds/` the only one for the game. The chapter READMEs, the web pages,
-the playable pages and the game's pages are all generated; run `make all` after
-editing.
+Edit the three `ARTICLE.md` files when changing the written guide. Edit `game/worlds/` when changing the game. The chapter README files, published guide, activities, and game pages are generated. Run `make all` after an edit.
 
-Figures are grouped one script per part rather than one per chapter, because
-the figures inside a part share their layout helpers heavily and share almost
-nothing across parts. `make part2` re-renders one part.
+The figure code is grouped by part because the figures within one part share layout helpers. For example, `make part2` rebuilds only the figures for part two.
 
 ## Commands
 
-```
+```text
 cd condensed-math
-make venv        # prepare the software once
-make test        # recompute every number the articles quote
-make figures     # rebuild all 45 figures
-make game        # rebuild the eight worlds of the game
-make all         # regenerate the chapters, the pages, the simulations and the game
+make venv        # create the Python environment once
+make test        # rerun all calculations and page tests
+make figures     # rebuild all figures
+make game        # rebuild the eight game worlds
+make all         # rebuild the guide, activities, and game
 ```
 
-## What is checked, and what is not
+## What the tests can verify
 
-Condensed mathematics is foundational, so nearly every theorem in the lectures
-is a statement about a whole category, and no program checks those. What this
-repository computes is the finite machinery underneath:
+Most major results in condensed mathematics concern entire categories, so a finite program cannot prove them. The repository instead checks the concrete calculations used by the explanations:
 
-- probes as honest inverse systems of finite sets, with their transition maps
-- weightings as compatible families of integer weights, and the fact that
-  integrating against one does not depend on the level you read it at
-- Bergman's basis construction, at finite stages
-- the doubling sum, in exact fractions, under both the ordinary size and the
-  base-p size
-- homology of five shapes by Smith normal form over the integers, torsion
-  included
-- the measure sizes of part three, and the exponent ceiling in closed form
-- the tails on the line and on the coordinate cross, by truncation
+- probes represented as inverse systems of finite sets, including their transition maps
+- compatible integer measures and stage-independent integration
+- finite stages of Bergman's basis construction
+- geometric sums under ordinary and $p$-adic distance, calculated with exact fractions
+- homology of five spaces using Smith normal form over the integers, including torsion
+- the effect of merging weights under different exponents
+- finite boundary-tail counts for a line and a coordinate cross
 
-`notes/research-content.md` lists every claim the three articles make and
-marks it computed, a finite shadow of an infinite statement, or quoted. The
-articles say which is which where it matters.
+The file `notes/research-content.md` records every mathematical claim. It marks each one as computed, a finite illustration of an infinite statement, or quoted from the lectures.
 
-The game is checked the same way, and its teaching is checked too.
-`tests/test_game.py` plays every world from the first press to the last through
-a DOM stub, moving every control of every widget afterwards, and it enforces the
-shape of every brick: state the concept, declare what it assumes, ask for a
-guess before answering, give the reader something to run, and only then name the
-idea and show the symbols.
+The game tests play every world from beginning to end in a small browser-like environment. They also check the teaching order: explain the concept, state what it assumes, ask for a prediction, provide an experiment, and only then introduce the standard name and symbols.
 
-The simulations are checked twice over. `tests/test_interactive.py` runs their
-JavaScript and compares it against the Python library at sample points, and it
-also runs every page against a small DOM stub through every position of every
-control. A page that throws therefore fails here rather than in front of a
-reader.
+The activity tests compare the JavaScript calculations with the Python implementation. They also move every control through all its positions, so a page that throws an error fails during testing rather than in front of a reader.

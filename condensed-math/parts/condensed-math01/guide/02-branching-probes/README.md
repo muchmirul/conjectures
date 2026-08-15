@@ -1,24 +1,22 @@
-# 2 · Probes that branch
+# 2 · Building a probe from finite stages
 
-*Part 1 of three: Shapes You Can Only See By Probing Them. Retells Lectures I to III of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
+*Part 1 of three: Understanding Spaces Through Probes. Retells Lectures I to III of Scholze's [Lectures on Condensed Mathematics](https://arxiv.org/abs/2605.03658).*
 
-To detect nearness, we need an object that carries nearness of its own. Build one by starting with a box and repeatedly dividing it into smaller boxes. At each stage there are only finitely many pieces, together with a map telling us which new piece came from which old one. The infinite object is completely described by these finite stages and their connecting maps.
+We need probes that carry their own notion of closeness. To build one, start with a finite set of boxes and repeatedly divide each box into smaller boxes. At every stage, a map tells us which new box came from which box in the previous stage. The full probe consists of all the stages together with these maps.
 
-![Finite stages of three probes shown side by side: binary branching, an approaching sequence, and branching in base p](probes.png)
+![Three probes are shown through finite stages: binary branches, an approaching sequence, and base-p branches](probes.png)
 
-A **probe** consists of such a compatible sequence of finite divisions and the points obtained by following branches through every stage. The lectures call this a profinite set. Three examples will be used repeatedly in this guide.
+A point of the completed probe is a choice of one box at every stage, where each chosen box lies inside the one chosen before it. The lectures call this an **inverse limit of finite sets**, or a **profinite set**. We will use three examples throughout the guide.
 
-The **halving probe** divides every box into two at each stage. After ten rounds it has 1024 boxes. Its limiting points form the classical Cantor set, which can also be made by repeatedly removing the middle third of every remaining interval.
+The **halving probe** divides each box into two. After ten divisions, it has 1024 boxes. Its completed set of points is the Cantor set. The **approaching-sequence probe** contains a sequence and its limit. At stage five, the first five sequence points have separate boxes, while all later points and the limit remain together in one box. Each new stage separates one more point.
 
-The **approaching probe** records one convergent sequence and its limit. At stage five, the first five points have been separated into their own boxes, while all later points and the limit still occupy one final box. Further stages separate one more point at a time.
+The **base-$p$ probe** divides each box into $p$ pieces. Its points form the $p$-adic integers. In that number system, divisibility by powers of $p$ determines which numbers are close. Part two uses this probe to show why one infinite sum can diverge under the usual distance and converge under the $p$-adic distance.
 
-The **counting-in-base-p probe** divides each box into p pieces. Its limiting points form the p-adic integers, an important number system in which divisibility by powers of p determines nearness. Part two will use this probe to explain an infinite sum that converges in one notion of size but not another.
-
-The formal name *profinite set* means an inverse limit of finite sets ([Definition 1.2, page 6](https://arxiv.org/pdf/2605.03658v1#page=6)). Two parts of that description are important. Every individual stage is finite, and all information about the probe lies in the stages and the maps between them. The code follows this definition literally by storing finite sets and their transition maps. Its tests check the expected growth of all three probes and verify that compatible data can be read consistently through their levels.
+The code follows [Definition 1.2, page 6](https://arxiv.org/pdf/2605.03658v1#page=6) directly. It stores each finite set and each map to the earlier stage. The tests check the size of every stage and verify that moving back through several stages gives a consistent answer.
 
 ### The mathematics
 
-The definition used in [Definition 1.2, page 6 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=6) is that a profinite set is an inverse limit of finite sets:
+[Definition 1.2, page 6 of the lectures](https://arxiv.org/pdf/2605.03658v1#page=6) defines a profinite set as an inverse limit of finite sets:
 
 ```math
 S \cong \varprojlim_i S_i,
@@ -28,14 +26,14 @@ S \cong \varprojlim_i S_i,
 \pi_{ki}=\pi_{ji}\circ\pi_{kj} \quad (k\ge j\ge i).
 ```
 
-**Reading the symbols.** The letter $S$ names the whole probe, while each $S_i$ is its finite stage numbered $i$. The symbol $\cong$ means “is isomorphic to,” and $\varprojlim$ means inverse limit: a point of $S$ is a compatible choice of one box at every stage. The map $\pi_{ji}$ sends a box at the finer stage $j$ back to its parent at stage $i$. The double-headed arrow says that every coarse box has at least one finer box above it. The inequalities order the stages. The symbol $\circ$ means “followed by,” and the final equality says that going back two stages at once gives the same answer as going back one stage at a time.
+**Reading the symbols.** The letter $S$ names the complete probe, and $S_i$ is its finite stage numbered $i$. The symbol $\cong$ means “is isomorphic to.” The symbol $\varprojlim$ means inverse limit, so a point of $S$ is one compatible choice of a box at every stage. The map $\pi_{ji}$ sends a box at the finer stage $j$ back to its parent at stage $i$. The double-headed arrow says that every coarse box has a finer box above it. The inequalities put the stages in order. The symbol $\circ$ means composition. The last equality says that returning two stages at once gives the same result as returning one stage at a time.
 
-**Why it matters.** This formula replaces one infinite object by finite stages joined by exact compatibility maps. The halving, approaching, and base-$p$ probes differ only in the finite sets $S_i$ and the maps $\pi_{ji}$.
+**Why it matters.** The formula describes one infinite object using finite pieces and exact rules between them. The three examples differ only in their finite sets $S_i$ and their maps $\pi_{ji}$.
 
-**In the simulation.** The depth control chooses the largest index $i$ shown. Each row is one finite set $S_i$, and every connecting branch displays a transition map $\pi_{i+1,i}$. Selecting a box shows the finer boxes that map back to it.
+**In the simulation.** The depth control chooses the largest stage $i$ on the screen. Each row is a finite set $S_i$, and each branch shows part of the transition map $\pi_{i+1,i}$. Selecting one box highlights the finer boxes that map back to it.
 
-**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/02.html)** to compare the three probes, change their depth, and inspect the points contained in any box.
+**[Play with this](https://muchmirul.github.io/conjectures/condensed-math/condensed-math01/play/02.html)** to compare the three probes and inspect what lies above any chosen box.
 
 ---
 
-[← Two real lines](../01-two-real-lines/README.md)  ·  [What a shape says to a probe →](../03-what-a-shape-says/README.md)  ·  [all of part 1 on one page](../../ARTICLE.md)
+[← The same numbers, but different ideas of closeness](../01-two-real-lines/README.md)  ·  [Mapping a probe into a space →](../03-what-a-shape-says/README.md)  ·  [all of part 1 on one page](../../ARTICLE.md)

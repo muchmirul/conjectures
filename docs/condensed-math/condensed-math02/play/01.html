@@ -54,13 +54,13 @@
 <main>
 <a class="back" href="../index.html">back to the article</a>
 <h1>1 · Compare ordinary and p-adic distance</h1>
-<p class="lede">The partial sums add one, p, p squared, and successive powers of p. They grow in ordinary distance but converge when distance is measured p-adically.</p>
-<p class="try"><strong>Try this.</strong> Increase the term count for several bases. The ordinary error is multiplied by p at each step, while the p-adic error is divided by p. Compare the displayed limit with one divided by one minus p.</p>
+<p class="lede">Add 1, then p, then p squared, and continue with higher powers. The totals grow under ordinary distance but settle toward a limit under p-adic distance.</p>
+<p class="try"><strong>Try this.</strong> Increase the number of terms for several bases. Compare the growing ordinary error with the shrinking p-adic error, then read the limit shown below the picture.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label for="base">the base p</label><input type="range" id="base" min="2" max="7" step="1" value="2"><span class="val" id="basev"></span></div><div class="row"><label for="terms">terms added</label><input type="range" id="terms" min="1" max="12" step="1" value="6"><span class="val" id="termsv"></span></div></div>
+<div class="controls"><div class="row"><label for="base">base p</label><input type="range" id="base" min="2" max="7" step="1" value="2"><span class="val" id="basev"></span></div><div class="row"><label for="terms">number of terms</label><input type="range" id="terms" min="1" max="12" step="1" value="6"><span class="val" id="termsv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The browser computes the partial sums and both errors live. The Python tests repeat the calculation with exact fractions. For base two, the p-adic limit is minus one.</p>
-<div class="nav"><a href="00.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="02.html">next →</a></div>
+<p class="note">The browser calculates both errors directly. The Python tests repeat the calculation with exact fractions. In base two, the p-adic limit is minus one.</p>
+<div class="nav"><a href="00.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="02.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -358,7 +358,7 @@ function draw(){
   ctx.clearRect(0,0,cv.width,cv.height);
   // ordinary reading: a log-scale ladder running away
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('the ordinary size: the totals run away',40,30);
+  ctx.fillText('ordinary distance: the totals grow',40,30);
   const maxv=sums[sums.length-1];
   for(let k=0;k<n;k++){
     const frac=Math.log(sums[k]+1)/Math.log(maxv+1);
@@ -367,10 +367,10 @@ function draw(){
     ctx.fillStyle='#52514e';ctx.font='11px system-ui';ctx.textAlign='left';
     ctx.fillText(String(sums[k]),46+w,52+k*15);
   }
-  // base-p reading: nested boxes closing in
+  // p-adic reading: nested boxes closing in
   const y0=250;
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('the base-'+p+' size: the totals close in',40,y0-16);
+  ctx.fillText(p+'-adic distance: the totals approach a limit',40,y0-16);
   let x=40,w=620;
   for(let k=0;k<n;k++){
     ctx.strokeStyle='#00787a';ctx.lineWidth=1.6;
@@ -381,16 +381,17 @@ function draw(){
   }
   ctx.fillStyle='#008300';ctx.beginPath();ctx.arc(x+w/2,y0+60,6,0,7);ctx.fill();
   ctx.fillStyle='#008300';ctx.font='12px system-ui';ctx.textAlign='center';
-  ctx.fillText('the value the totals reach: '+lim.toFixed(4),x+w/2,y0+92);
+  ctx.fillText('p-adic limit: '+lim.toFixed(4),x+w/2,y0+92);
   const ordDist=Math.abs(sums[n-1]-lim);
   const padic=Math.pow(p,-n);
   basev.textContent=String(p);termsv.textContent=String(n);
   document.getElementById('out').textContent=
-    'terms added                '+n+'\n'+
-    'last running total         '+sums[n-1]+'\n'+
-    'ordinary distance to the value  '+ordDist.toFixed(1)+'\n'+
-    'base-'+p+' distance to the value    '+padic.toExponential(3)+'\n'+
-    'one climbs by a factor of '+p+', the other falls by a factor of '+p;
+    'number of terms                '+n+'\n'+
+    'last partial sum         '+sums[n-1]+'\n'+
+    'ordinary distance to the limit  '+ordDist.toFixed(1)+'\n'+
+    p+'-adic distance to the limit    '+padic.toExponential(3)+'\n'+
+    'The ordinary error grows by a factor of '+p+
+    ', while the p-adic error shrinks by a factor of '+p+'.';
   document.getElementById('out').className='readout verdict-ok';
 }
 base.addEventListener('input',draw);terms.addEventListener('input',draw);draw();

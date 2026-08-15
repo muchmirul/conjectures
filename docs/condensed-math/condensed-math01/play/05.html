@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Inspect the point-invisible quotient · condensed mathematics, part 1</title>
+<title>Find a quotient that points miss · condensed mathematics, part 1</title>
 <style>
  :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
         --line:#e1e0d9;--blue:#2a78d6;--green:#008300;--red:#d03b3b;
@@ -53,14 +53,14 @@
 <body>
 <main>
 <a class="back" href="../index.html">back to the article</a>
-<h1>5 · Inspect the point-invisible quotient</h1>
-<p class="lede">A continuous real-valued function on the halving probe represents an element of the quotient from Example 1.9. It vanishes in the quotient only when it comes from a locally constant function.</p>
-<p class="try"><strong>Try this.</strong> Set the variation to zero and the function becomes locally constant. Increase it and refine the probe. The function keeps varying at every visible depth even though the quotient still has no value on the one-point probe.</p>
+<h1>5 · Find a quotient that points miss</h1>
+<p class="lede">A probe can support a continuous real-valued function that is not locally constant. Such a function gives information that the one-point probe cannot detect.</p>
+<p class="try"><strong>Try this.</strong> Set the variation to zero, then increase it and add finer stages. At zero, the map is locally constant. With variation, it keeps changing on smaller visible boxes.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label for="deformation">how much each split shifts</label><input type="range" id="deformation" min="0" max="100" step="1" value="60"><span class="val" id="deformationv"></span></div><div class="row"><label for="gdepth">how deep you look</label><input type="range" id="gdepth" min="1" max="7" step="1" value="5"><span class="val" id="gdepthv"></span></div></div>
+<div class="controls"><div class="row"><label for="deformation">variation at each split</label><input type="range" id="deformation" min="0" max="100" step="1" value="60"><span class="val" id="deformationv"></span></div><div class="row"><label for="gdepth">number of stages</label><input type="range" id="gdepth" min="1" max="7" step="1" value="5"><span class="val" id="gdepthv"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">Example 1.9 identifies this value as a continuous function modulo locally constant functions. The activity constructs one finite approximation; it does not prove that the pattern continues through every stage.</p>
-<div class="nav"><a href="04.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="06.html">next →</a></div>
+<p class="note">Example 1.9 identifies the quotient as continuous functions modulo locally constant functions. This activity shows finite approximations to one nonzero class and does not prove that the pattern continues forever.</p>
+<div class="nav"><a href="04.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="06.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -367,7 +367,7 @@ function draw(){
     vals.push(v);
   }
   ctx.fillStyle='#52514e';ctx.font='12px system-ui';ctx.textAlign='left';
-  ctx.fillText('the landing, box by box',x0,28);
+  ctx.fillText('function values on the final-stage boxes',x0,28);
   const seg=W/n;
   for(let k=0;k<n;k++){
     const h=vals[k]*H;
@@ -377,19 +377,19 @@ function draw(){
   // how flat the finest boxes are
   let spread=0;
   for(let k=0;k<n;k+=2)spread=Math.max(spread,Math.abs(vals[k]-vals[k+1]));
-  ctx.fillStyle='#52514e';ctx.fillText('what a single point can see',x0,300);
+  ctx.fillStyle='#52514e';ctx.fillText('value on the one-point probe',x0,300);
   ctx.strokeStyle='#c3c2b7';ctx.lineWidth=2;
   ctx.beginPath();ctx.moveTo(x0,326);ctx.lineTo(x0+W,326);ctx.stroke();
   ctx.fillStyle='#898781';ctx.font='12px system-ui';ctx.textAlign='center';
-  ctx.fillText('nothing: the quotient has no points at all',x0+W/2,348);
+  ctx.fillText('zero: one point detects no quotient value',x0+W/2,348);
   deformationv.textContent=w.toFixed(2);gdepthv.textContent=String(d);
   const flat=spread<1e-9;
   const out=document.getElementById('out');
   out.textContent=
-    'points the quotient has            0\n'+
-    'widest gap inside a finest box  '+spread.toFixed(4)+'\n'+
-    (flat?'flat on every box, so the discrete real line can do it too: this entry is zero'
-         :'never flat, however deep you look: a nonzero entry of the quotient');
+    'point-level quotient values            0\n'+
+    'largest variation in a final box  '+spread.toFixed(4)+'\n'+
+    (flat?'The map is locally constant, so its quotient class is zero.'
+         :'The map still varies at every visible stage. This is the finite pattern used for a nonzero quotient class.');
   out.className='readout '+(flat?'':'verdict-ok');
 }
 wob.addEventListener('input',draw);gd.addEventListener('input',draw);draw();

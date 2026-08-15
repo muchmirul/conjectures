@@ -54,13 +54,13 @@
 <main>
 <a class="back" href="../index.html">back to the article</a>
 <h1>6 · Match bounded functions with valuations</h1>
-<p class="lede">A subring of functions declared to have size at most one determines a region in the valuation space. Proposition 9.2 says that, under its hypotheses, the region also recovers the subring.</p>
-<p class="try"><strong>Try this.</strong> Add and remove boundedness conditions. Each condition removes valuations that assign the chosen function a size greater than one. Compare the remaining region after every change.</p>
+<p class="lede">A chosen subring of bounded functions selects the valuations that give every one of those functions size at most one. Under the theorem's assumptions, the selected region also recovers the subring.</p>
+<p class="try"><strong>Try this.</strong> Add one bound at a time. Each new condition removes valuations that make the selected function too large. Compare the remaining region after every change.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label for="g1">declare the coordinate small</label><input type="range" id="g1" min="0" max="1" step="1" value="1"><span class="val" id="g1v"></span></div><div class="row"><label for="g2">declare its reciprocal small</label><input type="range" id="g2" min="0" max="1" step="1" value="0"><span class="val" id="g2v"></span></div><div class="row"><label for="g3">declare a prime small</label><input type="range" id="g3" min="0" max="1" step="1" value="0"><span class="val" id="g3v"></span></div></div>
+<div class="controls"><div class="row"><label for="g1">bound the coordinate by one</label><input type="range" id="g1" min="0" max="1" step="1" value="1"><span class="val" id="g1v"></span></div><div class="row"><label for="g2">bound its reciprocal by one</label><input type="range" id="g2" min="0" max="1" step="1" value="0"><span class="val" id="g2v"></span></div><div class="row"><label for="g3">bound a prime by one</label><input type="range" id="g3" min="0" max="1" step="1" value="0"><span class="val" id="g3v"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">The correspondence is Proposition 9.2. The two plotted directions are schematic independent valuation parameters, not coordinates on a specific ring, so the drawing illustrates inclusion rather than a particular valuation space.</p>
-<div class="nav"><a href="05.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="07.html">next →</a></div>
+<p class="note">This correspondence is Proposition 9.2. The plotted points are a simple model of independent valuation parameters, not the valuation space of a particular ring, so the picture shows inclusion only.</p>
+<div class="nav"><a href="05.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="07.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -358,7 +358,7 @@ function draw(){
   ctx.clearRect(0,0,cv.width,cv.height);
   const x0=70,y0=54,W=560,H=240;
   ctx.fillStyle='#52514e';ctx.font='13px system-ui';ctx.textAlign='left';
-  ctx.fillText('every consistent way of measuring how big each function is',
+  ctx.fillText('possible valuations',
                x0,36);
   ctx.strokeStyle='#c3c2b7';ctx.lineWidth=1.4;ctx.strokeRect(x0,y0,W,H);
   // the region left after each declaration
@@ -388,18 +388,18 @@ function draw(){
     ctx.fillStyle=on?'#008300':'#c3c2b7';
     ctx.beginPath();ctx.arc(x0+i*190,y0+H+34,7,0,7);ctx.fill();
     ctx.fillStyle='#52514e';
-    ctx.fillText(t+(on?' is small':' is free'),x0+i*190+14,y0+H+38);
+    ctx.fillText(t+(on?' is bounded':' is unrestricted'),x0+i*190+14,y0+H+38);
   });
   G.forEach((s,i)=>{document.getElementById(s.id+'v').textContent=
     parseInt(s.value)?'small':'free';});
   const empty=!(hi>lo&&topf>bot);
   const out=document.getElementById('out');
   out.textContent=
-    'declarations made   '+[a,b,c].reduce((x,y)=>x+y,0)+'\n'+
-    'valuations left in  '+inside+' of '+total+'\n'+
-    (empty?'nothing left: these declarations are incompatible'
-          :'each declaration cuts the region down, and the region determines '+
-           'the declarations back');
+    'bounds selected   '+[a,b,c].reduce((x,y)=>x+y,0)+'\n'+
+    'valuations remaining  '+inside+' of '+total+'\n'+
+    (empty?'No valuation satisfies all the selected bounds.'
+          :'Each bound shrinks the valuation region. Under Proposition 9.2, the region '+
+           'recovers the bounded subring.');
   out.className='readout '+(empty?'verdict-no':'verdict-ok');
 }
 G.forEach(s=>s.addEventListener('input',draw));draw();

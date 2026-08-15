@@ -54,13 +54,13 @@
 <main>
 <a class="back" href="../index.html">back to the article</a>
 <h1>5 · Compute a boundary quotient</h1>
-<p class="lede">Compactly supported pushforward is built from the difference between functions near the boundary and functions defined everywhere. The line and coordinate cross provide finite models of that quotient.</p>
-<p class="try"><strong>Try this.</strong> Use the same truncation depth for both shapes. The line retains one tail. The cross retains one tail from each branch plus one contribution from the relation at their shared point.</p>
+<p class="lede">Compactly supported pushforward compares functions near the boundary with functions defined everywhere. A line and a coordinate cross give small models of this quotient.</p>
+<p class="try"><strong>Try this.</strong> Use the same truncation for both shapes. The line keeps one tail. The cross keeps a tail from each branch and one extra contribution from the relation at their shared point.</p>
 <canvas id="c" width="720" height="400"></canvas>
-<div class="controls"><div class="row"><label>which shape</label><div class="pick" id="geom" style="flex:1"><button data-v="line" class="on">the line</button><button data-v="cross" class="">the cross</button></div></div><div class="row"><label for="tails2">tails kept</label><input type="range" id="tails2" min="1" max="8" step="1" value="4"><span class="val" id="tails2v"></span></div><div class="row"><label for="top2">how far the polynomials reach</label><input type="range" id="top2" min="1" max="8" step="1" value="3"><span class="val" id="top2v"></span></div></div>
+<div class="controls"><div class="row"><label>shape</label><div class="pick" id="geom" style="flex:1"><button data-v="line" class="on">the line</button><button data-v="cross" class="">the cross</button></div></div><div class="row"><label for="tails2">number of tail terms</label><input type="range" id="tails2" min="1" max="8" step="1" value="4"><span class="val" id="tails2v"></span></div><div class="row"><label for="top2">maximum polynomial degree</label><input type="range" id="top2" min="1" max="8" step="1" value="3"><span class="val" id="top2v"></span></div></div>
 <div class="readout" id="out"></div>
-<p class="note">Remark 8.5 gives the exact dualizing-complex formula for the cross. The activity checks only the rank pattern of finite truncations and identifies the additional contribution from the crossing relation.</p>
-<div class="nav"><a href="04.html">← previous</a>  ·  <a href="index.html">all of them</a>  ·  <a href="06.html">next →</a></div>
+<p class="note">Remark 8.5 gives the exact dualizing-complex formula for the cross. This activity checks only the ranks of finite truncations and identifies the extra contribution from the crossing relation.</p>
+<div class="nav"><a href="04.html">← previous</a>  ·  <a href="index.html">all activities</a>  ·  <a href="06.html">next →</a></div>
 </main>
 <script>
 if(location.search.indexOf('embed')>=0) document.body.classList.add('embed');
@@ -383,7 +383,7 @@ function draw(){
     ctx.beginPath();ctx.moveTo(420,58);ctx.lineTo(680,58);ctx.stroke();
     ctx.fillStyle='#8a5a2c';ctx.beginPath();ctx.arc(680,58,6,0,7);ctx.fill();
     ctx.fillStyle='#52514e';ctx.font='12px system-ui';ctx.textAlign='center';
-    ctx.fillText('one edge',680,80);
+    ctx.fillText('one boundary branch',680,80);
   }else{
     ctx.beginPath();ctx.moveTo(430,58);ctx.lineTo(680,58);ctx.stroke();
     ctx.beginPath();ctx.moveTo(555,10);ctx.lineTo(555,106);ctx.stroke();
@@ -392,26 +392,26 @@ function draw(){
     ctx.beginPath();ctx.arc(555,10,6,0,7);ctx.fill();
     ctx.fillStyle='#2a78d6';ctx.beginPath();ctx.arc(555,58,6,0,7);ctx.fill();
     ctx.fillStyle='#52514e';ctx.font='12px system-ui';ctx.textAlign='left';
-    ctx.fillText('the crossing point',566,74);
+    ctx.fillText('shared origin',566,74);
   }
   const nearEdge=(shape==='line')?(top+m+1):2*(top+m+1);
   const everywhere=(shape==='line')?(top+1):(2*(top+1)-1);
   const left=(shape==='line')?lineEdgeRank(top,m):crossEdgeRank(top,m);
-  bar(150,nearEdge,'#4a3aa7','pieces of a function near the edge');
-  bar(224,everywhere,'#c3c2b7','pieces of a function everywhere');
-  bar(298,left,'#00787a','what is left over');
+  bar(150,nearEdge,'#4a3aa7','truncated boundary functions');
+  bar(224,everywhere,'#c3c2b7','truncated global functions');
+  bar(298,left,'#00787a','quotient rank');
   tails2v.textContent=String(m);top2v.textContent=String(top);
   const expected=(shape==='line')?m:(2*m+1);
   const out=document.getElementById('out');
   out.textContent=
     (shape==='line'?'the line':'the coordinate cross')+'\n'+
-    'near the edge   '+nearEdge+'\n'+
+    'near the boundary   '+nearEdge+'\n'+
     'everywhere      '+everywhere+'\n'+
-    'left over       '+left+
-    (shape==='line'?'   (exactly the tails)'
-                   :'   (both branches\' tails, plus one)')+'\n'+
-    (left===expected?'stable: pushing the polynomials further out does not move it'
-                    :'unexpected count');
+    'quotient       '+left+
+    (shape==='line'?'   (one boundary tail)'
+                   :'   (two boundary tails plus one shared-origin contribution)')+'\n'+
+    (left===expected?'The rank is stable when the polynomial degree increases.'
+                    :'The calculated rank does not match the expected formula.');
   out.className='readout '+(left===expected?'verdict-ok':'verdict-no');
 }
 [t2,tp].forEach(x=>x.addEventListener('input',draw));draw();
