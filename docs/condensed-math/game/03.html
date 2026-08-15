@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>World 3: The test that should have caught it · condensed mathematics</title>
+<meta name="description" content="By the end you will have built algebra's two measurements with your own hands, watched them agree on every honest example, and watched them return a confident wrong answer on the bridge.">
+<style>
+ :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+        --line:#e1e0d9;--card:#ffffff;--blue:#2a78d6;--green:#008300;
+        --red:#d03b3b;--violet:#4a3aa7;}
+ @media (prefers-color-scheme: dark){
+   :root{--surface:#15150f;--ink:#f2f1ea;--ink2:#c9c7bd;--muted:#8d8b82;
+         --line:#33322c;--card:#1c1c15;}
+ }
+ *{box-sizing:border-box}
+ html{scroll-behavior:smooth}
+ body{margin:0;padding:0 0 10vh;background:var(--surface);color:var(--ink);
+   font:17.5px/1.75 -apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+   sans-serif;}
+ main{max-width:680px;margin:0 auto;padding:0 20px}
+ header.top{position:sticky;top:0;z-index:5;background:var(--surface);
+   border-bottom:1px solid var(--line);padding:10px 20px 0}
+ header.top .inner{max-width:680px;margin:0 auto;display:flex;
+   align-items:baseline;gap:12px;font-size:13px;color:var(--muted)}
+ header.top a{color:var(--muted);text-decoration:none}
+ header.top a:hover{color:var(--blue)}
+ .bar{max-width:680px;margin:8px auto 0;height:3px;background:var(--line);
+   border-radius:2px;overflow:hidden}
+ .bar i{display:block;height:100%;width:0;background:var(--blue);
+   transition:width .35s ease}
+ h1{font-size:26px;line-height:1.25;margin:34px 0 8px}
+ .promise{color:var(--ink2);font-style:italic;margin:0 0 12px}
+ p{margin:1.05em 0}
+ em{font-style:italic}
+ a{color:var(--blue)}
+ .step{animation:rise .28s ease both}
+ @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;
+   transform:none}}
+ @media (prefers-reduced-motion: reduce){.step{animation:none}
+   html{scroll-behavior:auto}}
+ /* the brick opening */
+ .brick{margin:52px 0 0;padding-top:26px;border-top:1px solid var(--line)}
+ .brick .count{font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+   color:var(--violet);font-weight:600}
+ .brick h2{font-size:21px;margin:6px 0 10px;line-height:1.3}
+ .brick .idea{margin:0 0 16px;color:var(--ink)}
+ .need{background:var(--card);border:1px solid var(--line);border-radius:10px;
+   padding:12px 16px;margin:16px 0 0}
+ .need span{font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+   color:var(--muted);font-weight:600}
+ .need ul{margin:6px 0 0;padding-left:18px}
+ .need li{margin:4px 0;color:var(--ink2);font-size:15.5px}
+ /* stage headings */
+ .stage{display:flex;align-items:baseline;gap:10px;margin:36px 0 2px}
+ .stage b{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;
+   color:var(--blue);font-weight:700}
+ .stage i{font-style:normal;font-size:13px;color:var(--muted)}
+ .stage:before{content:"";flex:0 0 22px;height:1px;background:var(--blue);
+   opacity:.5;align-self:center}
+ /* the guess */
+ .q{font-weight:600;margin:22px 0 4px}
+ .chose{color:var(--muted);font-size:14.5px;margin:14px 0 2px}
+ .reply{border-left:3px solid var(--green);padding:2px 0 2px 14px;
+   margin:6px 0 0;color:var(--ink2)}
+ /* the hands-on experiment */
+ .doit{background:var(--card);border:1px solid var(--line);border-radius:10px;
+   padding:14px 18px;margin:18px 0 0}
+ .doit .lead{font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+   color:var(--violet);font-weight:600}
+ .doit ol{margin:10px 0 0;padding-left:20px}
+ .doit li{margin:6px 0}
+ .found{border-left:3px solid var(--violet);padding:2px 0 2px 14px;
+   margin:14px 0 0;color:var(--ink2)}
+ /* the widget */
+ .play{margin:20px 0 0}
+ .play .prompt{font-weight:600;margin:0 0 10px}
+ .play .notice{color:var(--ink2);font-size:15.5px;margin:14px 0 0}
+ canvas.fig{width:100%;height:auto;display:block;border:1px solid var(--line);
+   border-radius:10px;background:var(--card)}
+ .controls{margin:12px 0 0}
+ .row{display:flex;align-items:center;gap:12px;margin:9px 0;flex-wrap:wrap}
+ .row .lbl{flex:0 0 168px;font-size:14px;color:var(--ink2)}
+ input[type=range]{flex:1;min-width:140px;accent-color:var(--blue)}
+ .val{flex:0 0 96px;text-align:right;font-family:ui-monospace,monospace;
+   font-size:13px;color:var(--ink2)}
+ .pick{display:flex;flex-wrap:wrap;gap:7px}
+ .pick button{font:inherit;font-size:13.5px;padding:5px 12px;cursor:pointer;
+   border:1px solid var(--line);border-radius:999px;background:transparent;
+   color:var(--ink2)}
+ .pick button:hover{border-color:var(--blue);color:var(--blue)}
+ .pick button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+ .readout{margin-top:12px;padding:12px 15px;border:1px solid var(--line);
+   border-radius:10px;font-size:14.5px;line-height:1.65;color:var(--ink2);
+   background:var(--card)}
+ .plain{font-size:14.5px;color:var(--muted);margin:0}
+ /* naming and the mathematics */
+ .card{border:1px solid var(--line);border-radius:12px;padding:4px 18px 16px;
+   margin:22px 0 0;background:var(--card)}
+ .card .kicker{display:block;font-size:12px;letter-spacing:.09em;
+   text-transform:uppercase;font-weight:600;margin:14px 0 4px}
+ .card.name{border-left:4px solid var(--green)}
+ .card.name .kicker{color:var(--green)}
+ .card.maths{border-left:4px solid var(--violet)}
+ .card.maths .kicker{color:var(--violet)}
+ .swap{font-size:17px;margin:2px 0 8px}
+ .nota{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;
+   overflow-x:auto;color:var(--ink);margin:6px 0}
+ .fx{font-family:"Latin Modern Math",Cambria,Georgia,serif;font-size:19px;
+   text-align:center;overflow-x:auto;padding:10px 0;margin:6px 0;
+   border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+ .cite{font-size:14px;color:var(--muted);margin:10px 0 0}
+ .hold{margin:26px 0 0;padding:12px 16px;border-radius:10px;
+   background:var(--card);border:1px solid var(--line);
+   border-left:4px solid var(--blue);font-size:16px}
+ .hold b{color:var(--blue);font-size:12px;letter-spacing:.08em;
+   text-transform:uppercase;display:block;margin-bottom:3px}
+ /* the action area */
+ #act{position:sticky;bottom:0;background:var(--surface);padding:14px 0 20px;
+   border-top:1px solid var(--line);margin-top:30px}
+ /* an empty action bar is sticky and would paint over the page behind it */
+ #act:empty{display:none}
+ #act .opts{display:flex;flex-direction:column;gap:8px}
+ button.go{font:inherit;font-size:16px;padding:11px 20px;cursor:pointer;
+   border-radius:10px;border:1px solid var(--blue);background:var(--blue);
+   color:#fff;text-align:left}
+ button.go:hover{opacity:.9}
+ button.opt{font:inherit;font-size:15.5px;padding:11px 16px;cursor:pointer;
+   border-radius:10px;border:1px solid var(--line);background:var(--card);
+   color:var(--ink);text-align:left;line-height:1.5}
+ button.opt:hover{border-color:var(--blue);color:var(--blue)}
+ button.quiet{background:transparent;border-color:var(--line);
+   color:var(--ink2)}
+ .hint{font-size:13px;color:var(--muted);margin:8px 0 0}
+ /* the ending */
+ .end{margin:40px 0 0;padding-top:24px;border-top:1px solid var(--line)}
+ .end ul{padding-left:18px}
+ .end li{margin:6px 0;color:var(--ink2)}
+ .end a.next{display:inline-block;margin-top:14px;font-size:17px}
+ /* the front page */
+ .worlds{list-style:none;padding:0;margin:26px 0 0}
+ .worlds li{border-top:1px solid var(--line);padding:16px 0}
+ .worlds a{display:block;text-decoration:none;color:inherit}
+ .worlds a:hover .wt{color:var(--blue)}
+ .worlds .wn{font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+   color:var(--violet);font-weight:600}
+ .worlds .wt{font-size:19px;margin:2px 0 4px}
+ .worlds .wp{color:var(--ink2);font-size:15.5px;margin:0}
+ .worlds .wd{color:var(--muted);font-size:13px;margin:6px 0 0}
+ footer{max-width:680px;margin:60px auto 0;padding:18px 20px 40px;
+   border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+ footer a{color:var(--muted)}
+ @media (max-width:600px){
+   body{font-size:16.5px}
+   .row .lbl{flex:0 0 100%}
+   .val{flex:0 0 auto}
+ }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="inner"><a href="index.html">← the game</a><span>World 3 of 8</span></div>
+  <div class="bar"><i id="bar"></i></div>
+</header>
+<main>
+<h1>World 3 · The test that should have caught it</h1><p class="promise">By the end you will have built algebra's two measurements with your own hands, watched them agree on every honest example, and watched them return a confident wrong answer on the bridge.</p>
+<div id="story"></div>
+<div id="act"></div>
+</main>
+<footer>A game for <a href="../index.html">condensed mathematics</a>, retelling Peter Scholze's <a href="https://arxiv.org/abs/2605.03658">Lectures on Condensed Mathematics</a>, joint work with Dustin Clausen. Every number a widget prints is computed in the page. <a href="https://github.com/muchmirul/conjectures">Source</a>.</footer>
+<script>
+
+// ---------------------------------------------------------------------
+// probes, as honest inverse systems of finite sets
+// ---------------------------------------------------------------------
+function cantorProbe(depth){
+  const levels=[[""]],parents=[];
+  for(let i=0;i<depth;i++){
+    const nxt=[];for(const s of levels[i]){nxt.push(s+"0");nxt.push(s+"1");}
+    const par={};for(const s of nxt)par[s]=s.slice(0,-1);
+    parents.push(par);levels.push(nxt);
+  }
+  return {name:"halving",levels:levels,parents:parents};
+}
+function branchProbe(depth,b){
+  const levels=[[""]],parents=[];
+  for(let i=0;i<depth;i++){
+    const nxt=[];for(const s of levels[i])for(let k=0;k<b;k++)nxt.push(s+k);
+    const par={};for(const s of nxt)par[s]=s.slice(0,-1);
+    parents.push(par);levels.push(nxt);
+  }
+  return {name:"branching by "+b,levels:levels,parents:parents};
+}
+function sequenceProbe(depth){
+  const levels=[["oo"]],parents=[];
+  for(let i=0;i<depth;i++){
+    const nxt=[];for(let k=0;k<=i;k++)nxt.push(String(k));nxt.push("oo");
+    const par={};for(let k=0;k<=i;k++)par[String(k)]=(k===i?"oo":String(k));
+    par["oo"]="oo";
+    parents.push(par);levels.push(nxt);
+  }
+  return {name:"approaching",levels:levels,parents:parents};
+}
+function pAdicProbe(p,depth){
+  const levels=[["0"]],parents=[];
+  for(let i=0;i<depth;i++){
+    const n=Math.pow(p,i+1),nxt=[];
+    for(let k=0;k<n;k++)nxt.push(String(k));
+    const par={};for(let k=0;k<n;k++)par[String(k)]=String(k%Math.pow(p,i));
+    parents.push(par);levels.push(nxt);
+  }
+  return {name:"base-"+p,levels:levels,parents:parents};
+}
+function probeSizes(S){ return S.levels.map(l=>l.length); }
+function project(S,label,frm,to){
+  for(let i=frm-1;i>=to;i--) label=S.parents[i][label];
+  return label;
+}
+function fibre(S,label,at,over){
+  return S.levels[at].filter(x=>project(S,x,at,over)===label);
+}
+
+// ---------------------------------------------------------------------
+// measures: one weight per box, a box's weight the total of what is inside
+// ---------------------------------------------------------------------
+function measureFromLeaves(S,leafWeights){
+  const d=S.levels.length-1,weights=[Object.assign({},leafWeights)];
+  for(let i=d-1;i>=0;i--){
+    const coarse={};for(const l of S.levels[i])coarse[l]=0;
+    for(const x of S.levels[i+1])coarse[S.parents[i][x]]+=weights[0][x];
+    weights.unshift(coarse);
+  }
+  return weights;
+}
+function measureOk(S,weights){
+  for(let i=0;i<weights.length-1;i++)
+    for(const l of S.levels[i]){
+      let inner=0;
+      for(const x of S.levels[i+1])if(S.parents[i][x]===l)inner+=weights[i+1][x];
+      if(Math.abs(weights[i][l]-inner)>1e-9)return false;
+    }
+  return true;
+}
+function integrate(S,weights,f,level){
+  let s=0;for(const l of S.levels[level])s+=f[l]*weights[level][l];return s;
+}
+function refineFn(S,f,frm,to){
+  const g={};for(const x of S.levels[to])g[x]=f[project(S,x,to,frm)];return g;
+}
+
+// ---------------------------------------------------------------------
+// the p-adic size, and the doubling sum of part two
+// ---------------------------------------------------------------------
+function pValuation(n,p){ if(n===0)return Infinity;let v=0;
+  while(n%p===0){n/=p;v++;}return v; }
+function pAdicAbsInt(n,p){ return n===0?0:Math.pow(p,-pValuation(n,p)); }
+function geomPartialSums(p,terms){
+  const out=[];let s=0,t=1;
+  for(let n=0;n<terms;n++){s+=t;t*=p;out.push(s);}
+  return out;
+}
+function geomLimitTimes(p){ return 1/(1-p); }   // the value the sums close on
+
+// ---------------------------------------------------------------------
+// measure sizes: why the exponent must not pass one
+// ---------------------------------------------------------------------
+function lpSize(vals,p){
+  let s=0;for(const v of vals)s+=Math.pow(Math.abs(v),p);
+  return Math.pow(s,1/p);
+}
+function mergeBoxes(vals,groups){
+  return groups.map(g=>g.reduce((a,i)=>a+vals[i],0));
+}
+function mergeRatio(vals,groups,p){
+  const before=lpSize(vals,p);
+  return before?lpSize(mergeBoxes(vals,groups),p)/before:0;
+}
+function worstMergeRatio(boxes,p){ return Math.pow(boxes,1-1/p); }
+function lpBallPoint(theta,p){
+  const c=Math.cos(theta),s=Math.sin(theta);
+  const k=Math.pow(Math.pow(Math.abs(c),p)+Math.pow(Math.abs(s),p),1/p);
+  return [c/k,s/k];
+}
+
+// ---------------------------------------------------------------------
+// the completed tensor product of part two, section 7
+// ---------------------------------------------------------------------
+const ADIC={"Z":[],"Z_p":["p"],"Z_l":["l"],"Z[[T]]":["T"],"Z[[U]]":["U"],
+            "Z_p[[T]]":["p","T"],"Z[[T,U]]":["T","U"],"R":null};
+// a prime direction names the base ring; the rest are formal variables
+function nameDirections(dirs){
+  const all=Array.from(dirs).sort();
+  const primes=all.filter(d=>d==="p"||d==="l");
+  const vars=all.filter(d=>d!=="p"&&d!=="l");
+  const base=primes.length?("Z_"+primes[0]):"Z";
+  return vars.length?(base+"[["+vars.join(",")+"]]"):base;
+}
+function solidTensor(a,b){
+  const da=ADIC[a],db=ADIC[b];
+  if(da===null||db===null)return "0";
+  const dirs=new Set(da.concat(db));
+  const primes=Array.from(dirs).filter(d=>d==="p"||d==="l");
+  if(primes.length>1)return "0";
+  return nameDirections(dirs);
+}
+// only these five combinations are stated outright in the lectures
+const QUOTED_TENSOR=[["Z_p","Z_l"],["Z_p","R"],["Z_p","Z_p"],
+                     ["Z_p","Z[[T]]"],["Z[[U]]","Z[[T]]"]];
+function quotedTensor(a,b){
+  return QUOTED_TENSOR.some(pr=>(pr[0]===a&&pr[1]===b)||(pr[0]===b&&pr[1]===a));
+}
+
+// ---------------------------------------------------------------------
+// holes, by Smith normal form over the whole numbers
+// ---------------------------------------------------------------------
+function smith(mat){
+  if(!mat||!mat.length||!mat[0].length)return [];
+  const m=mat.map(r=>r.slice());
+  const rows=m.length,cols=m[0].length,divs=[];
+  let t=0;
+  while(t<rows&&t<cols){
+    let pi=-1,pj=-1,best=Infinity;
+    for(let i=t;i<rows;i++)for(let j=t;j<cols;j++)
+      if(m[i][j]&&Math.abs(m[i][j])<best){best=Math.abs(m[i][j]);pi=i;pj=j;}
+    if(pi<0)break;
+    const tmp=m[t];m[t]=m[pi];m[pi]=tmp;
+    for(const row of m){const v=row[t];row[t]=row[pj];row[pj]=v;}
+    for(let guard=0;guard<400;guard++){
+      for(let i=t+1;i<rows;i++)if(m[i][t]){
+        const q=Math.trunc(m[i][t]/m[t][t]);
+        for(let j=0;j<cols;j++)m[i][j]-=q*m[t][j];
+      }
+      let nz=-1;for(let i=t+1;i<rows;i++)if(m[i][t]){nz=i;break;}
+      if(nz>=0){const s=m[t];m[t]=m[nz];m[nz]=s;continue;}
+      for(let j=t+1;j<cols;j++)if(m[t][j]){
+        const q=Math.trunc(m[t][j]/m[t][t]);
+        for(const row of m)row[j]-=q*row[t];
+      }
+      let nc=-1;for(let j=t+1;j<cols;j++)if(m[t][j]){nc=j;break;}
+      if(nc>=0){for(const row of m){const v=row[t];row[t]=row[nc];row[nc]=v;}continue;}
+      break;
+    }
+    divs.push(Math.abs(m[t][t]));t++;
+  }
+  return divisibilityChain(divs);
+}
+// diagonalising is not quite the normal form: a diagonal 2, 3 describes the
+// same group as 1, 6, so the chain is repaired the same way as in Python
+function gcd(a,b){ while(b){const t=a%b;a=b;b=t;} return Math.abs(a); }
+function divisibilityChain(divs){
+  const d=divs.slice().sort((a,b)=>a-b);
+  let changed=true;
+  while(changed){
+    changed=false;
+    for(let i=0;i<d.length-1;i++){
+      const a=d[i],b=d[i+1];
+      if(b%a){const g=gcd(a,b);d[i]=g;d[i+1]=(a/g)*b;changed=true;}
+    }
+  }
+  return d;
+}
+const SHAPES={
+  "circle":{cells:[1,1],bd:{1:[[0]]}},
+  "figure eight":{cells:[1,2],bd:{1:[[0,0]]}},
+  "sphere":{cells:[1,0,1],bd:{2:[]}},
+  "torus":{cells:[1,2,1],bd:{1:[[0],[0]],2:[[0],[0]]}},
+  "klein bottle":{cells:[1,2,1],bd:{1:[[0],[0]],2:[[0],[2]]}}
+};
+function homology(name){
+  const S=SHAPES[name],out=[];
+  for(let k=0;k<S.cells.length;k++){
+    const n=S.cells[k],dk=S.bd[k],dn=S.bd[k+1];
+    const rankK=dk&&dk.length?smith(dk).length:0;
+    const divs=dn&&dn.length?smith(dn):[];
+    out.push({free:n-rankK-divs.length,torsion:divs.filter(d=>d>1)});
+  }
+  return out;
+}
+function binom(n,k){ let r=1;for(let i=0;i<k;i++)r=r*(n-i)/(i+1);
+  return Math.round(r); }
+function exteriorRanks(n){ const o=[];for(let i=0;i<=n;i++)o.push(binom(n,i));
+  return o; }
+
+// ---------------------------------------------------------------------
+// functions near the edge, of part three
+// ---------------------------------------------------------------------
+function lineEdgeRank(top,tails){ return (top+tails+1)-(top+1); }
+function crossEdgeRank(top,tails){ return 2*(top+tails+1)-(2*(top+1)-1); }
+
+// ---------------------------------------------------------------------
+// a very small plotting helper
+// ---------------------------------------------------------------------
+function Plot(canvas,xlo,xhi,ylo,yhi,pad){
+  const ctx=canvas.getContext('2d'), W=canvas.width, H=canvas.height;
+  pad=pad||{l:54,r:18,t:18,b:40};
+  const X=x=>pad.l+(x-xlo)/(xhi-xlo)*(W-pad.l-pad.r);
+  const Y=y=>H-pad.b-(y-ylo)/(yhi-ylo)*(H-pad.t-pad.b);
+  return {ctx,X,Y,W,H,pad,
+    clear(){ctx.clearRect(0,0,W,H);},
+    axes(xlabel,ylabel){
+      ctx.strokeStyle='#c3c2b7';ctx.lineWidth=1;ctx.beginPath();
+      ctx.moveTo(pad.l,pad.t);ctx.lineTo(pad.l,H-pad.b);
+      ctx.lineTo(W-pad.r,H-pad.b);ctx.stroke();
+      ctx.fillStyle='#898781';ctx.font='12px system-ui';ctx.textAlign='center';
+      if(xlabel)ctx.fillText(xlabel,(pad.l+W-pad.r)/2,H-9);
+      if(ylabel){ctx.save();ctx.translate(14,(pad.t+H-pad.b)/2);
+        ctx.rotate(-Math.PI/2);ctx.fillText(ylabel,0,0);ctx.restore();}
+    },
+    curve(f,color,lw,n){n=n||400;ctx.strokeStyle=color;ctx.lineWidth=lw||2.2;
+      ctx.beginPath();
+      for(let i=0;i<=n;i++){const x=xlo+(xhi-xlo)*i/n,y=f(x);
+        if(i===0)ctx.moveTo(X(x),Y(y));else ctx.lineTo(X(x),Y(y));}
+      ctx.stroke();},
+    line(xs,ys,color,lw){ctx.strokeStyle=color;ctx.lineWidth=lw||2;
+      ctx.beginPath();
+      for(let i=0;i<xs.length;i++){if(i===0)ctx.moveTo(X(xs[i]),Y(ys[i]));
+        else ctx.lineTo(X(xs[i]),Y(ys[i]));}ctx.stroke();},
+    dots(xs,ys,color,r){ctx.fillStyle=color;
+      for(let i=0;i<xs.length;i++){ctx.beginPath();
+        ctx.arc(X(xs[i]),Y(ys[i]),r||3.4,0,7);ctx.fill();}},
+    hline(y,color,dash){ctx.save();ctx.strokeStyle=color;
+      ctx.setLineDash(dash||[]);ctx.beginPath();ctx.moveTo(pad.l,Y(y));
+      ctx.lineTo(W-pad.r,Y(y));ctx.stroke();ctx.restore();},
+    vline(x,color,dash){ctx.save();ctx.strokeStyle=color;
+      ctx.setLineDash(dash||[]);ctx.beginPath();ctx.moveTo(X(x),pad.t);
+      ctx.lineTo(X(x),H-pad.b);ctx.stroke();ctx.restore();},
+    label(x,y,text,color,align){ctx.fillStyle=color;ctx.font='12px system-ui';
+      ctx.textAlign=align||'left';ctx.fillText(text,X(x),Y(y));}
+  };
+}
+
+// draw a probe as a branching diagram; returns the positions used
+function drawTree(ctx,S,depth,box,opts){
+  opts=opts||{};
+  const yStep=(box.h-24)/Math.max(1,depth);
+  const pos={};
+  for(let i=0;i<=depth;i++){
+    const n=S.levels[i].length,step=box.w/n;
+    for(let k=0;k<n;k++)
+      pos[i+"|"+S.levels[i][k]]=[box.x+(k+0.5)*step,box.y+12+i*yStep];
+  }
+  ctx.strokeStyle=opts.edge||'#c3c2b7';ctx.lineWidth=1;
+  for(let i=0;i<depth;i++)
+    for(const l of S.levels[i+1]){
+      const a=pos[(i+1)+"|"+l],b=pos[i+"|"+S.parents[i][l]];
+      ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke();
+    }
+  for(let i=0;i<=depth;i++)
+    for(const l of S.levels[i]){
+      const p=pos[i+"|"+l];
+      ctx.fillStyle=(opts.colour?opts.colour(i,l):null)||'#2a78d6';
+      ctx.beginPath();ctx.arc(p[0],p[1],opts.r||4,0,7);ctx.fill();
+    }
+  return pos;
+}
+
+// theme-aware colours; falls back to the light palette when the page is being
+// run outside a browser (the test stub has no getComputedStyle)
+function css(name, fallback){
+  try{
+    if(typeof getComputedStyle !== 'function') return fallback;
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name);
+    return (v && v.trim()) ? v.trim() : fallback;
+  }catch(e){ return fallback; }
+}
+function palette(){
+  return {ink:css('--ink','#0b0b0b'), ink2:css('--ink2','#52514e'),
+          muted:css('--muted','#898781'), line:css('--line','#e1e0d9'),
+          blue:css('--blue','#2a78d6'), green:css('--green','#008300'),
+          red:css('--red','#d03b3b'), violet:css('--violet','#4a3aa7')};
+}
+
+const UI = {
+  node(tag, cls, parent, html){
+    const e = document.createElement(tag);
+    if(cls) e.className = cls;
+    if(html !== undefined && html !== null) e.innerHTML = html;
+    if(parent) parent.appendChild(e);
+    return e;
+  },
+  canvas(host, w, h){
+    const c = document.createElement('canvas');
+    c.className = 'fig'; c.width = w; c.height = h;
+    host.appendChild(c);
+    return c;
+  },
+  out(host){ return UI.node('div', 'readout', host, ''); },
+  slider(host, label, lo, hi, step, val, fn){
+    const row = UI.node('div', 'row', host);
+    UI.node('span', 'lbl', row, label);
+    const inp = document.createElement('input');
+    inp.type = 'range'; inp.min = lo; inp.max = hi;
+    inp.step = step; inp.value = String(val);
+    row.appendChild(inp);
+    const read = UI.node('span', 'val', row, '');
+    const fire = () => fn(parseFloat(inp.value), read);
+    inp.addEventListener('input', fire);
+    fire();
+    return inp;
+  },
+  pick(host, label, opts, fn){
+    const row = UI.node('div', 'row', host);
+    if(label) UI.node('span', 'lbl', row, label);
+    const box = UI.node('div', 'pick', row);
+    let cur = opts[0][0];
+    for(let i = 0; i < opts.length; i++){
+      const b = UI.node('button', i === 0 ? 'on' : '', box, opts[i][1]);
+      b.dataset.v = String(opts[i][0]);
+      b.addEventListener('click', function(){
+        const kids = box.children;
+        for(let k = 0; k < kids.length; k++) kids[k].className = '';
+        b.className = 'on';
+        cur = opts[i][0];
+        fn(cur);
+      });
+    }
+    fn(cur);
+    return {get value(){ return cur; }};
+  }
+};
+
+function clearCanvas(cv){
+  const ctx = cv.getContext('2d');
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  return ctx;
+}
+function caption(ctx, x, y, text, colour){
+  ctx.fillStyle = colour; ctx.font = '12px system-ui';
+  ctx.textAlign = 'left'; ctx.fillText(text, x, y);
+}
+function fmtPow(base, e){
+  return base + '<sup>' + (e < 0 ? '&minus;' + (-e) : e) + '</sup>';
+}
+
+// how many fractions with denominator at most Q sit strictly inside
+// (centre - half, centre + half).  An honest count, not an estimate.
+function fractionsInWindow(centre, half, Q){
+  const seen = {};
+  let total = 0;
+  for(let q = 1; q <= Q; q++){
+    const lo = Math.ceil((centre - half) * q), hi = Math.floor((centre + half) * q);
+    for(let k = lo; k <= hi; k++){
+      const key = (k / q).toFixed(9);
+      if(!seen[key]){ seen[key] = 1; total += 1; }
+    }
+  }
+  return total;
+}
+
+// the base-two value function on the halving probe, x -> sum x_i 2^-i-1.
+// Its largest wobble inside one stage-n box is 2^-n: never zero, so the
+// function is constant on no box at any stage, so it is not locally constant.
+function valueOf(word){
+  let v = 0;
+  for(let i = 0; i < word.length; i++) v += (word[i] === '1' ? 1 : 0) * Math.pow(2, -i - 1);
+  return v;
+}
+function wobbleInBox(n){ return Math.pow(2, -n); }
+
+const WIDGETS = {};
+
+// 1. nearness: how crowded is a shrinking window
+WIDGETS.zoom = function(host, P){
+  const discrete = !!P.discrete, centre = P.target === undefined ? 1 : P.target;
+  const cv = UI.canvas(host, 720, 200), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let w = 2, Q = 12;
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const half = Math.pow(2, -w), y = 96;
+    const X = x => 60 + (x - (centre - 0.6)) / 1.2 * 600;
+    ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(60, y + 34); ctx.lineTo(660, y + 34); ctx.stroke();
+    // the window
+    ctx.fillStyle = c.blue; ctx.globalAlpha = 0.12;
+    ctx.fillRect(X(centre - half), 40, Math.max(2, X(centre + half) - X(centre - half)), 90);
+    ctx.globalAlpha = 1;
+    if(discrete){
+      for(let k = -12; k <= 12; k++){
+        const x = centre + k * 0.05;
+        ctx.fillStyle = (k === 0) ? c.violet : c.muted;
+        ctx.beginPath(); ctx.arc(X(x), y, k === 0 ? 6 : 4, 0, 7); ctx.fill();
+      }
+      caption(ctx, 60, 172, 'the dust: every number stands alone', c.muted);
+    } else {
+      ctx.strokeStyle = c.ink; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.moveTo(60, y); ctx.lineTo(660, y); ctx.stroke();
+      for(let q = 1; q <= Q; q++)
+        for(let k = Math.ceil((centre - 0.6) * q); k <= Math.floor((centre + 0.6) * q); k++){
+          const x = k / q;
+          ctx.fillStyle = Math.abs(x - centre) < half ? c.blue : c.muted;
+          ctx.beginPath(); ctx.arc(X(x), y, 2.6, 0, 7); ctx.fill();
+        }
+      caption(ctx, 60, 172, 'the ruler: fractions with denominator up to ' + Q, c.muted);
+    }
+    ctx.fillStyle = c.violet;
+    ctx.beginPath(); ctx.arc(X(centre), y, 5.5, 0, 7); ctx.fill();
+    const inside = fractionsInWindow(centre, half, Q);
+    if(discrete){
+      out.innerHTML = 'The piece containing only ' + centre + ' is open on the dust, ' +
+        'so no window is needed: it contains exactly <b>1</b> number.<br>' +
+        'Shrinking changes nothing, because there was never anything else nearby.';
+    } else {
+      out.innerHTML = 'Window of width ' + fmtPow(2, -w + 1) + ' around ' + centre +
+        ', looking only at denominators up to ' + Q + ':<br>' +
+        '<b>' + inside + '</b> numbers inside. Raise the denominator and the count keeps ' +
+        'climbing, at every width. On the ruler no window is ever empty.';
+    }
+  };
+  UI.slider(ctrl, 'window width', 0, 8, 1, w, function(v, read){
+    w = Math.round(v); read.innerHTML = fmtPow(2, -w + 1); draw();
+  });
+  UI.slider(ctrl, 'look this finely', 2, 60, 1, Q, function(v, read){
+    Q = Math.round(v); read.textContent = 'q \u2264 ' + Q; draw();
+  });
+  draw();
+};
+
+// 1b. four rules, and the two independent questions asked of each
+WIDGETS.undo = function(host, P){
+  const cv = UI.canvas(host, 720, 230), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  const RULES = {
+    id:      {label: 'send it to itself', f: k => k},
+    double:  {label: 'double it',         f: k => 2 * k},
+    floor2:  {label: 'round down to even', f: k => 2 * Math.floor(k / 2)},
+    shift:   {label: 'add seven',         f: k => k + 7}
+  };
+  let which = 'id';
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const lo = -6, hi = 6, f = RULES[which].f;
+    const X = k => 70 + (k - lo) / (hi - lo) * 580;
+    const yTop = 74, yBot = 172;
+    const image = {};
+    let collides = false;
+    for(let k = lo; k <= hi; k++){
+      const v = f(k);
+      if(image[v] !== undefined) collides = true;
+      image[v] = k;
+    }
+    for(let k = lo; k <= hi; k++){
+      const v = f(k);
+      ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+      if(v >= lo && v <= hi){
+        ctx.beginPath(); ctx.moveTo(X(k), yTop + 6); ctx.lineTo(X(v), yBot - 6);
+        ctx.stroke();
+      }
+      ctx.fillStyle = c.blue;
+      ctx.beginPath(); ctx.arc(X(k), yTop, 4, 0, 7); ctx.fill();
+      ctx.fillStyle = image[k] === undefined ? c.line : c.blue;
+      ctx.beginPath(); ctx.arc(X(k), yBot, 4, 0, 7); ctx.fill();
+    }
+    caption(ctx, 70, 40, 'every number, sent somewhere', c.muted);
+    caption(ctx, 70, 210, 'pale = nothing lands here', c.muted);
+    // does it survive addition, checked on every pair in the window
+    let polite = true;
+    for(let a = lo; a <= hi && polite; a++)
+      for(let b = lo; a + b <= hi && b <= hi; b++)
+        if(f(a + b) !== f(a) + f(b)) polite = false;
+    const undoable = !collides;
+    out.innerHTML = 'Rule: <b>' + RULES[which].label + '</b><br>' +
+      'Can it be undone? <b>' + (undoable ? 'yes' : 'no') + '</b> &mdash; ' +
+      (undoable ? 'no two numbers collide, so the way back always names one number'
+                : 'two different numbers land on the same place, so the way back ' +
+                  'cannot answer once') + '.<br>' +
+      'Does it survive addition? <b>' + (polite ? 'yes' : 'no') + '</b> &mdash; ' +
+      (polite ? 'adding first and crossing over agree, and 0 goes to ' + f(0)
+              : 'adding first and crossing over disagree, and 0 goes to ' + f(0)) +
+      '.<br>The two questions are independent: a rule can pass either one ' +
+      'without the other.';
+  };
+  UI.pick(ctrl, 'the rule', [['id', 'send it to itself'], ['double', 'double it'],
+          ['floor2', 'round down to even'], ['shift', 'add seven']],
+          function(v){ which = v; draw(); });
+  draw();
+};
+
+// 2. the one-way bridge
+WIDGETS.bridge = function(host, P){
+  const cv = UI.canvas(host, 720, 260), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let n = 5, dir = 'across';
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const X = x => 70 + (x - 0.4) / 0.7 * 580;
+    const yTop = 66, yBot = 196;
+    ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+    for(let k = 0; k < 40; k++){
+      const x = 0.42 + k * 0.017;
+      ctx.beginPath(); ctx.arc(X(x), yTop, 2, 0, 7); ctx.fillStyle = c.line; ctx.fill();
+    }
+    ctx.strokeStyle = c.ink; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.moveTo(70, yBot); ctx.lineTo(660, yBot); ctx.stroke();
+    caption(ctx, 70, 32, 'the dust', c.muted);
+    caption(ctx, 70, 240, 'the ruler', c.muted);
+    for(let k = 1; k <= n; k++){
+      const x = 1 - Math.pow(2, -k);
+      ctx.fillStyle = c.blue;
+      ctx.beginPath(); ctx.arc(X(x), yTop, 4, 0, 7); ctx.fill();
+      ctx.beginPath(); ctx.arc(X(x), yBot, 4, 0, 7); ctx.fill();
+      ctx.strokeStyle = c.blue; ctx.globalAlpha = 0.5; ctx.lineWidth = 1;
+      ctx.beginPath();
+      if(dir === 'across'){ ctx.moveTo(X(x), yTop + 6); ctx.lineTo(X(x), yBot - 6); }
+      else { ctx.moveTo(X(x), yBot - 6); ctx.lineTo(X(x), yTop + 6); }
+      ctx.stroke(); ctx.globalAlpha = 1;
+    }
+    ctx.fillStyle = dir === 'across' ? c.green : c.red;
+    ctx.beginPath(); ctx.arc(X(1), yTop, 6, 0, 7); ctx.fill();
+    ctx.beginPath(); ctx.arc(X(1), yBot, 6, 0, 7); ctx.fill();
+    const gap = Math.pow(2, -n);
+    if(dir === 'across'){
+      out.innerHTML = 'The crowd 1 &minus; ' + fmtPow(2, -1) + ', 1 &minus; ' + fmtPow(2, -2) +
+        ', &hellip; arrives at the marked point.<br>' +
+        'On the ruler the gap after ' + n + ' steps is <b>' + gap.toPrecision(3) +
+        '</b>, and it is still shrinking. The walk is gentle: nothing was torn.';
+    } else {
+      out.innerHTML = 'The same crowd, read on the dust. Every gap is <b>1</b>, ' +
+        'however far along you go, because on the dust two different numbers are ' +
+        'never near.<br>The destination is torn off the crowd: this direction is ' +
+        'not gentle.';
+    }
+  };
+  UI.pick(ctrl, 'direction', [['across', 'dust → ruler'], ['back', 'ruler → dust']],
+          function(v){ dir = v; draw(); });
+  UI.slider(ctrl, 'how far along', 2, 12, 1, n, function(v, read){
+    n = Math.round(v); read.textContent = n + ' steps'; draw();
+  });
+  draw();
+};
+
+// 3. kernel and cokernel, on a finite window of the whole numbers
+WIDGETS.algebra = function(host, P){
+  const bridge = !!P.bridge;
+  const cv = UI.canvas(host, 720, 250), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  const maps = bridge
+    ? [['bridge', 'the bridge: dust → ruler']]
+    : [['id', 'do nothing'], ['double', 'double it'], ['clock', 'clock, 12 hours']];
+  let which = maps[0][0];
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const lo = -12, hi = 12;
+    const X = k => 70 + (k - lo) / (hi - lo) * 580;
+    const yTop = 78, yBot = 186;
+    let crushed = [], missed = [], verdict = '', kerText = '', cokText = '';
+    for(let k = lo; k <= hi; k++){
+      let img = k;
+      if(which === 'double') img = 2 * k;
+      if(which === 'clock') img = ((k % 12) + 12) % 12;
+      if(which === 'double' && img === 0 && k !== 0) crushed.push(k);
+      if(which === 'clock' && img === 0 && k !== 0) crushed.push(k);
+      ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+      if(img >= lo && img <= hi){
+        ctx.beginPath(); ctx.moveTo(X(k), yTop + 6); ctx.lineTo(X(img), yBot - 6); ctx.stroke();
+      }
+    }
+    const hit = {};
+    for(let k = lo; k <= hi; k++){
+      let img = k;
+      if(which === 'double') img = 2 * k;
+      if(which === 'clock') img = ((k % 12) + 12) % 12;
+      hit[img] = 1;
+    }
+    for(let k = lo; k <= hi; k++) if(!hit[k]) missed.push(k);
+    for(let k = lo; k <= hi; k++){
+      ctx.fillStyle = crushed.indexOf(k) >= 0 ? c.red : c.blue;
+      ctx.beginPath(); ctx.arc(X(k), yTop, 4, 0, 7); ctx.fill();
+      if(missed.indexOf(k) >= 0){
+        ctx.strokeStyle = c.red; ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.arc(X(k), yBot, 4.5, 0, 7); ctx.stroke();
+      } else {
+        ctx.fillStyle = c.blue;
+        ctx.beginPath(); ctx.arc(X(k), yBot, 4, 0, 7); ctx.fill();
+      }
+    }
+    caption(ctx, 70, 40, bridge ? 'the dust' : 'source', c.muted);
+    caption(ctx, 70, 228, bridge ? 'the ruler' : 'target', c.muted);
+    caption(ctx, 470, 228, 'hollow = never reached', c.red);
+    if(which === 'id'){
+      kerText = 'ker = 0, nothing is crushed';
+      cokText = 'coker = 0, nothing is missed';
+      verdict = 'the two measurements agree: a sameness, and it really is one';
+    } else if(which === 'double'){
+      kerText = 'ker = 0, nothing is crushed';
+      cokText = 'coker = &#8484;/2, the odd numbers are never reached (' +
+                missed.length + ' of them in this window)';
+      verdict = 'not a sameness, and the cokernel says so';
+    } else if(which === 'clock'){
+      kerText = 'ker = 12&#8484;, every multiple of twelve is crushed to zero';
+      cokText = 'coker = 0, every hour is reached';
+      verdict = 'not a sameness, and the kernel says so';
+    } else {
+      kerText = 'ker = 0, different numbers stay different';
+      cokText = 'coker = 0, every number on the ruler is reached';
+      verdict = 'the two measurements say <b>sameness</b> &mdash; and that verdict ' +
+                'is false, because the way back tears';
+    }
+    out.innerHTML = kerText + '<br>' + cokText + '<br><b>Verdict:</b> ' + verdict;
+  };
+  if(maps.length > 1) UI.pick(ctrl, 'the map', maps, function(v){ which = v; draw(); });
+  else UI.node('p', 'plain', ctrl, 'The only map here is the bridge itself.');
+  draw();
+};
+
+// 4. splitting a box forever
+WIDGETS.split = function(host, P){
+  const cv = UI.canvas(host, 720, 300), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let kind = 'halving', depth = P.depth === undefined ? 3 : P.depth;
+  const build = function(d){
+    if(kind === 'halving') return cantorProbe(d);
+    if(kind === 'three') return branchProbe(d, 3);
+    return sequenceProbe(d);
+  };
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const S = build(depth), sizes = probeSizes(S);
+    drawTree(ctx, S, depth, {x: 40, y: 26, w: 640, h: 240},
+             {edge: c.line, colour: (i, l) => i === depth ? c.blue : c.violet, r: 3.6});
+    caption(ctx, 40, 292, 'each dot is a box; each line says which box it came out of', c.muted);
+    out.innerHTML = 'Boxes at each stage: <b>' + sizes.join(', ') + '</b>.<br>' +
+      'Stage ' + depth + ' has <b>' + sizes[depth] + '</b> boxes, and every one of them ' +
+      'is on the screen. Nothing here is infinite except the number of stages.';
+  };
+  if(P.kind === 'pick')
+    UI.pick(ctrl, 'the walker', [['halving', 'split in two'], ['three', 'split in three'],
+            ['approaching', 'closing in on a point']],
+            function(v){ kind = v; if(kind === 'three' && depth > 4) depth = 4; draw(); });
+  UI.slider(ctrl, 'stages', 0, 6, 1, depth, function(v, read){
+    const k = Math.round(v);
+    depth = (kind === 'three' && k > 4) ? 4 : k;
+    read.textContent = 'stage ' + depth; draw();
+  });
+  draw();
+};
+
+// 5. counting the gentle walks out of a probe
+WIDGETS.landings = function(host, P){
+  const cv = UI.canvas(host, 720, 220), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let kind = 'halving', level = 2;
+  const build = function(d){
+    if(kind === 'halving') return cantorProbe(d);
+    if(kind === 'three') return branchProbe(d, 3);
+    return sequenceProbe(d);
+  };
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const S = build(level), boxes = S.levels[level], n = boxes.length;
+    const w = 620 / n;
+    for(let k = 0; k < n; k++){
+      const on = (k * 7 + level) % 3 === 0;
+      ctx.fillStyle = on ? c.blue : c.line;
+      ctx.fillRect(50 + k * w + 1, 70, Math.max(1, w - 2), 62);
+    }
+    ctx.strokeStyle = c.muted; ctx.lineWidth = 1;
+    ctx.strokeRect(50, 70, 620, 62);
+    caption(ctx, 50, 54, 'one box, one choice of value: that is a gentle walk', c.muted);
+    caption(ctx, 50, 158, n + ' boxes at stage ' + level, c.ink2);
+    const exact = n <= 30 ? Math.pow(2, n).toLocaleString() : null;
+    out.innerHTML = 'Stage ' + level + ' has <b>' + n + '</b> boxes, so the gentle walks ' +
+      'into a two-point target number ' + fmtPow(2, n) +
+      (exact ? ' = <b>' + exact + '</b>' : '') + '.<br>' +
+      'Every one of them is something the target says to this probe. The description ' +
+      'is large because it is complete.';
+  };
+  UI.pick(ctrl, 'the probe', [['halving', 'split in two'], ['three', 'split in three'],
+          ['approaching', 'closing in on a point']], function(v){ kind = v; draw(); });
+  UI.slider(ctrl, 'stage', 0, 5, 1, level, function(v, read){
+    level = Math.round(v); read.textContent = 'stage ' + level; draw();
+  });
+  draw();
+};
+
+// 6. cut and glue
+WIDGETS.glue = function(host, P){
+  const cv = UI.canvas(host, 720, 220), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let meet = 'apart', left = 1, right = 1;
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const overlap = meet === 'overlap';
+    const lx = 60, lw = overlap ? 340 : 290;
+    const rx = overlap ? 320 : 390, rw = overlap ? 340 : 290;
+    ctx.globalAlpha = 0.5;
+    ctx.fillStyle = c.blue; ctx.fillRect(lx, 60, lw, 60);
+    ctx.fillStyle = c.violet; ctx.fillRect(rx, 100, rw, 60);
+    ctx.globalAlpha = 1;
+    caption(ctx, lx + 8, 96, 'left piece says ' + left, '#ffffff');
+    caption(ctx, rx + 8, 136, 'right piece says ' + right, '#ffffff');
+    let ok, why;
+    if(!overlap){
+      ok = true;
+      why = 'The two pieces share nothing, so there is nothing to disagree about. ' +
+            'Exactly one answer glues, whatever you chose.';
+    } else if(left === right){
+      ok = true;
+      why = 'The pieces meet, and on the shared part both say ' + left +
+            '. Exactly one answer glues.';
+    } else {
+      ok = false;
+      why = 'The pieces meet, and on the shared part one says ' + left + ' and the other ' +
+            right + '. Nothing glues at all: there is no answer on the whole probe ' +
+            'restricting to both.';
+    }
+    ctx.strokeStyle = ok ? c.green : c.red; ctx.lineWidth = 2;
+    ctx.strokeRect(50, 176, 620, 30);
+    caption(ctx, 60, 196, ok ? 'glues, and in exactly one way' : 'does not glue',
+            ok ? c.green : c.red);
+    out.innerHTML = why;
+  };
+  UI.pick(ctrl, 'how the pieces meet',
+          [['apart', 'cut cleanly apart'], ['overlap', 'sharing a middle']],
+          function(v){ meet = v; draw(); });
+  UI.slider(ctrl, 'left piece says', 0, 3, 1, left, function(v, read){
+    left = Math.round(v); read.textContent = String(left); draw();
+  });
+  UI.slider(ctrl, 'right piece says', 0, 3, 1, right, function(v, read){
+    right = Math.round(v); read.textContent = String(right); draw();
+  });
+  draw();
+};
+
+// 7. the ghost: a continuous function that is constant on no box
+WIDGETS.ghost = function(host, P){
+  const cv = UI.canvas(host, 720, 250), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let probe = 'halving', n = 3;
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    if(probe === 'point'){
+      ctx.fillStyle = c.violet;
+      ctx.beginPath(); ctx.arc(360, 120, 9, 0, 7); ctx.fill();
+      caption(ctx, 300, 156, 'the one-point probe', c.muted);
+      out.innerHTML = 'On one point there is nothing to wobble: every function is ' +
+        'constant, so every continuous function is locally constant.<br>' +
+        'The leftover here is <b>0</b>. This is the row that asks which points the ' +
+        'object has, and it reads empty.';
+      return;
+    }
+    const S = cantorProbe(n), boxes = S.levels[n], m = boxes.length, w = 620 / m;
+    for(let k = 0; k < m; k++){
+      const lo = valueOf(boxes[k]), hi = lo + wobbleInBox(n);
+      ctx.fillStyle = c.blue;
+      ctx.fillRect(50 + k * w + 0.5, 190 - lo * 150, Math.max(1, w - 1),
+                   Math.max(1.5, hi * 150 - lo * 150));
+    }
+    ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(50, 190); ctx.lineTo(670, 190); ctx.stroke();
+    caption(ctx, 50, 30, 'the value function on the halving probe, box by box', c.muted);
+    caption(ctx, 50, 212, m + ' boxes at stage ' + n +
+            '; the height of each bar is the range of values inside it', c.ink2);
+    const wob = wobbleInBox(n);
+    out.innerHTML = 'Largest wobble inside a single stage-' + n + ' box: <b>' +
+      fmtPow(2, -n) + ' = ' + wob + '</b>.<br>' +
+      'It is never zero, at any stage, so this continuous function is constant on no ' +
+      'box &mdash; it is not locally constant, and it is a non-zero member of the ' +
+      'leftover. The row for this probe is <b>not 0</b>.';
+  };
+  UI.pick(ctrl, 'the row you are reading',
+          [['point', 'the one-point probe'], ['halving', 'the halving probe']],
+          function(v){ probe = v; draw(); });
+  UI.slider(ctrl, 'stage', 1, 8, 1, n, function(v, read){
+    n = Math.round(v); read.textContent = 'stage ' + n; draw();
+  });
+  draw();
+};
+
+// 8. the holes of a shape, by Smith normal form
+WIDGETS.holes = function(host, P){
+  const cv = UI.canvas(host, 720, 220), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let shape = 'circle';
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const h = homology(shape);
+    const w = 560 / h.length;
+    let text = '';
+    for(let k = 0; k < h.length; k++){
+      const bars = h[k].free, x = 80 + k * w;
+      ctx.fillStyle = c.blue;
+      for(let b = 0; b < bars; b++)
+        ctx.fillRect(x + b * 22, 150 - 0, 16, -60);
+      if(h[k].torsion.length){
+        ctx.fillStyle = c.red;
+        for(let t = 0; t < h[k].torsion.length; t++)
+          ctx.fillRect(x + (bars + t) * 22, 150, 16, -26);
+      }
+      caption(ctx, x, 172, 'degree ' + k, c.muted);
+      text += 'degree ' + k + ': rank <b>' + h[k].free + '</b>' +
+        (h[k].torsion.length ? ', torsion ' + h[k].torsion.map(t => '&#8484;/' + t).join(', ')
+                             : '') + '<br>';
+    }
+    ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(60, 150); ctx.lineTo(680, 150); ctx.stroke();
+    caption(ctx, 60, 34, 'tall bars: free ranks. short red bars: torsion.', c.muted);
+    out.innerHTML = '<b>' + shape + '</b><br>' + text +
+      'Computed here from the cell structure by Smith normal form over the whole numbers.';
+  };
+  UI.pick(ctrl, 'the shape', [['circle', 'circle'], ['figure eight', 'figure eight'],
+          ['sphere', 'sphere'], ['torus', 'doughnut'], ['klein bottle', 'Klein bottle']],
+          function(v){ shape = v; draw(); });
+  draw();
+};
+
+// 9. one plus two plus four, under two different nearness rules
+WIDGETS.series = function(host, P){
+  const p = P.p || 2;
+  const cv = UI.canvas(host, 720, 280), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let mode = P.mode === 'padic' ? 'padic' : 'ordinary', terms = 6;
+  const draw = function(){
+    const c = palette();
+    clearCanvas(cv);
+    const sums = geomPartialSums(p, terms);
+    const gaps = [];
+    for(let i = 0; i < sums.length; i++)
+      gaps.push(mode === 'ordinary' ? Math.abs(sums[i] + 1)
+                                    : pAdicAbsInt(sums[i] + 1, p));
+    const ys = gaps.map(g => Math.log(g) / Math.log(p));
+    let lo = 0, hi = 0;
+    for(const y of ys){ lo = Math.min(lo, y); hi = Math.max(hi, y); }
+    const plot = Plot(cv, 0, Math.max(1, terms - 1), lo - 0.5, hi + 0.5);
+    plot.axes('terms added', 'gap, as a power of ' + p);
+    const xs = ys.map((_, i) => i);
+    plot.line(xs, ys, mode === 'ordinary' ? c.red : c.green, 2.4);
+    plot.dots(xs, ys, mode === 'ordinary' ? c.red : c.green, 4);
+    plot.hline(0, c.line, [4, 4]);
+    const last = sums[sums.length - 1], gap = gaps[gaps.length - 1];
+    out.innerHTML = 'After ' + terms + ' terms the running total is <b>' + last + '</b>.<br>' +
+      (mode === 'ordinary'
+        ? 'Its ordinary distance from &minus;1 is <b>' + gap + '</b>, and it doubles at ' +
+          'every step. Nothing is closing in on anything: this sum has no answer.'
+        : 'Its base-' + p + ' distance from &minus;1 is <b>' + gap + '</b>, and it halves ' +
+          'at every step. The totals are closing in on &minus;1, exactly.');
+  };
+  UI.pick(ctrl, 'measure the gap with',
+          P.mode === 'padic'
+            ? [['padic', 'the base-' + p + ' rule'], ['ordinary', 'ordinary distance']]
+            : [['ordinary', 'ordinary distance'], ['padic', 'the base-' + p + ' rule']],
+          function(v){ mode = v; draw(); });
+  UI.slider(ctrl, 'terms added', 1, 12, 1, terms, function(v, read){
+    terms = Math.round(v); read.textContent = terms + ' terms'; draw();
+  });
+  draw();
+};
+
+// 10. weights that agree, and an integral that does not care about the stage
+WIDGETS.weights = function(host, P){
+  const depth = P.depth === undefined ? 3 : P.depth;
+  const cv = UI.canvas(host, 720, 300), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let first = 1;
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const S = cantorProbe(depth), leaves = {};
+    S.levels[depth].forEach(function(l, i){ leaves[l] = (i === 0 ? first : 1); });
+    const w = measureFromLeaves(S, leaves);
+    const pos = drawTree(ctx, S, depth, {x: 40, y: 26, w: 640, h: 200},
+                         {edge: c.line, colour: () => c.violet, r: 3.4});
+    ctx.font = '11px ui-monospace, monospace'; ctx.textAlign = 'center';
+    for(let i = 0; i <= depth; i++)
+      for(const l of S.levels[i]){
+        const pt = pos[i + '|' + l];
+        ctx.fillStyle = c.ink2;
+        if(S.levels[i].length <= 8) ctx.fillText(String(w[i][l]), pt[0], pt[1] - 8);
+      }
+    const f = {};
+    S.levels[1].forEach(function(l, k){ f[l] = 1 + 3 * k; });
+    const coarse = integrate(S, w, f, 1);
+    const fine = integrate(S, w, refineFn(S, f, 1, depth), depth);
+    caption(ctx, 40, 292, 'the number above each dot is that box’s weight', c.muted);
+    out.innerHTML = 'Agreement rule holds: <b>' + (measureOk(S, w) ? 'yes' : 'no') +
+      '</b> &mdash; every box weighs exactly what is inside it.<br>' +
+      'A step function averaged at stage 1: <b>' + coarse + '</b>. The same function ' +
+      'averaged at stage ' + depth + ': <b>' + fine + '</b>.<br>' +
+      (coarse === fine ? 'Identical, as the compatibility forces.'
+                       : 'These differ, which would mean the weights are not compatible.');
+  };
+  UI.slider(ctrl, 'weight on the first box', -3, 4, 1, first, function(v, read){
+    first = Math.round(v); read.textContent = String(first); draw();
+  });
+  draw();
+};
+
+// 11. the exponent ceiling
+WIDGETS.merge = function(host, P){
+  const boxes = P.boxes || 4;
+  const cv = UI.canvas(host, 720, 300), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let p = 1;
+  const draw = function(){
+    const c = palette();
+    clearCanvas(cv);
+    const plot = Plot(cv, 0.4, 2.2, 0, 2.6);
+    plot.axes('the exponent', 'merged size / original');
+    plot.curve(x => Math.min(2.6, worstMergeRatio(boxes, x)), c.violet, 2.4);
+    plot.hline(1, c.line, [4, 4]);
+    plot.vline(p, c.blue, [3, 3]);
+    const vals = [];
+    for(let i = 0; i < boxes; i++) vals.push(1);
+    const groups = [[]];
+    for(let i = 0; i < boxes; i++) groups[0].push(i);
+    const ratio = mergeRatio(vals, groups, p);
+    plot.dots([p], [Math.min(2.6, ratio)], c.blue, 5);
+    plot.label(0.45, 1.06, 'no change', c.muted);
+    const ok = ratio <= 1 + 1e-12;
+    out.innerHTML = 'Exponent <b>' + p.toFixed(2) + '</b>: merging ' + boxes +
+      ' equal boxes into one multiplies the size by <b>' + ratio.toFixed(3) + '</b>.<br>' +
+      'Closed form for the worst case: ' + boxes + '<sup>1&minus;1/p</sup> = <b>' +
+      worstMergeRatio(boxes, p).toFixed(3) + '</b>. ' +
+      (ok ? 'A coarser view does not weigh more: <b>allowed</b>.'
+          : 'A coarser view weighs more than the thing viewed: <b>forbidden</b>.');
+  };
+  UI.slider(ctrl, 'exponent', 0.4, 2.2, 0.05, p, function(v, read){
+    p = v; read.textContent = 'p = ' + v.toFixed(2); draw();
+  });
+  draw();
+};
+
+const WORLD = {"number": 3, "slug": "the-broken-test", "title": "The test that should have caught it", "promise": "By the end you will have built algebra's two measurements with your own hands, watched them agree on every honest example, and watched them return a confident wrong answer on the bridge.", "bricks": [{"slug": "crushed-to-zero", "title": "What the map destroys", "idea": "The kernel of a polite map is everything the map sends to zero: the measurement of what it destroyed.", "need": ["An abelian group: a collection with adding, a zero and opposites.", "A homomorphism: a map that carries the adding across unharmed."], "stages": [{"key": "concept", "label": "Concept", "blurb": "what the idea is", "beats": [{"text": "Algebra asks exactly two questions about a polite map. Here is the first: what did it destroy? Collect every member of the source that came out as zero on the other side.", "kind": "say"}, {"text": "That collection is itself a collection you can add in, because if two members are crushed then so is their sum. It is a measurement, and it lives on the source side.", "kind": "say"}]}, {"key": "intuition", "label": "Intuition", "blurb": "what it feels like", "beats": [{"text": "Take clock arithmetic: whole numbers sent to the hour they point at on a twelve-hour clock. The numbers 0, 12, 24, &minus;12 and so on all land on zero. They are precisely what this map cannot see.", "kind": "say"}, {"question": "If the only member sent to zero is zero itself, what does that tell you about the map?", "options": [["Nothing was destroyed, so it does not double up", "Exactly right, and the reason is subtraction. If two different members landed on the same place, their difference would land on zero &mdash; and would not be zero itself. So nothing but zero being crushed is the same statement as no two members colliding."], ["The map hits everything", "That is the other question, and it is genuinely a different one: this measurement looks at the source and what got destroyed, not at the target and what got missed. Both questions are needed, and the second one is the next brick."], ["The map is the do-nothing map", "Stronger than what follows. Doubling destroys nothing either, and doubling is not the do-nothing map. All you learn is that no two members collide."]], "after": "", "kind": "ask"}]}, {"key": "experiment", "label": "Experiment", "blurb": "run it yourself", "beats": [{"steps": ["Take the clock map and find two different numbers that land on the same hour &mdash; say 5 and 17.", "Subtract them: 17 &minus; 5.", "Check where that difference lands.", "Now do the same with any other colliding pair."], "found": "17 &minus; 5 is 12, and 12 lands on zero. Every colliding pair you try does the same: the difference is always a multiple of twelve, always in the kernel. That is the mechanism in one line &mdash; a collision <em>is</em> a non-zero member of the kernel, seen from the other end. This is why one measurement covers both questions, and why it needed subtraction to work at all.", "prompt": "Do this before reading on.", "kind": "try"}, {"plain": "what the map crushes to zero", "standard": "the kernel", "notation": "ker(f) = { a &isin; A : f(a) = 0 }", "why": "Read the braces aloud as <em>the collection of those a in A for which f(a) is zero</em>. The colon is read <em>such that</em>.", "kind": "name"}, {"statement": "ker(f) = 0 &nbsp;&hArr;&nbsp; f injective &nbsp;&nbsp;(f(a) = f(b) &rArr; a = b)", "reading": "<em>Injective</em> is the word for no two members colliding. The equivalence holds because f(a) = f(b) can be rewritten f(a &minus; b) = 0 using politeness, so a collision and a non-zero member of the kernel are the same event seen twice. Writing ker(f) = 0 is shorthand for <em>the kernel contains nothing but zero</em>.", "cite": "", "url": "", "kind": "math"}]}], "hold": "The kernel measures what a map destroys. Empty kernel means no two members collide."}, {"slug": "left-over", "title": "What the map failed to reach", "idea": "The cokernel is what survives in the target once everything the map reached is declared to be zero: the measurement of what it missed.", "need": ["The kernel: what a map crushes to zero.", "That a map may leave members of the target unused."], "stages": [{"key": "concept", "label": "Concept", "blurb": "what the idea is", "beats": [{"text": "The second question is asked on the other side: what did the map miss? The naive answer &mdash; the list of untouched members &mdash; is useless, because that list cannot be added in: two odd numbers add to an even one.", "kind": "say"}, {"text": "The useful answer instead declares everything the map reached to be zero, and asks what can still be told apart. That survivor is a collection you can add in, and it is the measurement.", "kind": "say"}]}, {"key": "intuition", "label": "Intuition", "blurb": "what it feels like", "beats": [{"text": "Doubling, from whole numbers to whole numbers, reaches every even number and no odd one. Half the target is never touched, and you would like a way of saying <em>the map missed a factor of two</em> rather than listing the misses.", "kind": "say"}, {"question": "Declare every even number to be zero. What is left?", "options": [["Two things: even and odd", "Two, and only two. Every whole number is now indistinguishable from either 0 or 1. The leftover is a tiny object with exactly two members, and it is a genuine measurement: it says the map missed a factor of two."], ["Nothing, all the numbers are still there", "The numbers are still there but they have stopped being <em>distinguishable</em>. Once every even number counts as zero, 4 and 0 are the same and 5 and 1 are the same. Count what can still be told apart and you find two things, not infinitely many."], ["Endlessly many odd numbers", "They collapse. 3 minus 1 is 2, which is now zero, so 3 and 1 have become the same member. Every odd number folds onto 1 and every even one onto 0. Two survivors."]], "after": "That collapsing move &mdash; declaring a part to be zero and seeing what survives &mdash; is the single most useful operation in algebra, and it is the one that breaks for spaces.", "kind": "ask"}]}, {"key": "experiment", "label": "Experiment", "blurb": "run it yourself", "beats": [{"steps": ["Write the numbers 0 to 11 in a row.", "Declare every multiple of 3 to be zero, and strike out the ones that have become indistinguishable from an earlier number.", "Count the survivors.", "Predict the answer for multiples of 5 before doing it, then check."], "found": "Three survivors for the multiples of 3, and five for the multiples of 5: the count is the number you declared zero by. The leftover of <em>multiply by n</em> is a collection with exactly n members, so the measurement is not vague &mdash; it returns the precise factor the map failed to cover. Notice also that the answer stayed finite even though the numbers did not. That is what makes it a usable measurement.", "prompt": "Do this before reading on.", "kind": "try"}, {"plain": "what is left after the map has been declared zero", "standard": "the cokernel, a quotient", "notation": "coker(f) = B / f(A)", "why": "The slash is read <em>modulo</em>, or <em>with this declared zero</em>. The cokernel of doubling on &#8484; is &#8484;/2&#8484;, the two-member group.", "kind": "name"}, {"statement": "coker(f) = B / im(f) &nbsp;&middot;&nbsp; coker(f) = 0 &nbsp;&hArr;&nbsp; f surjective", "reading": "im(f), the image, is everything the map actually reached. <em>Surjective</em> means it reached everything. So an empty cokernel says nothing was missed, just as an empty kernel said nothing was destroyed. Two measurements, one on each side of the arrow.", "cite": "", "url": "", "kind": "math"}]}], "hold": "The cokernel measures what a map missed, by declaring what it reached to be zero and counting the survivors."}, {"slug": "the-test", "title": "Two measurements that ought to settle everything", "idea": "If a polite map destroys nothing and misses nothing, it must be a sameness &mdash; so two computations replace the search for a map back.", "need": ["The kernel: nothing destroyed when it is zero.", "The cokernel: nothing missed when it is zero."], "stages": [{"key": "concept", "label": "Concept", "blurb": "what the idea is", "beats": [{"text": "Put the two measurements together. If a polite map destroys nothing and misses nothing, every member of the target is hit and hit exactly once. There is an obvious way back, and politeness carries over to it.", "kind": "say"}, {"text": "So for collections you can add in, two computations decide the question that used to require a search. That is the whole value of the setting.", "kind": "say"}]}, {"key": "intuition", "label": "Intuition", "blurb": "what it feels like", "beats": [{"text": "Hunting for a map back is an open-ended search: you either find one or you keep looking, and failing to find one proves nothing. Computing two measurements ends. That difference between searching and computing is what makes long chains of reasoning possible at all.", "kind": "say"}, {"question": "Why is a test like this worth so much?", "options": [["Because you can compute it", "That is why. Hunting for a map back is a search with no guarantee of ending. Computing a kernel and a cokernel is bookkeeping. A world where the bookkeeping settles the question is a world you can actually work in."], ["Because it is short", "Shortness helps, but the real value is that both measurements are things you can calculate directly from the map, with no cleverness and no searching."], ["Because it always works", "It always works <em>here</em>, and that is the promise about to be broken. Hold the doubt: you have already seen a bridge where it will not."]], "after": "", "kind": "ask"}]}, {"key": "experiment", "label": "Experiment", "blurb": "run it yourself", "beats": [{"widget": "algebra", "prompt": "Run both measurements on each map and read the verdict.", "notice": "Doubling destroys nothing but misses the odd numbers, so it fails on the cokernel. The clock map misses nothing but destroys the multiples of twelve, so it fails on the kernel. The do-nothing map passes both, and is a sameness. Three maps, three verdicts, all correct.", "params": {}, "kind": "play"}, {"plain": "a world where the two measurements decide sameness", "standard": "an abelian category", "notation": "ker = 0 and coker = 0 &rArr; isomorphism", "why": "Abelian groups form one. So do vector spaces, and modules over any ring. It is the setting nearly all of algebra assumes without saying so.", "kind": "name"}, {"statement": "ker(f) = 0 and coker(f) = 0 &nbsp;&rArr;&nbsp; f : A &cong; B", "reading": "Read: if both measurements come back zero then f is an isomorphism, a genuine sameness with a polite map back. In an abelian category this implication is part of the definition of the setting rather than a theorem about any particular objects.", "cite": "", "url": "", "kind": "math"}]}], "hold": "In a well-behaved algebraic world, nothing destroyed plus nothing missed forces sameness. The verdict is computable."}, {"slug": "the-verdict-is-wrong", "title": "Running the test on the bridge", "idea": "On the bridge from the dust to the ruler both measurements read zero, and the verdict they force is false.", "need": ["The test: both measurements zero forces sameness.", "The one-way bridge from the dust to the ruler."], "stages": [{"key": "concept", "label": "Concept", "blurb": "what the idea is", "beats": [{"text": "The dust and the ruler can both be added in: numbers add, whatever the nearness rule says. The bridge is polite, since sending each number to itself obviously survives addition. So the test applies, with nothing bent to make it apply.", "kind": "say"}, {"text": "Measure. Nothing is crushed to zero, because different numbers stay different. Nothing is missed, because every number on the ruler is reached. Both measurements are zero.", "kind": "say"}]}, {"key": "intuition", "label": "Intuition", "blurb": "what it feels like", "beats": [{"text": "You already know the answer the test is about to give, and you already know it is wrong. Watch it happen anyway: the value of this moment is seeing exactly which measurement cannot see what is missing, and why nothing in the measurement can warn you.", "kind": "say"}, {"question": "Which of the two measurements is lying?", "options": [["The cokernel", "The cokernel. What the bridge misses is not any <em>number</em> &mdash; every number is reached. What it misses is all the nearness that the ruler has and the dust does not. The cokernel counts members, members are all present, so it reports zero, and the entire second layer goes unrecorded."], ["The kernel", "The kernel is telling the truth: nothing really is crushed, since different numbers stay different. The false report is on the other side, where something real is missing and no member is missing to record it."], ["Both", "Only one. Nothing is destroyed, and the kernel says so correctly. Something <em>is</em> missed &mdash; the nearness &mdash; and the cokernel cannot see it, because it can only count members."]], "after": "So the leftover is real but has no members. Ordinary algebra has no room for such a thing: an object with no members is zero, by definition, and there the matter ends.", "kind": "ask"}]}, {"key": "experiment", "label": "Experiment", "blurb": "run it yourself", "beats": [{"widget": "algebra", "prompt": "Run the same two measurements on the bridge.", "notice": "Both come back zero, and the verdict reads <em>sameness</em>. You already know that verdict is false: the way back tears. The bookkeeping has returned a confident wrong answer, and nothing in the bookkeeping can detect it.", "params": {"bridge": true}, "kind": "play"}, {"plain": "a leftover you cannot see by counting members", "standard": "the failure of topological abelian groups to be abelian", "notation": "ker = 0, coker = 0, &#8477;<sub>disc</sub> &#8802; &#8477;", "why": "This is the precise defect. It is not that the subject is hard; it is that the standard tool returns a wrong answer on the simplest possible example.", "kind": "name"}, {"statement": "ker(id) = 0, &nbsp; coker(id) = 0, &nbsp; &#8477;<sub>disc</sub> &#8802; &#8477;", "reading": "Every symbol here you have now built yourself. The line is Example 1.9 of Scholze's lectures, and it is given there as the reason the subject needs new foundations. Two measurements read zero; the objects are not the same; the setting is therefore not abelian.", "cite": "Example 1.9, page 9 of the lectures", "url": "https://arxiv.org/pdf/2605.03658v1#page=9", "kind": "math"}]}], "hold": "On the bridge the test returns zero twice and the wrong verdict. The leftover is real and has no members."}, {"slug": "what-we-must-build", "title": "The specification for a repair", "idea": "Any repair must allow an object with no points that is not zero, keep the old spaces intact, and make the two measurements reliable again.", "need": ["That the leftover on the bridge is real and has no members."], "stages": [{"key": "concept", "label": "Concept", "blurb": "what the idea is", "beats": [{"text": "Write down what a repair has to do before looking at how to do it. Three demands, and they are the most useful thing to carry into the next three worlds.", "kind": "say"}, {"text": "It must allow an object that has no members and is not zero. It must keep every space you already care about, unchanged, somewhere inside it. And it must make the two measurements reliable again.", "kind": "say"}]}, {"key": "intuition", "label": "Intuition", "blurb": "what it feels like", "beats": [{"text": "A specification written before the solution is what stops a repair from being judged on elegance. Every claim in worlds 4 to 6 can be checked against these three lines, and you will be asked to check them.", "kind": "say"}, {"question": "An object with no members but not zero. Does that sound possible?", "options": [["Only if <em>member</em> stops being the basic question", "That is the move, stated before you have seen it. If the basic question about an object stops being <em>which points are in it</em> and becomes something else, then an object can answer <em>nothing</em> to the old question and still answer richly to the new one."], ["No, that is a contradiction", "It is a contradiction in the setting you have. That is the argument for changing the setting rather than hunting harder within it. Watch what the new basic question turns out to be; the contradiction dissolves rather than getting resolved."], ["Maybe, with some trick", "No trick, and that is what makes it durable. The repair changes the question one asks of an object, and the strange object then exists as ordinarily as any other."]], "after": "World 4 asks the new question. It comes from an everyday habit, and you will recognise it once it is pointed at.", "kind": "ask"}]}, {"key": "experiment", "label": "Experiment", "blurb": "run it yourself", "beats": [{"steps": ["Write the three demands down somewhere you will still have them in twenty minutes.", "For each one, write a single sentence saying how you would know if it had been met.", "Keep the page. Worlds 4 to 6 will hand you each answer, and you should tick them off yourself rather than take the claim."], "found": "If your three tests came out as <em>show me the object and let me read its rows</em>, <em>show me that the old maps and only the old maps survive</em>, and <em>run the failing example again and show me the right verdict</em>, then you have written the same specification the lectures work to. Worlds 4 and 5 build the machine; world 6 does exactly those three checks, in that order.", "prompt": "Do this before reading on.", "kind": "try"}, {"plain": "the specification", "standard": "the design goals of condensed mathematics", "notation": "abelian &nbsp;+&nbsp; fully faithful on spaces", "why": "Clausen and Scholze's answer meets all three demands at once, which is why it replaced the earlier patches instead of joining them.", "kind": "name"}, {"statement": "Cond(Ab) abelian &nbsp;&middot;&nbsp; Top &#8674; Cond(Set) fully faithful on compactly generated spaces", "reading": "Cond(Ab) names the repaired world of things that can be added; Theorem 1.10 of the lectures says it is abelian, so the two measurements can be trusted there. The hooked arrow &#8674; means <em>sits inside without distortion</em>: Proposition 1.7 says the spaces you already use survive the move with all their maps intact. Both are proved in the lectures and quoted here.", "cite": "Theorem 1.10 and Proposition 1.7, pages 9 and 8", "url": "https://arxiv.org/pdf/2605.03658v1#page=8", "kind": "math"}]}], "hold": "The repair must permit a memberless object that is not zero, keep old spaces intact, and restore the two measurements."}]};
+const NEXT = {"number": 4, "title": "Stop asking what is inside", "page": "04.html"};
+
+// The whole interface: a list of steps, one button, and a column that grows.
+// Nothing here knows any mathematics; the widgets do that.
+
+const STORY = document.getElementById('story');
+const ACT = document.getElementById('act');
+const BAR = document.getElementById('bar');
+
+// flatten the world into a list of steps, one press each
+const STEPS = [];
+WORLD.bricks.forEach(function(brick, bi){
+  STEPS.push({t:'brick', brick:brick, n:bi + 1, of:WORLD.bricks.length});
+  brick.stages.forEach(function(stage){
+    STEPS.push({t:'stage', stage:stage});
+    stage.beats.forEach(function(beat){ STEPS.push({t:'beat', beat:beat}); });
+  });
+  STEPS.push({t:'hold', text:brick.hold});
+});
+
+const KEY = 'cm-game-' + WORLD.slug;
+let idx = 0, choices = {}, replaying = false;
+
+function el(tag, cls, parent, html){
+  const e = document.createElement(tag);
+  if(cls) e.className = cls;
+  if(html !== undefined && html !== null) e.innerHTML = html;
+  if(parent) parent.appendChild(e);
+  return e;
+}
+function box(){ return el('div', 'step', STORY); }
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify({idx:idx, choices:choices})); }
+  catch(e){}
+}
+function progress(){
+  const pct = Math.round(100 * idx / STEPS.length);
+  if(BAR) BAR.style.width = pct + '%';
+}
+function scroll(node){
+  if(replaying || !node || typeof node.scrollIntoView !== 'function') return;
+  try{ node.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){}
+}
+
+// --- rendering one step ----------------------------------------------------
+
+function renderBrick(s){
+  const b = s.brick, host = box();
+  host.className = 'step brick';
+  el('div', 'count', host, 'Brick ' + s.n + ' of ' + s.of);
+  el('h2', null, host, b.title);
+  el('p', 'idea', host, b.idea);
+  const need = el('div', 'need', host);
+  el('span', null, need, 'You only need this');
+  const ul = el('ul', null, need);
+  b.need.forEach(function(n){ el('li', null, ul, n); });
+  return host;
+}
+
+function renderStage(s){
+  const host = box();
+  host.className = 'step stage';
+  el('b', null, host, s.stage.label);
+  el('i', null, host, s.stage.blurb);
+  return host;
+}
+
+function renderBeat(beat){
+  const host = box();
+  if(beat.kind === 'say'){
+    el('p', null, host, beat.text);
+  } else if(beat.kind === 'ask'){
+    el('p', 'q', host, beat.question);
+  } else if(beat.kind === 'try'){
+    const d = el('div', 'doit', host);
+    el('div', 'lead', d, beat.prompt);
+    const ol = el('ol', null, d);
+    beat.steps.forEach(function(t){ el('li', null, ol, t); });
+  } else if(beat.kind === 'play'){
+    const d = el('div', 'play', host);
+    el('p', 'prompt', d, beat.prompt);
+    const stage = el('div', null, d);
+    try{
+      WIDGETS[beat.widget](stage, beat.params || {});
+    }catch(err){
+      el('p', 'plain', stage, 'This simulation could not start.');
+      if(typeof console !== 'undefined') console.error(err);
+    }
+    el('p', 'notice', d, beat.notice);
+  } else if(beat.kind === 'name'){
+    const c = el('div', 'card name', host);
+    el('span', 'kicker', c, 'The name for it');
+    el('p', 'swap', c, 'What you have been calling <b>' + beat.plain +
+       '</b> is called <b>' + beat.standard + '</b>.');
+    el('p', 'nota', c, beat.notation);
+    if(beat.why) el('p', null, c, beat.why);
+  } else if(beat.kind === 'math'){
+    const c = el('div', 'card maths', host);
+    el('span', 'kicker', c, 'The mathematics');
+    el('div', 'fx', c, beat.statement);
+    el('p', null, c, beat.reading);
+    if(beat.cite){
+      const p = el('p', 'cite', c);
+      if(beat.url) el('a', null, p, beat.cite).setAttribute('href', beat.url);
+      else p.innerHTML = beat.cite;
+    }
+  }
+  return host;
+}
+
+function renderHold(s){
+  const host = box();
+  host.className = 'step hold';
+  el('b', null, host, 'You now hold');
+  el('span', null, host, s.text);
+  return host;
+}
+
+// --- the action area -------------------------------------------------------
+
+function clearAct(){ ACT.innerHTML = ''; }
+
+function showContinue(label){
+  clearAct();
+  if(replaying) return;
+  const b = el('button', 'go', ACT, label || 'Continue');
+  b.addEventListener('click', advance);
+  el('p', 'hint', ACT, 'Press Enter, or space, to go on.');
+}
+
+function showOptions(beat, at){
+  clearAct();
+  if(replaying) return;
+  const wrap = el('div', 'opts', ACT);
+  beat.options.forEach(function(opt, i){
+    const b = el('button', 'opt', wrap, opt[0]);
+    b.addEventListener('click', function(){ answer(beat, i, at); });
+  });
+  el('p', 'hint', ACT, 'Guess before you read on. A guess that misses is the '
+     + 'useful kind.');
+}
+
+function answer(beat, i, at){
+  choices[at] = i;
+  const host = box();
+  el('p', 'chose', host, 'You said: ' + beat.options[i][0]);
+  el('p', 'reply', host, beat.options[i][1]);
+  if(beat.after) el('p', null, host, beat.after);
+  scroll(host);
+  save();
+  showContinue();
+}
+
+function showReveal(beat){
+  clearAct();
+  if(replaying) return;
+  const b = el('button', 'go', ACT, 'I have done this — what should I have found?');
+  b.addEventListener('click', function(){ reveal(beat); });
+  el('p', 'hint', ACT, 'The answer is worth much less if you read it first.');
+}
+
+function reveal(beat){
+  const host = box();
+  el('p', 'found', host, beat.found);
+  scroll(host);
+  showContinue();
+}
+
+// --- walking the list ------------------------------------------------------
+
+function advance(){
+  if(idx >= STEPS.length){ finish(); return; }
+  const s = STEPS[idx], at = idx;
+  idx += 1;
+  let node = null, waiting = null;
+  if(s.t === 'brick') node = renderBrick(s);
+  else if(s.t === 'stage') node = renderStage(s);
+  else if(s.t === 'hold') node = renderHold(s);
+  else {
+    node = renderBeat(s.beat);
+    if(s.beat.kind === 'ask') waiting = 'ask';
+    if(s.beat.kind === 'try') waiting = 'try';
+  }
+  progress();
+  save();
+  scroll(node);
+  if(waiting === 'ask'){
+    if(replaying){
+      const pick = choices[at] === undefined ? 0 : choices[at];
+      const beat = s.beat, h = box();
+      el('p', 'chose', h, 'You said: ' + beat.options[pick][0]);
+      el('p', 'reply', h, beat.options[pick][1]);
+      if(beat.after) el('p', null, h, beat.after);
+    } else showOptions(s.beat, at);
+  } else if(waiting === 'try'){
+    if(replaying) el('p', 'found', box(), s.beat.found);
+    else showReveal(s.beat);
+  } else if(idx >= STEPS.length){ finish(); }
+  else showContinue();
+}
+
+function finish(){
+  clearAct();
+  const host = box();
+  host.className = 'step end';
+  el('p', null, host, 'That is world ' + WORLD.number + '. What you are '
+     + 'carrying out of it:');
+  const ul = el('ul', null, host);
+  WORLD.bricks.forEach(function(b){ el('li', null, ul, b.hold); });
+  if(NEXT) el('a', 'next', host, 'Go on to world ' + NEXT.number + ': '
+              + NEXT.title + ' →').setAttribute('href', NEXT.page);
+  else el('p', null, host, 'That is the last world. The written guide beside '
+          + 'this game covers the same ground in three parts.');
+  const again = el('button', 'go quiet', ACT, 'Play this world again');
+  again.addEventListener('click', function(){
+    idx = 0; choices = {}; STORY.innerHTML = ''; save(); progress(); advance();
+  });
+  idx = STEPS.length;
+  progress();
+  save();
+  scroll(host);
+}
+
+// --- start, or offer to resume ---------------------------------------------
+
+function replay(to){
+  replaying = true;
+  idx = 0;
+  STORY.innerHTML = '';
+  while(idx < to && idx < STEPS.length) advance();
+  replaying = false;
+  if(idx >= STEPS.length) finish();
+  else showContinue();
+}
+
+function begin(){
+  let saved = null;
+  try{ saved = JSON.parse(localStorage.getItem(KEY) || 'null'); }catch(e){}
+  if(saved && saved.idx > 0 && saved.idx < STEPS.length){
+    choices = saved.choices || {};
+    clearAct();
+    const on = el('button', 'go', ACT, 'Carry on where you left off');
+    on.addEventListener('click', function(){ replay(saved.idx); });
+    const fresh = el('button', 'go quiet', ACT, 'Start this world again');
+    fresh.addEventListener('click', function(){
+      choices = {}; idx = 0; save(); advance();
+    });
+  } else {
+    showContinue('Begin');
+  }
+}
+
+if(typeof window !== 'undefined' && window.addEventListener){
+  window.addEventListener('keydown', function(e){
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    const buttons = ACT.querySelectorAll ? ACT.querySelectorAll('button') : [];
+    if(buttons.length === 1){ e.preventDefault(); buttons[0].click(); }
+  });
+}
+
+begin();
+
+</script>
+</body>
+</html>

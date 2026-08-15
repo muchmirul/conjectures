@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>World 7: Sums that finally land · condensed mathematics</title>
+<meta name="description" content="By the end you will have added one and two and four and eight and got &minus;1, and you will know exactly why that is not a trick.">
+<style>
+ :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+        --line:#e1e0d9;--card:#ffffff;--blue:#2a78d6;--green:#008300;
+        --red:#d03b3b;--violet:#4a3aa7;}
+ @media (prefers-color-scheme: dark){
+   :root{--surface:#15150f;--ink:#f2f1ea;--ink2:#c9c7bd;--muted:#8d8b82;
+         --line:#33322c;--card:#1c1c15;}
+ }
+ *{box-sizing:border-box}
+ html{scroll-behavior:smooth}
+ body{margin:0;padding:0 0 10vh;background:var(--surface);color:var(--ink);
+   font:17.5px/1.75 -apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+   sans-serif;}
+ main{max-width:680px;margin:0 auto;padding:0 20px}
+ header.top{position:sticky;top:0;z-index:5;background:var(--surface);
+   border-bottom:1px solid var(--line);padding:10px 20px 0}
+ header.top .inner{max-width:680px;margin:0 auto;display:flex;
+   align-items:baseline;gap:12px;font-size:13px;color:var(--muted)}
+ header.top a{color:var(--muted);text-decoration:none}
+ header.top a:hover{color:var(--blue)}
+ .bar{max-width:680px;margin:8px auto 0;height:3px;background:var(--line);
+   border-radius:2px;overflow:hidden}
+ .bar i{display:block;height:100%;width:0;background:var(--blue);
+   transition:width .35s ease}
+ h1{font-size:26px;line-height:1.25;margin:34px 0 8px}
+ .promise{color:var(--ink2);font-style:italic;margin:0 0 12px}
+ p{margin:1.05em 0}
+ em{font-style:italic}
+ a{color:var(--blue)}
+ .step{animation:rise .28s ease both}
+ @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;
+   transform:none}}
+ @media (prefers-reduced-motion: reduce){.step{animation:none}
+   html{scroll-behavior:auto}}
+ /* the brick opening */
+ .brick{margin:52px 0 0;padding-top:26px;border-top:1px solid var(--line)}
+ .brick .count{font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+   color:var(--violet);font-weight:600}
+ .brick h2{font-size:21px;margin:6px 0 10px;line-height:1.3}
+ .brick .idea{margin:0 0 16px;color:var(--ink)}
+ .need{background:var(--card);border:1px solid var(--line);border-radius:10px;
+   padding:12px 16px;margin:16px 0 0}
+ .need span{font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+   color:var(--muted);font-weight:600}
+ .need ul{margin:6px 0 0;padding-left:18px}
+ .need li{margin:4px 0;color:var(--ink2);font-size:15.5px}
+ /* stage headings */
+ .stage{display:flex;align-items:baseline;gap:10px;margin:36px 0 2px}
+ .stage b{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;
+   color:var(--blue);font-weight:700}
+ .stage i{font-style:normal;font-size:13px;color:var(--muted)}
+ .stage:before{content:"";flex:0 0 22px;height:1px;background:var(--blue);
+   opacity:.5;align-self:center}
+ /* the guess */
+ .q{font-weight:600;margin:22px 0 4px}
+ .chose{color:var(--muted);font-size:14.5px;margin:14px 0 2px}
+ .reply{border-left:3px solid var(--green);padding:2px 0 2px 14px;
+   margin:6px 0 0;color:var(--ink2)}
+ /* the hands-on experiment */
+ .doit{background:var(--card);border:1px solid var(--line);border-radius:10px;
+   padding:14px 18px;margin:18px 0 0}
+ .doit .lead{font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+   color:var(--violet);font-weight:600}
+ .doit ol{margin:10px 0 0;padding-left:20px}
+ .doit li{margin:6px 0}
+ .found{border-left:3px solid var(--violet);padding:2px 0 2px 14px;
+   margin:14px 0 0;color:var(--ink2)}
+ /* the widget */
+ .play{margin:20px 0 0}
+ .play .prompt{font-weight:600;margin:0 0 10px}
+ .play .notice{color:var(--ink2);font-size:15.5px;margin:14px 0 0}
+ canvas.fig{width:100%;height:auto;display:block;border:1px solid var(--line);
+   border-radius:10px;background:var(--card)}
+ .controls{margin:12px 0 0}
+ .row{display:flex;align-items:center;gap:12px;margin:9px 0;flex-wrap:wrap}
+ .row .lbl{flex:0 0 168px;font-size:14px;color:var(--ink2)}
+ input[type=range]{flex:1;min-width:140px;accent-color:var(--blue)}
+ .val{flex:0 0 96px;text-align:right;font-family:ui-monospace,monospace;
+   font-size:13px;color:var(--ink2)}
+ .pick{display:flex;flex-wrap:wrap;gap:7px}
+ .pick button{font:inherit;font-size:13.5px;padding:5px 12px;cursor:pointer;
+   border:1px solid var(--line);border-radius:999px;background:transparent;
+   color:var(--ink2)}
+ .pick button:hover{border-color:var(--blue);color:var(--blue)}
+ .pick button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+ .readout{margin-top:12px;padding:12px 15px;border:1px solid var(--line);
+   border-radius:10px;font-size:14.5px;line-height:1.65;color:var(--ink2);
+   background:var(--card)}
+ .plain{font-size:14.5px;color:var(--muted);margin:0}
+ /* naming and the mathematics */
+ .card{border:1px solid var(--line);border-radius:12px;padding:4px 18px 16px;
+   margin:22px 0 0;background:var(--card)}
+ .card .kicker{display:block;font-size:12px;letter-spacing:.09em;
+   text-transform:uppercase;font-weight:600;margin:14px 0 4px}
+ .card.name{border-left:4px solid var(--green)}
+ .card.name .kicker{color:var(--green)}
+ .card.maths{border-left:4px solid var(--violet)}
+ .card.maths .kicker{color:var(--violet)}
+ .swap{font-size:17px;margin:2px 0 8px}
+ .nota{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;
+   overflow-x:auto;color:var(--ink);margin:6px 0}
+ .fx{font-family:"Latin Modern Math",Cambria,Georgia,serif;font-size:19px;
+   text-align:center;overflow-x:auto;padding:10px 0;margin:6px 0;
+   border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+ .cite{font-size:14px;color:var(--muted);margin:10px 0 0}
+ .hold{margin:26px 0 0;padding:12px 16px;border-radius:10px;
+   background:var(--card);border:1px solid var(--line);
+   border-left:4px solid var(--blue);font-size:16px}
+ .hold b{color:var(--blue);font-size:12px;letter-spacing:.08em;
+   text-transform:uppercase;display:block;margin-bottom:3px}
+ /* the action area */
+ #act{position:sticky;bottom:0;background:var(--surface);padding:14px 0 20px;
+   border-top:1px solid var(--line);margin-top:30px}
+ /* an empty action bar is sticky and would paint over the page behind it */
+ #act:empty{display:none}
+ #act .opts{display:flex;flex-direction:column;gap:8px}
+ button.go{font:inherit;font-size:16px;padding:11px 20px;cursor:pointer;
+   border-radius:10px;border:1px solid var(--blue);background:var(--blue);
+   color:#fff;text-align:left}
+ button.go:hover{opacity:.9}
+ button.opt{font:inherit;font-size:15.5px;padding:11px 16px;cursor:pointer;
+   border-radius:10px;border:1px solid var(--line);background:var(--card);
+   color:var(--ink);text-align:left;line-height:1.5}
+ button.opt:hover{border-color:var(--blue);color:var(--blue)}
+ button.quiet{background:transparent;border-color:var(--line);
+   color:var(--ink2)}
+ .hint{font-size:13px;color:var(--muted);margin:8px 0 0}
+ /* the ending */
+ .end{margin:40px 0 0;padding-top:24px;border-top:1px solid var(--line)}
+ .end ul{padding-left:18px}
+ .end li{margin:6px 0;color:var(--ink2)}
+ .end a.next{display:inline-block;margin-top:14px;font-size:17px}
+ /* the front page */
+ .worlds{list-style:none;padding:0;margin:26px 0 0}
+ .worlds li{border-top:1px solid var(--line);padding:16px 0}
+ .worlds a{display:block;text-decoration:none;color:inherit}
+ .worlds a:hover .wt{color:var(--blue)}
+ .worlds .wn{font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+   color:var(--violet);font-weight:600}
+ .worlds .wt{font-size:19px;margin:2px 0 4px}
+ .worlds .wp{color:var(--ink2);font-size:15.5px;margin:0}
+ .worlds .wd{color:var(--muted);font-size:13px;margin:6px 0 0}
+ footer{max-width:680px;margin:60px auto 0;padding:18px 20px 40px;
+   border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+ footer a{color:var(--muted)}
+ @media (max-width:600px){
+   body{font-size:16.5px}
+   .row .lbl{flex:0 0 100%}
+   .val{flex:0 0 auto}
+ }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="inner"><a href="index.html">← the game</a><span>World 7 of 8</span></div>
+  <div class="bar"><i id="bar"></i></div>
+</header>
+<main>
+<h1>World 7 · Sums that finally land</h1><p class="promise">By the end you will have added one and two and four and eight and got &minus;1, and you will know exactly why that is not a trick.</p>
+<div id="story"></div>
+<div id="act"></div>
+</main>
+<footer>A game for <a href="../index.html">condensed mathematics</a>, retelling Peter Scholze's <a href="https://arxiv.org/abs/2605.03658">Lectures on Condensed Mathematics</a>, joint work with Dustin Clausen. Every number a widget prints is computed in the page. <a href="https://github.com/muchmirul/conjectures">Source</a>.</footer>
+<script>
+
+// ---------------------------------------------------------------------
+// probes, as honest inverse systems of finite sets
+// ---------------------------------------------------------------------
+function cantorProbe(depth){
+  const levels=[[""]],parents=[];
+  for(let i=0;i<depth;i++){
+    const nxt=[];for(const s of levels[i]){nxt.push(s+"0");nxt.push(s+"1");}
+    const par={};for(const s of nxt)par[s]=s.slice(0,-1);
+    parents.push(par);levels.push(nxt);
+  }
+  return {name:"halving",levels:levels,parents:parents};
+}
+function branchProbe(depth,b){
+  const levels=[[""]],parents=[];
+  for(let i=0;i<depth;i++){
+    const nxt=[];for(const s of levels[i])for(let k=0;k<b;k++)nxt.push(s+k);
+    const par={};for(const s of nxt)par[s]=s.slice(0,-1);
+    parents.push(par);levels.push(nxt);
+  }
+  return {name:"branching by "+b,levels:levels,parents:parents};
+}
+function sequenceProbe(depth){
+  const levels=[["oo"]],parents=[];
+  for(let i=0;i<depth;i++){
+    const nxt=[];for(let k=0;k<=i;k++)nxt.push(String(k));nxt.push("oo");
+    const par={};for(let k=0;k<=i;k++)par[String(k)]=(k===i?"oo":String(k));
+    par["oo"]="oo";
+    parents.push(par);levels.push(nxt);
+  }
+  return {name:"approaching",levels:levels,parents:parents};
+}
+function pAdicProbe(p,depth){
+  const levels=[["0"]],parents=[];
+  for(let i=0;i<depth;i++){
+    const n=Math.pow(p,i+1),nxt=[];
+    for(let k=0;k<n;k++)nxt.push(String(k));
+    const par={};for(let k=0;k<n;k++)par[String(k)]=String(k%Math.pow(p,i));
+    parents.push(par);levels.push(nxt);
+  }
+  return {name:"base-"+p,levels:levels,parents:parents};
+}
+function probeSizes(S){ return S.levels.map(l=>l.length); }
+function project(S,label,frm,to){
+  for(let i=frm-1;i>=to;i--) label=S.parents[i][label];
+  return label;
+}
+function fibre(S,label,at,over){
+  return S.levels[at].filter(x=>project(S,x,at,over)===label);
+}
+
+// ---------------------------------------------------------------------
+// measures: one weight per box, a box's weight the total of what is inside
+// ---------------------------------------------------------------------
+function measureFromLeaves(S,leafWeights){
+  const d=S.levels.length-1,weights=[Object.assign({},leafWeights)];
+  for(let i=d-1;i>=0;i--){
+    const coarse={};for(const l of S.levels[i])coarse[l]=0;
+    for(const x of S.levels[i+1])coarse[S.parents[i][x]]+=weights[0][x];
+    weights.unshift(coarse);
+  }
+  return weights;
+}
+function measureOk(S,weights){
+  for(let i=0;i<weights.length-1;i++)
+    for(const l of S.levels[i]){
+      let inner=0;
+      for(const x of S.levels[i+1])if(S.parents[i][x]===l)inner+=weights[i+1][x];
+      if(Math.abs(weights[i][l]-inner)>1e-9)return false;
+    }
+  return true;
+}
+function integrate(S,weights,f,level){
+  let s=0;for(const l of S.levels[level])s+=f[l]*weights[level][l];return s;
+}
+function refineFn(S,f,frm,to){
+  const g={};for(const x of S.levels[to])g[x]=f[project(S,x,to,frm)];return g;
+}
+
+// ---------------------------------------------------------------------
+// the p-adic size, and the doubling sum of part two
+// ---------------------------------------------------------------------
+function pValuation(n,p){ if(n===0)return Infinity;let v=0;
+  while(n%p===0){n/=p;v++;}return v; }
+function pAdicAbsInt(n,p){ return n===0?0:Math.pow(p,-pValuation(n,p)); }
+function geomPartialSums(p,terms){
+  const out=[];let s=0,t=1;
+  for(let n=0;n<terms;n++){s+=t;t*=p;out.push(s);}
+  return out;
+}
+function geomLimitTimes(p){ return 1/(1-p); }   // the value the sums close on
+
+// ---------------------------------------------------------------------
+// measure sizes: why the exponent must not pass one
+// ---------------------------------------------------------------------
+function lpSize(vals,p){
+  let s=0;for(const v of vals)s+=Math.pow(Math.abs(v),p);
+  return Math.pow(s,1/p);
+}
+function mergeBoxes(vals,groups){
+  return groups.map(g=>g.reduce((a,i)=>a+vals[i],0));
+}
+function mergeRatio(vals,groups,p){
+  const before=lpSize(vals,p);
+  return before?lpSize(mergeBoxes(vals,groups),p)/before:0;
+}
+function worstMergeRatio(boxes,p){ return Math.pow(boxes,1-1/p); }
+function lpBallPoint(theta,p){
+  const c=Math.cos(theta),s=Math.sin(theta);
+  const k=Math.pow(Math.pow(Math.abs(c),p)+Math.pow(Math.abs(s),p),1/p);
+  return [c/k,s/k];
+}
+
+// ---------------------------------------------------------------------
+// the completed tensor product of part two, section 7
+// ---------------------------------------------------------------------
+const ADIC={"Z":[],"Z_p":["p"],"Z_l":["l"],"Z[[T]]":["T"],"Z[[U]]":["U"],
+            "Z_p[[T]]":["p","T"],"Z[[T,U]]":["T","U"],"R":null};
+// a prime direction names the base ring; the rest are formal variables
+function nameDirections(dirs){
+  const all=Array.from(dirs).sort();
+  const primes=all.filter(d=>d==="p"||d==="l");
+  const vars=all.filter(d=>d!=="p"&&d!=="l");
+  const base=primes.length?("Z_"+primes[0]):"Z";
+  return vars.length?(base+"[["+vars.join(",")+"]]"):base;
+}
+function solidTensor(a,b){
+  const da=ADIC[a],db=ADIC[b];
+  if(da===null||db===null)return "0";
+  const dirs=new Set(da.concat(db));
+  const primes=Array.from(dirs).filter(d=>d==="p"||d==="l");
+  if(primes.length>1)return "0";
+  return nameDirections(dirs);
+}
+// only these five combinations are stated outright in the lectures
+const QUOTED_TENSOR=[["Z_p","Z_l"],["Z_p","R"],["Z_p","Z_p"],
+                     ["Z_p","Z[[T]]"],["Z[[U]]","Z[[T]]"]];
+function quotedTensor(a,b){
+  return QUOTED_TENSOR.some(pr=>(pr[0]===a&&pr[1]===b)||(pr[0]===b&&pr[1]===a));
+}
+
+// ---------------------------------------------------------------------
+// holes, by Smith normal form over the whole numbers
+// ---------------------------------------------------------------------
+function smith(mat){
+  if(!mat||!mat.length||!mat[0].length)return [];
+  const m=mat.map(r=>r.slice());
+  const rows=m.length,cols=m[0].length,divs=[];
+  let t=0;
+  while(t<rows&&t<cols){
+    let pi=-1,pj=-1,best=Infinity;
+    for(let i=t;i<rows;i++)for(let j=t;j<cols;j++)
+      if(m[i][j]&&Math.abs(m[i][j])<best){best=Math.abs(m[i][j]);pi=i;pj=j;}
+    if(pi<0)break;
+    const tmp=m[t];m[t]=m[pi];m[pi]=tmp;
+    for(const row of m){const v=row[t];row[t]=row[pj];row[pj]=v;}
+    for(let guard=0;guard<400;guard++){
+      for(let i=t+1;i<rows;i++)if(m[i][t]){
+        const q=Math.trunc(m[i][t]/m[t][t]);
+        for(let j=0;j<cols;j++)m[i][j]-=q*m[t][j];
+      }
+      let nz=-1;for(let i=t+1;i<rows;i++)if(m[i][t]){nz=i;break;}
+      if(nz>=0){const s=m[t];m[t]=m[nz];m[nz]=s;continue;}
+      for(let j=t+1;j<cols;j++)if(m[t][j]){
+        const q=Math.trunc(m[t][j]/m[t][t]);
+        for(const row of m)row[j]-=q*row[t];
+      }
+      let nc=-1;for(let j=t+1;j<cols;j++)if(m[t][j]){nc=j;break;}
+      if(nc>=0){for(const row of m){const v=row[t];row[t]=row[nc];row[nc]=v;}continue;}
+      break;
+    }
+    divs.push(Math.abs(m[t][t]));t++;
+  }
+  return divisibilityChain(divs);
+}
+// diagonalising is not quite the normal form: a diagonal 2, 3 describes the
+// same group as 1, 6, so the chain is repaired the same way as in Python
+function gcd(a,b){ while(b){const t=a%b;a=b;b=t;} return Math.abs(a); }
+function divisibilityChain(divs){
+  const d=divs.slice().sort((a,b)=>a-b);
+  let changed=true;
+  while(changed){
+    changed=false;
+    for(let i=0;i<d.length-1;i++){
+      const a=d[i],b=d[i+1];
+      if(b%a){const g=gcd(a,b);d[i]=g;d[i+1]=(a/g)*b;changed=true;}
+    }
+  }
+  return d;
+}
+const SHAPES={
+  "circle":{cells:[1,1],bd:{1:[[0]]}},
+  "figure eight":{cells:[1,2],bd:{1:[[0,0]]}},
+  "sphere":{cells:[1,0,1],bd:{2:[]}},
+  "torus":{cells:[1,2,1],bd:{1:[[0],[0]],2:[[0],[0]]}},
+  "klein bottle":{cells:[1,2,1],bd:{1:[[0],[0]],2:[[0],[2]]}}
+};
+function homology(name){
+  const S=SHAPES[name],out=[];
+  for(let k=0;k<S.cells.length;k++){
+    const n=S.cells[k],dk=S.bd[k],dn=S.bd[k+1];
+    const rankK=dk&&dk.length?smith(dk).length:0;
+    const divs=dn&&dn.length?smith(dn):[];
+    out.push({free:n-rankK-divs.length,torsion:divs.filter(d=>d>1)});
+  }
+  return out;
+}
+function binom(n,k){ let r=1;for(let i=0;i<k;i++)r=r*(n-i)/(i+1);
+  return Math.round(r); }
+function exteriorRanks(n){ const o=[];for(let i=0;i<=n;i++)o.push(binom(n,i));
+  return o; }
+
+// ---------------------------------------------------------------------
+// functions near the edge, of part three
+// ---------------------------------------------------------------------
+function lineEdgeRank(top,tails){ return (top+tails+1)-(top+1); }
+function crossEdgeRank(top,tails){ return 2*(top+tails+1)-(2*(top+1)-1); }
+
+// ---------------------------------------------------------------------
+// a very small plotting helper
+// ---------------------------------------------------------------------
+function Plot(canvas,xlo,xhi,ylo,yhi,pad){
+  const ctx=canvas.getContext('2d'), W=canvas.width, H=canvas.height;
+  pad=pad||{l:54,r:18,t:18,b:40};
+  const X=x=>pad.l+(x-xlo)/(xhi-xlo)*(W-pad.l-pad.r);
+  const Y=y=>H-pad.b-(y-ylo)/(yhi-ylo)*(H-pad.t-pad.b);
+  return {ctx,X,Y,W,H,pad,
+    clear(){ctx.clearRect(0,0,W,H);},
+    axes(xlabel,ylabel){
+      ctx.strokeStyle='#c3c2b7';ctx.lineWidth=1;ctx.beginPath();
+      ctx.moveTo(pad.l,pad.t);ctx.lineTo(pad.l,H-pad.b);
+      ctx.lineTo(W-pad.r,H-pad.b);ctx.stroke();
+      ctx.fillStyle='#898781';ctx.font='12px system-ui';ctx.textAlign='center';
+      if(xlabel)ctx.fillText(xlabel,(pad.l+W-pad.r)/2,H-9);
+      if(ylabel){ctx.save();ctx.translate(14,(pad.t+H-pad.b)/2);
+        ctx.rotate(-Math.PI/2);ctx.fillText(ylabel,0,0);ctx.restore();}
+    },
+    curve(f,color,lw,n){n=n||400;ctx.strokeStyle=color;ctx.lineWidth=lw||2.2;
+      ctx.beginPath();
+      for(let i=0;i<=n;i++){const x=xlo+(xhi-xlo)*i/n,y=f(x);
+        if(i===0)ctx.moveTo(X(x),Y(y));else ctx.lineTo(X(x),Y(y));}
+      ctx.stroke();},
+    line(xs,ys,color,lw){ctx.strokeStyle=color;ctx.lineWidth=lw||2;
+      ctx.beginPath();
+      for(let i=0;i<xs.length;i++){if(i===0)ctx.moveTo(X(xs[i]),Y(ys[i]));
+        else ctx.lineTo(X(xs[i]),Y(ys[i]));}ctx.stroke();},
+    dots(xs,ys,color,r){ctx.fillStyle=color;
+      for(let i=0;i<xs.length;i++){ctx.beginPath();
+        ctx.arc(X(xs[i]),Y(ys[i]),r||3.4,0,7);ctx.fill();}},
+    hline(y,color,dash){ctx.save();ctx.strokeStyle=color;
+      ctx.setLineDash(dash||[]);ctx.beginPath();ctx.moveTo(pad.l,Y(y));
+      ctx.lineTo(W-pad.r,Y(y));ctx.stroke();ctx.restore();},
+    vline(x,color,dash){ctx.save();ctx.strokeStyle=color;
+      ctx.setLineDash(dash||[]);ctx.beginPath();ctx.moveTo(X(x),pad.t);
+      ctx.lineTo(X(x),H-pad.b);ctx.stroke();ctx.restore();},
+    label(x,y,text,color,align){ctx.fillStyle=color;ctx.font='12px system-ui';
+      ctx.textAlign=align||'left';ctx.fillText(text,X(x),Y(y));}
+  };
+}
+
+// draw a probe as a branching diagram; returns the positions used
+function drawTree(ctx,S,depth,box,opts){
+  opts=opts||{};
+  const yStep=(box.h-24)/Math.max(1,depth);
+  const pos={};
+  for(let i=0;i<=depth;i++){
+    const n=S.levels[i].length,step=box.w/n;
+    for(let k=0;k<n;k++)
+      pos[i+"|"+S.levels[i][k]]=[box.x+(k+0.5)*step,box.y+12+i*yStep];
+  }
+  ctx.strokeStyle=opts.edge||'#c3c2b7';ctx.lineWidth=1;
+  for(let i=0;i<depth;i++)
+    for(const l of S.levels[i+1]){
+      const a=pos[(i+1)+"|"+l],b=pos[i+"|"+S.parents[i][l]];
+      ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke();
+    }
+  for(let i=0;i<=depth;i++)
+    for(const l of S.levels[i]){
+      const p=pos[i+"|"+l];
+      ctx.fillStyle=(opts.colour?opts.colour(i,l):null)||'#2a78d6';
+      ctx.beginPath();ctx.arc(p[0],p[1],opts.r||4,0,7);ctx.fill();
+    }
+  return pos;
+}
+
+// theme-aware colours; falls back to the light palette when the page is being
+// run outside a browser (the test stub has no getComputedStyle)
+function css(name, fallback){
+  try{
+    if(typeof getComputedStyle !== 'function') return fallback;
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name);
+    return (v && v.trim()) ? v.trim() : fallback;
+  }catch(e){ return fallback; }
+}
+function palette(){
+  return {ink:css('--ink','#0b0b0b'), ink2:css('--ink2','#52514e'),
+          muted:css('--muted','#898781'), line:css('--line','#e1e0d9'),
+          blue:css('--blue','#2a78d6'), green:css('--green','#008300'),
+          red:css('--red','#d03b3b'), violet:css('--violet','#4a3aa7')};
+}
+
+const UI = {
+  node(tag, cls, parent, html){
+    const e = document.createElement(tag);
+    if(cls) e.className = cls;
+    if(html !== undefined && html !== null) e.innerHTML = html;
+    if(parent) parent.appendChild(e);
+    return e;
+  },
+  canvas(host, w, h){
+    const c = document.createElement('canvas');
+    c.className = 'fig'; c.width = w; c.height = h;
+    host.appendChild(c);
+    return c;
+  },
+  out(host){ return UI.node('div', 'readout', host, ''); },
+  slider(host, label, lo, hi, step, val, fn){
+    const row = UI.node('div', 'row', host);
+    UI.node('span', 'lbl', row, label);
+    const inp = document.createElement('input');
+    inp.type = 'range'; inp.min = lo; inp.max = hi;
+    inp.step = step; inp.value = String(val);
+    row.appendChild(inp);
+    const read = UI.node('span', 'val', row, '');
+    const fire = () => fn(parseFloat(inp.value), read);
+    inp.addEventListener('input', fire);
+    fire();
+    return inp;
+  },
+  pick(host, label, opts, fn){
+    const row = UI.node('div', 'row', host);
+    if(label) UI.node('span', 'lbl', row, label);
+    const box = UI.node('div', 'pick', row);
+    let cur = opts[0][0];
+    for(let i = 0; i < opts.length; i++){
+      const b = UI.node('button', i === 0 ? 'on' : '', box, opts[i][1]);
+      b.dataset.v = String(opts[i][0]);
+      b.addEventListener('click', function(){
+        const kids = box.children;
+        for(let k = 0; k < kids.length; k++) kids[k].className = '';
+        b.className = 'on';
+        cur = opts[i][0];
+        fn(cur);
+      });
+    }
+    fn(cur);
+    return {get value(){ return cur; }};
+  }
+};
+
+function clearCanvas(cv){
+  const ctx = cv.getContext('2d');
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  return ctx;
+}
+function caption(ctx, x, y, text, colour){
+  ctx.fillStyle = colour; ctx.font = '12px system-ui';
+  ctx.textAlign = 'left'; ctx.fillText(text, x, y);
+}
+function fmtPow(base, e){
+  return base + '<sup>' + (e < 0 ? '&minus;' + (-e) : e) + '</sup>';
+}
+
+// how many fractions with denominator at most Q sit strictly inside
+// (centre - half, centre + half).  An honest count, not an estimate.
+function fractionsInWindow(centre, half, Q){
+  const seen = {};
+  let total = 0;
+  for(let q = 1; q <= Q; q++){
+    const lo = Math.ceil((centre - half) * q), hi = Math.floor((centre + half) * q);
+    for(let k = lo; k <= hi; k++){
+      const key = (k / q).toFixed(9);
+      if(!seen[key]){ seen[key] = 1; total += 1; }
+    }
+  }
+  return total;
+}
+
+// the base-two value function on the halving probe, x -> sum x_i 2^-i-1.
+// Its largest wobble inside one stage-n box is 2^-n: never zero, so the
+// function is constant on no box at any stage, so it is not locally constant.
+function valueOf(word){
+  let v = 0;
+  for(let i = 0; i < word.length; i++) v += (word[i] === '1' ? 1 : 0) * Math.pow(2, -i - 1);
+  return v;
+}
+function wobbleInBox(n){ return Math.pow(2, -n); }
+
+const WIDGETS = {};
+
+// 1. nearness: how crowded is a shrinking window
+WIDGETS.zoom = function(host, P){
+  const discrete = !!P.discrete, centre = P.target === undefined ? 1 : P.target;
+  const cv = UI.canvas(host, 720, 200), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let w = 2, Q = 12;
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const half = Math.pow(2, -w), y = 96;
+    const X = x => 60 + (x - (centre - 0.6)) / 1.2 * 600;
+    ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(60, y + 34); ctx.lineTo(660, y + 34); ctx.stroke();
+    // the window
+    ctx.fillStyle = c.blue; ctx.globalAlpha = 0.12;
+    ctx.fillRect(X(centre - half), 40, Math.max(2, X(centre + half) - X(centre - half)), 90);
+    ctx.globalAlpha = 1;
+    if(discrete){
+      for(let k = -12; k <= 12; k++){
+        const x = centre + k * 0.05;
+        ctx.fillStyle = (k === 0) ? c.violet : c.muted;
+        ctx.beginPath(); ctx.arc(X(x), y, k === 0 ? 6 : 4, 0, 7); ctx.fill();
+      }
+      caption(ctx, 60, 172, 'the dust: every number stands alone', c.muted);
+    } else {
+      ctx.strokeStyle = c.ink; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.moveTo(60, y); ctx.lineTo(660, y); ctx.stroke();
+      for(let q = 1; q <= Q; q++)
+        for(let k = Math.ceil((centre - 0.6) * q); k <= Math.floor((centre + 0.6) * q); k++){
+          const x = k / q;
+          ctx.fillStyle = Math.abs(x - centre) < half ? c.blue : c.muted;
+          ctx.beginPath(); ctx.arc(X(x), y, 2.6, 0, 7); ctx.fill();
+        }
+      caption(ctx, 60, 172, 'the ruler: fractions with denominator up to ' + Q, c.muted);
+    }
+    ctx.fillStyle = c.violet;
+    ctx.beginPath(); ctx.arc(X(centre), y, 5.5, 0, 7); ctx.fill();
+    const inside = fractionsInWindow(centre, half, Q);
+    if(discrete){
+      out.innerHTML = 'The piece containing only ' + centre + ' is open on the dust, ' +
+        'so no window is needed: it contains exactly <b>1</b> number.<br>' +
+        'Shrinking changes nothing, because there was never anything else nearby.';
+    } else {
+      out.innerHTML = 'Window of width ' + fmtPow(2, -w + 1) + ' around ' + centre +
+        ', looking only at denominators up to ' + Q + ':<br>' +
+        '<b>' + inside + '</b> numbers inside. Raise the denominator and the count keeps ' +
+        'climbing, at every width. On the ruler no window is ever empty.';
+    }
+  };
+  UI.slider(ctrl, 'window width', 0, 8, 1, w, function(v, read){
+    w = Math.round(v); read.innerHTML = fmtPow(2, -w + 1); draw();
+  });
+  UI.slider(ctrl, 'look this finely', 2, 60, 1, Q, function(v, read){
+    Q = Math.round(v); read.textContent = 'q \u2264 ' + Q; draw();
+  });
+  draw();
+};
+
+// 1b. four rules, and the two independent questions asked of each
+WIDGETS.undo = function(host, P){
+  const cv = UI.canvas(host, 720, 230), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  const RULES = {
+    id:      {label: 'send it to itself', f: k => k},
+    double:  {label: 'double it',         f: k => 2 * k},
+    floor2:  {label: 'round down to even', f: k => 2 * Math.floor(k / 2)},
+    shift:   {label: 'add seven',         f: k => k + 7}
+  };
+  let which = 'id';
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const lo = -6, hi = 6, f = RULES[which].f;
+    const X = k => 70 + (k - lo) / (hi - lo) * 580;
+    const yTop = 74, yBot = 172;
+    const image = {};
+    let collides = false;
+    for(let k = lo; k <= hi; k++){
+      const v = f(k);
+      if(image[v] !== undefined) collides = true;
+      image[v] = k;
+    }
+    for(let k = lo; k <= hi; k++){
+      const v = f(k);
+      ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+      if(v >= lo && v <= hi){
+        ctx.beginPath(); ctx.moveTo(X(k), yTop + 6); ctx.lineTo(X(v), yBot - 6);
+        ctx.stroke();
+      }
+      ctx.fillStyle = c.blue;
+      ctx.beginPath(); ctx.arc(X(k), yTop, 4, 0, 7); ctx.fill();
+      ctx.fillStyle = image[k] === undefined ? c.line : c.blue;
+      ctx.beginPath(); ctx.arc(X(k), yBot, 4, 0, 7); ctx.fill();
+    }
+    caption(ctx, 70, 40, 'every number, sent somewhere', c.muted);
+    caption(ctx, 70, 210, 'pale = nothing lands here', c.muted);
+    // does it survive addition, checked on every pair in the window
+    let polite = true;
+    for(let a = lo; a <= hi && polite; a++)
+      for(let b = lo; a + b <= hi && b <= hi; b++)
+        if(f(a + b) !== f(a) + f(b)) polite = false;
+    const undoable = !collides;
+    out.innerHTML = 'Rule: <b>' + RULES[which].label + '</b><br>' +
+      'Can it be undone? <b>' + (undoable ? 'yes' : 'no') + '</b> &mdash; ' +
+      (undoable ? 'no two numbers collide, so the way back always names one number'
+                : 'two different numbers land on the same place, so the way back ' +
+                  'cannot answer once') + '.<br>' +
+      'Does it survive addition? <b>' + (polite ? 'yes' : 'no') + '</b> &mdash; ' +
+      (polite ? 'adding first and crossing over agree, and 0 goes to ' + f(0)
+              : 'adding first and crossing over disagree, and 0 goes to ' + f(0)) +
+      '.<br>The two questions are independent: a rule can pass either one ' +
+      'without the other.';
+  };
+  UI.pick(ctrl, 'the rule', [['id', 'send it to itself'], ['double', 'double it'],
+          ['floor2', 'round down to even'], ['shift', 'add seven']],
+          function(v){ which = v; draw(); });
+  draw();
+};
+
+// 2. the one-way bridge
+WIDGETS.bridge = function(host, P){
+  const cv = UI.canvas(host, 720, 260), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let n = 5, dir = 'across';
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const X = x => 70 + (x - 0.4) / 0.7 * 580;
+    const yTop = 66, yBot = 196;
+    ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+    for(let k = 0; k < 40; k++){
+      const x = 0.42 + k * 0.017;
+      ctx.beginPath(); ctx.arc(X(x), yTop, 2, 0, 7); ctx.fillStyle = c.line; ctx.fill();
+    }
+    ctx.strokeStyle = c.ink; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.moveTo(70, yBot); ctx.lineTo(660, yBot); ctx.stroke();
+    caption(ctx, 70, 32, 'the dust', c.muted);
+    caption(ctx, 70, 240, 'the ruler', c.muted);
+    for(let k = 1; k <= n; k++){
+      const x = 1 - Math.pow(2, -k);
+      ctx.fillStyle = c.blue;
+      ctx.beginPath(); ctx.arc(X(x), yTop, 4, 0, 7); ctx.fill();
+      ctx.beginPath(); ctx.arc(X(x), yBot, 4, 0, 7); ctx.fill();
+      ctx.strokeStyle = c.blue; ctx.globalAlpha = 0.5; ctx.lineWidth = 1;
+      ctx.beginPath();
+      if(dir === 'across'){ ctx.moveTo(X(x), yTop + 6); ctx.lineTo(X(x), yBot - 6); }
+      else { ctx.moveTo(X(x), yBot - 6); ctx.lineTo(X(x), yTop + 6); }
+      ctx.stroke(); ctx.globalAlpha = 1;
+    }
+    ctx.fillStyle = dir === 'across' ? c.green : c.red;
+    ctx.beginPath(); ctx.arc(X(1), yTop, 6, 0, 7); ctx.fill();
+    ctx.beginPath(); ctx.arc(X(1), yBot, 6, 0, 7); ctx.fill();
+    const gap = Math.pow(2, -n);
+    if(dir === 'across'){
+      out.innerHTML = 'The crowd 1 &minus; ' + fmtPow(2, -1) + ', 1 &minus; ' + fmtPow(2, -2) +
+        ', &hellip; arrives at the marked point.<br>' +
+        'On the ruler the gap after ' + n + ' steps is <b>' + gap.toPrecision(3) +
+        '</b>, and it is still shrinking. The walk is gentle: nothing was torn.';
+    } else {
+      out.innerHTML = 'The same crowd, read on the dust. Every gap is <b>1</b>, ' +
+        'however far along you go, because on the dust two different numbers are ' +
+        'never near.<br>The destination is torn off the crowd: this direction is ' +
+        'not gentle.';
+    }
+  };
+  UI.pick(ctrl, 'direction', [['across', 'dust → ruler'], ['back', 'ruler → dust']],
+          function(v){ dir = v; draw(); });
+  UI.slider(ctrl, 'how far along', 2, 12, 1, n, function(v, read){
+    n = Math.round(v); read.textContent = n + ' steps'; draw();
+  });
+  draw();
+};
+
+// 3. kernel and cokernel, on a finite window of the whole numbers
+WIDGETS.algebra = function(host, P){
+  const bridge = !!P.bridge;
+  const cv = UI.canvas(host, 720, 250), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  const maps = bridge
+    ? [['bridge', 'the bridge: dust → ruler']]
+    : [['id', 'do nothing'], ['double', 'double it'], ['clock', 'clock, 12 hours']];
+  let which = maps[0][0];
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const lo = -12, hi = 12;
+    const X = k => 70 + (k - lo) / (hi - lo) * 580;
+    const yTop = 78, yBot = 186;
+    let crushed = [], missed = [], verdict = '', kerText = '', cokText = '';
+    for(let k = lo; k <= hi; k++){
+      let img = k;
+      if(which === 'double') img = 2 * k;
+      if(which === 'clock') img = ((k % 12) + 12) % 12;
+      if(which === 'double' && img === 0 && k !== 0) crushed.push(k);
+      if(which === 'clock' && img === 0 && k !== 0) crushed.push(k);
+      ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+      if(img >= lo && img <= hi){
+        ctx.beginPath(); ctx.moveTo(X(k), yTop + 6); ctx.lineTo(X(img), yBot - 6); ctx.stroke();
+      }
+    }
+    const hit = {};
+    for(let k = lo; k <= hi; k++){
+      let img = k;
+      if(which === 'double') img = 2 * k;
+      if(which === 'clock') img = ((k % 12) + 12) % 12;
+      hit[img] = 1;
+    }
+    for(let k = lo; k <= hi; k++) if(!hit[k]) missed.push(k);
+    for(let k = lo; k <= hi; k++){
+      ctx.fillStyle = crushed.indexOf(k) >= 0 ? c.red : c.blue;
+      ctx.beginPath(); ctx.arc(X(k), yTop, 4, 0, 7); ctx.fill();
+      if(missed.indexOf(k) >= 0){
+        ctx.strokeStyle = c.red; ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.arc(X(k), yBot, 4.5, 0, 7); ctx.stroke();
+      } else {
+        ctx.fillStyle = c.blue;
+        ctx.beginPath(); ctx.arc(X(k), yBot, 4, 0, 7); ctx.fill();
+      }
+    }
+    caption(ctx, 70, 40, bridge ? 'the dust' : 'source', c.muted);
+    caption(ctx, 70, 228, bridge ? 'the ruler' : 'target', c.muted);
+    caption(ctx, 470, 228, 'hollow = never reached', c.red);
+    if(which === 'id'){
+      kerText = 'ker = 0, nothing is crushed';
+      cokText = 'coker = 0, nothing is missed';
+      verdict = 'the two measurements agree: a sameness, and it really is one';
+    } else if(which === 'double'){
+      kerText = 'ker = 0, nothing is crushed';
+      cokText = 'coker = &#8484;/2, the odd numbers are never reached (' +
+                missed.length + ' of them in this window)';
+      verdict = 'not a sameness, and the cokernel says so';
+    } else if(which === 'clock'){
+      kerText = 'ker = 12&#8484;, every multiple of twelve is crushed to zero';
+      cokText = 'coker = 0, every hour is reached';
+      verdict = 'not a sameness, and the kernel says so';
+    } else {
+      kerText = 'ker = 0, different numbers stay different';
+      cokText = 'coker = 0, every number on the ruler is reached';
+      verdict = 'the two measurements say <b>sameness</b> &mdash; and that verdict ' +
+                'is false, because the way back tears';
+    }
+    out.innerHTML = kerText + '<br>' + cokText + '<br><b>Verdict:</b> ' + verdict;
+  };
+  if(maps.length > 1) UI.pick(ctrl, 'the map', maps, function(v){ which = v; draw(); });
+  else UI.node('p', 'plain', ctrl, 'The only map here is the bridge itself.');
+  draw();
+};
+
+// 4. splitting a box forever
+WIDGETS.split = function(host, P){
+  const cv = UI.canvas(host, 720, 300), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let kind = 'halving', depth = P.depth === undefined ? 3 : P.depth;
+  const build = function(d){
+    if(kind === 'halving') return cantorProbe(d);
+    if(kind === 'three') return branchProbe(d, 3);
+    return sequenceProbe(d);
+  };
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const S = build(depth), sizes = probeSizes(S);
+    drawTree(ctx, S, depth, {x: 40, y: 26, w: 640, h: 240},
+             {edge: c.line, colour: (i, l) => i === depth ? c.blue : c.violet, r: 3.6});
+    caption(ctx, 40, 292, 'each dot is a box; each line says which box it came out of', c.muted);
+    out.innerHTML = 'Boxes at each stage: <b>' + sizes.join(', ') + '</b>.<br>' +
+      'Stage ' + depth + ' has <b>' + sizes[depth] + '</b> boxes, and every one of them ' +
+      'is on the screen. Nothing here is infinite except the number of stages.';
+  };
+  if(P.kind === 'pick')
+    UI.pick(ctrl, 'the walker', [['halving', 'split in two'], ['three', 'split in three'],
+            ['approaching', 'closing in on a point']],
+            function(v){ kind = v; if(kind === 'three' && depth > 4) depth = 4; draw(); });
+  UI.slider(ctrl, 'stages', 0, 6, 1, depth, function(v, read){
+    const k = Math.round(v);
+    depth = (kind === 'three' && k > 4) ? 4 : k;
+    read.textContent = 'stage ' + depth; draw();
+  });
+  draw();
+};
+
+// 5. counting the gentle walks out of a probe
+WIDGETS.landings = function(host, P){
+  const cv = UI.canvas(host, 720, 220), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let kind = 'halving', level = 2;
+  const build = function(d){
+    if(kind === 'halving') return cantorProbe(d);
+    if(kind === 'three') return branchProbe(d, 3);
+    return sequenceProbe(d);
+  };
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const S = build(level), boxes = S.levels[level], n = boxes.length;
+    const w = 620 / n;
+    for(let k = 0; k < n; k++){
+      const on = (k * 7 + level) % 3 === 0;
+      ctx.fillStyle = on ? c.blue : c.line;
+      ctx.fillRect(50 + k * w + 1, 70, Math.max(1, w - 2), 62);
+    }
+    ctx.strokeStyle = c.muted; ctx.lineWidth = 1;
+    ctx.strokeRect(50, 70, 620, 62);
+    caption(ctx, 50, 54, 'one box, one choice of value: that is a gentle walk', c.muted);
+    caption(ctx, 50, 158, n + ' boxes at stage ' + level, c.ink2);
+    const exact = n <= 30 ? Math.pow(2, n).toLocaleString() : null;
+    out.innerHTML = 'Stage ' + level + ' has <b>' + n + '</b> boxes, so the gentle walks ' +
+      'into a two-point target number ' + fmtPow(2, n) +
+      (exact ? ' = <b>' + exact + '</b>' : '') + '.<br>' +
+      'Every one of them is something the target says to this probe. The description ' +
+      'is large because it is complete.';
+  };
+  UI.pick(ctrl, 'the probe', [['halving', 'split in two'], ['three', 'split in three'],
+          ['approaching', 'closing in on a point']], function(v){ kind = v; draw(); });
+  UI.slider(ctrl, 'stage', 0, 5, 1, level, function(v, read){
+    level = Math.round(v); read.textContent = 'stage ' + level; draw();
+  });
+  draw();
+};
+
+// 6. cut and glue
+WIDGETS.glue = function(host, P){
+  const cv = UI.canvas(host, 720, 220), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let meet = 'apart', left = 1, right = 1;
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const overlap = meet === 'overlap';
+    const lx = 60, lw = overlap ? 340 : 290;
+    const rx = overlap ? 320 : 390, rw = overlap ? 340 : 290;
+    ctx.globalAlpha = 0.5;
+    ctx.fillStyle = c.blue; ctx.fillRect(lx, 60, lw, 60);
+    ctx.fillStyle = c.violet; ctx.fillRect(rx, 100, rw, 60);
+    ctx.globalAlpha = 1;
+    caption(ctx, lx + 8, 96, 'left piece says ' + left, '#ffffff');
+    caption(ctx, rx + 8, 136, 'right piece says ' + right, '#ffffff');
+    let ok, why;
+    if(!overlap){
+      ok = true;
+      why = 'The two pieces share nothing, so there is nothing to disagree about. ' +
+            'Exactly one answer glues, whatever you chose.';
+    } else if(left === right){
+      ok = true;
+      why = 'The pieces meet, and on the shared part both say ' + left +
+            '. Exactly one answer glues.';
+    } else {
+      ok = false;
+      why = 'The pieces meet, and on the shared part one says ' + left + ' and the other ' +
+            right + '. Nothing glues at all: there is no answer on the whole probe ' +
+            'restricting to both.';
+    }
+    ctx.strokeStyle = ok ? c.green : c.red; ctx.lineWidth = 2;
+    ctx.strokeRect(50, 176, 620, 30);
+    caption(ctx, 60, 196, ok ? 'glues, and in exactly one way' : 'does not glue',
+            ok ? c.green : c.red);
+    out.innerHTML = why;
+  };
+  UI.pick(ctrl, 'how the pieces meet',
+          [['apart', 'cut cleanly apart'], ['overlap', 'sharing a middle']],
+          function(v){ meet = v; draw(); });
+  UI.slider(ctrl, 'left piece says', 0, 3, 1, left, function(v, read){
+    left = Math.round(v); read.textContent = String(left); draw();
+  });
+  UI.slider(ctrl, 'right piece says', 0, 3, 1, right, function(v, read){
+    right = Math.round(v); read.textContent = String(right); draw();
+  });
+  draw();
+};
+
+// 7. the ghost: a continuous function that is constant on no box
+WIDGETS.ghost = function(host, P){
+  const cv = UI.canvas(host, 720, 250), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let probe = 'halving', n = 3;
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    if(probe === 'point'){
+      ctx.fillStyle = c.violet;
+      ctx.beginPath(); ctx.arc(360, 120, 9, 0, 7); ctx.fill();
+      caption(ctx, 300, 156, 'the one-point probe', c.muted);
+      out.innerHTML = 'On one point there is nothing to wobble: every function is ' +
+        'constant, so every continuous function is locally constant.<br>' +
+        'The leftover here is <b>0</b>. This is the row that asks which points the ' +
+        'object has, and it reads empty.';
+      return;
+    }
+    const S = cantorProbe(n), boxes = S.levels[n], m = boxes.length, w = 620 / m;
+    for(let k = 0; k < m; k++){
+      const lo = valueOf(boxes[k]), hi = lo + wobbleInBox(n);
+      ctx.fillStyle = c.blue;
+      ctx.fillRect(50 + k * w + 0.5, 190 - lo * 150, Math.max(1, w - 1),
+                   Math.max(1.5, hi * 150 - lo * 150));
+    }
+    ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(50, 190); ctx.lineTo(670, 190); ctx.stroke();
+    caption(ctx, 50, 30, 'the value function on the halving probe, box by box', c.muted);
+    caption(ctx, 50, 212, m + ' boxes at stage ' + n +
+            '; the height of each bar is the range of values inside it', c.ink2);
+    const wob = wobbleInBox(n);
+    out.innerHTML = 'Largest wobble inside a single stage-' + n + ' box: <b>' +
+      fmtPow(2, -n) + ' = ' + wob + '</b>.<br>' +
+      'It is never zero, at any stage, so this continuous function is constant on no ' +
+      'box &mdash; it is not locally constant, and it is a non-zero member of the ' +
+      'leftover. The row for this probe is <b>not 0</b>.';
+  };
+  UI.pick(ctrl, 'the row you are reading',
+          [['point', 'the one-point probe'], ['halving', 'the halving probe']],
+          function(v){ probe = v; draw(); });
+  UI.slider(ctrl, 'stage', 1, 8, 1, n, function(v, read){
+    n = Math.round(v); read.textContent = 'stage ' + n; draw();
+  });
+  draw();
+};
+
+// 8. the holes of a shape, by Smith normal form
+WIDGETS.holes = function(host, P){
+  const cv = UI.canvas(host, 720, 220), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let shape = 'circle';
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const h = homology(shape);
+    const w = 560 / h.length;
+    let text = '';
+    for(let k = 0; k < h.length; k++){
+      const bars = h[k].free, x = 80 + k * w;
+      ctx.fillStyle = c.blue;
+      for(let b = 0; b < bars; b++)
+        ctx.fillRect(x + b * 22, 150 - 0, 16, -60);
+      if(h[k].torsion.length){
+        ctx.fillStyle = c.red;
+        for(let t = 0; t < h[k].torsion.length; t++)
+          ctx.fillRect(x + (bars + t) * 22, 150, 16, -26);
+      }
+      caption(ctx, x, 172, 'degree ' + k, c.muted);
+      text += 'degree ' + k + ': rank <b>' + h[k].free + '</b>' +
+        (h[k].torsion.length ? ', torsion ' + h[k].torsion.map(t => '&#8484;/' + t).join(', ')
+                             : '') + '<br>';
+    }
+    ctx.strokeStyle = c.line; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(60, 150); ctx.lineTo(680, 150); ctx.stroke();
+    caption(ctx, 60, 34, 'tall bars: free ranks. short red bars: torsion.', c.muted);
+    out.innerHTML = '<b>' + shape + '</b><br>' + text +
+      'Computed here from the cell structure by Smith normal form over the whole numbers.';
+  };
+  UI.pick(ctrl, 'the shape', [['circle', 'circle'], ['figure eight', 'figure eight'],
+          ['sphere', 'sphere'], ['torus', 'doughnut'], ['klein bottle', 'Klein bottle']],
+          function(v){ shape = v; draw(); });
+  draw();
+};
+
+// 9. one plus two plus four, under two different nearness rules
+WIDGETS.series = function(host, P){
+  const p = P.p || 2;
+  const cv = UI.canvas(host, 720, 280), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let mode = P.mode === 'padic' ? 'padic' : 'ordinary', terms = 6;
+  const draw = function(){
+    const c = palette();
+    clearCanvas(cv);
+    const sums = geomPartialSums(p, terms);
+    const gaps = [];
+    for(let i = 0; i < sums.length; i++)
+      gaps.push(mode === 'ordinary' ? Math.abs(sums[i] + 1)
+                                    : pAdicAbsInt(sums[i] + 1, p));
+    const ys = gaps.map(g => Math.log(g) / Math.log(p));
+    let lo = 0, hi = 0;
+    for(const y of ys){ lo = Math.min(lo, y); hi = Math.max(hi, y); }
+    const plot = Plot(cv, 0, Math.max(1, terms - 1), lo - 0.5, hi + 0.5);
+    plot.axes('terms added', 'gap, as a power of ' + p);
+    const xs = ys.map((_, i) => i);
+    plot.line(xs, ys, mode === 'ordinary' ? c.red : c.green, 2.4);
+    plot.dots(xs, ys, mode === 'ordinary' ? c.red : c.green, 4);
+    plot.hline(0, c.line, [4, 4]);
+    const last = sums[sums.length - 1], gap = gaps[gaps.length - 1];
+    out.innerHTML = 'After ' + terms + ' terms the running total is <b>' + last + '</b>.<br>' +
+      (mode === 'ordinary'
+        ? 'Its ordinary distance from &minus;1 is <b>' + gap + '</b>, and it doubles at ' +
+          'every step. Nothing is closing in on anything: this sum has no answer.'
+        : 'Its base-' + p + ' distance from &minus;1 is <b>' + gap + '</b>, and it halves ' +
+          'at every step. The totals are closing in on &minus;1, exactly.');
+  };
+  UI.pick(ctrl, 'measure the gap with',
+          P.mode === 'padic'
+            ? [['padic', 'the base-' + p + ' rule'], ['ordinary', 'ordinary distance']]
+            : [['ordinary', 'ordinary distance'], ['padic', 'the base-' + p + ' rule']],
+          function(v){ mode = v; draw(); });
+  UI.slider(ctrl, 'terms added', 1, 12, 1, terms, function(v, read){
+    terms = Math.round(v); read.textContent = terms + ' terms'; draw();
+  });
+  draw();
+};
+
+// 10. weights that agree, and an integral that does not care about the stage
+WIDGETS.weights = function(host, P){
+  const depth = P.depth === undefined ? 3 : P.depth;
+  const cv = UI.canvas(host, 720, 300), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let first = 1;
+  const draw = function(){
+    const c = palette(), ctx = clearCanvas(cv);
+    const S = cantorProbe(depth), leaves = {};
+    S.levels[depth].forEach(function(l, i){ leaves[l] = (i === 0 ? first : 1); });
+    const w = measureFromLeaves(S, leaves);
+    const pos = drawTree(ctx, S, depth, {x: 40, y: 26, w: 640, h: 200},
+                         {edge: c.line, colour: () => c.violet, r: 3.4});
+    ctx.font = '11px ui-monospace, monospace'; ctx.textAlign = 'center';
+    for(let i = 0; i <= depth; i++)
+      for(const l of S.levels[i]){
+        const pt = pos[i + '|' + l];
+        ctx.fillStyle = c.ink2;
+        if(S.levels[i].length <= 8) ctx.fillText(String(w[i][l]), pt[0], pt[1] - 8);
+      }
+    const f = {};
+    S.levels[1].forEach(function(l, k){ f[l] = 1 + 3 * k; });
+    const coarse = integrate(S, w, f, 1);
+    const fine = integrate(S, w, refineFn(S, f, 1, depth), depth);
+    caption(ctx, 40, 292, 'the number above each dot is that box’s weight', c.muted);
+    out.innerHTML = 'Agreement rule holds: <b>' + (measureOk(S, w) ? 'yes' : 'no') +
+      '</b> &mdash; every box weighs exactly what is inside it.<br>' +
+      'A step function averaged at stage 1: <b>' + coarse + '</b>. The same function ' +
+      'averaged at stage ' + depth + ': <b>' + fine + '</b>.<br>' +
+      (coarse === fine ? 'Identical, as the compatibility forces.'
+                       : 'These differ, which would mean the weights are not compatible.');
+  };
+  UI.slider(ctrl, 'weight on the first box', -3, 4, 1, first, function(v, read){
+    first = Math.round(v); read.textContent = String(first); draw();
+  });
+  draw();
+};
+
+// 11. the exponent ceiling
+WIDGETS.merge = function(host, P){
+  const boxes = P.boxes || 4;
+  const cv = UI.canvas(host, 720, 300), out = UI.out(host);
+  const ctrl = UI.node('div', 'controls', host);
+  let p = 1;
+  const draw = function(){
+    const c = palette();
+    clearCanvas(cv);
+    const plot = Plot(cv, 0.4, 2.2, 0, 2.6);
+    plot.axes('the exponent', 'merged size / original');
+    plot.curve(x => Math.min(2.6, worstMergeRatio(boxes, x)), c.violet, 2.4);
+    plot.hline(1, c.line, [4, 4]);
+    plot.vline(p, c.blue, [3, 3]);
+    const vals = [];
+    for(let i = 0; i < boxes; i++) vals.push(1);
+    const groups = [[]];
+    for(let i = 0; i < boxes; i++) groups[0].push(i);
+    const ratio = mergeRatio(vals, groups, p);
+    plot.dots([p], [Math.min(2.6, ratio)], c.blue, 5);
+    plot.label(0.45, 1.06, 'no change', c.muted);
+    const ok = ratio <= 1 + 1e-12;
+    out.innerHTML = 'Exponent <b>' + p.toFixed(2) + '</b>: merging ' + boxes +
+      ' equal boxes into one multiplies the size by <b>' + ratio.toFixed(3) + '</b>.<br>' +
+      'Closed form for the worst case: ' + boxes + '<sup>1&minus;1/p</sup> = <b>' +
+      worstMergeRatio(boxes, p).toFixed(3) + '</b>. ' +
+      (ok ? 'A coarser view does not weigh more: <b>allowed</b>.'
+          : 'A coarser view weighs more than the thing viewed: <b>forbidden</b>.');
+  };
+  UI.slider(ctrl, 'exponent', 0.4, 2.2, 0.05, p, function(v, read){
+    p = v; read.textContent = 'p = ' + v.toFixed(2); draw();
+  });
+  draw();
+};
+
+const WORLD = {"number": 7, "slug": "sums-that-land", "title": "Sums that finally land", "promise": "By the end you will have added one and two and four and eight and got &minus;1, and you will know exactly why that is not a trick.", "bricks": [{"slug": "an-endless-sum", "title": "Adding up a list that never ends", "idea": "An infinite sum is not an act of adding. It is a limit, and it exists only once a nearness rule has been chosen.", "need": ["An abelian group: adding, a zero and opposites.", "A rule about nearness, and what it means to close in on something."], "stages": [{"key": "concept", "label": "Concept", "blurb": "what the idea is", "beats": [{"text": "Adding, by itself, only ever combines two things at a time. No amount of it reaches the end of an endless list, so the value of an endless sum cannot come from the adding.", "kind": "say"}, {"text": "It comes from the nearness rule: the running totals close in on something, and that something is called the answer. Change the nearness and the answer changes with it.", "kind": "say"}]}, {"key": "intuition", "label": "Intuition", "blurb": "what it feels like", "beats": [{"text": "Add a half, then a quarter, then an eighth, forever. The running totals are 0.5, 0.75, 0.875, crowding in on 1, and nobody minds calling the answer 1. Notice that the crowding, not the adding, is what produced the number.", "kind": "say"}, {"question": "So where does an infinite sum actually live?", "options": [["In the nearness rule, not in the adding", "That is the diagnosis, and it explains the whole awkward history. Algebra provides the adding; topology provides the closing in; and the two of them are the badly glued layers from world 2. Infinite sums are the operation that needs both at once, which is why they are where the trouble concentrates."], ["In the adding", "Adding alone reaches only finite totals: given the endless list, no amount of adding two at a time arrives anywhere. The step from the running totals to the answer is made entirely by the nearness rule."], ["It is just notation", "The notation is standing for something specific: the thing the running totals close in on. Change what <em>close in on</em> means and the same notation names a different number, as the next brick shows."]], "after": "This is precisely why topology was dragged into algebra in the first place, and why the repair had to happen before infinite sums could be handled properly.", "kind": "ask"}]}, {"key": "experiment", "label": "Experiment", "blurb": "run it yourself", "beats": [{"widget": "series", "prompt": "Watch the running totals of one and two and four and eight, and their distance from &minus;1.", "notice": "With ordinary distance the totals run away: 1, 3, 7, 15, and the gap to &minus;1 doubles at every step. By the usual rule this sum has no answer at all, and calling it &minus;1 would be nonsense. Keep the number in the readout: the next brick changes nothing except how that gap is measured.", "params": {"p": 2, "mode": "ordinary"}, "kind": "play"}, {"plain": "the answer to an endless sum", "standard": "the limit of the partial sums", "notation": "&sum;<sub>n&ge;0</sub> a<sub>n</sub> = lim<sub>N&rarr;&infin;</sub> &sum;<sub>n&lt;N</sub> a<sub>n</sub>", "why": "The large &sum; means <em>add up</em>. The right-hand side is a limit of finite totals, so the whole meaning of the left-hand side is borrowed from the nearness rule.", "kind": "name"}, {"statement": "1 + 2 + 4 + &#8943; + 2<sup>N&minus;1</sup> = 2<sup>N</sup> &minus; 1 &nbsp;&middot;&nbsp; | 2<sup>N</sup> &minus; 1 &minus; (&minus;1) | = 2<sup>N</sup>", "reading": "The vertical bars mean ordinary distance. The first line is the exact running total after N terms, computed on this page rather than quoted. The second says its ordinary distance from &minus;1 is 2<sup>N</sup>, which grows without bound. Under the usual nearness the sum diverges, full stop.", "cite": "", "url": "", "kind": "math"}]}], "hold": "An infinite sum is not an algebraic operation. It is a limit, and it depends entirely on the chosen nearness."}, {"slug": "another-nearness", "title": "A different answer to what is near", "idea": "Declare two numbers close when their difference is divisible by a high power of two, and one plus two plus four plus eight adds to &minus;1.", "need": ["That an infinite sum is decided by the nearness rule.", "Divisibility: whether one whole number divides another."], "stages": [{"key": "concept", "label": "Concept", "blurb": "what the idea is", "beats": [{"text": "Fix the whole numbers and change the rule. Declare two numbers close when their difference is divisible by a high power of two. So 0 and 1024 are very close, and 0 and 3 are far apart.", "kind": "say"}, {"text": "This is a legitimate notion of nearness. It satisfies every demand ordinary distance satisfies, including the one about going round a triangle. It simply groups the numbers differently.", "kind": "say"}]}, {"key": "intuition", "label": "Intuition", "blurb": "what it feels like", "beats": [{"text": "Under this rule, being close means agreeing in many binary digits from the bottom up. The running totals 1, 3, 7, 15 are 1, 11, 111, 1111 in binary &mdash; and &minus;1 is the endless string of ones. Each total agrees with it in one more digit than the last.", "kind": "say"}, {"question": "Two nearness rules, two different answers to the same sum. Is one of them wrong?", "options": [["Neither: the sum was never well-posed alone", "That is the lesson. <em>One plus two plus four plus &hellip;</em> is not a question until a nearness is named. Under the ordinary rule it has no answer; under this one it has exactly one, and it is &minus;1. Both statements are correct, about different questions."], ["The new one, since the totals are growing", "Growing in the ordinary sense, certainly. But under the new rule the running totals are getting steadily closer to &minus;1, because 2<sup>N</sup> is divisible by ever higher powers of two. Growth in one rule is convergence in the other, and neither rule is a mistake."], ["The old one, since there is an answer now", "Not that either. Having an answer does not make a rule better; the ordinary rule is correct about the ordinary question. What is wrong is only the habit of asking for a sum without naming a nearness."]], "after": "", "kind": "ask"}]}, {"key": "experiment", "label": "Experiment", "blurb": "run it yourself", "beats": [{"widget": "series", "prompt": "The same running totals, now with the gap measured by the new rule. Switch between the two rules and watch one line invert into the other.", "notice": "The totals are identical in both settings &mdash; 1, 3, 7, 15 &mdash; and only the measurement of the gap changed. Under the base-two rule the gap halves at every step, so the sum genuinely equals &minus;1, exactly and with no hand-waving. Two rules, one list of numbers, opposite verdicts.", "params": {"p": 2, "mode": "padic"}, "kind": "play"}, {"plain": "close when the difference is very divisible", "standard": "the p-adic absolute value", "notation": "|x|<sub>p</sub> = p<sup>&minus;v</sup>", "why": "v counts how many times the prime p divides x. The more it divides, the smaller x counts as. Completing the whole numbers under this size gives the p-adic numbers, &#8484;<sub>p</sub>, one of the two examples the whole of world 8 is built on.", "kind": "name"}, {"statement": "&sum;<sub>n&ge;0</sub> 2<sup>n</sup> = &minus;1 in &#8484;<sub>2</sub> &nbsp;&middot;&nbsp; |2<sup>N</sup>|<sub>2</sub> = 2<sup>&minus;N</sup> &rarr; 0", "reading": "Read the second line as: the 2-adic size of 2<sup>N</sup> is 2<sup>&minus;N</sup>, which tends to zero. So the gap between the running total and &minus;1 vanishes, and the sum genuinely equals &minus;1 there. Every number on this page is computed in exact arithmetic, both sizes side by side.", "cite": "", "url": "", "kind": "math"}]}], "hold": "Under the base-two nearness, one plus two plus four plus eight adds to &minus;1. The sum was never well-posed without a nearness."}, {"slug": "weights", "title": "Weights that agree with each other", "idea": "A measure on a probe is a tower of weights in which every box weighs exactly what the boxes inside it weigh.", "need": ["A probe: boxes at every stage, each remembering its parent.", "Adding, and the idea of a running total."], "stages": [{"key": "concept", "label": "Concept", "blurb": "what the idea is", "beats": [{"text": "Go back to the probe and put a weight on each box at some stage. One rule suggests itself immediately: a box at the stage above should weigh what the boxes inside it weigh, added up.", "kind": "say"}, {"text": "Insist on that, and weights at one stage determine weights at every coarser stage. The tower of weights becomes a single consistent object rather than a pile of unrelated numbers.", "kind": "say"}]}, {"key": "intuition", "label": "Intuition", "blurb": "what it feels like", "beats": [{"text": "Every function on a probe is built from steps &mdash; constant on each box of some stage &mdash; so weights are exactly what turns a function into a number: value times weight, added over the boxes. The consistency demand is what makes that total unambiguous.", "kind": "say"}, {"question": "Why does the level you compute at not matter?", "options": [["Because splitting a box splits its weight too", "That is the mechanism. A function constant on a coarse box contributes value times weight, and splitting the box splits the weight into pieces that add back to the same total. The bookkeeping is arranged so that refinement cannot change an answer."], ["It does matter, finer is more accurate", "Not here. Finer boxes give more freedom for the <em>function</em>, but for a function already decided at the coarse stage the total is identical, because the weights add up exactly. That exactness is what the compatibility demand buys."], ["By assumption", "It is a consequence, not an assumption. The only thing assumed is that a box weighs the total of the boxes inside it; level-independence follows from that by adding up."]], "after": "", "kind": "ask"}]}, {"key": "experiment", "label": "Experiment", "blurb": "run it yourself", "beats": [{"widget": "weights", "prompt": "Change the weight on one small box and watch the coarser stages fill in, then compare the two totals.", "notice": "The coarse weights are forced, never chosen: they are read off from the fine ones by adding. And the average of a step function comes out identical at stage 1 and at the finest stage, for every setting of the dial. Both numbers are computed live; if compatibility ever failed, they would part company.", "params": {"depth": 3}, "kind": "play"}, {"plain": "weights that agree between stages", "standard": "a measure on a profinite set", "notation": "&mu; = (&mu;<sub>i</sub>), &nbsp; &mu;<sub>i</sub>(box) = &sum; &mu;<sub>i+1</sub>(sub-boxes)", "why": "Because every function on a probe is built from steps, a compatible family of weights is exactly what is needed to integrate any function at all.", "kind": "name"}, {"statement": "&int;<sub>S</sub> f d&mu; = &sum;<sub>boxes at level i</sub> f(box) &middot; &mu;<sub>i</sub>(box), &nbsp; independent of i", "reading": "The long S is an integral, which here is nothing more than a finite total: value times weight, added over the boxes at whichever stage the function was decided at. The clause on the right is the claim you just moved: the answer does not depend on the stage. This page recomputes it at two stages and compares.", "cite": "Lecture IV, on measures, page 26 onwards", "url": "https://arxiv.org/pdf/2605.03658v1#page=26", "kind": "math"}]}], "hold": "A measure on a probe is a compatible tower of weights, and integrating against one does not depend on the stage."}, {"slug": "the-solid-rule", "title": "Exactly one answer, always", "idea": "An object is solid when every endless sum in it has exactly one answer, with no choice of nearness left to make.", "need": ["That an infinite sum needs a nearness to have an answer.", "Measures on probes, and the condensed world of world 6."], "stages": [{"key": "concept", "label": "Concept", "blurb": "what the idea is", "beats": [{"text": "Make the demand a property of the object rather than of a chosen rule. An object is <strong>solid</strong> if every endless sum you can write in it has exactly one answer.", "kind": "say"}, {"text": "Exactly one is the strong part. Not <em>at least one</em>, which would leave the answer ambiguous; not <em>at most one</em>, which would leave sums unanswered. The demand is phrased so that the answer is forced.", "kind": "say"}]}, {"key": "intuition", "label": "Intuition", "blurb": "what it feels like", "beats": [{"text": "You have met this shape of demand twice already: a map answers every input exactly once, and local answers glue to exactly one global answer. Each time, <em>exactly one</em> is what turns an operation from a hope into a usable tool.", "kind": "say"}, {"question": "Where have you met <em>exactly one</em> as a demand before?", "options": [["In the gluing rule", "The same shape of demand, and that is not a coincidence. Both say: a family of local data determines one global answer and no more. Solidity is the gluing idea applied to sums instead of to pieces of a probe."], ["In the definition of a map", "Also there &mdash; every input gets exactly one output &mdash; and it is the same instinct: an operation is well defined when it neither fails to answer nor answers twice."], ["Nowhere", "It has appeared twice: a map answers every input exactly once, and gluing produces exactly one global answer. The pattern is the same, and it is what makes an operation usable."]], "after": "The building blocks turn out to be startlingly concrete: rows of dials, each a copy of the whole numbers, with no constraint at all on how they are set.", "kind": "ask"}]}, {"key": "experiment", "label": "Experiment", "blurb": "run it yourself", "beats": [{"steps": ["Take an endless row of dials, each showing any whole number you like, with no condition tying them together.", "Write the sum whose n-th term changes only the n-th dial.", "Ask whether that sum has an answer, and whether it has more than one.", "Now try the same in a collection where only finitely many dials may be non-zero."], "found": "In the row of dials the sum has exactly one answer: read off each dial independently, and there is nothing left to decide. In the finitely-supported collection it has none, because the answer would need infinitely many non-zero dials and no such member exists. So the row of dials is solid and the other is not &mdash; and you have just found by hand the building block the structural theorem names: a product of copies of the whole numbers.", "prompt": "Do this before reading on.", "kind": "try"}, {"plain": "every endless sum has exactly one answer", "standard": "a solid abelian group", "notation": "&#8484;<sup>&#9633;</sup>, the solidification", "why": "The building blocks are products of copies of the whole numbers, written &#8719;<sub>I</sub> &#8484;. Every solid object is assembled from those, which is the structural theorem of part two of the written guide.", "kind": "name"}, {"statement": "&#8484;[S] &rarr; &#8484;<sup>&#9633;</sup>[S] = &#8719;<sub>I</sub> &#8484; &nbsp;&middot;&nbsp; Solid &sub; Cond(Ab) closed under limits, colimits and extensions", "reading": "&#8484;[S] means formal finite combinations of points of the probe S; the box superscript is the solidification, which completes it so that endless sums land. The result is a product of copies of &#8484;, one for each member of a basis. The second line records that the solid objects form a well-behaved world of their own. Both are theorems of the lectures, quoted here.", "cite": "Lecture V and Theorem 5.8, page 34 onwards", "url": "https://arxiv.org/pdf/2605.03658v1#page=34", "kind": "math"}]}], "hold": "Solid means every endless sum has exactly one answer, and the building blocks are plain products of copies of the whole numbers."}, {"slug": "where-the-line-goes", "title": "The ruler does not survive", "idea": "Solidify the real line with respect to the base-p rule and it becomes zero &mdash; a true report about divisibility, not a defect.", "need": ["Solidity: every endless sum has exactly one answer.", "The base-p nearness, where high powers of p are small."], "stages": [{"key": "concept", "label": "Concept", "blurb": "what the idea is", "beats": [{"text": "Make the solid rule with respect to the base-p nearness and ask what happens to the real line. The answer is startling on first meeting: it becomes zero.", "kind": "say"}, {"text": "The reason is short. In the real numbers every number can be divided by p, again and again, without limit. Under the base-p rule that says every number is arbitrarily small, and something arbitrarily small in a world where sums must land exactly is zero.", "kind": "say"}]}, {"key": "intuition", "label": "Intuition", "blurb": "what it feels like", "beats": [{"text": "The base-p rule measures how divisible a number is by p. The real line is infinitely divisible by p. Asking that rule about that object is asking a question to which the honest answer is <em>nothing here is far from zero</em>.", "kind": "say"}, {"question": "Is that a defect in the theory?", "options": [["No, it is the theory reporting a genuine mismatch", "Correct, and it is worth saying twice. The base-p completion is a statement about divisibility by p, and the real line is infinitely divisible by p. The answer zero is the honest report of that mismatch, not a bug. The real line has its own rule, and world 8 builds it."], ["Yes, the real line clearly exists", "It certainly does, and it survives everywhere else in the subject. What vanishes is its image under one particular completion, the p-adic one, and that vanishing is forced by divisibility. Under the real line's own rule it is entirely present."], ["It means the real line is not solid", "Careful with the wording: the zero object is solid, vacuously. The statement is that solidifying the real line in the p-adic sense yields zero, which is a statement about that completion rather than about whether the line is well behaved."]], "after": "So a different rule is needed for the real line, with a different notion of which sums count as small. That is the first thing world 8 builds.", "kind": "ask"}]}, {"key": "experiment", "label": "Experiment", "blurb": "run it yourself", "beats": [{"steps": ["Take the number 1 in the real line and halve it repeatedly: 1, one half, one quarter, one eighth.", "Measure each one with the base-2 rule, where being divisible by a high power of two makes a number small.", "Notice which direction the sizes move.", "Now ask what number in the real line has base-2 size larger than every other."], "found": "Dividing by two makes a number <em>larger</em> in the base-2 rule, and you can divide forever, so no number has a largest size and nothing is bounded. A completion in which the sizes are unbounded in that way collapses: every element is arbitrarily close to zero, so the result is the zero object. You have just watched the mismatch rather than accepted the theorem &mdash; and notice it is a fact about how the real line divides, not about condensed mathematics.", "prompt": "Do this before reading on.", "kind": "try"}, {"plain": "the ruler vanishes under the base-p rule", "standard": "&#8477; is p-adically uniquely divisible, so its solidification is zero", "notation": "&#8477;<sup>&#9633;</sup> = 0", "why": "Quoted from the lectures and understood, not swallowed: it is the reason world 8 has to introduce analytic rings rather than stopping at solid groups.", "kind": "name"}, {"statement": "&#8477; uniquely p-divisible &nbsp;&rArr;&nbsp; &#8477; &otimes;<sup>&#9633;</sup> &#8484;<sub>p</sub> = 0", "reading": "<em>Uniquely p-divisible</em> means dividing by p is possible and gives exactly one answer, always. The boxed tensor is the completed product of world 8. The line says the p-adic completion of the real line is the zero object &mdash; not a failure of the construction but a computation of it.", "cite": "Lecture VI, page 42 onwards", "url": "https://arxiv.org/pdf/2605.03658v1#page=42", "kind": "math"}]}], "hold": "Under the base-p rule the real line completes to zero, which is a true report about divisibility rather than a defect."}]};
+const NEXT = {"number": 8, "title": "Multiplying, and what it was all for", "page": "08.html"};
+
+// The whole interface: a list of steps, one button, and a column that grows.
+// Nothing here knows any mathematics; the widgets do that.
+
+const STORY = document.getElementById('story');
+const ACT = document.getElementById('act');
+const BAR = document.getElementById('bar');
+
+// flatten the world into a list of steps, one press each
+const STEPS = [];
+WORLD.bricks.forEach(function(brick, bi){
+  STEPS.push({t:'brick', brick:brick, n:bi + 1, of:WORLD.bricks.length});
+  brick.stages.forEach(function(stage){
+    STEPS.push({t:'stage', stage:stage});
+    stage.beats.forEach(function(beat){ STEPS.push({t:'beat', beat:beat}); });
+  });
+  STEPS.push({t:'hold', text:brick.hold});
+});
+
+const KEY = 'cm-game-' + WORLD.slug;
+let idx = 0, choices = {}, replaying = false;
+
+function el(tag, cls, parent, html){
+  const e = document.createElement(tag);
+  if(cls) e.className = cls;
+  if(html !== undefined && html !== null) e.innerHTML = html;
+  if(parent) parent.appendChild(e);
+  return e;
+}
+function box(){ return el('div', 'step', STORY); }
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify({idx:idx, choices:choices})); }
+  catch(e){}
+}
+function progress(){
+  const pct = Math.round(100 * idx / STEPS.length);
+  if(BAR) BAR.style.width = pct + '%';
+}
+function scroll(node){
+  if(replaying || !node || typeof node.scrollIntoView !== 'function') return;
+  try{ node.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){}
+}
+
+// --- rendering one step ----------------------------------------------------
+
+function renderBrick(s){
+  const b = s.brick, host = box();
+  host.className = 'step brick';
+  el('div', 'count', host, 'Brick ' + s.n + ' of ' + s.of);
+  el('h2', null, host, b.title);
+  el('p', 'idea', host, b.idea);
+  const need = el('div', 'need', host);
+  el('span', null, need, 'You only need this');
+  const ul = el('ul', null, need);
+  b.need.forEach(function(n){ el('li', null, ul, n); });
+  return host;
+}
+
+function renderStage(s){
+  const host = box();
+  host.className = 'step stage';
+  el('b', null, host, s.stage.label);
+  el('i', null, host, s.stage.blurb);
+  return host;
+}
+
+function renderBeat(beat){
+  const host = box();
+  if(beat.kind === 'say'){
+    el('p', null, host, beat.text);
+  } else if(beat.kind === 'ask'){
+    el('p', 'q', host, beat.question);
+  } else if(beat.kind === 'try'){
+    const d = el('div', 'doit', host);
+    el('div', 'lead', d, beat.prompt);
+    const ol = el('ol', null, d);
+    beat.steps.forEach(function(t){ el('li', null, ol, t); });
+  } else if(beat.kind === 'play'){
+    const d = el('div', 'play', host);
+    el('p', 'prompt', d, beat.prompt);
+    const stage = el('div', null, d);
+    try{
+      WIDGETS[beat.widget](stage, beat.params || {});
+    }catch(err){
+      el('p', 'plain', stage, 'This simulation could not start.');
+      if(typeof console !== 'undefined') console.error(err);
+    }
+    el('p', 'notice', d, beat.notice);
+  } else if(beat.kind === 'name'){
+    const c = el('div', 'card name', host);
+    el('span', 'kicker', c, 'The name for it');
+    el('p', 'swap', c, 'What you have been calling <b>' + beat.plain +
+       '</b> is called <b>' + beat.standard + '</b>.');
+    el('p', 'nota', c, beat.notation);
+    if(beat.why) el('p', null, c, beat.why);
+  } else if(beat.kind === 'math'){
+    const c = el('div', 'card maths', host);
+    el('span', 'kicker', c, 'The mathematics');
+    el('div', 'fx', c, beat.statement);
+    el('p', null, c, beat.reading);
+    if(beat.cite){
+      const p = el('p', 'cite', c);
+      if(beat.url) el('a', null, p, beat.cite).setAttribute('href', beat.url);
+      else p.innerHTML = beat.cite;
+    }
+  }
+  return host;
+}
+
+function renderHold(s){
+  const host = box();
+  host.className = 'step hold';
+  el('b', null, host, 'You now hold');
+  el('span', null, host, s.text);
+  return host;
+}
+
+// --- the action area -------------------------------------------------------
+
+function clearAct(){ ACT.innerHTML = ''; }
+
+function showContinue(label){
+  clearAct();
+  if(replaying) return;
+  const b = el('button', 'go', ACT, label || 'Continue');
+  b.addEventListener('click', advance);
+  el('p', 'hint', ACT, 'Press Enter, or space, to go on.');
+}
+
+function showOptions(beat, at){
+  clearAct();
+  if(replaying) return;
+  const wrap = el('div', 'opts', ACT);
+  beat.options.forEach(function(opt, i){
+    const b = el('button', 'opt', wrap, opt[0]);
+    b.addEventListener('click', function(){ answer(beat, i, at); });
+  });
+  el('p', 'hint', ACT, 'Guess before you read on. A guess that misses is the '
+     + 'useful kind.');
+}
+
+function answer(beat, i, at){
+  choices[at] = i;
+  const host = box();
+  el('p', 'chose', host, 'You said: ' + beat.options[i][0]);
+  el('p', 'reply', host, beat.options[i][1]);
+  if(beat.after) el('p', null, host, beat.after);
+  scroll(host);
+  save();
+  showContinue();
+}
+
+function showReveal(beat){
+  clearAct();
+  if(replaying) return;
+  const b = el('button', 'go', ACT, 'I have done this — what should I have found?');
+  b.addEventListener('click', function(){ reveal(beat); });
+  el('p', 'hint', ACT, 'The answer is worth much less if you read it first.');
+}
+
+function reveal(beat){
+  const host = box();
+  el('p', 'found', host, beat.found);
+  scroll(host);
+  showContinue();
+}
+
+// --- walking the list ------------------------------------------------------
+
+function advance(){
+  if(idx >= STEPS.length){ finish(); return; }
+  const s = STEPS[idx], at = idx;
+  idx += 1;
+  let node = null, waiting = null;
+  if(s.t === 'brick') node = renderBrick(s);
+  else if(s.t === 'stage') node = renderStage(s);
+  else if(s.t === 'hold') node = renderHold(s);
+  else {
+    node = renderBeat(s.beat);
+    if(s.beat.kind === 'ask') waiting = 'ask';
+    if(s.beat.kind === 'try') waiting = 'try';
+  }
+  progress();
+  save();
+  scroll(node);
+  if(waiting === 'ask'){
+    if(replaying){
+      const pick = choices[at] === undefined ? 0 : choices[at];
+      const beat = s.beat, h = box();
+      el('p', 'chose', h, 'You said: ' + beat.options[pick][0]);
+      el('p', 'reply', h, beat.options[pick][1]);
+      if(beat.after) el('p', null, h, beat.after);
+    } else showOptions(s.beat, at);
+  } else if(waiting === 'try'){
+    if(replaying) el('p', 'found', box(), s.beat.found);
+    else showReveal(s.beat);
+  } else if(idx >= STEPS.length){ finish(); }
+  else showContinue();
+}
+
+function finish(){
+  clearAct();
+  const host = box();
+  host.className = 'step end';
+  el('p', null, host, 'That is world ' + WORLD.number + '. What you are '
+     + 'carrying out of it:');
+  const ul = el('ul', null, host);
+  WORLD.bricks.forEach(function(b){ el('li', null, ul, b.hold); });
+  if(NEXT) el('a', 'next', host, 'Go on to world ' + NEXT.number + ': '
+              + NEXT.title + ' →').setAttribute('href', NEXT.page);
+  else el('p', null, host, 'That is the last world. The written guide beside '
+          + 'this game covers the same ground in three parts.');
+  const again = el('button', 'go quiet', ACT, 'Play this world again');
+  again.addEventListener('click', function(){
+    idx = 0; choices = {}; STORY.innerHTML = ''; save(); progress(); advance();
+  });
+  idx = STEPS.length;
+  progress();
+  save();
+  scroll(host);
+}
+
+// --- start, or offer to resume ---------------------------------------------
+
+function replay(to){
+  replaying = true;
+  idx = 0;
+  STORY.innerHTML = '';
+  while(idx < to && idx < STEPS.length) advance();
+  replaying = false;
+  if(idx >= STEPS.length) finish();
+  else showContinue();
+}
+
+function begin(){
+  let saved = null;
+  try{ saved = JSON.parse(localStorage.getItem(KEY) || 'null'); }catch(e){}
+  if(saved && saved.idx > 0 && saved.idx < STEPS.length){
+    choices = saved.choices || {};
+    clearAct();
+    const on = el('button', 'go', ACT, 'Carry on where you left off');
+    on.addEventListener('click', function(){ replay(saved.idx); });
+    const fresh = el('button', 'go quiet', ACT, 'Start this world again');
+    fresh.addEventListener('click', function(){
+      choices = {}; idx = 0; save(); advance();
+    });
+  } else {
+    showContinue('Begin');
+  }
+}
+
+if(typeof window !== 'undefined' && window.addEventListener){
+  window.addEventListener('keydown', function(e){
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    const buttons = ACT.querySelectorAll ? ACT.querySelectorAll('button') : [];
+    if(buttons.length === 1){ e.preventDefault(); buttons[0].click(); }
+  });
+}
+
+begin();
+
+</script>
+</body>
+</html>

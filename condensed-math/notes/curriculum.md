@@ -89,3 +89,60 @@ word has a glossary line giving its standard name, in each part.
 **Nothing claims more than it has.** `research-content.md` marks every claim as
 computed here, a finite shadow of an infinite statement, or quoted, and the
 prose says which where it matters.
+
+## The game, and why its order is different
+
+The three articles explain the subject. `game/` makes a reader find it, and
+that changes what the ordering constraint is. An article may introduce an idea
+because the next section needs it. The game may not: nothing is allowed to be
+named before the reader has watched the thing the name is for.
+
+So the game carries its own route, eight worlds rather than three parts, and
+the first three of them are not condensed mathematics at all.
+
+| world | lectures | why it is there |
+|---|---|---|
+| 1 four words you already use | none | the crack is a crack in *collection*, *map*, *same* and *adding*; a reader who has not held those four cannot see it open |
+| 2 nearness, and the one-way bridge | none | builds the dust and the ruler by hand, so Example 1.9 is something the reader made |
+| 3 the test that should have caught it | none | kernel and cokernel from nothing, then the confident wrong verdict |
+| 4 stop asking what is inside | I to II | probes, split by hand, and what a shape says to one |
+| 5 the table of answers becomes the object | I to II | restriction, gluing, condensed sets, extremally disconnected probes |
+| 6 the repair, checked against the specification | I to III | the ghost, the restored test, the receipt, the surviving holes |
+| 7 sums that finally land | IV to VI | p-adic nearness, measures, solidity, the vanishing of the line |
+| 8 multiplying, and what it was all for | VII to XI | analytic rings, the exponent ceiling, the six operations, duality |
+
+Worlds 1 to 3 exist because of a rule the articles do not have to obey: the
+reader must want the repair before it arrives. World 3 ends with the reader
+writing down a three-line specification, and world 6 ticks it off line by line
+in the same order.
+
+### Rules the game follows
+
+**Concept, then intuition, then experiment.** Every brick, always, in that
+order. The concept is stated in one sentence before any story, so the reader is
+never inferring what is being talked about. The intuition is everyday and ends
+in a guess made before the answer exists on the page. The experiment is
+something the reader runs, and only after it comes the name and the symbols.
+`tests/test_game.py` fails a brick that breaks the order.
+
+**Every brick declares what it assumes.** In plain words, shown before the
+brick starts, and nothing may appear there that an earlier brick did not build.
+
+**No option is wrong.** Each answer to a guess gets a reply of its own, naming
+which instinct produced it and where that instinct is sound. A reader who
+guesses badly learns more than one who guesses well, and the writing has to
+reward that rather than punish it.
+
+**Nothing is named before it is run.** Twelve widgets and twenty-two hands-on
+experiments, one in every brick. A hands-on experiment withholds its result
+until the reader says they have done it.
+
+**The symbols always arrive.** Every brick ends with the notation and a
+symbol-by-symbol reading, plus the numbered result in the lectures where there
+is one. The game is a route into the literature, not a substitute for it, and
+the last brick asks the reader to open the lectures at page 9 and read.
+
+**No new mathematics in the game's own JavaScript.** The widgets include the
+same `MATHS` block the playable pages use, which is already compared against
+the Python library; the tests fail if the game starts carrying its own copy of
+a probe or a measure.

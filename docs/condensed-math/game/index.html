@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Condensed mathematics, discovered · a game</title>
+<meta name="description" content="A route from knowing nothing to reading the lectures on condensed mathematics: concept, intuition, experiment, eight worlds.">
+<style>
+ :root{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+        --line:#e1e0d9;--card:#ffffff;--blue:#2a78d6;--green:#008300;
+        --red:#d03b3b;--violet:#4a3aa7;}
+ @media (prefers-color-scheme: dark){
+   :root{--surface:#15150f;--ink:#f2f1ea;--ink2:#c9c7bd;--muted:#8d8b82;
+         --line:#33322c;--card:#1c1c15;}
+ }
+ *{box-sizing:border-box}
+ html{scroll-behavior:smooth}
+ body{margin:0;padding:0 0 10vh;background:var(--surface);color:var(--ink);
+   font:17.5px/1.75 -apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+   sans-serif;}
+ main{max-width:680px;margin:0 auto;padding:0 20px}
+ header.top{position:sticky;top:0;z-index:5;background:var(--surface);
+   border-bottom:1px solid var(--line);padding:10px 20px 0}
+ header.top .inner{max-width:680px;margin:0 auto;display:flex;
+   align-items:baseline;gap:12px;font-size:13px;color:var(--muted)}
+ header.top a{color:var(--muted);text-decoration:none}
+ header.top a:hover{color:var(--blue)}
+ .bar{max-width:680px;margin:8px auto 0;height:3px;background:var(--line);
+   border-radius:2px;overflow:hidden}
+ .bar i{display:block;height:100%;width:0;background:var(--blue);
+   transition:width .35s ease}
+ h1{font-size:26px;line-height:1.25;margin:34px 0 8px}
+ .promise{color:var(--ink2);font-style:italic;margin:0 0 12px}
+ p{margin:1.05em 0}
+ em{font-style:italic}
+ a{color:var(--blue)}
+ .step{animation:rise .28s ease both}
+ @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;
+   transform:none}}
+ @media (prefers-reduced-motion: reduce){.step{animation:none}
+   html{scroll-behavior:auto}}
+ /* the brick opening */
+ .brick{margin:52px 0 0;padding-top:26px;border-top:1px solid var(--line)}
+ .brick .count{font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+   color:var(--violet);font-weight:600}
+ .brick h2{font-size:21px;margin:6px 0 10px;line-height:1.3}
+ .brick .idea{margin:0 0 16px;color:var(--ink)}
+ .need{background:var(--card);border:1px solid var(--line);border-radius:10px;
+   padding:12px 16px;margin:16px 0 0}
+ .need span{font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+   color:var(--muted);font-weight:600}
+ .need ul{margin:6px 0 0;padding-left:18px}
+ .need li{margin:4px 0;color:var(--ink2);font-size:15.5px}
+ /* stage headings */
+ .stage{display:flex;align-items:baseline;gap:10px;margin:36px 0 2px}
+ .stage b{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;
+   color:var(--blue);font-weight:700}
+ .stage i{font-style:normal;font-size:13px;color:var(--muted)}
+ .stage:before{content:"";flex:0 0 22px;height:1px;background:var(--blue);
+   opacity:.5;align-self:center}
+ /* the guess */
+ .q{font-weight:600;margin:22px 0 4px}
+ .chose{color:var(--muted);font-size:14.5px;margin:14px 0 2px}
+ .reply{border-left:3px solid var(--green);padding:2px 0 2px 14px;
+   margin:6px 0 0;color:var(--ink2)}
+ /* the hands-on experiment */
+ .doit{background:var(--card);border:1px solid var(--line);border-radius:10px;
+   padding:14px 18px;margin:18px 0 0}
+ .doit .lead{font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+   color:var(--violet);font-weight:600}
+ .doit ol{margin:10px 0 0;padding-left:20px}
+ .doit li{margin:6px 0}
+ .found{border-left:3px solid var(--violet);padding:2px 0 2px 14px;
+   margin:14px 0 0;color:var(--ink2)}
+ /* the widget */
+ .play{margin:20px 0 0}
+ .play .prompt{font-weight:600;margin:0 0 10px}
+ .play .notice{color:var(--ink2);font-size:15.5px;margin:14px 0 0}
+ canvas.fig{width:100%;height:auto;display:block;border:1px solid var(--line);
+   border-radius:10px;background:var(--card)}
+ .controls{margin:12px 0 0}
+ .row{display:flex;align-items:center;gap:12px;margin:9px 0;flex-wrap:wrap}
+ .row .lbl{flex:0 0 168px;font-size:14px;color:var(--ink2)}
+ input[type=range]{flex:1;min-width:140px;accent-color:var(--blue)}
+ .val{flex:0 0 96px;text-align:right;font-family:ui-monospace,monospace;
+   font-size:13px;color:var(--ink2)}
+ .pick{display:flex;flex-wrap:wrap;gap:7px}
+ .pick button{font:inherit;font-size:13.5px;padding:5px 12px;cursor:pointer;
+   border:1px solid var(--line);border-radius:999px;background:transparent;
+   color:var(--ink2)}
+ .pick button:hover{border-color:var(--blue);color:var(--blue)}
+ .pick button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+ .readout{margin-top:12px;padding:12px 15px;border:1px solid var(--line);
+   border-radius:10px;font-size:14.5px;line-height:1.65;color:var(--ink2);
+   background:var(--card)}
+ .plain{font-size:14.5px;color:var(--muted);margin:0}
+ /* naming and the mathematics */
+ .card{border:1px solid var(--line);border-radius:12px;padding:4px 18px 16px;
+   margin:22px 0 0;background:var(--card)}
+ .card .kicker{display:block;font-size:12px;letter-spacing:.09em;
+   text-transform:uppercase;font-weight:600;margin:14px 0 4px}
+ .card.name{border-left:4px solid var(--green)}
+ .card.name .kicker{color:var(--green)}
+ .card.maths{border-left:4px solid var(--violet)}
+ .card.maths .kicker{color:var(--violet)}
+ .swap{font-size:17px;margin:2px 0 8px}
+ .nota{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;
+   overflow-x:auto;color:var(--ink);margin:6px 0}
+ .fx{font-family:"Latin Modern Math",Cambria,Georgia,serif;font-size:19px;
+   text-align:center;overflow-x:auto;padding:10px 0;margin:6px 0;
+   border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+ .cite{font-size:14px;color:var(--muted);margin:10px 0 0}
+ .hold{margin:26px 0 0;padding:12px 16px;border-radius:10px;
+   background:var(--card);border:1px solid var(--line);
+   border-left:4px solid var(--blue);font-size:16px}
+ .hold b{color:var(--blue);font-size:12px;letter-spacing:.08em;
+   text-transform:uppercase;display:block;margin-bottom:3px}
+ /* the action area */
+ #act{position:sticky;bottom:0;background:var(--surface);padding:14px 0 20px;
+   border-top:1px solid var(--line);margin-top:30px}
+ /* an empty action bar is sticky and would paint over the page behind it */
+ #act:empty{display:none}
+ #act .opts{display:flex;flex-direction:column;gap:8px}
+ button.go{font:inherit;font-size:16px;padding:11px 20px;cursor:pointer;
+   border-radius:10px;border:1px solid var(--blue);background:var(--blue);
+   color:#fff;text-align:left}
+ button.go:hover{opacity:.9}
+ button.opt{font:inherit;font-size:15.5px;padding:11px 16px;cursor:pointer;
+   border-radius:10px;border:1px solid var(--line);background:var(--card);
+   color:var(--ink);text-align:left;line-height:1.5}
+ button.opt:hover{border-color:var(--blue);color:var(--blue)}
+ button.quiet{background:transparent;border-color:var(--line);
+   color:var(--ink2)}
+ .hint{font-size:13px;color:var(--muted);margin:8px 0 0}
+ /* the ending */
+ .end{margin:40px 0 0;padding-top:24px;border-top:1px solid var(--line)}
+ .end ul{padding-left:18px}
+ .end li{margin:6px 0;color:var(--ink2)}
+ .end a.next{display:inline-block;margin-top:14px;font-size:17px}
+ /* the front page */
+ .worlds{list-style:none;padding:0;margin:26px 0 0}
+ .worlds li{border-top:1px solid var(--line);padding:16px 0}
+ .worlds a{display:block;text-decoration:none;color:inherit}
+ .worlds a:hover .wt{color:var(--blue)}
+ .worlds .wn{font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+   color:var(--violet);font-weight:600}
+ .worlds .wt{font-size:19px;margin:2px 0 4px}
+ .worlds .wp{color:var(--ink2);font-size:15.5px;margin:0}
+ .worlds .wd{color:var(--muted);font-size:13px;margin:6px 0 0}
+ footer{max-width:680px;margin:60px auto 0;padding:18px 20px 40px;
+   border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+ footer a{color:var(--muted)}
+ @media (max-width:600px){
+   body{font-size:16.5px}
+   .row .lbl{flex:0 0 100%}
+   .val{flex:0 0 auto}
+ }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="inner"><a href="../index.html">← condensed mathematics</a><span>8 worlds</span></div>
+  <div class="bar"><i id="bar"></i></div>
+</header>
+<main>
+<h1>Condensed mathematics, discovered</h1><p class="promise">Eight worlds, from three objects on a table to the duality theorem the lectures were pointing at. You guess before you are told, and you run everything yourself.</p>
+<p>This is a route from knowing nothing to reading the research literature on
+condensed mathematics. It assumes no mathematics at all: world 1 begins by
+putting three objects on a table.</p>
+
+<p>Every idea arrives as a <strong>brick</strong>, and every brick runs in the
+same three stages, in the same order.</p>
+
+<ul>
+<li><b>Concept</b> — what the idea is, stated plainly before any story, so you
+are never asked to guess what is being talked about.</li>
+<li><b>Intuition</b> — what it feels like, in everyday terms, ending in a
+question you answer before the answer exists on the page. A guess that misses
+is the useful kind: each answer gets a reply of its own.</li>
+<li><b>Experiment</b> — something you run. Either a simulation on the page,
+computing its numbers as you move it, or a short thing to do by hand, whose
+result is withheld until you say you have done it. Then the name the
+literature uses, and the mathematics with every symbol read out.</li>
+</ul>
+
+<p>Nothing is scored and nothing can be lost. Your place is remembered in this
+browser, so you can stop in the middle of a world and carry on later.</p>
+<ul class="worlds"><li><a href="01.html"><span class="wn">World 1</span><div class="wt">Four words you already use</div><p class="wp">By the end you will hold the four ideas the whole subject leans on: a collection, a map, being the same, and adding. None of it is new mathematics. All of it is about to break.</p><p class="wd">5 bricks · 1 simulation</p></a></li><li><a href="02.html"><span class="wn">World 2</span><div class="wt">Nearness, and the bridge that only goes one way</div><p class="wp">By the end you will have built two objects out of the same numbers that no matching can tell apart and no mathematician would call the same. That gap is the reason this subject exists.</p><p class="wd">5 bricks · 3 simulations</p></a></li><li><a href="03.html"><span class="wn">World 3</span><div class="wt">The test that should have caught it</div><p class="wp">By the end you will have built algebra's two measurements with your own hands, watched them agree on every honest example, and watched them return a confident wrong answer on the bridge.</p><p class="wd">5 bricks · 2 simulations</p></a></li><li><a href="04.html"><span class="wn">World 4</span><div class="wt">Stop asking what is inside</div><p class="wp">By the end you will have built the one new object in the subject with your own hands, and watched it separate two spaces that counting members could not.</p><p class="wd">5 bricks · 3 simulations</p></a></li><li><a href="05.html"><span class="wn">World 5</span><div class="wt">The table of answers becomes the object</div><p class="wp">By the end you will have replaced the idea of a space with something that has no points in it at all, and seen why the replacement is not a loss.</p><p class="wd">5 bricks · 1 simulation</p></a></li><li><a href="06.html"><span class="wn">World 6</span><div class="wt">The repair, checked against the specification</div><p class="wp">By the end you will have watched the impossible object appear, the broken test come back right, and the holes of a doughnut survive the move intact.</p><p class="wd">5 bricks · 2 simulations</p></a></li><li><a href="07.html"><span class="wn">World 7</span><div class="wt">Sums that finally land</div><p class="wp">By the end you will have added one and two and four and eight and got &minus;1, and you will know exactly why that is not a trick.</p><p class="wd">5 bricks · 3 simulations</p></a></li><li><a href="08.html"><span class="wn">World 8</span><div class="wt">Multiplying, and what it was all for</div><p class="wp">By the end you will have pushed an exponent past the point where the arithmetic breaks, and you will know what the eight worlds were buying.</p><p class="wd">5 bricks · 1 simulation</p></a></li></ul>
+
+</main>
+<footer>A game for <a href="../index.html">condensed mathematics</a>, retelling Peter Scholze's <a href="https://arxiv.org/abs/2605.03658">Lectures on Condensed Mathematics</a>, joint work with Dustin Clausen. Every number a widget prints is computed in the page. <a href="https://github.com/muchmirul/conjectures">Source</a>.</footer>
+
+</body>
+</html>

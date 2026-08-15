@@ -432,6 +432,9 @@ LANDING = """<!DOCTYPE html>
   .part .pn { display: inline-block; font-size: 0.72rem; letter-spacing: 0.08em;
               text-transform: uppercase; color: var(--violet); font-weight: 600; }
   .links { margin-top: 0.8rem; font-size: 0.92rem; color: var(--muted); }
+  a.game { display: inline-block; border: 1px solid var(--blue); color: var(--blue);
+           border-radius: 999px; padding: 0.5rem 1.1rem; font-size: 0.97rem; }
+  a.game:hover { background: var(--blue); color: #fff; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -456,6 +459,18 @@ Mathematics</em></a>, joint work with Dustin Clausen, from a standing start.</p>
 chapter carries a simulation you can move.</p>
 
 CARDS
+
+<h2>Or discover it instead</h2>
+
+<p>The three parts above explain the subject. <a href="game/">The game</a> makes
+you find it: eight worlds, starting from three objects on a table, assuming no
+mathematics at all. Every idea arrives as a brick that runs the same three
+stages &mdash; the concept stated plainly, then an intuition ending in a guess
+you make before the answer exists on the page, then an experiment you run
+yourself, followed by the name the literature uses and the mathematics with
+every symbol read out.</p>
+
+<p><a class="game" href="game/">Play the game &rarr;</a></p>
 
 <h2>What is checked, and what is quoted</h2>
 

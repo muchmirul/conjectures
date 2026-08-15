@@ -14,7 +14,7 @@ animations, its own code, and its own tests. Pick one and start reading.
 | [sphere-packing](sphere-packing/) | How densely equal balls can fill space, and the one method that bounds every packing at once. In 2026 the exact strength of that method was determined. | [chapters](sphere-packing/guide/00-start-here/README.md) · [one page](https://muchmirul.github.io/conjectures/sphere-packing/) |
 | [multicolor-ramsey](multicolor-ramsey/) | A coloring game about avoiding one-color triangles, and a growth question Erdős put money on. In 2026 the answer arrived: the rate climbs forever. | [chapters](multicolor-ramsey/guide/00-start-here/README.md) · [one page](https://muchmirul.github.io/conjectures/multicolor-ramsey/) |
 | [zeta-critical-line](zeta-critical-line/) | The Riemann hypothesis, open since 1859, asks whether every zeta zero sits on one line. In 2026 an AI-authored paper proved two thirds of them do, simple and on the line, unconditionally. | [chapters](zeta-critical-line/guide/00-start-here/README.md) · [one page](https://muchmirul.github.io/conjectures/zeta-critical-line/) |
-| [condensed-math](condensed-math/) | A set with a distance on it is two structures badly glued, and the glue fails in a way that breaks ordinary algebra. Scholze and Clausen's repair, in three parts, with a simulation in every chapter. | [three parts](condensed-math/README.md) · [read it](https://muchmirul.github.io/conjectures/condensed-math/) |
+| [condensed-math](condensed-math/) | A set with a distance on it is two structures badly glued, and the glue fails in a way that breaks ordinary algebra. Scholze and Clausen's repair, in three parts, with a simulation in every chapter, plus a game that makes you discover it from nothing. | [three parts](condensed-math/README.md) · [read it](https://muchmirul.github.io/conjectures/condensed-math/) · [play it](https://muchmirul.github.io/conjectures/condensed-math/game/) |
 
 ## How a topic is laid out
 
@@ -36,6 +36,12 @@ A wide topic may be split into parts, in which case `ARTICLE.md` and `guide/`
 sit one level down, inside `parts/<topic>NN/`, and the topic's `docs/` folder
 gains one subfolder per part plus a landing page. `condensed-math` is the
 first topic laid out that way.
+
+A topic may also carry a `game/`: the same mathematics with the explaining
+taken out, as a route a reader walks rather than a text they read. Each idea
+arrives as a brick running concept, then intuition ending in a guess, then an
+experiment the reader performs, and only then the name and the symbols.
+`condensed-math` is the first topic to have one.
 
 Two things live at the repository root instead, because they have to:
 
