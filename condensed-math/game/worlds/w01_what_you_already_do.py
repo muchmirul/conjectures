@@ -24,22 +24,21 @@ BRICKS = (
 
     Brick(
         slug="a-collection",
-        title="Things you have decided to keep together",
-        idea="A collection is settled by which things belong to it, and by "
-             "nothing else: not their order, not their distance, not their "
-             "size.",
+        title="Choosing what belongs together",
+        idea="A collection is defined only by which things belong to it—not "
+             "by their order, distance, size, or arrangement.",
         need=(
             "Nothing at all. If you can point at some things and say which "
             "ones you meant, you already have everything this brick asks for.",
         ),
         concept=(
-            Say("The first object in mathematics is also the thinnest one. "
-                "You name some things, and the naming is the whole object. "
-                "Which things belong: that is all it records."),
-            Say("Everything you might also have said about those things "
+            Say("One of the simplest mathematical objects is made by choosing "
+                "some things and grouping them together. It records only "
+                "which things belong."),
+            Say("Everything else you might say about those things "
                 "&mdash; which came first, how far apart they are, which is "
-                "heavier &mdash; is deliberately left out. The thinness is not "
-                "poverty. It is what makes the object usable everywhere."),
+                "heavier &mdash; is deliberately left out. That simplicity is "
+                "what makes the idea useful in so many settings."),
         ),
         intuition=(
             Say("Put a coin, a key and a stone on a table. Now say: <em>these "
@@ -116,13 +115,12 @@ BRICKS = (
                         "the other. Nothing else is allowed to matter.",
             ),
         ),
-        hold="A set is settled by which things belong to it, and by nothing "
-             "else whatsoever.",
+        hold="A set is defined by its members and nothing else.",
     ),
 
     Brick(
         slug="a-matching",
-        title="A rule that answers every time",
+        title="A rule with one answer for every input",
         idea="A map from one collection to another is a rule that gives every "
              "member of the first exactly one member of the second.",
         need=(
@@ -203,13 +201,13 @@ BRICKS = (
                         "answer the rule f gives when it is handed a.",
             ),
         ),
-        hold="A map answers every member of the source with exactly one member "
-             "of the target. Unused members of the target are allowed.",
+        hold="A map assigns exactly one target value to every source value. "
+             "Some target values may remain unused.",
     ),
 
     Brick(
         slug="undoing",
-        title="When two collections are the same collection",
+        title="When two collections count as the same",
         idea="Two collections count as the same when there is a map across "
              "and a map back that undoes it.",
         need=(
@@ -297,13 +295,13 @@ BRICKS = (
                         "directions. When such a g exists, f is a bijection.",
             ),
         ),
-        hold="Two collections are the same when a map across can be undone by "
-             "a map back. Undoing is the test, and there is no other.",
+        hold="Two collections have the same structure when a map between them "
+             "has an inverse that restores every member.",
     ),
 
     Brick(
         slug="adding",
-        title="Collections you can add in",
+        title="Collections with an addition rule",
         idea="An abelian group is a collection carrying an addition, a zero, "
              "and an opposite for every member.",
         need=(
@@ -396,36 +394,35 @@ BRICKS = (
                         "with addition, from the German <em>Zahlen</em>.",
             ),
         ),
-        hold="An abelian group is a collection with addition, a zero, and an "
-             "opposite for every member. Subtraction is the demand that has "
-             "teeth.",
+        hold="An abelian group has addition, a zero, and an opposite for every "
+             "member. The existence of opposites is what makes subtraction possible.",
     ),
 
     Brick(
         slug="respecting-the-adding",
-        title="Maps that do not disturb the adding",
-        idea="A map between two collections that can be added in is polite "
-             "when adding first and crossing over gives the same answer as "
-             "crossing over first and adding.",
+        title="Maps that preserve addition",
+        idea="A map preserves addition when adding before applying the map "
+             "gives the same result as applying the map first and then adding.",
         need=(
             "A map: every member of the source answered exactly once.",
             "An abelian group: a collection with adding, a zero and opposites.",
         ),
         concept=(
-            Say("When both sides carry an addition, a map can be asked to "
-                "respect it. Add two members and cross over, or cross over "
-                "both and then add: a polite map gives the same answer either "
-                "way."),
-            Say("This one demand is what makes a map worth studying here. An "
-                "impolite map moves members around without carrying the "
-                "structure, and there is nothing algebraic to say about it."),
+            Say("When both sides have an addition rule, we can ask whether a "
+                "map respects it. Add two members before applying the map, or "
+                "apply the map to each member and then add. A "
+                "structure-preserving map gives the same answer either way."),
+            Say("This condition is what makes the map useful in algebra. A map "
+                "that fails it still moves members, but it does not carry the "
+                "addition rule from one side to the other."),
         ),
         intuition=(
-            Say("Doubling is polite. Double 3 and double 4 and add, or add 3 "
-                "and 4 and then double: 14 either way. Squaring is not polite: "
+            Say("Doubling preserves addition. Double 3 and 4 before adding, or "
+                "add them first and then double: both routes give 14. Squaring "
+                "does not preserve addition: "
                 "3 squared plus 4 squared is 25, but 7 squared is 49."),
             Ask(
-                "A polite map must send zero to zero. Why?",
+                "A map that preserves addition must send zero to zero. Why?",
                 (
                     ("Because 0 + 0 = 0 forces it",
                      "That is the argument. Crossing over 0 + 0 gives f(0) + "
@@ -435,7 +432,7 @@ BRICKS = (
                      "condition; the adding already implies it."),
                     ("It does not have to",
                      "It is forced, though the force is easy to miss. Since "
-                     "0 + 0 = 0, politeness gives f(0) + f(0) = f(0), and "
+                     "0 + 0 = 0, the rule gives f(0) + f(0) = f(0), and "
                      "cancelling one f(0) leaves f(0) = 0. Try to build an "
                      "exception and the cancelling always catches you."),
                     ("By convention",
@@ -456,7 +453,7 @@ BRICKS = (
                     "Compare, and then check what the rule does to 0.",
                 ),
                 found="Crossing over first gives 19; adding first gives 12. "
-                      "The rule <em>add seven</em> is not polite, and its "
+                      "The rule <em>add seven</em> does not preserve addition, and its "
                       "failure shows up in the same place as its failure to "
                       "fix zero: it sends 0 to 7. Those two failures are one "
                       "failure. A shift is a perfectly good map of collections "
@@ -477,13 +474,12 @@ BRICKS = (
                 params={},
             ),
             Name(
-                plain="a polite map",
+                plain="a map that keeps addition unchanged",
                 standard="a homomorphism of abelian groups",
                 notation="f(a + b) = f(a) + f(b)",
-                why="From here on, a map between two collections that can be "
-                    "added in always means a polite one. The impolite maps are "
-                    "not interesting for this purpose: they do not carry the "
-                    "structure across.",
+                why="From here on, maps between abelian groups will always "
+                    "preserve addition. Maps that do not preserve it cannot "
+                    "carry the group structure from one side to the other.",
             ),
             Math(
                 statement="f : A &rarr; B, &nbsp; f(a + b) = f(a) + f(b) "
@@ -496,8 +492,8 @@ BRICKS = (
                         "demand, three consequences.",
             ),
         ),
-        hold="A homomorphism carries the adding across unharmed. Zero and "
-             "opposites then look after themselves.",
+        hold="A homomorphism preserves addition. Once it does, it also sends "
+             "zero to zero and opposites to opposites.",
     ),
 )
 
@@ -505,9 +501,9 @@ BRICKS = (
 WORLD = World(
     number=1,
     slug="what-you-already-do",
-    title="Four words you already use",
-    promise="By the end you will hold the four ideas the whole subject leans "
-            "on: a collection, a map, being the same, and adding. None of it "
-            "is new mathematics. All of it is about to break.",
+    title="Four familiar ideas",
+    promise="By the end, you will understand four ideas that support the rest "
+            "of the course: collections, maps, sameness, and addition. The "
+            "ideas are familiar, but their usual relationship is about to fail.",
     bricks=BRICKS,
 )

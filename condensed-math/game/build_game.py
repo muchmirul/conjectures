@@ -295,7 +295,7 @@ function renderBrick(s){
   el('h2', null, host, b.title);
   el('p', 'idea', host, b.idea);
   const need = el('div', 'need', host);
-  el('span', null, need, 'You only need this');
+  el('span', null, need, 'What you need first');
   const ul = el('ul', null, need);
   b.need.forEach(function(n){ el('li', null, ul, n); });
   return host;
@@ -327,20 +327,20 @@ function renderBeat(beat){
     try{
       WIDGETS[beat.widget](stage, beat.params || {});
     }catch(err){
-      el('p', 'plain', stage, 'This simulation could not start.');
+      el('p', 'plain', stage, 'The simulation could not start.');
       if(typeof console !== 'undefined') console.error(err);
     }
     el('p', 'notice', d, beat.notice);
   } else if(beat.kind === 'name'){
     const c = el('div', 'card name', host);
-    el('span', 'kicker', c, 'The name for it');
-    el('p', 'swap', c, 'What you have been calling <b>' + beat.plain +
-       '</b> is called <b>' + beat.standard + '</b>.');
+    el('span', 'kicker', c, 'Standard name');
+    el('p', 'swap', c, 'The idea described here as <b>' + beat.plain +
+       '</b> is usually called <b>' + beat.standard + '</b>.');
     el('p', 'nota', c, beat.notation);
     if(beat.why) el('p', null, c, beat.why);
   } else if(beat.kind === 'math'){
     const c = el('div', 'card maths', host);
-    el('span', 'kicker', c, 'The mathematics');
+    el('span', 'kicker', c, 'In notation');
     el('div', 'fx', c, beat.statement);
     el('p', null, c, beat.reading);
     if(beat.cite){
@@ -355,7 +355,7 @@ function renderBeat(beat){
 function renderHold(s){
   const host = box();
   host.className = 'step hold';
-  el('b', null, host, 'You now hold');
+  el('b', null, host, 'Key idea');
   el('span', null, host, s.text);
   return host;
 }
@@ -369,7 +369,7 @@ function showContinue(label){
   if(replaying) return;
   const b = el('button', 'go', ACT, label || 'Continue');
   b.addEventListener('click', advance);
-  el('p', 'hint', ACT, 'Press Enter, or space, to go on.');
+  el('p', 'hint', ACT, 'Press Enter or Space to continue.');
 }
 
 function showOptions(beat, at){
@@ -380,8 +380,8 @@ function showOptions(beat, at){
     const b = el('button', 'opt', wrap, opt[0]);
     b.addEventListener('click', function(){ answer(beat, i, at); });
   });
-  el('p', 'hint', ACT, 'Guess before you read on. A guess that misses is the '
-     + 'useful kind.');
+  el('p', 'hint', ACT, 'Choose an answer before continuing. Every choice gets '
+     + 'an explanation.');
 }
 
 function answer(beat, i, at){
@@ -398,9 +398,9 @@ function answer(beat, i, at){
 function showReveal(beat){
   clearAct();
   if(replaying) return;
-  const b = el('button', 'go', ACT, 'I have done this — what should I have found?');
+  const b = el('button', 'go', ACT, 'I tried it — show me the result');
   b.addEventListener('click', function(){ reveal(beat); });
-  el('p', 'hint', ACT, 'The answer is worth much less if you read it first.');
+  el('p', 'hint', ACT, 'Try the steps first; the result will make more sense.');
 }
 
 function reveal(beat){
@@ -447,15 +447,15 @@ function finish(){
   clearAct();
   const host = box();
   host.className = 'step end';
-  el('p', null, host, 'That is world ' + WORLD.number + '. What you are '
-     + 'carrying out of it:');
+  el('p', null, host, 'You have completed world ' + WORLD.number + '. Here are '
+     + 'the main ideas to take with you:');
   const ul = el('ul', null, host);
   WORLD.bricks.forEach(function(b){ el('li', null, ul, b.hold); });
-  if(NEXT) el('a', 'next', host, 'Go on to world ' + NEXT.number + ': '
+  if(NEXT) el('a', 'next', host, 'Continue to world ' + NEXT.number + ': '
               + NEXT.title + ' →').setAttribute('href', NEXT.page);
-  else el('p', null, host, 'That is the last world. The written guide beside '
-          + 'this game covers the same ground in three parts.');
-  const again = el('button', 'go quiet', ACT, 'Play this world again');
+  else el('p', null, host, 'You have reached the final world. The companion '
+          + 'guide develops the same material in three parts.');
+  const again = el('button', 'go quiet', ACT, 'Restart this world');
   again.addEventListener('click', function(){
     idx = 0; choices = {}; STORY.innerHTML = ''; save(); progress(); advance();
   });
@@ -483,9 +483,9 @@ function begin(){
   if(saved && saved.idx > 0 && saved.idx < STEPS.length){
     choices = saved.choices || {};
     clearAct();
-    const on = el('button', 'go', ACT, 'Carry on where you left off');
+    const on = el('button', 'go', ACT, 'Continue where you left off');
     on.addEventListener('click', function(){ replay(saved.idx); });
-    const fresh = el('button', 'go quiet', ACT, 'Start this world again');
+    const fresh = el('button', 'go quiet', ACT, 'Restart this world');
     fresh.addEventListener('click', function(){
       choices = {}; idx = 0; save(); advance();
     });
@@ -547,10 +547,10 @@ def page(title, description, navbar, head, footer, scripts,
 
 
 FOOTER = (
-    'A game for <a href="../index.html">condensed mathematics</a>, retelling '
+    'An interactive introduction to <a href="../index.html">condensed mathematics</a>, based on '
     f'Peter Scholze\'s <a href="{LECTURES}">Lectures on Condensed '
-    'Mathematics</a>, joint work with Dustin Clausen. Every number a widget '
-    'prints is computed in the page. '
+    'Mathematics</a>, developed with Dustin Clausen. Every value shown by a '
+    'widget is calculated directly in the page. '
     '<a href="https://github.com/muchmirul/conjectures">Source</a>.'
 )
 
@@ -574,27 +574,23 @@ def build_world(world, nxt) -> str:
 
 
 HOW_IT_WORKS = """
-<p>This is a route from knowing nothing to reading the research literature on
-condensed mathematics. It assumes no mathematics at all: world 1 begins by
-putting three objects on a table.</p>
+<p>This course builds enough intuition to begin reading research on condensed
+mathematics. It assumes no mathematical background: World 1 starts with three
+ordinary objects on a table.</p>
 
-<p>Every idea arrives as a <strong>brick</strong>, and every brick runs in the
-same three stages, in the same order.</p>
+<p>Each idea is presented as a <strong>brick</strong> with three stages:</p>
 
 <ul>
-<li><b>Concept</b> — what the idea is, stated plainly before any story, so you
-are never asked to guess what is being talked about.</li>
-<li><b>Intuition</b> — what it feels like, in everyday terms, ending in a
-question you answer before the answer exists on the page. A guess that misses
-is the useful kind: each answer gets a reply of its own.</li>
-<li><b>Experiment</b> — something you run. Either a simulation on the page,
-computing its numbers as you move it, or a short thing to do by hand, whose
-result is withheld until you say you have done it. Then the name the
-literature uses, and the mathematics with every symbol read out.</li>
+<li><b>Concept</b> — a direct explanation of the idea.</li>
+<li><b>Intuition</b> — a familiar way to picture it, followed by a question
+you answer before seeing the explanation.</li>
+<li><b>Experiment</b> — an interactive simulation or a short hands-on task,
+followed by the standard terminology and a plain-language reading of the
+notation.</li>
 </ul>
 
-<p>Nothing is scored and nothing can be lost. Your place is remembered in this
-browser, so you can stop in the middle of a world and carry on later.</p>
+<p>There are no scores or wrong turns. Your progress is saved in this browser,
+so you can pause at any point and continue later.</p>
 """
 
 
@@ -612,17 +608,18 @@ def build_index() -> str:
             f'<p class="wd">{bricks} bricks · {plays} '
             f'{"simulation" if plays == 1 else "simulations"}</p>'
             f'</a></li>')
-    head = ('<h1>Condensed mathematics, discovered</h1>'
-            '<p class="promise">Eight worlds, from three objects on a table to '
-            'the duality theorem the lectures were pointing at. You guess '
-            'before you are told, and you run everything yourself.</p>'
+    head = ('<h1>Discover condensed mathematics</h1>'
+            '<p class="promise">Eight interactive worlds take you from three '
+            'objects on a table to the duality theorem developed in the '
+            'lectures. You form an intuition, make a prediction, and test each '
+            'idea yourself.</p>'
             + HOW_IT_WORKS
             + f'<ul class="worlds">{"".join(rows)}</ul>')
     return page(
-        title="Condensed mathematics, discovered · a game",
-        description="A route from knowing nothing to reading the lectures on "
-                    "condensed mathematics: concept, intuition, experiment, "
-                    "eight worlds.",
+        title="Discover condensed mathematics · an interactive course",
+        description="An eight-world interactive introduction to condensed "
+                    "mathematics, built around concepts, intuition, and "
+                    "experiments.",
         navbar='<a href="../index.html">← condensed mathematics</a>'
                f'<span>{len(WORLDS)} worlds</span>',
         head=head, footer=FOOTER, scripts="", interactive=False)

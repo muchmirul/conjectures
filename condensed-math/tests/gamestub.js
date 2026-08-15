@@ -112,7 +112,7 @@ for (let i = 0; i < 6000; i += 1) {
   const button = buttons.length > 1
     ? buttons[rotate++ % buttons.length]
     : buttons[0];
-  if (/Play this world again/.test(button.innerHTML)) { finished = true; break; }
+  if (/Restart this world/.test(button.innerHTML)) { finished = true; break; }
   button.click();
   clicks += 1;
 }

@@ -119,9 +119,9 @@ BEATS = (Say, Ask, Play, Try, Name, Math)
 
 
 STAGES = (
-    ("concept", "Concept", "what the idea is"),
-    ("intuition", "Intuition", "what it feels like"),
-    ("experiment", "Experiment", "run it yourself"),
+    ("concept", "Concept", "the idea in plain language"),
+    ("intuition", "Intuition", "a familiar way to picture it"),
+    ("experiment", "Experiment", "test the idea yourself"),
 )
 
 

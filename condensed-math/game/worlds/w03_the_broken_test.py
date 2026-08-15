@@ -16,14 +16,14 @@ BRICKS = (
     Brick(
         slug="crushed-to-zero",
         title="What the map destroys",
-        idea="The kernel of a polite map is everything the map sends to zero: "
-             "the measurement of what it destroyed.",
+        idea="The kernel contains everything a map sends to zero, so it "
+             "measures which distinctions the map destroys.",
         need=(
             "An abelian group: a collection with adding, a zero and opposites.",
             "A homomorphism: a map that carries the adding across unharmed.",
         ),
         concept=(
-            Say("Algebra asks exactly two questions about a polite map. Here "
+            Say("Algebra asks exactly two questions about a map that preserves addition. Here "
                 "is the first: what did it destroy? Collect every member of "
                 "the source that came out as zero on the other side."),
             Say("That collection is itself a collection you can add in, "
@@ -87,22 +87,22 @@ BRICKS = (
             Math(
                 statement="ker(f) = 0 &nbsp;&hArr;&nbsp; f injective "
                           "&nbsp;&nbsp;(f(a) = f(b) &rArr; a = b)",
-                reading="<em>Injective</em> is the word for no two members "
+                reading="<em>Injective</em> means that no two members "
                         "colliding. The equivalence holds because f(a) = f(b) "
-                        "can be rewritten f(a &minus; b) = 0 using politeness, "
+                        "can be rewritten as f(a &minus; b) = 0 because the map preserves addition, "
                         "so a collision and a non-zero member of the kernel "
                         "are the same event seen twice. Writing ker(f) = 0 is "
                         "shorthand for <em>the kernel contains nothing but "
                         "zero</em>.",
             ),
         ),
-        hold="The kernel measures what a map destroys. Empty kernel means no "
-             "two members collide.",
+        hold="The kernel measures what a map collapses to zero. If only zero "
+             "is in the kernel, no two source values collide.",
     ),
 
     Brick(
         slug="left-over",
-        title="What the map failed to reach",
+        title="What the map leaves out",
         idea="The cokernel is what survives in the target once everything the "
              "map reached is declared to be zero: the measurement of what it "
              "missed.",
@@ -190,25 +190,25 @@ BRICKS = (
                         "arrow.",
             ),
         ),
-        hold="The cokernel measures what a map missed, by declaring what it "
-             "reached to be zero and counting the survivors.",
+        hold="The cokernel measures what a map misses by treating everything "
+             "it reaches as zero and recording what remains distinct.",
     ),
 
     Brick(
         slug="the-test",
-        title="Two measurements that ought to settle everything",
-        idea="If a polite map destroys nothing and misses nothing, it must be "
-             "a sameness &mdash; so two computations replace the search for a "
-             "map back.",
+        title="Two measurements that should decide equivalence",
+        idea="If a map preserves addition, destroys nothing, and misses "
+             "nothing, it should be an equivalence. Two calculations can "
+             "therefore replace a search for an inverse.",
         need=(
             "The kernel: nothing destroyed when it is zero.",
             "The cokernel: nothing missed when it is zero.",
         ),
         concept=(
-            Say("Put the two measurements together. If a polite map destroys "
+            Say("Put the two measurements together. If a map that preserves addition destroys "
                 "nothing and misses nothing, every member of the target is hit "
-                "and hit exactly once. There is an obvious way back, and "
-                "politeness carries over to it."),
+                "and hit exactly once. There is an obvious inverse, and that "
+                "inverse also preserves addition."),
             Say("So for collections you can add in, two computations decide "
                 "the question that used to require a search. That is the whole "
                 "value of the setting."),
@@ -263,19 +263,19 @@ BRICKS = (
                 statement="ker(f) = 0 and coker(f) = 0 &nbsp;&rArr;&nbsp; "
                           "f : A &cong; B",
                 reading="Read: if both measurements come back zero then f is "
-                        "an isomorphism, a genuine sameness with a polite map "
+                        "an isomorphism, a genuine sameness with a map that preserves addition "
                         "back. In an abelian category this implication is part "
                         "of the definition of the setting rather than a "
                         "theorem about any particular objects.",
             ),
         ),
-        hold="In a well-behaved algebraic world, nothing destroyed plus "
-             "nothing missed forces sameness. The verdict is computable.",
+        hold="In a well-behaved algebraic setting, a zero kernel and zero "
+             "cokernel force a map to be an isomorphism.",
     ),
 
     Brick(
         slug="the-verdict-is-wrong",
-        title="Running the test on the bridge",
+        title="The bridge breaks the test",
         idea="On the bridge from the dust to the ruler both measurements read "
              "zero, and the verdict they force is false.",
         need=(
@@ -284,7 +284,7 @@ BRICKS = (
         ),
         concept=(
             Say("The dust and the ruler can both be added in: numbers add, "
-                "whatever the nearness rule says. The bridge is polite, since "
+                "whatever the nearness rule says. The bridge preserves addition, since "
                 "sending each number to itself obviously survives addition. So "
                 "the test applies, with nothing bent to make it apply."),
             Say("Measure. Nothing is crushed to zero, because different "
@@ -358,13 +358,13 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=9",
             ),
         ),
-        hold="On the bridge the test returns zero twice and the wrong verdict. "
-             "The leftover is real and has no members.",
+        hold="On the bridge, both measurements return zero even though the map "
+             "is not an equivalence. The missing information is real but has no points.",
     ),
 
     Brick(
         slug="what-we-must-build",
-        title="The specification for a repair",
+        title="Requirements for a successful repair",
         idea="Any repair must allow an object with no points that is not zero, "
              "keep the old spaces intact, and make the two measurements "
              "reliable again.",
@@ -455,8 +455,8 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=8",
             ),
         ),
-        hold="The repair must permit a memberless object that is not zero, "
-             "keep old spaces intact, and restore the two measurements.",
+        hold="A successful repair must allow a nonzero object with no points, "
+             "preserve ordinary spaces, and make kernels and cokernels reliable again.",
     ),
 )
 
@@ -464,9 +464,9 @@ BRICKS = (
 WORLD = World(
     number=3,
     slug="the-broken-test",
-    title="The test that should have caught it",
-    promise="By the end you will have built algebra's two measurements with "
-            "your own hands, watched them agree on every honest example, and "
-            "watched them return a confident wrong answer on the bridge.",
+    title="The algebraic test that fails",
+    promise="By the end, you will understand kernels and cokernels, see why "
+            "they normally detect isomorphisms, and watch them produce the "
+            "wrong answer on the one-way bridge.",
     bricks=BRICKS,
 )
