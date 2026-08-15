@@ -1,7 +1,7 @@
 # The game
 
-*Condensed mathematics discovered rather than presented: eight worlds, from
-three objects on a table to the duality theorem the lectures were pointing at.*
+*An interactive introduction to condensed mathematics in eight worlds, from
+three objects on a table to the duality theorem developed in the lectures.*
 
 **Play it:**
 [muchmirul.github.io/conjectures/condensed-math/game](https://muchmirul.github.io/conjectures/condensed-math/game/)
@@ -37,14 +37,14 @@ the reader says they have done it.
 
 | world | what the reader ends up holding |
 |---|---|
-| 1 · Four words you already use | collections, maps, being the same, adding |
-| 2 · Nearness, and the bridge that only goes one way | a topology is a second layer, and dust and ruler are not the same space |
-| 3 · The test that should have caught it | kernel and cokernel, and their confident wrong verdict |
-| 4 · Stop asking what is inside | probes, built by hand from finite stages |
-| 5 · The table of answers becomes the object | restriction, gluing, and condensed sets |
-| 6 · The repair, checked against the specification | the ghost, the restored test, the receipt, the surviving holes |
-| 7 · Sums that finally land | the p-adic nearness, measures, solidity |
-| 8 · Multiplying, and what it was all for | analytic rings, the exponent ceiling, duality |
+| 1 · Four familiar ideas | collections, maps, equivalence, and addition |
+| 2 · Nearness and a one-way bridge | topology, continuity, and spaces with the same points but different nearness |
+| 3 · The algebraic test that fails | kernels, cokernels, and their incorrect verdict on the bridge |
+| 4 · Study spaces with probes | probes built from finite stages |
+| 5 · The answer table becomes the object | restriction, gluing, and condensed sets |
+| 6 · Verify the repair | the missing object, the restored test, preserved spaces, and homology |
+| 7 · Infinite sums with well-defined values | p-adic nearness, measures, and solidity |
+| 8 · From multiplication to duality | analytic rings, the exponent bound, compact support, and duality |
 
 Worlds 1 to 3 are not condensed mathematics. They exist because the crack the
 subject repairs is a crack in exactly those ordinary ideas, and a reader who

@@ -15,11 +15,11 @@ BRICKS = (
 
     Brick(
         slug="the-answer-sheet",
-        title="Keep the answers, throw away the space",
-        idea="Declare the table of answers to be the object, and tables become "
-             "possible that no space could produce.",
+        title="Treat the answer table as the object",
+        idea="Replace a space with its answers to every probe. This also allows "
+             "answer tables that do not come from any ordinary space.",
         need=(
-            "A probe, and what a shape says to it: all the gentle walks in.",
+            "A probe, and what a shape says to it: all the continuous maps in.",
         ),
         concept=(
             Say("You have a table. Down one side, every probe. In each row, "
@@ -73,7 +73,7 @@ BRICKS = (
                     "Now write down what you would have to change in one table "
                     "to turn it into the other.",
                 ),
-                found="Both rows are the same: one gentle walk per number. To "
+                found="Both rows are the same: one continuous map per number. To "
                       "turn one table into the other you would have to change "
                       "rows further down &mdash; the ones indexed by probes "
                       "with infinitely many points &mdash; and nothing you do "
@@ -101,13 +101,13 @@ BRICKS = (
                         "&ne; 0.",
             ),
         ),
-        hold="The object is now the table of answers. Tables exist that no "
-             "space produces, and those are the ones needed.",
+        hold="The answer table is now the object itself, including tables that "
+             "no ordinary space can produce.",
     ),
 
     Brick(
         slug="cutting",
-        title="Every answer can be read on a smaller probe",
+        title="Restrict an answer to a smaller probe",
         idea="Whenever one probe maps into another, answers travel backwards "
              "along that map, automatically and with no choices made.",
         need=(
@@ -144,15 +144,15 @@ BRICKS = (
                      "is exactly what the backwards travel does. Nothing extra "
                      "is needed; the map from the point supplies it."),
                     ("Only if the walk is nice",
-                     "No niceness required: composing a gentle map with a "
-                     "gentle map is gentle, so the reading always exists."),
+                     "No niceness required: composing a continuous map with a "
+                     "continuous map is continuous, so the reading always exists."),
                 ),
             ),
         ),
         experiment=(
             Try(
                 steps=(
-                    "Take a gentle walk out of the stage-2 halving probe: "
+                    "Take a continuous map out of the stage-2 halving probe: "
                     "assign a value to each of its four boxes.",
                     "Restrict it along the map that includes one point of the "
                     "probe, and write what you get.",
@@ -192,13 +192,13 @@ BRICKS = (
                         "extra choice.",
             ),
         ),
-        hold="Answers travel backwards along maps of probes, automatically and "
-             "compatibly.",
+        hold="Answers restrict backward along maps between probes, and those "
+             "restrictions must remain compatible.",
     ),
 
     Brick(
         slug="gluing",
-        title="Answers that agree where they meet must glue",
+        title="Compatible local answers must glue",
         idea="Local answers that agree on the overlap must assemble into "
              "exactly one global answer: not none, and not several.",
         need=(
@@ -281,13 +281,13 @@ BRICKS = (
                         "agree. Exactly one, no more.",
             ),
         ),
-        hold="Local answers that agree where they meet glue to exactly one "
-             "global answer. That is the sheaf condition.",
+        hold="Local answers that agree on overlaps combine into exactly one "
+             "global answer. This is the sheaf condition.",
     ),
 
     Brick(
         slug="a-condensed-set",
-        title="The object, finally",
+        title="Define a condensed set",
         idea="A condensed set is a table of answers to probes, with backwards "
              "travel, obeying cut and glue. That is the replacement for a "
              "space.",
@@ -312,11 +312,11 @@ BRICKS = (
             Ask(
                 "Does the ruler give such a table?",
                 (
-                    ("Yes: its answers are the gentle walks",
-                     "It does, and checking it is routine. Gentle walks "
-                     "restrict along maps of probes, and gentle walks that "
+                    ("Yes: its answers are the continuous maps",
+                     "It does, and checking it is routine. Continuous maps "
+                     "restrict along maps of probes, and continuous maps that "
                      "agree on the overlap of a cover patch together into one "
-                     "gentle walk. Every space you have ever used produces a "
+                     "continuous map. Every space you have ever used produces a "
                      "table satisfying all three demands."),
                     ("Only if the ruler is nice enough",
                      "Every topological space produces such a table. Niceness "
@@ -326,7 +326,7 @@ BRICKS = (
                     ("No, the ruler has too many points",
                      "Size is not an obstacle here. The table is large, "
                      "certainly, but each row is a perfectly ordinary "
-                     "collection of gentle walks."),
+                     "collection of continuous maps."),
                 ),
             ),
         ),
@@ -338,14 +338,14 @@ BRICKS = (
                     "Row for every probe: what is it?",
                     "Backwards travel: given a walk and a map of probes, how "
                     "do you produce the restricted walk?",
-                    "Gluing: two gentle walks agreeing where the pieces meet "
-                    "&mdash; is the combined rule gentle?",
+                    "Gluing: two continuous maps agreeing where the pieces meet "
+                    "&mdash; is the combined rule continuous?",
                 ),
-                found="Row: the gentle walks from that probe into the ruler. "
+                found="Row: the continuous maps from that probe into the ruler. "
                       "Backwards travel: compose &mdash; go in along the map, "
-                      "then walk. Gluing: yes, because gentleness is checked "
-                      "piece by piece, so a rule that is gentle on each piece "
-                      "of a cover and consistent on the overlaps is gentle "
+                      "then apply the original map. Gluing works because continuity is checked "
+                      "piece by piece, so a rule that is continuous on each piece "
+                      "of a cover and consistent on the overlaps is continuous "
                       "overall. All three hold with no cleverness at all, "
                       "which is the point: the demands were chosen to be "
                       "things spaces already satisfy.",
@@ -372,13 +372,13 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=6",
             ),
         ),
-        hold="A condensed set is a table of answers to probes obeying cut and "
-             "glue. Spaces produce them; not all of them come from spaces.",
+        hold="A condensed set assigns answers to probes with compatible "
+             "restriction and gluing. Ordinary spaces provide examples, but not every example.",
     ),
 
     Brick(
         slug="probes-that-need-no-glue",
-        title="The probes where gluing is free",
+        title="Probes where gluing is automatic",
         idea="On probes whose covers can always be undone, the gluing demand "
              "is automatic &mdash; and every probe is covered by one of those.",
         need=(
@@ -460,7 +460,7 @@ BRICKS = (
                           "T &compfn; s = id",
                 reading="The two-headed arrow &#8608; means the map hits "
                         "everything. The line says a section s exists: a "
-                        "gentle way of choosing a point upstairs over every "
+                        "continuous way of choosing a point upstairs over every "
                         "point downstairs, undoing the cover exactly. On such "
                         "probes, sheaves and mere tables of answers agree, "
                         "which is Proposition 2.7 of the lectures.",
@@ -468,8 +468,8 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=12",
             ),
         ),
-        hold="On probes whose covers all split, the gluing demand is free, and "
-             "every probe is covered by one of those.",
+        hold="Gluing is automatic on probes whose covers split, and every probe "
+             "can be covered by one of these easier probes.",
     ),
 )
 
@@ -477,9 +477,9 @@ BRICKS = (
 WORLD = World(
     number=5,
     slug="the-answer-sheet",
-    title="The table of answers becomes the object",
-    promise="By the end you will have replaced the idea of a space with "
-            "something that has no points in it at all, and seen why the "
-            "replacement is not a loss.",
+    title="The answer table becomes the object",
+    promise="By the end, you will understand how a space can be replaced by "
+            "its responses to probes, why the replacement loses no "
+            "information, and how it allows meaningful objects with no points.",
     bricks=BRICKS,
 )

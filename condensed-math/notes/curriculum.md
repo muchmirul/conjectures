@@ -106,8 +106,8 @@ the first three of them are not condensed mathematics at all.
 | 2 nearness, and the one-way bridge | none | builds the dust and the ruler by hand, so Example 1.9 is something the reader made |
 | 3 the test that should have caught it | none | kernel and cokernel from nothing, then the confident wrong verdict |
 | 4 stop asking what is inside | I to II | probes, split by hand, and what a shape says to one |
-| 5 the table of answers becomes the object | I to II | restriction, gluing, condensed sets, extremally disconnected probes |
-| 6 the repair, checked against the specification | I to III | the ghost, the restored test, the receipt, the surviving holes |
+| 5 the answer table becomes the object | I to II | restriction, gluing, condensed sets, extremally disconnected probes |
+| 6 verify the repair | I to III | the missing object, the restored test, preserved spaces, and homology |
 | 7 sums that finally land | IV to VI | p-adic nearness, measures, solidity, the vanishing of the line |
 | 8 multiplying, and what it was all for | VII to XI | analytic rings, the exponent ceiling, the six operations, duality |
 

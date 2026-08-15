@@ -15,9 +15,9 @@ BRICKS = (
 
     Brick(
         slug="an-endless-sum",
-        title="Adding up a list that never ends",
-        idea="An infinite sum is not an act of adding. It is a limit, and it "
-             "exists only once a nearness rule has been chosen.",
+        title="How an infinite sum gets a value",
+        idea="An infinite sum is defined as a limit, so its value depends on "
+             "the chosen notion of nearness.",
         need=(
             "An abelian group: adding, a zero and opposites.",
             "A rule about nearness, and what it means to close in on "
@@ -98,13 +98,13 @@ BRICKS = (
                         "usual nearness the sum diverges, full stop.",
             ),
         ),
-        hold="An infinite sum is not an algebraic operation. It is a limit, "
-             "and it depends entirely on the chosen nearness.",
+        hold="An infinite sum is a limit rather than an ordinary algebraic "
+             "operation, and its value depends on the chosen nearness rule.",
     ),
 
     Brick(
         slug="another-nearness",
-        title="A different answer to what is near",
+        title="A different notion of nearness",
         idea="Declare two numbers close when their difference is divisible by "
              "a high power of two, and one plus two plus four plus eight adds "
              "to &minus;1.",
@@ -189,14 +189,13 @@ BRICKS = (
                         "in exact arithmetic, both sizes side by side.",
             ),
         ),
-        hold="Under the base-two nearness, one plus two plus four plus eight "
-             "adds to &minus;1. The sum was never well-posed without a "
-             "nearness.",
+        hold="With 2-adic nearness, the series 1 + 2 + 4 + 8 + &hellip; "
+             "converges to &minus;1. A nearness rule is what makes the sum meaningful.",
     ),
 
     Brick(
         slug="weights",
-        title="Weights that agree with each other",
+        title="Compatible weights on every stage",
         idea="A measure on a probe is a tower of weights in which every box "
              "weighs exactly what the boxes inside it weigh.",
         need=(
@@ -278,13 +277,13 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=26",
             ),
         ),
-        hold="A measure on a probe is a compatible tower of weights, and "
-             "integrating against one does not depend on the stage.",
+        hold="A measure gives compatible weights at every stage of a probe, so "
+             "integration produces the same result at any stage.",
     ),
 
     Brick(
         slug="the-solid-rule",
-        title="Exactly one answer, always",
+        title="Give every infinite sum one answer",
         idea="An object is solid when every endless sum in it has exactly one "
              "answer, with no choice of nearness left to make.",
         need=(
@@ -377,14 +376,13 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=34",
             ),
         ),
-        hold="Solid means every endless sum has exactly one answer, and the "
-             "building blocks are plain products of copies of the whole "
-             "numbers.",
+        hold="A solid object gives each allowed infinite sum exactly one value "
+             "and is built from products of copies of the integers.",
     ),
 
     Brick(
         slug="where-the-line-goes",
-        title="The ruler does not survive",
+        title="Why the real line becomes zero",
         idea="Solidify the real line with respect to the base-p rule and it "
              "becomes zero &mdash; a true report about divisibility, not a "
              "defect.",
@@ -478,8 +476,8 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=42",
             ),
         ),
-        hold="Under the base-p rule the real line completes to zero, which is "
-             "a true report about divisibility rather than a defect.",
+        hold="Under the p-adic rule, the real line completes to zero. This "
+             "correctly reflects its unique p-divisibility rather than indicating a defect.",
     ),
 )
 
@@ -487,9 +485,9 @@ BRICKS = (
 WORLD = World(
     number=7,
     slug="sums-that-land",
-    title="Sums that finally land",
-    promise="By the end you will have added one and two and four and eight "
-            "and got &minus;1, and you will know exactly why that is not a "
-            "trick.",
+    title="Infinite sums with well-defined values",
+    promise="By the end, you will understand why 1 + 2 + 4 + 8 + &hellip; "
+            "converges to &minus;1 in the 2-adic setting, how measures encode "
+            "compatible sums, and what it means for an object to be solid.",
     bricks=BRICKS,
 )

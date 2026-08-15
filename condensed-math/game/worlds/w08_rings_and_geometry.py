@@ -15,7 +15,7 @@ BRICKS = (
 
     Brick(
         slug="multiplying-too",
-        title="A ring that carries its own rule",
+        title="A ring with a rule for convergence",
         idea="An analytic ring is a ring together with a rule saying which "
              "sums land &mdash; and the rule must survive multiplication.",
         need=(
@@ -105,13 +105,13 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=51",
             ),
         ),
-        hold="An analytic ring is a ring together with a rule for which sums "
-             "land, and the rule must survive multiplication.",
+        hold="An analytic ring combines a ring with a convergence rule that is "
+             "compatible with multiplication.",
     ),
 
     Brick(
         slug="the-exponent-ceiling",
-        title="Why one is the ceiling",
+        title="Why the exponent cannot exceed one",
         idea="Merging boxes may not increase a measure, and that single demand "
              "forces the exponent in the real line's rule to be at most one.",
         need=(
@@ -196,13 +196,13 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=55",
             ),
         ),
-        hold="Merging boxes may not increase a measure, and that alone forces "
-             "the exponent to be at most one.",
+        hold="Because merging boxes cannot increase a measure, the exponent in "
+             "this construction must be at most one.",
     ),
 
     Brick(
         slug="near-the-edge",
-        title="Functions that fade out at the edge",
+        title="Functions that vanish near the boundary",
         idea="Keeping only the functions that fade out before the edge is what "
              "makes a total over an unbounded space finite.",
         need=(
@@ -287,14 +287,13 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=60",
             ),
         ),
-        hold="Functions that fade out before the edge are what make totals "
-             "over an unbounded space finite, and they are one of six "
-             "operations.",
+        hold="Compact support makes totals over unbounded spaces finite and "
+             "provides one of the six fundamental operations.",
     ),
 
     Brick(
         slug="duality",
-        title="The theorem the course was pointing at",
+        title="The duality theorem",
         idea="In this setting duality is not constructed. It is the existence "
              "of a partner to the extend-by-zero operation, forced by a formal "
              "pairing.",
@@ -390,15 +389,15 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=78",
             ),
         ),
-        hold="Duality stops being a construction and becomes the existence of "
-             "an adjoint, which is why the foundations were worth rebuilding.",
+        hold="In this framework, duality follows from the existence of an "
+             "adjoint. The rebuilt foundations make that formal argument possible.",
     ),
 
     Brick(
         slug="where-you-stand-now",
-        title="Where you stand",
-        idea="You now hold the shape of the subject and the vocabulary to read "
-             "the lectures. The proofs are what remain.",
+        title="What you can read next",
+        idea="You now understand the subject's overall structure and enough "
+             "vocabulary to begin reading the lectures. The detailed proofs come next.",
         need=(
             "Everything from worlds 1 to 8.",
         ),
@@ -486,8 +485,8 @@ BRICKS = (
                 url="https://arxiv.org/abs/2605.03658",
             ),
         ),
-        hold="You have the shape of the subject and the vocabulary to read the "
-             "lectures. That was the whole aim.",
+        hold="You now have a conceptual map of condensed mathematics and the "
+             "vocabulary needed to approach the lectures.",
     ),
 )
 
@@ -495,9 +494,9 @@ BRICKS = (
 WORLD = World(
     number=8,
     slug="rings-and-geometry",
-    title="Multiplying, and what it was all for",
-    promise="By the end you will have pushed an exponent past the point where "
-            "the arithmetic breaks, and you will know what the eight worlds "
-            "were buying.",
+    title="From multiplication to duality",
+    promise="By the end, you will understand analytic rings, why a key exponent "
+            "cannot exceed one, how compact support enters the theory, and how "
+            "the rebuilt foundations lead to a duality theorem.",
     bricks=BRICKS,
 )

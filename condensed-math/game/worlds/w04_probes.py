@@ -15,9 +15,9 @@ BRICKS = (
 
     Brick(
         slug="a-different-question",
-        title="Stop asking what is inside",
-        idea="Describe a space not by the points it contains but by everything "
-             "that can walk into it gently.",
+        title="Describe a space from the outside",
+        idea="Instead of listing a space's points, describe it through all the "
+             "continuous maps from test spaces into it.",
         need=(
             "That the leftover on the bridge is real and has no members.",
             "A map: every member of the source answered exactly once.",
@@ -26,7 +26,7 @@ BRICKS = (
             Say("The repair begins by changing the question. Instead of "
                 "<em>which points does this space contain</em>, ask "
                 "<em>what can walk into it, gently, without tearing</em>."),
-            Say("Every gentle walk is a continuous map into the space. The "
+            Say("Every continuous map is a continuous map into the space. The "
                 "collection of all of them, from every possible walker, is a "
                 "description &mdash; and unlike the list of points, it is a "
                 "description the nearness rule controls completely."),
@@ -55,7 +55,7 @@ BRICKS = (
                      "change of question is worth making."),
                     ("Only if I use enough walks",
                      "The right worry, and the answer is to use all of them at "
-                     "once. Not a chosen sample: every gentle walk from every "
+                     "once. Not a chosen sample: every continuous map from every "
                      "possible walker. Then nothing can hide."),
                 ),
                 after="Now the question becomes: which walkers? Choose them "
@@ -66,15 +66,15 @@ BRICKS = (
         experiment=(
             Try(
                 steps=(
-                    "Let the walker be a single point, and count the gentle "
+                    "Let the walker be a single point, and count the continuous "
                     "walks from it into the dust.",
-                    "Count the gentle walks from a single point into the "
+                    "Count the continuous maps from a single point into the "
                     "ruler.",
                     "Compare the two counts.",
                     "Now say what walker you would need in order to get "
                     "different answers.",
                 ),
-                found="Both counts are the same: one gentle walk per number, "
+                found="Both counts are the same: one continuous map per number, "
                       "in each case, because a map from a single point is just "
                       "a choice of destination and nothing can tear. So the "
                       "one-point walker sees exactly what counting members "
@@ -85,7 +85,7 @@ BRICKS = (
                       "and you now know why it has to be infinite.",
             ),
             Name(
-                plain="a gentle walk into a space",
+                plain="a continuous map into a space",
                 standard="a continuous map into the space",
                 notation="S &rarr; X",
                 why="The walker S is a space in its own right, and the walk is "
@@ -97,18 +97,18 @@ BRICKS = (
                 reading="C(S, X) is the standard name for all continuous maps "
                         "from S to X. The squiggly arrow means <em>is replaced "
                         "by</em>. So: instead of the space X itself, keep the "
-                        "rule that takes any walker S and returns every gentle "
+                        "rule that takes any walker S and returns every continuous "
                         "walk from S into X. The rest of this world decides "
                         "which S are allowed.",
             ),
         ),
-        hold="A space can be described by everything that walks into it "
-             "gently, rather than by the points it contains.",
+        hold="A space can be described by all continuous maps into it, not "
+             "only by the points it contains.",
     ),
 
     Brick(
         slug="splitting-forever",
-        title="One box, split forever",
+        title="A box that keeps splitting",
         idea="A probe is a tower of finite stages, each stage splitting the "
              "boxes of the one before, with every box remembering its parent.",
         need=(
@@ -185,13 +185,13 @@ BRICKS = (
                         "compatible family is a point of S.",
             ),
         ),
-        hold="A probe is a tower of finite stages with backwards maps. Every "
-             "stage is finite; a point is an endless compatible choice.",
+        hold="A probe is a tower of finite stages connected by backward maps. "
+             "A point is a compatible choice that continues through every stage.",
     ),
 
     Brick(
         slug="other-probes",
-        title="Three shapes of walker",
+        title="Three kinds of probe",
         idea="Any tower of finite stages is a probe, and different splitting "
              "rules give walkers of very different shapes.",
         need=(
@@ -216,7 +216,7 @@ BRICKS = (
                 (
                     ("Because then every question is settled by finitely much",
                      "That is the payoff, and it is worth more than it looks. "
-                     "Any gentle map out of such a walker is decided at some "
+                     "Any continuous map out of such a walker is decided at some "
                      "finite stage. Endless objects usually resist "
                      "computation; these do not, because all the work happens "
                      "in a finite picture."),
@@ -271,31 +271,30 @@ BRICKS = (
                         "quoted.",
             ),
         ),
-        hold="Probes come in many shapes. The only demand is that every stage "
-             "be finite and remember the stage before it.",
+        hold="Probes can have many shapes, but every stage must be finite and "
+             "must record how it relates to the previous stage.",
     ),
 
     Brick(
         slug="what-a-shape-says",
-        title="Asking a shape a question",
-        idea="What a space says to a probe is the collection of gentle walks "
-             "from that probe into it &mdash; and dust and ruler say "
-             "different things.",
+        title="Use a probe to question a space",
+        idea="A space responds to a probe through the collection of continuous "
+             "maps from that probe into the space. The dust and ruler respond differently.",
         need=(
             "A probe: a tower of finite stages.",
-            "A gentle map: one that does not tear.",
+            "A continuous map: one that does not tear.",
         ),
         concept=(
             Say("Now walk a probe into a space and keep what comes back. For "
-                "each probe, the answer is the collection of gentle walks from "
+                "each probe, the answer is the collection of continuous maps from "
                 "it into the space."),
             Say("Send the approaching walker into the ruler: it can arrive, "
                 "because arriving is allowed there. Send it into the dust and "
-                "the only gentle walks are the ones that give up and settle on "
+                "the only continuous maps are the ones that give up and settle on "
                 "finitely many values. Two different answers to one question."),
         ),
         intuition=(
-            Say("A gentle walk out of a probe is decided box by box: choose a "
+            Say("A continuous map out of a probe is decided box by box: choose a "
                 "value on each box of some stage, and you have described a "
                 "walk. So the answers are not mysterious objects &mdash; they "
                 "are choices on a finite picture, and you can count them."),
@@ -324,10 +323,10 @@ BRICKS = (
         experiment=(
             Play(
                 widget="landings",
-                prompt="Count the gentle walks from a probe into a two-point "
+                prompt="Count the continuous maps from a probe into a two-point "
                        "target, stage by stage.",
                 notice="The count at stage n is 2 raised to the number of "
-                       "boxes at that stage, because a gentle walk is exactly "
+                       "boxes at that stage, because a continuous map is exactly "
                        "one choice of value per box. It is the same count you "
                        "made by hand in world 1 with three numbers and two "
                        "colours &mdash; the same shape of answer, now indexing "
@@ -335,10 +334,10 @@ BRICKS = (
                 params={"kind": "halving"},
             ),
             Name(
-                plain="what a shape says to a probe",
+                plain="how a space responds to a probe",
                 standard="the set of continuous maps from the probe",
                 notation="X(S) = C(S, X)",
-                why="Read X(S) as <em>what X says to S</em>. The space is "
+                why="Read X(S) as <em>how X responds to S</em>. The space is "
                     "beginning to be treated as a rule that answers probes, "
                     "which is what it will become in the next world.",
             ),
@@ -348,7 +347,7 @@ BRICKS = (
                           "&#8477;)",
                 reading="The subscript lc means locally constant: a map that "
                         "is constant on each box of some finite stage. Those "
-                        "are exactly the gentle maps into the dust, since "
+                        "are exactly the continuous maps into the dust, since "
                         "anything finer would have to tear. The two answers "
                         "differ for any probe with infinitely many points, and "
                         "that difference is the whole content of Example 1.9 "
@@ -357,13 +356,13 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=9",
             ),
         ),
-        hold="A space answers each probe with the gentle walks from it. Dust "
-             "and ruler give different answers to the same probe.",
+        hold="Each probe produces a collection of continuous maps into the "
+             "space. The right probe distinguishes the dust from the ruler.",
     ),
 
     Brick(
         slug="why-this-works",
-        title="Why finite stages were the right demand",
+        title="Why probes use finite stages",
         idea="Finite stages make the answers computable; infinitely many "
              "stages make crowding expressible. Both halves are load-bearing.",
         need=(
@@ -376,7 +375,7 @@ BRICKS = (
                 "arriving can be expressed at all."),
             Say("Drop either and the construction fails. A finite walker sees "
                 "nothing, because any map out of a finite collection is "
-                "gentle on any target. An infinite stage would put the answers "
+                "continuous on any target. An infinite stage would put the answers "
                 "out of computational reach."),
         ),
         intuition=(
@@ -415,17 +414,17 @@ BRICKS = (
                 steps=(
                     "Take the walker with exactly two points and no further "
                     "stages.",
-                    "Count the gentle walks from it into the dust, and then "
+                    "Count the continuous maps from it into the dust, and then "
                     "into the ruler.",
                     "Now take the approaching walker and ask whether the walk "
-                    "that arrives at the destination is gentle into the ruler, "
+                    "that arrives at the destination is continuous into the ruler, "
                     "and then into the dust.",
                 ),
                 found="For the two-point walker the counts agree: any map from "
-                      "a finite collection is gentle, whatever the target, so "
+                      "a finite collection is continuous, whatever the target, so "
                       "a finite walker cannot separate dust from ruler at all. "
                       "For the approaching walker they part company: the "
-                      "arriving walk is gentle into the ruler and not gentle "
+                      "arriving walk is continuous into the ruler and not continuous "
                       "into the dust, because on the dust arriving means "
                       "tearing. That single contrast is the reason the tower "
                       "has to be infinite, and you have just found it "
@@ -449,14 +448,14 @@ BRICKS = (
                 reading="colim<sub>&#8594;</sub> is the forwards companion of "
                         "the inverse limit: it collects everything that "
                         "appears at some finite stage. The line says that a "
-                        "gentle map from an infinite probe into a finite "
+                        "continuous map from an infinite probe into a finite "
                         "target is always already visible at one finite stage. "
                         "That is the computability the finiteness bought, "
                         "stated exactly.",
             ),
         ),
-        hold="Finite stages make answers computable; infinitely many stages "
-             "make crowding expressible. Both demands are load-bearing.",
+        hold="Finite stages keep each calculation manageable, while an "
+             "infinite tower can still express arbitrarily fine crowding.",
     ),
 )
 
@@ -464,9 +463,9 @@ BRICKS = (
 WORLD = World(
     number=4,
     slug="probes",
-    title="Stop asking what is inside",
-    promise="By the end you will have built the one new object in the "
-            "subject with your own hands, and watched it separate two spaces "
-            "that counting members could not.",
+    title="Study spaces with probes",
+    promise="By the end, you will have built the subject's basic test objects "
+            "from finite stages and used one to distinguish two spaces that "
+            "point-counting could not tell apart.",
     bricks=BRICKS,
 )

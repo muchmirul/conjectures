@@ -14,7 +14,7 @@ BRICKS = (
 
     Brick(
         slug="the-ghost",
-        title="The leftover, at last visible",
+        title="Make the missing information visible",
         idea="In the condensed world the leftover of the bridge is zero on "
              "points and non-zero on larger probes: the object world 3 said "
              "would be needed.",
@@ -34,7 +34,7 @@ BRICKS = (
                 "walks the dust does not, and those are exactly the leftover."),
         ),
         intuition=(
-            Say("A gentle walk into the dust must be constant on some box of "
+            Say("A continuous map into the dust must be constant on some box of "
                 "some stage &mdash; it has to settle down, because arriving is "
                 "forbidden. So to find something in the leftover you want a "
                 "continuous function that refuses to be constant on any box, "
@@ -87,9 +87,9 @@ BRICKS = (
             Math(
                 statement="Q(S) = C(S, &#8477;) / "
                           "C<sub>lc</sub>(S, &#8477;) &nbsp;&ne;&nbsp; 0",
-                reading="C(S, &#8477;) is every gentle walk from the probe "
+                reading="C(S, &#8477;) is every continuous map from the probe "
                         "into the ruler; the subscript lc restricts to the "
-                        "locally constant ones, which are exactly the gentle "
+                        "locally constant ones, which are exactly the continuous "
                         "walks into the dust. The slash declares the second "
                         "collection to be zero inside the first. For any probe "
                         "with infinitely many points there is a continuous "
@@ -101,13 +101,13 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=9",
             ),
         ),
-        hold="The leftover on the bridge now exists as an object: zero on "
-             "points, non-zero on probes.",
+        hold="The bridge's missing information now forms an object that is "
+             "zero on points but nonzero on larger probes.",
     ),
 
     Brick(
         slug="the-test-restored",
-        title="The two measurements can be trusted again",
+        title="Kernels and cokernels work again",
         idea="Run the test on the bridge in the new world and it returns the "
              "right verdict, because the leftover now has somewhere to live.",
         need=(
@@ -194,13 +194,13 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=9",
             ),
         ),
-        hold="In the condensed world the two measurements decide sameness "
-             "again, and on the bridge they now return the right verdict.",
+        hold="In the condensed setting, kernels and cokernels detect "
+             "isomorphisms again and correctly identify the bridge as non-invertible.",
     ),
 
     Brick(
         slug="nothing-was-lost",
-        title="The receipt",
+        title="Verify that ordinary spaces are preserved",
         idea="Ordinary spaces sit inside the condensed world with exactly "
              "their old maps between them, and no new ones.",
         need=(
@@ -252,12 +252,12 @@ BRICKS = (
                     "Ask whether there is a map of tables from the ruler back "
                     "to the dust.",
                     "Compare your two answers with what world 2 said about "
-                    "gentle maps in each direction.",
+                    "continuous maps in each direction.",
                 ),
-                found="The bridge is a map of tables: a gentle walk into the "
-                      "dust is in particular a gentle walk into the ruler, "
+                found="The bridge is a map of tables: a continuous map into the "
+                      "dust is in particular a continuous map into the ruler, "
                       "row by row. Backwards there is nothing, because a "
-                      "gentle walk into the ruler need not be locally "
+                      "continuous map into the ruler need not be locally "
                       "constant, so there is no rule sending it anywhere in "
                       "the dust's row. Exactly the situation world 2 "
                       "described, reproduced with no new maps invented and "
@@ -286,13 +286,13 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=8",
             ),
         ),
-        hold="Ordinary spaces sit inside the condensed world unchanged, with "
-             "exactly their old maps and no new ones.",
+        hold="Ordinary spaces embed in the condensed setting without losing or "
+             "gaining maps between them.",
     ),
 
     Brick(
         slug="holes-survive",
-        title="The holes are still there",
+        title="Topological holes are preserved",
         idea="The holes of a shape, torsion included, come out of the "
              "condensed setting exactly as they came out of the old one.",
         need=(
@@ -377,15 +377,15 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=17",
             ),
         ),
-        hold="Holes, torsion included, come out of the condensed setting "
-             "exactly as they came out of the old one.",
+        hold="The condensed setting preserves homology, including torsion, so "
+             "the familiar holes of a space remain detectable.",
     ),
 
     Brick(
         slug="where-you-stand",
-        title="What you are now holding",
-        idea="All three demands of the specification are met, and what remains "
-             "is infinite sums, and then multiplication.",
+        title="Review the completed repair",
+        idea="The construction now satisfies all three requirements from World "
+             "3. The next step is to handle infinite sums and multiplication.",
         need=(
             "Everything from worlds 1 to 6.",
         ),
@@ -437,7 +437,7 @@ BRICKS = (
                 ),
                 found="Serviceable answers: a probe is a tower of finite "
                       "stages, each remembering the one above it. A condensed "
-                      "set is the table of gentle walks from every probe, "
+                      "set is the table of continuous maps from every probe, "
                       "obeying cut and glue. The dust and the ruler have the "
                       "same members and different nearness, so the cokernel "
                       "reads zero and the algebra returns a false verdict; in "
@@ -446,7 +446,7 @@ BRICKS = (
                       "are carrying the first three lectures.",
             ),
             Name(
-                plain="what you have built",
+                plain="what you have learned",
                 standard="condensed sets and condensed abelian groups, "
                          "Lectures I to III",
                 notation="Cond(Set), Cond(Ab)",
@@ -469,8 +469,8 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=6",
             ),
         ),
-        hold="The specification from world 3 is met in full. What remains is "
-             "infinite sums, and then multiplication.",
+        hold="The repair meets every requirement from World 3. The remaining "
+             "challenge is to extend it to infinite sums and multiplication.",
     ),
 )
 
@@ -478,9 +478,9 @@ BRICKS = (
 WORLD = World(
     number=6,
     slug="the-repair",
-    title="The repair, checked against the specification",
-    promise="By the end you will have watched the impossible object appear, "
-            "the broken test come back right, and the holes of a doughnut "
-            "survive the move intact.",
+    title="Verify the repair",
+    promise="By the end, you will have seen the missing object become visible, "
+            "watched the broken algebraic test return the correct result, and "
+            "confirmed that familiar topological information survives.",
     bricks=BRICKS,
 )
