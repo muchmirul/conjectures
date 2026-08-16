@@ -1,7 +1,7 @@
 """World 2.  Nearness as a second layer, and the two real lines.
 
 Everything here is standard point-set topology, but it is built from the
-reader's own hands rather than from axioms: a rule about which things count as
+reader's own hands instead of from axioms: a rule about which things count as
 close, a continuous map, and then the single example that the whole of
 condensed mathematics is a response to.
 """
@@ -16,24 +16,23 @@ BRICKS = (
     Brick(
         slug="nearness-is-extra",
         title="Nearness is extra information",
-        idea="A collection tells us which things are present. A separate "
-             "nearness rule tells us how those things relate in space.",
+        idea="A collection tells you what is there. A separate nearness rule "
+             "tells you which things count as close.",
         need=(
             "A collection: which things you meant, and nothing more.",
         ),
         concept=(
             Say("Start with all the numbers on a line. The collection tells "
-                "you which numbers are included. Now add another piece of "
-                "information: how far apart any two numbers are."),
-            Say("That addition is genuinely extra. Nothing about "
-                "<em>which numbers you meant</em> told you that 0.999 sits "
-                "near 1. You had to supply it, and you could have supplied "
-                "something else instead."),
+                "you which numbers are included. Then add a rule that says "
+                "when two numbers are close."),
+            Say("That closeness rule is extra information. The list alone "
+                "never says that 0.999 is near 1, and another rule could treat "
+                "those two numbers differently."),
         ),
         intuition=(
             Say("A crowd in a room is one collection of people whether they "
                 "are packed together or spread out. Where they stand is real "
-                "information, and it is not the guest list. The line is the "
+                "information, and it isn't the guest list. The line is the "
                 "same: which numbers, and how they sit, are two separate "
                 "records."),
             Ask(
@@ -53,7 +52,7 @@ BRICKS = (
                     ("Just the number 1",
                      "That would be a perfectly consistent rule about nearness "
                      "&mdash; and in the very next brick it is the rule we "
-                     "will adopt on purpose. But it is not the usual rule for "
+                     "will adopt on purpose. But it isn't the usual rule for "
                      "distance, where the window always contains a crowd."),
                 ),
             ),
@@ -95,27 +94,25 @@ BRICKS = (
                         "of all such numbers, the real numbers.",
             ),
         ),
-        hold="A space combines a collection with a rule for nearness. The same "
-             "collection can support many different nearness rules.",
+        hold="A space is a collection plus a nearness rule. The same items can "
+             "use many different rules for what counts as close.",
     ),
 
     Brick(
         slug="the-dust",
         title="A rule where every point stands alone",
-        idea="Keep exactly the same numbers and adopt the opposite rule: "
-             "nothing is near anything. That is legal, and it produces a "
-             "different space.",
+        idea="Keep the same numbers but use the opposite rule: every point "
+             "stands alone. The result is a different space.",
         need=(
             "A collection, and the idea that nearness is a separate layer laid "
             "on top of it.",
         ),
         concept=(
-            Say("A nearness rule can be as ungenerous as you like. The least "
-                "generous one declares every member to stand alone, with room "
-                "around it containing nobody else."),
-            Say("Call the numbers under that rule <strong>the dust</strong>, "
-                "and the numbers under ordinary distance <strong>the "
-                "ruler</strong>. Same members. Opposite second layers."),
+            Say("A nearness rule can isolate every point. Around each point, "
+                "you can draw a tiny region that contains nobody else."),
+            Say("Call this version <strong>the dust</strong>. Call the usual "
+                "number line <strong>the ruler</strong>. They contain the same "
+                "numbers but treat closeness in opposite ways."),
         ),
         intuition=(
             Say("A printed line and a line of full stops carry the same "
@@ -150,10 +147,10 @@ BRICKS = (
                 prompt="The same window, now on the dust. Shrink it and count "
                        "again.",
                 notice="On the dust the count is one before you start, and "
-                       "shrinking cannot change it. Each number is its own "
+                       "shrinking can't change it. Each number is its own "
                        "island. The collection is identical to the ruler's "
                        "&mdash; every number is present in both &mdash; and "
-                       "yet the two pictures could not look less alike.",
+                       "yet the two pictures couldn't look less alike.",
                 params={"target": 1.0, "discrete": True},
             ),
             Name(
@@ -171,35 +168,33 @@ BRICKS = (
                         "counts as open, including the one-member collections "
                         "written {x}. On the ruler that is false: a single "
                         "point has no room around it that contains only "
-                        "itself, so {x} is not open there. That one difference "
+                        "itself, so {x} isn't open there. That one difference "
                         "is the entire difference between the two.",
             ),
         ),
-        hold="The dust and the ruler contain the same numbers but use different "
-             "nearness rules: every point is isolated in the dust, while the "
-             "ruler is densely connected.",
+        hold="The dust and ruler use the same numbers. In the dust every point "
+             "is isolated; on the ruler nearby numbers crowd together.",
     ),
 
     Brick(
         slug="no-tearing",
         title="Maps that preserve nearness",
-        idea="A map is continuous when the points that land in any open region "
-             "of the target form an open region in the source.",
+        idea="A map is continuous when pulling any open target region back "
+             "gives an open region in the source.",
         need=(
             "A map: every member of the source answered exactly once.",
             "A rule about nearness on each side.",
         ),
         concept=(
-            Say("Once both sides carry a nearness rule, a map can be asked to "
-                "be continuous: it may stretch and squash, but it may not tear "
-                "apart what was joined."),
-            Say("The clean way to say it avoids the word close entirely, and "
-                "looks backwards. Take any open piece of the target, and ask "
-                "which members of the source land in it. If that answer is "
-                "always an open piece of the source, the map does not tear."),
+            Say("When both sides have a nearness rule, we can ask whether a map "
+                "is continuous. It may stretch or squash things, but it cannot "
+                "tear apart points that belong together."),
+            Say("Here is the exact check. Pick any open region in the target "
+                "and collect every source point that lands there. If that "
+                "collection is always open, the map is continuous."),
         ),
         intuition=(
-            Say("Squashing is allowed and pulling apart is not. Think of "
+            Say("Squashing is allowed and pulling apart isn't. Think of "
                 "pressing a sheet of dough: two points may be pushed together, "
                 "but the sheet is never ripped. The backwards test is the "
                 "precise version of that asymmetry."),
@@ -207,8 +202,8 @@ BRICKS = (
                 "The dust is the source, the ruler the target, and every "
                 "number goes to itself. Does this map tear anything?",
                 (
-                    ("No, it cannot",
-                     "It cannot, and the reason is almost a cheat: on the dust "
+                    ("No, it can't",
+                     "It can't, and the reason is almost a cheat: on the dust "
                      "<em>every</em> piece is open, so whatever the answer "
                      "looking backwards turns out to be, it was open already. "
                      "The dust makes every map out of it continuous. Nothing is "
@@ -220,7 +215,7 @@ BRICKS = (
                      "dust nothing was ever joined, so there is nothing to "
                      "pull apart."),
                     ("It depends which numbers",
-                     "It does not: the test passes for every open piece at "
+                     "It doesn't: the test passes for every open piece at "
                      "once, uniformly. On the dust every possible answer "
                      "counts as open, so no piece can fail the test."),
                 ),
@@ -237,12 +232,12 @@ BRICKS = (
                     "Ask whether that answer is an open piece of the ruler.",
                 ),
                 found="The answer is the single number 1, and a single point "
-                      "is not an open piece of the ruler: it has no room "
+                      "isn't an open piece of the ruler: it has no room "
                       "around it containing only itself. So the test fails, "
-                      "and this direction is not continuous. Notice what you just "
+                      "and this direction isn't continuous. Notice what you just "
                       "did: the same rule &mdash; every number to itself "
                       "&mdash; passed the test one way and failed it the "
-                      "other. Continuity is not a property of the rule alone. "
+                      "other. Continuity isn't a property of the rule alone. "
                       "It is a property of the rule together with a "
                       "direction.",
             ),
@@ -251,7 +246,7 @@ BRICKS = (
                 standard="a continuous map",
                 notation="f<sup>&minus;1</sup>(U) open whenever U is open",
                 why="The notation f<sup>&minus;1</sup>(U) means <em>everything "
-                    "that lands in U</em>. It is not an undo rule; it is a "
+                    "that lands in U</em>. It isn't an undo rule; it is a "
                     "question asked backwards, and it makes sense even when "
                     "nothing can be undone.",
             ),
@@ -264,36 +259,35 @@ BRICKS = (
                         "itself. Read left to right, the first line says that "
                         "going dust to ruler never tears. The second says that "
                         "the same rule read the other way does tear, because "
-                        "one point is open on the dust and is not open on the "
+                        "one point is open on the dust and isn't open on the "
                         "ruler. The rule is the same rule; only the direction "
                         "changed.",
             ),
         ),
-        hold="Continuity is checked by pulling open regions back to the source. "
-             "A map can be continuous in one direction but not the other.",
+        hold="Check continuity by pulling open regions back to the source. A "
+             "map can pass this test one way and fail it on the way back.",
     ),
 
     Brick(
         slug="the-one-way-bridge",
-        title="A perfect matching that is not an equivalence",
-        idea="Dust to ruler is a perfect matching of members and a continuous map, "
-             "and it is still not a sameness of spaces.",
+        title="A perfect matching that isn't an equivalence",
+        idea="The dust-to-ruler map matches every point and is continuous, but "
+             "it still does not make the spaces equivalent.",
         need=(
             "Being the same, for collections: a map across, and a map back "
             "that undoes it.",
             "Continuity: the backwards test on open pieces.",
         ),
         concept=(
-            Say("Assemble what you have. Dust to ruler, every number to "
-                "itself. As a matching of collections it is flawless: nothing "
-                "unmatched, nothing doubled, and there is an obvious way "
-                "back."),
-            Say("As a map of spaces it is one-way: across is continuous, back is "
-                "not. So the pair of maps that sameness demanded does not "
-                "exist, even though the pair of matchings does."),
+            Say("Map each number in the dust to the same number on the ruler. "
+                "As a plain matching, it is perfect: every point is used once, "
+                "and the matching clearly runs backward."),
+            Say("As a map of spaces, though, it only works one way. Dust to "
+                "ruler is continuous; ruler to dust is not. So the spaces are "
+                "not equivalent."),
         ),
         intuition=(
-            Say("A photocopy that can be made but not unmade is not the same "
+            Say("A photocopy that can be made but not unmade isn't the same "
                 "document as its original. Here the copying is faultless "
                 "member by member, and the unmaking is impossible for reasons "
                 "that have nothing to do with the members."),
@@ -303,7 +297,7 @@ BRICKS = (
                     ("No, because the way back tears",
                      "That is the verdict. Sameness demanded a map across and "
                      "a map back, and here <em>both maps must be continuous</em>. "
-                     "One of them is not. The perfect matching of members is "
+                     "One of them isn't. The perfect matching of members is "
                      "not enough, and this is the first time in the game that "
                      "matching the members has failed to settle a question."),
                     ("Yes, they have the same members",
@@ -314,7 +308,7 @@ BRICKS = (
                      "exactly the moment it stops being enough."),
                     ("Half the same",
                      "Closer than it sounds. There is a genuine map one way "
-                     "and no map back, so the two sit in an order rather than "
+                     "and no map back, so the two sit in an order instead of "
                      "in a sameness: the dust is finer than the ruler. But "
                      "<em>same</em> is a yes-or-no test, and the answer is "
                      "no."),
@@ -337,7 +331,7 @@ BRICKS = (
             ),
             Name(
                 plain="a one-way bridge",
-                standard="a continuous bijection that is not a homeomorphism",
+                standard="a continuous bijection that isn't a homeomorphism",
                 notation="&#8477;<sub>disc</sub> &rarr; &#8477;, "
                          "bijective, not an isomorphism",
                 why="A homeomorphism is the real sameness for spaces: continuous "
@@ -348,7 +342,7 @@ BRICKS = (
                 statement="&#8477;<sub>disc</sub> &#8594; &#8477; "
                           "bijective and continuous, &nbsp; "
                           "&#8477;<sub>disc</sub> &#8802; &#8477;",
-                reading="The crossed symbol &#8802; is read <em>is not "
+                reading="The crossed symbol &#8802; is read <em>isn't "
                         "isomorphic to</em>. The line records the whole "
                         "problem in one breath: a map that is continuous and "
                         "matches every member perfectly, and is still not a "
@@ -357,28 +351,25 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=9",
             ),
         ),
-        hold="A continuous bijection need not be an equivalence of spaces. "
-             "Matching every point does not guarantee that nearness is preserved.",
+        hold="A continuous bijection does not always make two spaces equivalent. "
+             "Matching the points is not enough; nearness must match too.",
     ),
 
     Brick(
         slug="badly-glued",
         title="When points and nearness stay disconnected",
-        idea="If membership and nearness are stored as separate layers, a "
-             "calculation using only one layer cannot detect information in the other.",
+        idea="If points and nearness live in separate layers, a calculation "
+             "using only the points cannot see the nearness information.",
         need=(
             "The one-way bridge, and why it fails to be a sameness.",
         ),
         concept=(
-            Say("Stand back from the example and look at the shape of the "
-                "trouble. A space is a collection with a nearness rule bolted "
-                "on. The bolt is the problem: the two layers sit side by side "
-                "and neither reaches into the other."),
-            Say("Ask a question about members and the nearness layer is "
-                "silent. Ask a question about nearness and the membership "
-                "layer cannot help. Almost everything works anyway &mdash; "
-                "until you do algebra, where the members are the whole of what "
-                "you can compute with."),
+            Say("Here is the basic problem: an ordinary space stores its points "
+                "and its nearness rule as two separate layers. The layers sit "
+                "next to each other without being fully connected."),
+            Say("A calculation about points can ignore nearness completely. "
+                "That becomes dangerous in algebra, because algebra usually "
+                "computes with the points and misses the extra layer."),
         ),
         intuition=(
             Say("It is the failure mode of any record kept in two files that "
@@ -394,7 +385,7 @@ BRICKS = (
                      "sounds. Rather than patching the bolt, the object is "
                      "replaced: a space stops being points-plus-a-rule and "
                      "becomes something else entirely, in which the nearness "
-                     "is not a separate layer at all."),
+                     "isn't a separate layer at all."),
                     ("Add rules until the layers agree",
                      "This was tried for decades, and the patches work in the "
                      "cases they were cut for. But each patch is local to its "
@@ -423,8 +414,8 @@ BRICKS = (
                 found="The two lists are identical, word for word, because the "
                       "member layer of the dust and the member layer of the "
                       "ruler are the same object. So a calculation that reads "
-                      "only members cannot tell you which one it is working "
-                      "on &mdash; and it will not report an error, because "
+                      "only members can't tell you which one it is working "
+                      "on &mdash; and it won't report an error, because "
                       "from where it stands nothing is missing. That is the "
                       "exact predicament of the next world: the standard "
                       "algebra test reads members, and it is about to give a "
@@ -443,7 +434,7 @@ BRICKS = (
             Math(
                 statement="&#8477;<sub>disc</sub> &rarr; &#8477; : "
                           "ker = 0, &nbsp; coker = 0, &nbsp; not an isomorphism",
-                reading="Two words you have not met yet, ker and coker, are "
+                reading="Two words you haven't met yet, ker and coker, are "
                         "left standing here on purpose. They are the two "
                         "measurements algebra makes on a map, and the next "
                         "world builds both from nothing. The line says that on "
@@ -454,8 +445,8 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=9",
             ),
         ),
-        hold="Ordinary algebra sees the points but not the separate nearness "
-             "layer, so it can miss essential topological information.",
+        hold="Ordinary algebra sees the points but can miss the separate "
+             "nearness layer and the topology stored there.",
     ),
 )
 
@@ -464,8 +455,8 @@ WORLD = World(
     number=2,
     slug="nearness",
     title="Nearness and a one-way bridge",
-    promise="By the end, you will have built two spaces from exactly the same "
-            "numbers. They match point for point, yet they are not the same "
-            "space. That gap motivates the rest of the course.",
+    promise="You will build two spaces from the same numbers. Their points "
+            "match perfectly, but the spaces do not. That mismatch sets up "
+            "the rest of the course.",
     bricks=BRICKS,
 )

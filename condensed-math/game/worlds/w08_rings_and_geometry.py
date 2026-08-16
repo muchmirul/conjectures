@@ -2,7 +2,7 @@
 
 Part three of the written guide, at the level of intuition the game can carry
 honestly: a ring carrying its own rule about which sums land, the reason the
-real line's rule cannot have an exponent above one, and the duality theorem
+real line's rule can't have an exponent above one, and the duality theorem
 that falls out of an adjoint once the setting is right.
 """
 
@@ -16,22 +16,14 @@ BRICKS = (
     Brick(
         slug="multiplying-too",
         title="A ring with a rule for convergence",
-        idea="An analytic ring is a ring together with a rule saying which "
-             "sums land &mdash; and the rule must survive multiplication.",
+        idea='An analytic ring is a ring with a rule for infinite sums, and multiplication must respect that rule.',
         need=(
             "An abelian group: adding, a zero and opposites.",
             "Solidity: a rule saying which endless sums land.",
         ),
         concept=(
-            Say("Everything so far could add. Most objects worth studying can "
-                "also multiply: numbers, polynomials, functions on a space. A "
-                "collection with both operations, behaving together in the "
-                "ordinary way, is called a ring."),
-            Say("Now bolt on the rule about which sums land &mdash; and notice "
-                "this is a deliberate echo of the mistake from world 2. This "
-                "time the rule is not a second layer sitting beside the first. "
-                "It is a demand the ring itself has to satisfy, phrased so "
-                "that multiplication cannot escape it."),
+            Say('So far, our objects could add. Many useful objects—numbers, polynomials, and functions—can also multiply. When addition and multiplication work together in the usual way, we call the object a ring.'),
+            Say('Now add the rule for which infinite sums have answers. Unlike the separate nearness layer in World 2, this rule is built into the ring and must stay compatible with multiplication.'),
         ),
         intuition=(
             Say("A bolted-on rule drifts. If sums could land in a way the "
@@ -45,7 +37,7 @@ BRICKS = (
                     ("Otherwise the two layers drift apart again",
                      "That is the design principle, learned the hard way. The "
                      "demand is written into the definition so the drift "
-                     "cannot start: measures on two probes must multiply to a "
+                     "can't start: measures on two probes must multiply to a "
                      "measure on the pair."),
                     ("Convenience",
                      "It is anything but convenient to check; the definition "
@@ -76,7 +68,7 @@ BRICKS = (
                       "powers of two, and every term is still divisible by "
                       "ever higher powers of two, so it lands under the very "
                       "same rule &mdash; at 1, as it must. That agreement is "
-                      "not automatic for an arbitrary pairing of a ring with a "
+                      "not automatic for any pairing of a ring with a "
                       "notion of which sums land; it is exactly the condition "
                       "an analytic ring is required to satisfy, and here you "
                       "have watched a case where it holds.",
@@ -105,28 +97,20 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=51",
             ),
         ),
-        hold="An analytic ring combines a ring with a convergence rule that is "
-             "compatible with multiplication.",
+        hold='An analytic ring is a ring whose convergence rule works with multiplication.',
     ),
 
     Brick(
         slug="the-exponent-ceiling",
-        title="Why the exponent cannot exceed one",
-        idea="Merging boxes may not increase a measure, and that single demand "
-             "forces the exponent in the real line's rule to be at most one.",
+        title="Why the exponent can't exceed one",
+        idea='Merging boxes cannot make a measure larger. That rule forces the real-line exponent to stay at or below one.',
         need=(
             "Measures: weights on the boxes of a probe.",
             "That merging boxes adds their weights together.",
         ),
         concept=(
-            Say("The real line needs its own rule, and the natural candidates "
-                "measure the size of a list of weights by raising each to a "
-                "power, adding, and taking the matching root. The power is the "
-                "exponent."),
-            Say("One demand fixes it. Merging two boxes into one is a "
-                "legitimate coarsening of a probe, and a coarser view of a "
-                "measure must not weigh more than the measure itself. So "
-                "merging may never increase the size."),
+            Say('The real line needs its own size rule. Raise each weight to a power, add the results, and take the matching root. That power is the exponent p.'),
+            Say('One condition limits p: combining boxes gives a coarser view, and a coarser view cannot make the same measure look larger.'),
         ),
         intuition=(
             Say("A coarse picture is a <em>view</em> of the fine one, not a "
@@ -146,9 +130,9 @@ BRICKS = (
                      "There is no theory to have. The compatibility between "
                      "stages is what makes a measure a single object rather "
                      "than a pile of unrelated weightings, and above one that "
-                     "compatibility cannot be bounded."),
+                     "compatibility can't be bounded."),
                     ("The root is hard to compute",
-                     "Computation is not the obstacle &mdash; the page "
+                     "Computation isn't the obstacle &mdash; the page "
                      "computes it as you turn the dial. The obstacle is that "
                      "the size increases under a coarsening, which no measure "
                      "may do."),
@@ -169,11 +153,11 @@ BRICKS = (
                        "no bound survives. The page computes the ratio "
                        "directly from the weights and also from the closed "
                        "form n<sup>1&minus;1/p</sup>; the two agree, which is "
-                       "the check that the picture is not a cartoon.",
+                       "the check that the picture isn't a cartoon.",
                 params={"boxes": 4},
             ),
             Name(
-                plain="the exponent cannot pass one",
+                plain="the exponent can't pass one",
                 standard="the &#8467;<sup>p</sup> norms, and why p &le; 1",
                 notation="&#8214;x&#8214;<sub>p</sub> = "
                          "( &sum; |x<sub>i</sub>|<sup>p</sup> )"
@@ -196,28 +180,20 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=55",
             ),
         ),
-        hold="Because merging boxes cannot increase a measure, the exponent in "
-             "this construction must be at most one.",
+        hold='Because merging cannot increase the measure, this construction requires p &le; 1.',
     ),
 
     Brick(
         slug="near-the-edge",
         title="Functions that vanish near the boundary",
-        idea="Keeping only the functions that fade out before the edge is what "
-             "makes a total over an unbounded space finite.",
+        idea='On an unbounded space, functions that switch off before the edge can still have a finite total.',
         need=(
             "An analytic ring: a ring with a rule for which sums land.",
             "The idea of a space having an edge, or a beyond.",
         ),
         concept=(
-            Say("Geometry begins once you can talk about functions on a piece "
-                "of a space rather than on all of it. The delicate case is a "
-                "piece with an edge: what should a function do as it "
-                "approaches the boundary of where it is defined?"),
-            Say("Two answers are useful. Keep only the functions that fade out "
-                "before the edge, or keep all of them and remember the edge "
-                "separately. Both are needed, and the relation between them "
-                "carries the information about the edge."),
+            Say('Geometry often studies functions on one part of a space. If that part has an edge, we must decide how the function behaves near the boundary.'),
+            Say('We use two options: functions that become zero before the edge, and all functions with the edge tracked separately. Comparing the two keeps the boundary information.'),
         ),
         intuition=(
             Say("It is the same instinct as everywhere else in this game: an "
@@ -232,13 +208,13 @@ BRICKS = (
                      "over an unbounded space converge, and the whole of "
                      "compactly supported cohomology is built on it."),
                     ("Because the others are badly behaved",
-                     "The others are perfectly respectable; they simply cannot "
+                     "The others are perfectly respectable; they simply can't "
                      "be totalled. Both families are kept, and it is the "
                      "comparison between them that carries the information "
                      "about the edge."),
                     ("Tradition",
                      "It predates condensed mathematics by a long way, but it "
-                     "is not tradition: fading out is the condition that makes "
+                     "isn't tradition: fading out is the condition that makes "
                      "the total converge."),
                 ),
             ),
@@ -256,8 +232,8 @@ BRICKS = (
                 found="The constant function has no finite total; the one that "
                       "switches off does, and the total is 1. The decaying one "
                       "may or may not, and which it is depends on how fast it "
-                      "decays &mdash; which is precisely why <em>fading "
-                      "out</em> has to be a stated condition rather than a "
+                      "decays &mdash; which is exactly why <em>fading "
+                      "out</em> has to be a stated condition instead of a "
                       "hope. Compactly supported means the strong version: the "
                       "function is exactly zero outside some bounded piece, so "
                       "the total is a finite sum and no convergence question "
@@ -287,29 +263,20 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=60",
             ),
         ),
-        hold="Compact support makes totals over unbounded spaces finite and "
-             "provides one of the six fundamental operations.",
+        hold='Compact support keeps totals finite on unbounded spaces and supplies one of the six operations.',
     ),
 
     Brick(
         slug="duality",
         title="The duality theorem",
-        idea="In this setting duality is not constructed. It is the existence "
-             "of a partner to the extend-by-zero operation, forced by a formal "
-             "pairing.",
+        idea='Here, duality comes from a built-in partner to the extend-by-zero operation rather than a separate case-by-case construction.',
         need=(
             "Compactly supported functions, and the pairing of constructions "
             "called an adjoint.",
         ),
         concept=(
-            Say("Duality says that a shape's information in low degrees and "
-                "its information in high degrees are two readings of one "
-                "thing. It is old, it is central, and classically it is proved "
-                "by hand, case by case, with conditions attached."),
-            Say("Here it appears instead: the operation that extends by zero "
-                "has a partner determined by general nonsense, and that "
-                "partner is the dualising object. The theorem becomes the "
-                "existence of an adjoint."),
+            Say("Duality connects a shape's low-degree and high-degree information. Classical proofs build that connection by hand and usually need extra conditions."),
+            Say('In the condensed setting, extend-by-zero automatically has an adjoint partner. That partner produces the dualising object, so duality follows from the general framework.'),
         ),
         intuition=(
             Say("An adjoint is a partner that is determined, not chosen. When "
@@ -324,7 +291,7 @@ BRICKS = (
                      "That is the gain. A statement forced by a formal pairing "
                      "holds wherever the pairing does, so the conditions "
                      "attached to the classical proofs stop being needed. "
-                     "Generality is not the point in itself; not having to "
+                     "Generality isn't the point in itself; not having to "
                      "re-prove it in every new situation is."),
                     ("Because adjoints are unique",
                      "True and useful &mdash; the partner is determined, not "
@@ -332,7 +299,7 @@ BRICKS = (
                      "which used to be assembled by hand now exists "
                      "automatically."),
                     ("Because it is shorter",
-                     "The proof is not short; the setting was expensive to "
+                     "The proof isn't short; the setting was expensive to "
                      "build. What changes is that the work is done once, in "
                      "the foundations, instead of once per theorem."),
                 ),
@@ -354,7 +321,7 @@ BRICKS = (
                 ),
                 found="Remove the change of object and the leftovers have "
                       "nowhere to live, so no construction involving quotients "
-                      "is reliable. Remove gluing and local answers cannot be "
+                      "is reliable. Remove gluing and local answers can't be "
                       "assembled, so nothing about pieces of a space can be "
                       "said. Remove the abelian setting and the two "
                       "measurements lie, so every exactness argument is "
@@ -373,7 +340,7 @@ BRICKS = (
                 why="The upper-shriek is the exceptional inverse image, and "
                     "the dualising complex is what it produces from a point. "
                     "In the condensed setting it exists by general nonsense "
-                    "rather than by construction.",
+                    "instead of by construction.",
             ),
             Math(
                 statement="R Hom( f<sub>!</sub> A, B ) &#8801; "
@@ -384,39 +351,30 @@ BRICKS = (
                         "bookkeeping is done at the level of complexes so that "
                         "no information is lost when things fail to be exact. "
                         "Duality theorems are read off from this "
-                        "correspondence rather than proved separately.",
+                        "correspondence instead of proved separately.",
                 cite="Lecture XI, page 78 onwards",
                 url="https://arxiv.org/pdf/2605.03658v1#page=78",
             ),
         ),
-        hold="In this framework, duality follows from the existence of an "
-             "adjoint. The rebuilt foundations make that formal argument possible.",
+        hold='In this framework, an adjoint gives duality. The rebuilt foundations are what make that argument work.',
     ),
 
     Brick(
         slug="where-you-stand-now",
         title="What you can read next",
-        idea="You now understand the subject's overall structure and enough "
-             "vocabulary to begin reading the lectures. The detailed proofs come next.",
+        idea='You now have the big picture and enough vocabulary to start the lectures. The detailed proofs are the next step.',
         need=(
             "Everything from worlds 1 to 8.",
         ),
         concept=(
-            Say("You started by putting three things on a table. You now know "
-                "why a set with a distance on it is two structures badly "
-                "glued, what replaces it, why the replacement is not a loss, "
-                "how an endless sum acquires exactly one answer, and what the "
-                "whole apparatus buys."),
-            Say("None of it was taken on trust. The failure was one you ran, "
-                "the probe was one you split, the ghost was one you watched "
-                "refuse to settle, the sum was one you saw land, and the "
-                "exponent ceiling was one you pushed past and saw break."),
+            Say('You started with three objects on a table. Now you know why points plus a separate distance rule can fail, how condensed sets repair that failure, and how solidity handles infinite sums.'),
+            Say('You tested each step yourself: the broken bridge, the splitting probe, the ghost, the convergent sum, and the exponent that fails above one.'),
         ),
         intuition=(
-            Say("What a route like this gives is not the ability to prove the "
+            Say("What a route like this gives isn't the ability to prove the "
                 "theorems. It is the ability to read a definition and know "
                 "what it is <em>for</em> &mdash; which is the part that "
-                "re-reading a text does not supply, and the part that makes "
+                "re-reading a text doesn't supply, and the part that makes "
                 "the proofs approachable."),
             Ask(
                 "What is the honest description of what you now have?",
@@ -450,8 +408,8 @@ BRICKS = (
                     "it.",
                 ),
                 found="If you can &mdash; the example is the bridge, both "
-                      "measurements read zero and the objects are not the "
-                      "same, and the theorem says the repaired world does not "
+                      "measurements read zero and the objects aren't the "
+                      "same, and the theorem says the repaired world doesn't "
                       "have that defect &mdash; then you are reading a "
                       "research text in a subject you had never met a few "
                       "hours ago, unaided. That was the aim. The three parts "
@@ -485,8 +443,7 @@ BRICKS = (
                 url="https://arxiv.org/abs/2605.03658",
             ),
         ),
-        hold="You now have a conceptual map of condensed mathematics and the "
-             "vocabulary needed to approach the lectures.",
+        hold='You now have a practical map of condensed mathematics and the vocabulary to begin the lectures.',
     ),
 )
 
@@ -495,8 +452,6 @@ WORLD = World(
     number=8,
     slug="rings-and-geometry",
     title="From multiplication to duality",
-    promise="By the end, you will understand analytic rings, why a key exponent "
-            "cannot exceed one, how compact support enters the theory, and how "
-            "the rebuilt foundations lead to a duality theorem.",
+    promise='You will meet analytic rings, see why the key exponent stays at or below one, learn why compact support matters, and connect the new foundations to duality.',
     bricks=BRICKS,
 )

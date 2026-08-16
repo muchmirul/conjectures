@@ -1,6 +1,6 @@
 """World 7.  Infinite sums, weights, and the solid rule.
 
-Part two of the written guide, discovered rather than presented: an endless
+Part two of the written guide, discovered instead of presented: an endless
 sum is meaningless until a notion of nearness is chosen, a weighting on a
 probe is the thing that turns a function into a number, and solidity is the
 demand that every endless sum have exactly one answer.
@@ -16,20 +16,15 @@ BRICKS = (
     Brick(
         slug="an-endless-sum",
         title="How an infinite sum gets a value",
-        idea="An infinite sum is defined as a limit, so its value depends on "
-             "the chosen notion of nearness.",
+        idea='An infinite sum gets its value from a limit, so the answer depends on what counts as near.',
         need=(
             "An abelian group: adding, a zero and opposites.",
             "A rule about nearness, and what it means to close in on "
             "something.",
         ),
         concept=(
-            Say("Adding, by itself, only ever combines two things at a time. "
-                "No amount of it reaches the end of an endless list, so the "
-                "value of an endless sum cannot come from the adding."),
-            Say("It comes from the nearness rule: the running totals close in "
-                "on something, and that something is called the answer. Change "
-                "the nearness and the answer changes with it."),
+            Say('Ordinary addition combines finitely many things. An endless list has no final step, so addition alone cannot give the sum a value.'),
+            Say('Instead, watch the running totals. If they get closer and closer to one value, that value is the sum. Change the nearness rule and the answer may change too.'),
         ),
         intuition=(
             Say("Add a half, then a quarter, then an eighth, forever. The "
@@ -57,7 +52,7 @@ BRICKS = (
                      "<em>close in on</em> means and the same notation names a "
                      "different number, as the next brick shows."),
                 ),
-                after="This is precisely why topology was dragged into algebra "
+                after="This is exactly why topology was dragged into algebra "
                       "in the first place, and why the repair had to happen "
                       "before infinite sums could be handled properly.",
             ),
@@ -92,35 +87,26 @@ BRICKS = (
                           "2<sup>N</sup>",
                 reading="The vertical bars mean ordinary distance. The first "
                         "line is the exact running total after N terms, "
-                        "computed on this page rather than quoted. The second "
+                        "computed on this page instead of quoted. The second "
                         "says its ordinary distance from &minus;1 is "
                         "2<sup>N</sup>, which grows without bound. Under the "
                         "usual nearness the sum diverges, full stop.",
             ),
         ),
-        hold="An infinite sum is a limit rather than an ordinary algebraic "
-             "operation, and its value depends on the chosen nearness rule.",
+        hold='An infinite sum is a limit, not an ordinary finite addition. Its value depends on the nearness rule.',
     ),
 
     Brick(
         slug="another-nearness",
         title="A different notion of nearness",
-        idea="Declare two numbers close when their difference is divisible by "
-             "a high power of two, and one plus two plus four plus eight adds "
-             "to &minus;1.",
+        idea='Call two numbers close when their difference contains a large power of two. Under this rule, 1 + 2 + 4 + 8 + ... approaches &minus;1.',
         need=(
             "That an infinite sum is decided by the nearness rule.",
             "Divisibility: whether one whole number divides another.",
         ),
         concept=(
-            Say("Fix the whole numbers and change the rule. Declare two "
-                "numbers close when their difference is divisible by a high "
-                "power of two. So 0 and 1024 are very close, and 0 and 3 are "
-                "far apart."),
-            Say("This is a legitimate notion of nearness. It satisfies every "
-                "demand ordinary distance satisfies, including the one about "
-                "going round a triangle. It simply groups the numbers "
-                "differently."),
+            Say('Keep the whole numbers but change closeness. Two numbers are close when their difference is divisible by a large power of two. That makes 0 close to 1024 but far from 3.'),
+            Say('This is a valid distance rule. It follows the usual distance laws but groups numbers by divisibility instead of ordinary size.'),
         ),
         intuition=(
             Say("Under this rule, being close means agreeing in many binary "
@@ -134,7 +120,7 @@ BRICKS = (
                 (
                     ("Neither: the sum was never well-posed alone",
                      "That is the lesson. <em>One plus two plus four plus "
-                     "&hellip;</em> is not a question until a nearness is "
+                     "&hellip;</em> isn't a question until a nearness is "
                      "named. Under the ordinary rule it has no answer; under "
                      "this one it has exactly one, and it is &minus;1. Both "
                      "statements are correct, about different questions."),
@@ -145,7 +131,7 @@ BRICKS = (
                      "higher powers of two. Growth in one rule is convergence "
                      "in the other, and neither rule is a mistake."),
                     ("The old one, since there is an answer now",
-                     "Not that either. Having an answer does not make a rule "
+                     "Not that either. Having an answer doesn't make a rule "
                      "better; the ordinary rule is correct about the ordinary "
                      "question. What is wrong is only the habit of asking for "
                      "a sum without naming a nearness."),
@@ -189,27 +175,20 @@ BRICKS = (
                         "in exact arithmetic, both sizes side by side.",
             ),
         ),
-        hold="With 2-adic nearness, the series 1 + 2 + 4 + 8 + &hellip; "
-             "converges to &minus;1. A nearness rule is what makes the sum meaningful.",
+        hold='With 2-adic nearness, 1 + 2 + 4 + 8 + ... converges to &minus;1. The nearness rule gives the sum its meaning.',
     ),
 
     Brick(
         slug="weights",
         title="Compatible weights on every stage",
-        idea="A measure on a probe is a tower of weights in which every box "
-             "weighs exactly what the boxes inside it weigh.",
+        idea='A measure puts compatible weights on every stage of a probe: each large box weighs the total of the smaller boxes inside it.',
         need=(
             "A probe: boxes at every stage, each remembering its parent.",
             "Adding, and the idea of a running total.",
         ),
         concept=(
-            Say("Go back to the probe and put a weight on each box at some "
-                "stage. One rule suggests itself immediately: a box at the "
-                "stage above should weigh what the boxes inside it weigh, "
-                "added up."),
-            Say("Insist on that, and weights at one stage determine weights at "
-                "every coarser stage. The tower of weights becomes a single "
-                "consistent object rather than a pile of unrelated numbers."),
+            Say('Put a weight on every box at one stage of a probe. At the coarser stage above it, each box should weigh the sum of the smaller boxes inside.'),
+            Say('That rule forces all coarser weights. Instead of unrelated lists of numbers, the whole tower becomes one consistent measure.'),
         ),
         intuition=(
             Say("Every function on a probe is built from steps &mdash; "
@@ -225,7 +204,7 @@ BRICKS = (
                      "box contributes value times weight, and splitting the "
                      "box splits the weight into pieces that add back to the "
                      "same total. The bookkeeping is arranged so that "
-                     "refinement cannot change an answer."),
+                     "refinement can't change an answer."),
                     ("It does matter, finer is more accurate",
                      "Not here. Finer boxes give more freedom for the "
                      "<em>function</em>, but for a function already decided at "
@@ -271,33 +250,26 @@ BRICKS = (
                         "than a finite total: value times weight, added over "
                         "the boxes at whichever stage the function was decided "
                         "at. The clause on the right is the claim you just "
-                        "moved: the answer does not depend on the stage. This "
+                        "moved: the answer doesn't depend on the stage. This "
                         "page recomputes it at two stages and compares.",
                 cite="Lecture IV, on measures, page 26 onwards",
                 url="https://arxiv.org/pdf/2605.03658v1#page=26",
             ),
         ),
-        hold="A measure gives compatible weights at every stage of a probe, so "
-             "integration produces the same result at any stage.",
+        hold='A measure keeps weights compatible across stages, so integration gives the same answer wherever you calculate it.',
     ),
 
     Brick(
         slug="the-solid-rule",
         title="Give every infinite sum one answer",
-        idea="An object is solid when every endless sum in it has exactly one "
-             "answer, with no choice of nearness left to make.",
+        idea='An object is solid when every allowed infinite sum has exactly one built-in answer.',
         need=(
             "That an infinite sum needs a nearness to have an answer.",
             "Measures on probes, and the condensed world of world 6.",
         ),
         concept=(
-            Say("Make the demand a property of the object rather than of a "
-                "chosen rule. An object is <strong>solid</strong> if every "
-                "endless sum you can write in it has exactly one answer."),
-            Say("Exactly one is the strong part. Not <em>at least one</em>, "
-                "which would leave the answer ambiguous; not <em>at most "
-                "one</em>, which would leave sums unanswered. The demand is "
-                "phrased so that the answer is forced."),
+            Say('Build the convergence rule into the object itself. The object is <strong>solid</strong> when every allowed endless sum gets exactly one answer.'),
+            Say('The words <em>exactly one</em> matter. More than one answer would be ambiguous, while no answer would leave the sum unfinished.'),
         ),
         intuition=(
             Say("You have met this shape of demand twice already: a map "
@@ -308,7 +280,7 @@ BRICKS = (
                 "Where have you met <em>exactly one</em> as a demand before?",
                 (
                     ("In the gluing rule",
-                     "The same shape of demand, and that is not a coincidence. "
+                     "The same shape of demand, and that isn't a coincidence. "
                      "Both say: a family of local data determines one global "
                      "answer and no more. Solidity is the gluing idea applied "
                      "to sums instead of to pieces of a probe."),
@@ -345,7 +317,7 @@ BRICKS = (
                       "left to decide. In the finitely-supported collection it "
                       "has none, because the answer would need infinitely many "
                       "non-zero dials and no such member exists. So the row of "
-                      "dials is solid and the other is not &mdash; and you "
+                      "dials is solid and the other isn't &mdash; and you "
                       "have just found by hand the building block the "
                       "structural theorem names: a product of copies of the "
                       "whole numbers.",
@@ -376,29 +348,20 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=34",
             ),
         ),
-        hold="A solid object gives each allowed infinite sum exactly one value "
-             "and is built from products of copies of the integers.",
+        hold='A solid object gives every allowed infinite sum one value and can be built from products of copies of the integers.',
     ),
 
     Brick(
         slug="where-the-line-goes",
         title="Why the real line becomes zero",
-        idea="Solidify the real line with respect to the base-p rule and it "
-             "becomes zero &mdash; a true report about divisibility, not a "
-             "defect.",
+        idea='Solidify the real line using the base-p rule and it becomes zero. This reflects its divisibility; it is not a bug.',
         need=(
             "Solidity: every endless sum has exactly one answer.",
             "The base-p nearness, where high powers of p are small.",
         ),
         concept=(
-            Say("Make the solid rule with respect to the base-p nearness and "
-                "ask what happens to the real line. The answer is startling on "
-                "first meeting: it becomes zero."),
-            Say("The reason is short. In the real numbers every number can be "
-                "divided by p, again and again, without limit. Under the "
-                "base-p rule that says every number is arbitrarily small, and "
-                "something arbitrarily small in a world where sums must land "
-                "exactly is zero."),
+            Say('Apply the base-p solid rule to the real line. The surprising result is that the real line becomes zero.'),
+            Say('Every real number can be divided by p repeatedly without limit. Under base-p nearness, that makes every number arbitrarily small. In a solid setting, such an element must be zero.'),
         ),
         intuition=(
             Say("The base-p rule measures how divisible a number is by p. The "
@@ -420,11 +383,11 @@ BRICKS = (
                      "particular completion, the p-adic one, and that "
                      "vanishing is forced by divisibility. Under the real "
                      "line's own rule it is entirely present."),
-                    ("It means the real line is not solid",
+                    ("It means the real line isn't solid",
                      "Careful with the wording: the zero object is solid, "
                      "vacuously. The statement is that solidifying the real "
                      "line in the p-adic sense yields zero, which is a "
-                     "statement about that completion rather than about "
+                     "statement about that completion instead of about "
                      "whether the line is well behaved."),
                 ),
                 after="So a different rule is needed for the real line, with a "
@@ -449,7 +412,7 @@ BRICKS = (
                       "in which the sizes are unbounded in that way collapses: "
                       "every element is arbitrarily close to zero, so the "
                       "result is the zero object. You have just watched the "
-                      "mismatch rather than accepted the theorem &mdash; and "
+                      "mismatch instead of accepted the theorem &mdash; and "
                       "notice it is a fact about how the real line divides, "
                       "not about condensed mathematics.",
             ),
@@ -460,7 +423,7 @@ BRICKS = (
                 notation="&#8477;<sup>&#9633;</sup> = 0",
                 why="Quoted from the lectures and understood, not swallowed: "
                     "it is the reason world 8 has to introduce analytic rings "
-                    "rather than stopping at solid groups.",
+                    "instead of stopping at solid groups.",
             ),
             Math(
                 statement="&#8477; uniquely p-divisible &nbsp;&rArr;&nbsp; "
@@ -476,8 +439,7 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=42",
             ),
         ),
-        hold="Under the p-adic rule, the real line completes to zero. This "
-             "correctly reflects its unique p-divisibility rather than indicating a defect.",
+        hold='Under the p-adic rule, the real line completes to zero because it is uniquely p-divisible. The result is meaningful, not a defect.',
     ),
 )
 
@@ -486,8 +448,6 @@ WORLD = World(
     number=7,
     slug="sums-that-land",
     title="Infinite sums with well-defined values",
-    promise="By the end, you will understand why 1 + 2 + 4 + 8 + &hellip; "
-            "converges to &minus;1 in the 2-adic setting, how measures encode "
-            "compatible sums, and what it means for an object to be solid.",
+    promise='You will see why 1 + 2 + 4 + 8 + ... equals &minus;1 in 2-adic arithmetic, how measures keep sums compatible, and what makes an object solid.',
     bricks=BRICKS,
 )

@@ -16,30 +16,22 @@ BRICKS = (
     Brick(
         slug="the-answer-sheet",
         title="Treat the answer table as the object",
-        idea="Replace a space with its answers to every probe. This also allows "
-             "answer tables that do not come from any ordinary space.",
+        idea='Replace a space with a table showing how every probe maps into it. Some valid tables will not come from ordinary spaces.',
         need=(
             "A probe, and what a shape says to it: all the continuous maps in.",
         ),
         concept=(
-            Say("You have a table. Down one side, every probe. In each row, "
-                "everything that probe can say when it walks into your space. "
-                "The table is enormous, and it is completely determined by the "
-                "space."),
-            Say("Now do the disrespectful thing: throw the space away and keep "
-                "the table. Declare that the table <em>is</em> the object. "
-                "Nothing is lost that any probe could have detected, and "
-                "something is gained, because tables can exist that no space "
-                "produced."),
+            Say('Picture a huge table with one row for every probe. Each row lists every continuous way that probe can enter the space. The space determines the whole table.'),
+            Say('Now keep the table and stop treating the original space as primary. The table becomes the object. It keeps everything the probes can detect and also allows new objects that no ordinary space produces.'),
         ),
         intuition=(
             Say("It is the move from <em>what is this thing made of</em> to "
                 "<em>how does this thing respond</em>. The second question is "
-                "answerable for things the first question cannot even reach, "
+                "answerable for things the first question can't even reach, "
                 "and the row indexed by the one-point probe is where the old "
                 "question survives."),
             Ask(
-                "What could a table do that a space cannot?",
+                "What could a table do that a space can't?",
                 (
                     ("Answer nothing to points and something to bigger probes",
                      "That is the strange object from world 3's specification, "
@@ -54,7 +46,7 @@ BRICKS = (
                     ("Contradict itself",
                      "Not allowed: two rules are about to be imposed, and they "
                      "are exactly what stops a table from being nonsense. "
-                     "Within those rules a table is as legitimate an object as "
+                     "Within those rules a table is as valid an object as "
                      "any space."),
                 ),
                 after="The one-point probe is the row that asks <em>which "
@@ -101,28 +93,20 @@ BRICKS = (
                         "&ne; 0.",
             ),
         ),
-        hold="The answer table is now the object itself, including tables that "
-             "no ordinary space can produce.",
+        hold='The answer table is the object, even when no ordinary space could have produced it.',
     ),
 
     Brick(
         slug="cutting",
         title="Restrict an answer to a smaller probe",
-        idea="Whenever one probe maps into another, answers travel backwards "
-             "along that map, automatically and with no choices made.",
+        idea='When one probe maps into another, answers automatically travel backward along that map.',
         need=(
             "The table of answers, indexed by probes.",
             "A map: every member of the source answered exactly once.",
         ),
         concept=(
-            Say("Probes map to each other. A single point sits inside the "
-                "halving probe. A stage-two picture sits above a stage-one "
-                "picture. Whenever one probe maps into another, something "
-                "automatic happens to the answers."),
-            Say("If you know a walk from the big probe, you know one from the "
-                "small probe: go in along the map, then walk. Answers travel "
-                "backwards along maps of probes, always, with no choices "
-                "made."),
+            Say('Probes can map to other probes. A point can sit inside a larger probe, and a detailed stage can sit above a coarser stage. These maps tell answers how to move.'),
+            Say('If you know how the big probe enters a space, first move through the smaller probe and then follow that walk. This automatically gives an answer for the smaller probe.'),
         ),
         intuition=(
             Say("It is what any measurement does when you narrow the sample. "
@@ -168,7 +152,7 @@ BRICKS = (
                       "&mdash; no discrepancy is possible, because both are "
                       "just <em>go in, then walk</em>. That agreement is the "
                       "second line of the mathematics below, and you have now "
-                      "checked it rather than accepted it.",
+                      "checked it instead of accepted it.",
             ),
             Name(
                 plain="reading an answer on a smaller probe",
@@ -192,36 +176,29 @@ BRICKS = (
                         "extra choice.",
             ),
         ),
-        hold="Answers restrict backward along maps between probes, and those "
-             "restrictions must remain compatible.",
+        hold='Answers move backward along maps of probes, and all those restrictions must agree.',
     ),
 
     Brick(
         slug="gluing",
         title="Compatible local answers must glue",
-        idea="Local answers that agree on the overlap must assemble into "
-             "exactly one global answer: not none, and not several.",
+        idea='Local answers that match on their overlap must combine into one and only one global answer.',
         need=(
             "Restriction: reading an answer on a smaller probe.",
             "A probe: a tower of finite stages, built from boxes.",
         ),
         concept=(
-            Say("Cut a probe in two. The halving probe splits cleanly into the "
-                "walks starting left and the walks starting right, and each "
-                "half is a probe in its own right."),
-            Say("Now suppose someone hands you an answer on each half. If the "
-                "two are consistent, there must be exactly one answer on the "
-                "whole probe restricting to both. Not none, and not several. "
-                "Exactly one."),
+            Say('Cut a probe into two pieces. Each half is still a probe, so you can study the two pieces separately.'),
+            Say('Suppose you get one answer on each half. If they agree where the halves meet, they must fit together into exactly one answer for the whole probe.'),
         ),
         intuition=(
             Say("It is the condition under which local records can be trusted "
                 "as a description of the whole. Survey each district and get "
                 "consistent results, and there should be exactly one national "
                 "picture they came from &mdash; if there could be two, the "
-                "districts were not recording everything."),
+                "districts weren't recording everything."),
             Ask(
-                "Why insist on <em>exactly</em> one, rather than at least "
+                "Why insist on <em>exactly</em> one, instead of at least "
                 "one?",
                 (
                     ("Because two would mean the probe forgot something",
@@ -239,7 +216,7 @@ BRICKS = (
                     ("Convention",
                      "Not convention. Drop uniqueness and the table can carry "
                      "phantom distinctions; drop existence and local answers "
-                     "cannot be assembled. Both halves of the demand are "
+                     "can't be assembled. Both halves of the demand are "
                      "doing work."),
                 ),
             ),
@@ -281,27 +258,19 @@ BRICKS = (
                         "agree. Exactly one, no more.",
             ),
         ),
-        hold="Local answers that agree on overlaps combine into exactly one "
-             "global answer. This is the sheaf condition.",
+        hold='Matching local answers glue into exactly one global answer. This rule is called the sheaf condition.',
     ),
 
     Brick(
         slug="a-condensed-set",
         title="Define a condensed set",
-        idea="A condensed set is a table of answers to probes, with backwards "
-             "travel, obeying cut and glue. That is the replacement for a "
-             "space.",
+        idea='A condensed set is an answer table for probes whose answers restrict backward and glue correctly.',
         need=(
             "The table of answers, restriction, and the gluing demand.",
         ),
         concept=(
-            Say("Collect the three requirements. A row of answers for every "
-                "probe. Backwards travel along every map of probes. And the "
-                "gluing demand, so that local answers assemble uniquely."),
-            Say("A table meeting all three is the replacement for a space. It "
-                "is not a space with extra structure and not a space with "
-                "structure removed. It is a different kind of thing, and "
-                "spaces sit inside it."),
+            Say('Put the three rules together: every probe gets answers, probe maps pull those answers backward, and matching local answers glue uniquely.'),
+            Say('Any table that follows those rules is a condensed set. It is a new kind of object, not simply a space with something added or removed. Ordinary spaces still fit inside this larger world.'),
         ),
         intuition=(
             Say("Nothing exotic has been introduced. Every ingredient was "
@@ -324,7 +293,7 @@ BRICKS = (
                      "table remembers the space exactly &mdash; and that "
                      "question is answered in the next world."),
                     ("No, the ruler has too many points",
-                     "Size is not an obstacle here. The table is large, "
+                     "Size isn't an obstacle here. The table is large, "
                      "certainly, but each row is a perfectly ordinary "
                      "collection of continuous maps."),
                 ),
@@ -372,27 +341,19 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=6",
             ),
         ),
-        hold="A condensed set assigns answers to probes with compatible "
-             "restriction and gluing. Ordinary spaces provide examples, but not every example.",
+        hold='A condensed set gives compatible, glueable answers to probes. Ordinary spaces give examples, but they are not the only ones.',
     ),
 
     Brick(
         slug="probes-that-need-no-glue",
         title="Probes where gluing is automatic",
-        idea="On probes whose covers can always be undone, the gluing demand "
-             "is automatic &mdash; and every probe is covered by one of those.",
+        idea='For probes whose covers can be undone, gluing happens automatically. Every probe can be covered by probes of this easier kind.',
         need=(
             "The gluing demand, and probes built from finite stages.",
         ),
         concept=(
-            Say("The gluing demand is the awkward one to check: it quantifies "
-                "over every cover of every probe. There is a family of probes "
-                "on which it costs nothing at all."),
-            Say("They are the probes where every cover can be undone: given a "
-                "cover, there is always a way to choose, gently and "
-                "consistently, one point above each point. Nothing has to be "
-                "folded together, so there is nothing for two answers to "
-                "disagree about."),
+            Say('Gluing is usually the hardest rule because you must check every cover. Luckily, one useful family of probes makes the check automatic.'),
+            Say('For these probes, every cover has a consistent way back. Nothing must be folded together, so two answers have no hidden place to disagree.'),
         ),
         intuition=(
             Say("You saw the mechanism in the previous experiment. When the "
@@ -413,7 +374,7 @@ BRICKS = (
                     ("It gets harder",
                      "The opposite: it is the folding that creates the "
                      "obligation, so removing the folding removes the "
-                     "obligation. These probes are chosen precisely because "
+                     "obligation. These probes are chosen exactly because "
                      "they make the condition vanish."),
                     ("It stays the same",
                      "Not on this family. The equaliser condition compares two "
@@ -423,7 +384,7 @@ BRICKS = (
                 ),
                 after="This is why the lectures introduce these probes early: "
                       "they turn a condition that must be checked into a "
-                      "condition that cannot fail.",
+                      "condition that can't fail.",
             ),
         ),
         experiment=(
@@ -468,8 +429,7 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=12",
             ),
         ),
-        hold="Gluing is automatic on probes whose covers split, and every probe "
-             "can be covered by one of these easier probes.",
+        hold="If a probe's covers split, gluing is automatic. These easier probes can cover every probe.",
     ),
 )
 
@@ -478,8 +438,6 @@ WORLD = World(
     number=5,
     slug="the-answer-sheet",
     title="The answer table becomes the object",
-    promise="By the end, you will understand how a space can be replaced by "
-            "its responses to probes, why the replacement loses no "
-            "information, and how it allows meaningful objects with no points.",
+    promise='You will replace a space with its answers to probes, see why no detectable information is lost, and meet useful objects that have no points.',
     bricks=BRICKS,
 )

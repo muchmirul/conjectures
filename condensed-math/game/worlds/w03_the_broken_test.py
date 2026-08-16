@@ -16,33 +16,33 @@ BRICKS = (
     Brick(
         slug="crushed-to-zero",
         title="What the map destroys",
-        idea="The kernel contains everything a map sends to zero, so it "
-             "measures which distinctions the map destroys.",
+        idea="The kernel collects everything a map sends to zero. It shows "
+             "what information the map wipes out.",
         need=(
             "An abelian group: a collection with adding, a zero and opposites.",
             "A homomorphism: a map that carries the adding across unharmed.",
         ),
         concept=(
-            Say("Algebra asks exactly two questions about a map that preserves addition. Here "
-                "is the first: what did it destroy? Collect every member of "
-                "the source that came out as zero on the other side."),
-            Say("That collection is itself a collection you can add in, "
-                "because if two members are crushed then so is their sum. It "
-                "is a measurement, and it lives on the source side."),
+            Say("Algebra asks two basic questions about a map that preserves "
+                "addition. First: what did the map destroy? Look for every "
+                "source item that ends up as zero."),
+            Say("Those items form their own group: if two items go to zero, "
+                "their sum does too. This group measures what the map erased "
+                "on the source side."),
         ),
         intuition=(
             Say("Take clock arithmetic: whole numbers sent to the hour they "
                 "point at on a twelve-hour clock. The numbers 0, 12, 24, "
-                "&minus;12 and so on all land on zero. They are precisely what "
-                "this map cannot see."),
+                "&minus;12 and so on all land on zero. They are exactly what "
+                "this map can't see."),
             Ask(
                 "If the only member sent to zero is zero itself, what does "
                 "that tell you about the map?",
                 (
-                    ("Nothing was destroyed, so it does not double up",
+                    ("Nothing was destroyed, so it doesn't double up",
                      "Exactly right, and the reason is subtraction. If two "
                      "different members landed on the same place, their "
-                     "difference would land on zero &mdash; and would not be "
+                     "difference would land on zero &mdash; and wouldn't be "
                      "zero itself. So nothing but zero being crushed is the "
                      "same statement as no two members colliding."),
                     ("The map hits everything",
@@ -53,7 +53,7 @@ BRICKS = (
                      "the next brick."),
                     ("The map is the do-nothing map",
                      "Stronger than what follows. Doubling destroys nothing "
-                     "either, and doubling is not the do-nothing map. All you "
+                     "either, and doubling isn't the do-nothing map. All you "
                      "learn is that no two members collide."),
                 ),
             ),
@@ -96,35 +96,32 @@ BRICKS = (
                         "zero</em>.",
             ),
         ),
-        hold="The kernel measures what a map collapses to zero. If only zero "
-             "is in the kernel, no two source values collide.",
+        hold="The kernel records what a map sends to zero. If the kernel only "
+             "contains zero, different source values never collide.",
     ),
 
     Brick(
         slug="left-over",
         title="What the map leaves out",
-        idea="The cokernel is what survives in the target once everything the "
-             "map reached is declared to be zero: the measurement of what it "
-             "missed.",
+        idea="The cokernel records what the map misses on the target side after "
+             "everything it reaches is treated as zero.",
         need=(
             "The kernel: what a map crushes to zero.",
             "That a map may leave members of the target unused.",
         ),
         concept=(
-            Say("The second question is asked on the other side: what did the "
-                "map miss? The naive answer &mdash; the list of untouched "
-                "members &mdash; is useless, because that list cannot be added "
-                "in: two odd numbers add to an even one."),
-            Say("The useful answer instead declares everything the map reached "
-                "to be zero, and asks what can still be told apart. That "
-                "survivor is a collection you can add in, and it is the "
-                "measurement."),
+            Say("The second question looks at the target: what did the map miss? "
+                "Simply listing untouched items does not work, because that "
+                "list may not stay closed under addition."),
+            Say("Instead, treat everything the map reached as zero. Whatever "
+                "still remains distinct forms a group that measures the "
+                "missing part."),
         ),
         intuition=(
             Say("Doubling, from whole numbers to whole numbers, reaches every "
                 "even number and no odd one. Half the target is never touched, "
                 "and you would like a way of saying <em>the map missed a "
-                "factor of two</em> rather than listing the misses."),
+                "factor of two</em> instead of listing the misses."),
             Ask(
                 "Declare every even number to be zero. What is left?",
                 (
@@ -166,7 +163,7 @@ BRICKS = (
                       "the multiples of 5: the count is the number you "
                       "declared zero by. The leftover of <em>multiply by "
                       "n</em> is a collection with exactly n members, so the "
-                      "measurement is not vague &mdash; it returns the precise "
+                      "measurement isn't vague &mdash; it returns the precise "
                       "factor the map failed to cover. Notice also that the "
                       "answer stayed finite even though the numbers did not. "
                       "That is what makes it a usable measurement.",
@@ -190,28 +187,25 @@ BRICKS = (
                         "arrow.",
             ),
         ),
-        hold="The cokernel measures what a map misses by treating everything "
-             "it reaches as zero and recording what remains distinct.",
+        hold="The cokernel treats everything reached by the map as zero and "
+             "records what is still left apart.",
     ),
 
     Brick(
         slug="the-test",
         title="Two measurements that should decide equivalence",
-        idea="If a map preserves addition, destroys nothing, and misses "
-             "nothing, it should be an equivalence. Two calculations can "
-             "therefore replace a search for an inverse.",
+        idea="If a map preserves addition, destroys nothing, and misses nothing, "
+             "it should be reversible. Two calculations can test that quickly.",
         need=(
             "The kernel: nothing destroyed when it is zero.",
             "The cokernel: nothing missed when it is zero.",
         ),
         concept=(
-            Say("Put the two measurements together. If a map that preserves addition destroys "
-                "nothing and misses nothing, every member of the target is hit "
-                "and hit exactly once. There is an obvious inverse, and that "
-                "inverse also preserves addition."),
-            Say("So for collections you can add in, two computations decide "
-                "the question that used to require a search. That is the whole "
-                "value of the setting."),
+            Say("Use both measurements together. If the map destroys nothing "
+                "and misses nothing, each target item is reached exactly once. "
+                "That gives the map an inverse."),
+            Say("So for groups, checking the kernel and cokernel replaces the "
+                "harder job of hunting for an inverse."),
         ),
         intuition=(
             Say("Hunting for a map back is an open-ended search: you either "
@@ -234,7 +228,7 @@ BRICKS = (
                     ("Because it always works",
                      "It always works <em>here</em>, and that is the promise "
                      "about to be broken. Hold the doubt: you have already "
-                     "seen a bridge where it will not."),
+                     "seen a bridge where it won't."),
                 ),
             ),
         ),
@@ -265,46 +259,45 @@ BRICKS = (
                 reading="Read: if both measurements come back zero then f is "
                         "an isomorphism, a genuine sameness with a map that preserves addition "
                         "back. In an abelian category this implication is part "
-                        "of the definition of the setting rather than a "
+                        "of the definition of the setting instead of a "
                         "theorem about any particular objects.",
             ),
         ),
-        hold="In a well-behaved algebraic setting, a zero kernel and zero "
-             "cokernel force a map to be an isomorphism.",
+        hold="In a well-behaved algebraic setting, zero kernel plus zero "
+             "cokernel means the map is an isomorphism.",
     ),
 
     Brick(
         slug="the-verdict-is-wrong",
         title="The bridge breaks the test",
-        idea="On the bridge from the dust to the ruler both measurements read "
-             "zero, and the verdict they force is false.",
+        idea="On the dust-to-ruler bridge, both measurements say zero—but that "
+             "answer is wrong.",
         need=(
             "The test: both measurements zero forces sameness.",
             "The one-way bridge from the dust to the ruler.",
         ),
         concept=(
-            Say("The dust and the ruler can both be added in: numbers add, "
-                "whatever the nearness rule says. The bridge preserves addition, since "
-                "sending each number to itself obviously survives addition. So "
-                "the test applies, with nothing bent to make it apply."),
-            Say("Measure. Nothing is crushed to zero, because different "
-                "numbers stay different. Nothing is missed, because every "
-                "number on the ruler is reached. Both measurements are zero."),
+            Say("You can add numbers in both the dust and ruler, and the bridge "
+                "keeps that addition unchanged. So this is a fair place to "
+                "run the algebraic test."),
+            Say("The bridge sends no extra number to zero and reaches every "
+                "number on the ruler. The kernel and cokernel both come out "
+                "zero."),
         ),
         intuition=(
             Say("You already know the answer the test is about to give, and "
                 "you already know it is wrong. Watch it happen anyway: the "
                 "value of this moment is seeing exactly which measurement "
-                "cannot see what is missing, and why nothing in the "
+                "can't see what is missing, and why nothing in the "
                 "measurement can warn you."),
             Ask(
                 "Which of the two measurements is lying?",
                 (
                     ("The cokernel",
-                     "The cokernel. What the bridge misses is not any "
+                     "The cokernel. What the bridge misses isn't any "
                      "<em>number</em> &mdash; every number is reached. What it "
                      "misses is all the nearness that the ruler has and the "
-                     "dust does not. The cokernel counts members, members are "
+                     "dust doesn't. The cokernel counts members, members are "
                      "all present, so it reports zero, and the entire second "
                      "layer goes unrecorded."),
                     ("The kernel",
@@ -315,7 +308,7 @@ BRICKS = (
                     ("Both",
                      "Only one. Nothing is destroyed, and the kernel says so "
                      "correctly. Something <em>is</em> missed &mdash; the "
-                     "nearness &mdash; and the cokernel cannot see it, because "
+                     "nearness &mdash; and the cokernel can't see it, because "
                      "it can only count members."),
                 ),
                 after="So the leftover is real but has no members. Ordinary "
@@ -336,12 +329,12 @@ BRICKS = (
                 params={"bridge": True},
             ),
             Name(
-                plain="a leftover you cannot see by counting members",
+                plain="a leftover you can't see by counting members",
                 standard="the failure of topological abelian groups to be "
                          "abelian",
                 notation="ker = 0, coker = 0, &#8477;<sub>disc</sub> "
                          "&#8802; &#8477;",
-                why="This is the precise defect. It is not that the subject is "
+                why="This is the precise defect. It isn't that the subject is "
                     "hard; it is that the standard tool returns a wrong answer "
                     "on the simplest possible example.",
             ),
@@ -352,33 +345,30 @@ BRICKS = (
                         "line is Example 1.9 of Scholze's lectures, and it is "
                         "given there as the reason the subject needs new "
                         "foundations. Two measurements read zero; the objects "
-                        "are not the same; the setting is therefore not "
+                        "aren't the same; the setting is therefore not "
                         "abelian.",
                 cite="Example 1.9, page 9 of the lectures",
                 url="https://arxiv.org/pdf/2605.03658v1#page=9",
             ),
         ),
-        hold="On the bridge, both measurements return zero even though the map "
-             "is not an equivalence. The missing information is real but has no points.",
+        hold="Both measurements return zero even though the bridge is not an "
+             "equivalence. The missing information is real but has no points.",
     ),
 
     Brick(
         slug="what-we-must-build",
         title="Requirements for a successful repair",
-        idea="Any repair must allow an object with no points that is not zero, "
-             "keep the old spaces intact, and make the two measurements "
-             "reliable again.",
+        idea="A successful repair needs room for a nonzero object with no "
+             "points, must preserve familiar spaces, and must fix the test.",
         need=(
             "That the leftover on the bridge is real and has no members.",
         ),
         concept=(
-            Say("Write down what a repair has to do before looking at how to "
-                "do it. Three demands, and they are the most useful thing to "
-                "carry into the next three worlds."),
-            Say("It must allow an object that has no members and is not zero. "
-                "It must keep every space you already care about, unchanged, "
-                "somewhere inside it. And it must make the two measurements "
-                "reliable again."),
+            Say("Before building the repair, make a checklist. The next three "
+                "worlds will work through its three requirements."),
+            Say("We need nonzero objects that can have no points. Familiar "
+                "spaces and their maps must stay intact. Finally, kernels and "
+                "cokernels must tell the truth again."),
         ),
         intuition=(
             Say("A specification written before the solution is what stops a "
@@ -397,10 +387,10 @@ BRICKS = (
                      "question and still answer richly to the new one."),
                     ("No, that is a contradiction",
                      "It is a contradiction in the setting you have. That is "
-                     "the argument for changing the setting rather than "
+                     "the argument for changing the setting instead of "
                      "hunting harder within it. Watch what the new basic "
                      "question turns out to be; the contradiction dissolves "
-                     "rather than getting resolved."),
+                     "instead of getting resolved."),
                     ("Maybe, with some trick",
                      "No trick, and that is what makes it durable. The repair "
                      "changes the question one asks of an object, and the "
@@ -419,7 +409,7 @@ BRICKS = (
                     "For each one, write a single sentence saying how you "
                     "would know if it had been met.",
                     "Keep the page. Worlds 4 to 6 will hand you each answer, "
-                    "and you should tick them off yourself rather than take "
+                    "and you should tick them off yourself instead of take "
                     "the claim.",
                 ),
                 found="If your three tests came out as <em>show me the object "
@@ -455,8 +445,8 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=8",
             ),
         ),
-        hold="A successful repair must allow a nonzero object with no points, "
-             "preserve ordinary spaces, and make kernels and cokernels reliable again.",
+        hold="The repair must allow a nonzero object with no points, preserve "
+             "ordinary spaces, and make kernels and cokernels reliable again.",
     ),
 )
 
@@ -465,8 +455,7 @@ WORLD = World(
     number=3,
     slug="the-broken-test",
     title="The algebraic test that fails",
-    promise="By the end, you will understand kernels and cokernels, see why "
-            "they normally detect isomorphisms, and watch them produce the "
-            "wrong answer on the one-way bridge.",
+    promise="You will learn kernels and cokernels, see why they usually detect "
+            "reversible maps, and watch them fail on the one-way bridge.",
     bricks=BRICKS,
 )
