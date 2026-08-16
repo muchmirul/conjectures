@@ -15,23 +15,15 @@ BRICKS = (
     Brick(
         slug="the-ghost",
         title="Make the missing information visible",
-        idea="In the condensed world the leftover of the bridge is zero on "
-             "points and non-zero on larger probes: the object world 3 said "
-             "would be needed.",
+        idea='In the condensed world, the bridge leaves nothing on single points but does leave something on larger probes. This is the missing object from World 3.',
         need=(
             "A condensed set: the table of answers obeying cut and glue.",
             "The cokernel: what a map missed, seen by declaring the reached "
             "part to be zero.",
         ),
         concept=(
-            Say("Take the bridge again, now living in the new world. The dust "
-                "and the ruler are both tables of answers, and the bridge is a "
-                "map of tables: row by row, it sends each answer of the dust "
-                "to the corresponding answer of the ruler."),
-            Say("The leftover is computed row by row. In the row for a single "
-                "point, the two collections of answers coincide, so nothing is "
-                "left over. In a row for a bigger probe, the ruler admits "
-                "walks the dust does not, and those are exactly the leftover."),
+            Say('Bring the dust-to-ruler bridge into the new setting. Both spaces are now answer tables, and the bridge maps one table to the other row by row.'),
+            Say('Compute what is left in each row. A single point sees no difference. A larger probe finds continuous walks into the ruler that the dust cannot accept, and those walks form the leftover.'),
         ),
         intuition=(
             Say("A continuous map into the dust must be constant on some box of "
@@ -55,8 +47,8 @@ BRICKS = (
                      "that fail to be locally constant, and you are about to "
                      "watch one refuse to settle down."),
                     ("Points must be hiding somewhere",
-                     "They are not. Ask for the row at the one-point probe and "
-                     "the answer really is zero. What is not zero is what the "
+                     "They aren't. Ask for the row at the one-point probe and "
+                     "the answer really is zero. What isn't zero is what the "
                      "object says to larger probes, and that is a different "
                      "question with its own honest answer."),
                 ),
@@ -72,7 +64,7 @@ BRICKS = (
                        "2<sup>&minus;n</sup>: smaller at every stage and never "
                        "zero, so the function is constant on no box at any "
                        "stage. That is a member of the leftover you can watch. "
-                       "The object has no points and is not zero.",
+                       "The object has no points and isn't zero.",
                 params={},
             ),
             Name(
@@ -93,7 +85,7 @@ BRICKS = (
                         "walks into the dust. The slash declares the second "
                         "collection to be zero inside the first. For any probe "
                         "with infinitely many points there is a continuous "
-                        "function that is not locally constant &mdash; the one "
+                        "function that isn't locally constant &mdash; the one "
                         "you just watched &mdash; so the quotient has a "
                         "non-zero member. At the one-point probe the two "
                         "collections coincide and the quotient is zero.",
@@ -101,31 +93,24 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=9",
             ),
         ),
-        hold="The bridge's missing information now forms an object that is "
-             "zero on points but nonzero on larger probes.",
+        hold="The bridge's missing information is now a real object: zero on points but nonzero on larger probes.",
     ),
 
     Brick(
         slug="the-test-restored",
         title="Kernels and cokernels work again",
-        idea="Run the test on the bridge in the new world and it returns the "
-             "right verdict, because the leftover now has somewhere to live.",
+        idea='Run the old algebraic test in the condensed world and it gives the right answer because the leftover now has somewhere to exist.',
         need=(
             "The ghost: a leftover that is zero on points and not zero.",
             "The test: both measurements zero should force sameness.",
         ),
         concept=(
-            Say("Run the test on the bridge one more time, in the new world. "
-                "The kernel is still zero: nothing is destroyed. The cokernel "
-                "is now the ghost, which is not zero."),
-            Say("So the test reports: not a sameness. Which is correct. The "
-                "same two computations that lied in world 3 now tell the "
-                "truth, because the world they are computed in has room for "
-                "the answer."),
+            Say('Test the bridge again. Its kernel is still zero because it destroys nothing. Its cokernel is now the nonzero ghost.'),
+            Say('The test now says the bridge is not an equivalence, which is correct. The calculations did not change; the new setting finally has room for their missing answer.'),
         ),
         intuition=(
             Say("Nothing was made cleverer. A measurement that can only report "
-                "in whole numbers cannot report a half; give it finer units "
+                "in whole numbers can't report a half; give it finer units "
                 "and the same measurement becomes accurate. The finer unit "
                 "here is the row indexed by a probe."),
             Ask(
@@ -138,7 +123,7 @@ BRICKS = (
                      "what kind of leftover is permitted to exist."),
                     ("The map, it means something different now",
                      "The rule is untouched: number to itself. It is now read "
-                     "as a map of tables rather than a map of point-sets, and "
+                     "as a map of tables instead of a map of point-sets, and "
                      "the leftover of that map has somewhere to live. Same "
                      "map, larger world."),
                     ("The definition of cokernel",
@@ -148,7 +133,7 @@ BRICKS = (
                 ),
                 after="This is the theorem the lectures state immediately "
                       "after the failing example, and it is the reason the "
-                      "subject is called a repair rather than a "
+                      "subject is called a repair instead of a "
                       "generalisation.",
             ),
         ),
@@ -159,7 +144,7 @@ BRICKS = (
                     "world 3.",
                     "State the test's verdict on the bridge in the old "
                     "setting, and in the new one.",
-                    "Tick the line off, or say precisely what is still "
+                    "Tick the line off, or say exactly what is still "
                     "missing.",
                 ),
                 found="Old setting: kernel zero, cokernel zero, verdict "
@@ -167,7 +152,7 @@ BRICKS = (
                       "zero, cokernel the ghost, verdict <em>not a "
                       "sameness</em>, which is true. The first demand is met, "
                       "and met by the object you read row by row a moment ago "
-                      "rather than by an assurance. Two demands remain: that "
+                      "instead of by an assurance. Two demands remain: that "
                       "the old spaces survive intact, and that what you could "
                       "already compute still comes out the same. They are the "
                       "next two bricks, in that order.",
@@ -187,36 +172,27 @@ BRICKS = (
                         "the kernel or cokernel of a map of condensed abelian "
                         "groups, compute it separately in each row and, for "
                         "the cokernel, repair the gluing afterwards. This is "
-                        "Theorem 1.10 of the lectures, quoted here rather than "
+                        "Theorem 1.10 of the lectures, quoted here instead of "
                         "checked, since it is a statement about a whole "
                         "category.",
                 cite="Theorem 1.10, page 9 of the lectures",
                 url="https://arxiv.org/pdf/2605.03658v1#page=9",
             ),
         ),
-        hold="In the condensed setting, kernels and cokernels detect "
-             "isomorphisms again and correctly identify the bridge as non-invertible.",
+        hold='In the condensed setting, kernels and cokernels work again and correctly show that the bridge is not invertible.',
     ),
 
     Brick(
         slug="nothing-was-lost",
         title="Verify that ordinary spaces are preserved",
-        idea="Ordinary spaces sit inside the condensed world with exactly "
-             "their old maps between them, and no new ones.",
+        idea='Ordinary spaces keep exactly their old continuous maps when they enter the condensed world.',
         need=(
             "That every space produces a table of answers.",
             "Being the same: a map across and a map back.",
         ),
         concept=(
-            Say("A repair that discarded the spaces you care about would be no "
-                "repair. So check the receipt: does the table remember the "
-                "space it came from, and does it remember the maps between "
-                "spaces?"),
-            Say("For a wide class of spaces &mdash; every metric space, every "
-                "manifold, every compact space, everything a working "
-                "mathematician normally handles &mdash; the answer is yes to "
-                "both. Different spaces give different tables, and every map "
-                "of tables comes from a genuine continuous map."),
+            Say('A useful repair must preserve the spaces we already use. So check two things: does each table remember its original space, and does it remember the continuous maps?'),
+            Say('For familiar spaces—including metric spaces, manifolds, and compact spaces—the answer is yes. Different spaces give different tables, and every table map comes from a genuine continuous map.'),
         ),
         intuition=(
             Say("Translating a text is only trustworthy if it neither loses "
@@ -230,15 +206,15 @@ BRICKS = (
                     ("Because a table could admit maps no space allows",
                      "That is the risk, and it would be fatal: the new world "
                      "would then relate old objects in ways the old world "
-                     "denied, and results proved there could not be brought "
-                     "back. The proposition says this does not happen."),
-                    ("It is not harder",
+                     "denied, and results proved there couldn't be brought "
+                     "back. The proposition says this doesn't happen."),
+                    ("It isn't harder",
                      "It is strictly stronger. Distinguishing objects is one "
                      "demand; matching every arrow between them exactly is "
                      "another, and it is the one that makes the new world safe "
                      "to work in and return from."),
                     ("Because there are many maps",
-                     "Quantity is not the difficulty. The difficulty is "
+                     "Quantity isn't the difficulty. The difficulty is "
                      "whether any <em>new</em> maps appear, and the answer is "
                      "that none do."),
                 ),
@@ -286,32 +262,24 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=8",
             ),
         ),
-        hold="Ordinary spaces embed in the condensed setting without losing or "
-             "gaining maps between them.",
+        hold='Ordinary spaces enter the condensed setting without losing old maps or gaining fake ones.',
     ),
 
     Brick(
         slug="holes-survive",
         title="Topological holes are preserved",
-        idea="The holes of a shape, torsion included, come out of the "
-             "condensed setting exactly as they came out of the old one.",
+        idea="The condensed setting preserves a shape's holes, including torsion.",
         need=(
             "That ordinary spaces sit inside the condensed world unchanged.",
             "The cokernel: what survives after a part is declared zero.",
         ),
         concept=(
-            Say("A shape's holes are computed by algebra: build the shape from "
-                "cells, write down which cells bound which, and measure what "
-                "is closed but not itself a boundary. A circle has one hole; a "
-                "doughnut surface has two independent loops."),
-            Say("That measurement is made of kernels and cokernels, so a "
-                "change of setting could easily change the answer. It does "
-                "not. Computed in the condensed world, the holes come out as "
-                "they always did."),
+            Say('Algebra finds holes by building a shape from cells and comparing closed pieces with boundaries. A circle has one hole, while a doughnut surface has two independent loops.'),
+            Say('Because this calculation uses kernels and cokernels, a new setting could have changed the result. It does not: condensed homology finds the same holes.'),
         ),
         intuition=(
-            Say("The sensitive part is not the count of loops but the torsion: "
-                "a loop that is not zero although twice it is. That is the "
+            Say("The sensitive part isn't the count of loops but the torsion: "
+                "a loop that isn't zero although twice it is. That is the "
                 "kind of information that disappears the moment a construction "
                 "quietly starts working over the rationals instead of the "
                 "whole numbers, so it is the right thing to watch."),
@@ -321,14 +289,14 @@ BRICKS = (
                     ("Because it is the first thing a sloppy repair loses",
                      "Yes. Free ranks survive almost any mistreatment; a hole "
                      "of order two survives only if the setting really does "
-                     "keep track of the whole numbers rather than sliding to "
+                     "keep track of the whole numbers instead of sliding to "
                      "something more forgiving. It is the sensitive "
                      "instrument."),
                     ("Because it is hardest to compute",
                      "It is no harder here: Smith normal form gives ranks and "
                      "torsion in one go. It is the diagnostic value that "
                      "matters, not the difficulty."),
-                    ("It is not important",
+                    ("It isn't important",
                      "It is the most important single check. Torsion is "
                      "exactly the information that vanishes when a "
                      "construction quietly starts working over the rationals "
@@ -343,7 +311,7 @@ BRICKS = (
                 notice="These numbers are computed from the cell structure by "
                        "Smith normal form over the whole numbers, on this "
                        "page, not looked up. The Klein bottle carries a hole "
-                       "of order two &mdash; a loop that is not zero but whose "
+                       "of order two &mdash; a loop that isn't zero but whose "
                        "double is &mdash; and it is the one entry a careless "
                        "change of setting would destroy first.",
                 params={},
@@ -372,32 +340,24 @@ BRICKS = (
                         "&mdash; one piece, two independent loops, one "
                         "enclosed volume. This is Proposition 3.1 of the "
                         "lectures, and the numbers on this page are recomputed "
-                        "rather than quoted.",
+                        "instead of quoted.",
                 cite="Proposition 3.1, page 17 of the lectures",
                 url="https://arxiv.org/pdf/2605.03658v1#page=17",
             ),
         ),
-        hold="The condensed setting preserves homology, including torsion, so "
-             "the familiar holes of a space remain detectable.",
+        hold='Condensed mathematics preserves homology, including torsion, so familiar holes remain visible.',
     ),
 
     Brick(
         slug="where-you-stand",
         title="Review the completed repair",
-        idea="The construction now satisfies all three requirements from World "
-             "3. The next step is to handle infinite sums and multiplication.",
+        idea='The construction now passes all three checks from World 3. Next, it must handle infinite sums and multiplication.',
         need=(
             "Everything from worlds 1 to 6.",
         ),
         concept=(
-            Say("Look back at the specification you wrote in world 3. An "
-                "object with no points that is not zero: built, and you read "
-                "its rows. The two measurements trustworthy again: restored. "
-                "The old spaces intact inside: receipted, maps and all."),
-            Say("That is the content of the first three lectures. None of it "
-                "was taken on trust: the failure was one you ran, the probe "
-                "was one you split, and the leftover was one you watched "
-                "refuse to settle down."),
+            Say('Check the World 3 list. We built a nonzero object with no points, restored the kernel-and-cokernel test, and kept ordinary spaces with all their maps.'),
+            Say('That covers the first three lectures. You did not have to take the claims on faith: you ran the failure, split the probe, and watched the leftover appear.'),
         ),
         intuition=(
             Say("It is worth naming what is still missing, because the "
@@ -405,7 +365,7 @@ BRICKS = (
                 "add two things at a time. Nothing built can add up an endless "
                 "list, and endless lists are what analysis is made of."),
             Ask(
-                "What has not yet been addressed?",
+                "What hasn't yet been addressed?",
                 (
                     ("Adding up infinitely many things",
                      "That is the gap, and it is the reason topology was "
@@ -432,7 +392,7 @@ BRICKS = (
                     "Say in one sentence what a condensed set is.",
                     "Say what goes wrong with the dust and the ruler, and what "
                     "fixes it.",
-                    "Any sentence you could not produce marks a brick worth "
+                    "Any sentence you couldn't produce marks a brick worth "
                     "replaying before world 7.",
                 ),
                 found="Serviceable answers: a probe is a tower of finite "
@@ -469,8 +429,7 @@ BRICKS = (
                 url="https://arxiv.org/pdf/2605.03658v1#page=6",
             ),
         ),
-        hold="The repair meets every requirement from World 3. The remaining "
-             "challenge is to extend it to infinite sums and multiplication.",
+        hold='The repair passes every World 3 requirement. The next challenge is infinite sums and multiplication.',
     ),
 )
 
@@ -479,8 +438,6 @@ WORLD = World(
     number=6,
     slug="the-repair",
     title="Verify the repair",
-    promise="By the end, you will have seen the missing object become visible, "
-            "watched the broken algebraic test return the correct result, and "
-            "confirmed that familiar topological information survives.",
+    promise='You will make the missing object visible, see the algebraic test give the right answer again, and confirm that familiar topology survives.',
     bricks=BRICKS,
 )

@@ -3,7 +3,7 @@
 The reader is assumed to know nothing, so this world builds the four words
 that every later world leans on.  None of it is condensed mathematics.  It is
 here because the crack that condensed mathematics repairs is a crack in
-exactly these four words, and a reader who has not held them cannot see the
+exactly these four words, and a reader who hasn't held them can't see the
 crack open.
 
 Every brick runs concept, then intuition, then experiment.  Most of the
@@ -25,20 +25,19 @@ BRICKS = (
     Brick(
         slug="a-collection",
         title="Choosing what belongs together",
-        idea="A collection is defined only by which things belong to it—not "
-             "by their order, distance, size, or arrangement.",
+        idea="A collection only tells you what belongs in it. Order, distance, "
+             "size, and arrangement don't count.",
         need=(
             "Nothing at all. If you can point at some things and say which "
             "ones you meant, you already have everything this brick asks for.",
         ),
         concept=(
-            Say("One of the simplest mathematical objects is made by choosing "
-                "some things and grouping them together. It records only "
-                "which things belong."),
-            Say("Everything else you might say about those things "
-                "&mdash; which came first, how far apart they are, which is "
-                "heavier &mdash; is deliberately left out. That simplicity is "
-                "what makes the idea useful in so many settings."),
+            Say("Pick a few things and group them together. Mathematics calls "
+                "that group a collection, and it only keeps track of what is "
+                "inside."),
+            Say("It ignores everything else: order, distance, weight, and "
+                "layout. That sounds basic, but it is exactly why collections "
+                "work in so many different situations."),
         ),
         intuition=(
             Say("Put a coin, a key and a stone on a table. Now say: <em>these "
@@ -52,14 +51,14 @@ BRICKS = (
                      "Right, and that is the whole point. Moving the stone "
                      "changed something about the table, but it changed "
                      "nothing about which things you meant. Whatever you made "
-                     "when you said <em>these three</em> does not notice "
+                     "when you said <em>these three</em> doesn't notice "
                      "distance."),
                     ("No, the arrangement is different",
                      "The arrangement is certainly different, and your eye is "
                      "right to see that. But hold the two apart: the "
                      "arrangement is one thing, and the answer to <em>which "
                      "things did you mean</em> is another. Only the second one "
-                     "is what you made. It has not moved."),
+                     "is what you made. It hasn't moved."),
                     ("It depends what I do with them",
                      "A fair instinct, and later it will earn its keep: the "
                      "same three things can carry extra rules laid on top. But "
@@ -89,7 +88,7 @@ BRICKS = (
                       "not, so they are different collections. But notice what "
                       "you had to ignore to get there: <b>letter</b> has three "
                       "e's and two t's, and none of that repetition counted. A "
-                      "collection does not record how many times, or in what "
+                      "collection doesn't record how many times, or in what "
                       "order. If you found yourself wanting to count the "
                       "repeats, that instinct is real and it belongs to a "
                       "different object, not to this one.",
@@ -115,24 +114,24 @@ BRICKS = (
                         "the other. Nothing else is allowed to matter.",
             ),
         ),
-        hold="A set is defined by its members and nothing else.",
+        hold="A set only remembers its members. Nothing else matters.",
     ),
 
     Brick(
         slug="a-matching",
         title="A rule with one answer for every input",
-        idea="A map from one collection to another is a rule that gives every "
-             "member of the first exactly one member of the second.",
+        idea="A map is a rule that gives each item in one collection exactly "
+             "one answer in another collection.",
         need=(
             "A collection: some things you have decided to keep together.",
         ),
         concept=(
-            Say("With two collections in hand, the next object is a rule that "
-                "connects them. It takes any member of the first and returns "
-                "one member of the second."),
-            Say("Two demands, and only two. Every member of the source must "
-                "get an answer. And no member may get two different answers. "
-                "Nothing is demanded of the target at all."),
+            Say("Once you have two collections, you can connect them with a "
+                "rule. Give the rule an item from the first collection, and "
+                "it returns one item from the second."),
+            Say("The rule is simple: every input needs an answer, and each "
+                "input gets only one. Some items on the target side can stay "
+                "unused."),
         ),
         intuition=(
             Say("Three coats on the left, four hooks on the right. Hang each "
@@ -155,7 +154,7 @@ BRICKS = (
                     ("Only if I meant it to be a perfect pairing",
                      "Exactly the right distinction, and you are one brick "
                      "ahead. A plain rule allows spare hooks. A perfect "
-                     "pairing does not, and that stricter thing is next."),
+                     "pairing doesn't, and that stricter thing is next."),
                 ),
             ),
         ),
@@ -186,7 +185,7 @@ BRICKS = (
                 standard="a map, or a function",
                 notation="f : A &rarr; B",
                 why="A map from A to B is a rule that gives every member of A "
-                    "exactly one member of B. That is the entire demand: "
+                    "exactly one member of B. That is the whole rule: "
                     "every input answered, one answer each.",
             ),
             Math(
@@ -201,26 +200,26 @@ BRICKS = (
                         "answer the rule f gives when it is handed a.",
             ),
         ),
-        hold="A map assigns exactly one target value to every source value. "
-             "Some target values may remain unused.",
+        hold="A map gives every input one output. It does not have to use every "
+             "possible output.",
     ),
 
     Brick(
         slug="undoing",
         title="When two collections count as the same",
-        idea="Two collections count as the same when there is a map across "
-             "and a map back that undoes it.",
+        idea="Two collections count as the same when you can map across and "
+             "then map back without losing anything.",
         need=(
             "A collection: which things you meant.",
             "A map: a rule that answers every member of the source once.",
         ),
         concept=(
-            Say("<em>Same</em> has to be defined, not felt. For collections "
-                "the definition is: a map across, and a map back, such that "
-                "doing both returns everything to where it started."),
-            Say("Once such a pair exists, nothing can tell the two collections "
-                "apart, because any statement about one can be carried across "
-                "and read on the other. The test is a test, not an opinion."),
+            Say("In mathematics, <em>same</em> needs a clear test. For "
+                "collections, you map everything across and then back. If "
+                "every item returns to where it started, the test passes."),
+            Say("That means the two collections match perfectly. You can move "
+                "information between them without losing or mixing up "
+                "anything."),
         ),
         intuition=(
             Say("Three coats, three hooks, one coat per hook, every hook "
@@ -239,11 +238,11 @@ BRICKS = (
                      "collections, one sitting inside the other, and yet they "
                      "match perfectly. Endless collections are strange in "
                      "exactly this way, and it is worth being unsettled by it "
-                     "now rather than later."),
+                     "now instead of later."),
                     ("No, there are more whole numbers than even ones",
                      "That is the intuition everybody arrives with, and it is "
                      "the intuition that counting small piles trains into you. "
-                     "But the test is not <em>which pile looks bigger</em>, it "
+                     "But the test isn't <em>which pile looks bigger</em>, it "
                      "is <em>can you walk backwards</em>. Halving walks "
                      "backwards, every time, without ambiguity. By the only "
                      "test we have, these two collections are the same size."),
@@ -269,18 +268,18 @@ BRICKS = (
                 ),
                 found="Doubling rebuilds perfectly: each bottom entry names "
                       "exactly one top entry, so the covered row is "
-                      "recoverable with nothing lost. Rounding down does not: "
-                      "both 4 and 5 give 4, so when you uncover a 4 you cannot "
-                      "say which number produced it. That failure is not a "
+                      "recoverable with nothing lost. Rounding down doesn't: "
+                      "both 4 and 5 give 4, so when you uncover a 4 you can't "
+                      "say which number produced it. That failure isn't a "
                       "matter of degree. One rule can be undone and the other "
-                      "cannot, and undoing is the entire test for sameness.",
+                      "can't, and undoing is the whole test for sameness.",
             ),
             Name(
                 plain="a perfect matching",
                 standard="a bijection, or an isomorphism of sets",
                 notation="A &cong; B",
                 why="The symbol &cong; is read <em>is isomorphic to</em>, and "
-                    "for bare collections it means precisely that there is a "
+                    "for bare collections it means exactly that there is a "
                     "map across with a map back undoing it.",
             ),
             Math(
@@ -295,33 +294,31 @@ BRICKS = (
                         "directions. When such a g exists, f is a bijection.",
             ),
         ),
-        hold="Two collections have the same structure when a map between them "
-             "has an inverse that restores every member.",
+        hold="Two collections match when a map between them has an inverse "
+             "that brings every item back.",
     ),
 
     Brick(
         slug="adding",
         title="Collections with an addition rule",
-        idea="An abelian group is a collection carrying an addition, a zero, "
-             "and an opposite for every member.",
+        idea="An abelian group is a collection where you can add, use zero, "
+             "and cancel every item with an opposite.",
         need=(
             "A collection, and a map between collections.",
             "Ordinary addition of whole numbers, as you already use it.",
         ),
         concept=(
-            Say("Most collections met in the wild carry more than membership. "
-                "Whole numbers can be added. So can lengths, shifts, "
-                "rotations, forces, debts. The pattern underneath all of them "
-                "is short enough to state in four lines."),
-            Say("Any two members combine to give a third. One member changes "
-                "nothing when added, and is called zero. Every member has an "
-                "opposite that cancels it back to zero. And the order of "
-                "adding never matters."),
+            Say("Collections often come with extra rules. Numbers, lengths, "
+                "forces, and debts can all be added. They follow the same "
+                "basic pattern."),
+            Say("Add any two items and you get another item in the collection. "
+                "Zero changes nothing. Every item has an opposite that cancels "
+                "it, and swapping the order does not change the answer."),
         ),
         intuition=(
             Say("Think of steps along a path. Two steps combine into one "
                 "longer step. Standing still is the step that changes nothing. "
-                "And every step has a step back. The pattern is not an "
+                "And every step has a step back. The pattern isn't an "
                 "abstraction of numbers; numbers are one instance of it."),
             Ask(
                 "Whole numbers with addition: does every member have an "
@@ -350,7 +347,7 @@ BRICKS = (
                 ),
                 after="Remember which operation was the awkward one. Nearly "
                       "everything ahead is a story about subtraction failing "
-                      "somewhere it should not.",
+                      "somewhere it shouldn't.",
             ),
         ),
         experiment=(
@@ -368,7 +365,7 @@ BRICKS = (
                       "since 1 + 3 comes back to 0; the opposite of 2 is 2. "
                       "Ordinary addition on the same four numbers fails at the "
                       "first demand, because 3 + 3 has nowhere to land. So "
-                      "<em>can be added in</em> is not a property of the "
+                      "<em>can be added in</em> isn't a property of the "
                       "numbers you chose; it is a property of the numbers "
                       "together with the rule. The same four members pass "
                       "under one rule and fail under another.",
@@ -378,7 +375,7 @@ BRICKS = (
                 standard="an abelian group",
                 notation="(A, +, 0, &minus;)",
                 why="<em>Abelian</em> only records that the order of adding "
-                    "does not matter. The whole numbers, positive and "
+                    "doesn't matter. The whole numbers, positive and "
                     "negative, are the first example, written &#8484;.",
             ),
             Math(
@@ -394,32 +391,30 @@ BRICKS = (
                         "with addition, from the German <em>Zahlen</em>.",
             ),
         ),
-        hold="An abelian group has addition, a zero, and an opposite for every "
-             "member. The existence of opposites is what makes subtraction possible.",
+        hold="An abelian group lets you add, use zero, and cancel any item with "
+             "its opposite. Those opposites make subtraction possible.",
     ),
 
     Brick(
         slug="respecting-the-adding",
         title="Maps that preserve addition",
-        idea="A map preserves addition when adding before applying the map "
-             "gives the same result as applying the map first and then adding.",
+        idea="A map preserves addition when both routes—add first or map "
+             "first—give the same answer.",
         need=(
             "A map: every member of the source answered exactly once.",
             "An abelian group: a collection with adding, a zero and opposites.",
         ),
         concept=(
-            Say("When both sides have an addition rule, we can ask whether a "
-                "map respects it. Add two members before applying the map, or "
-                "apply the map to each member and then add. A "
-                "structure-preserving map gives the same answer either way."),
-            Say("This condition is what makes the map useful in algebra. A map "
-                "that fails it still moves members, but it does not carry the "
-                "addition rule from one side to the other."),
+            Say("If both collections allow addition, try two routes. First add "
+                "and then use the map. Next use the map on each item and add "
+                "the results. A good algebraic map gives the same answer."),
+            Say("If the answers differ, the map still moves items, but it does "
+                "not carry the addition rule with them."),
         ),
         intuition=(
             Say("Doubling preserves addition. Double 3 and 4 before adding, or "
                 "add them first and then double: both routes give 14. Squaring "
-                "does not preserve addition: "
+                "doesn't preserve addition: "
                 "3 squared plus 4 squared is 25, but 7 squared is 49."),
             Ask(
                 "A map that preserves addition must send zero to zero. Why?",
@@ -428,9 +423,9 @@ BRICKS = (
                      "That is the argument. Crossing over 0 + 0 gives f(0) + "
                      "f(0), and it must equal f(0). Subtract f(0) from both "
                      "sides &mdash; and here is subtraction again, doing real "
-                     "work &mdash; and f(0) = 0. The zero is not an extra "
+                     "work &mdash; and f(0) = 0. The zero isn't an extra "
                      "condition; the adding already implies it."),
-                    ("It does not have to",
+                    ("It doesn't have to",
                      "It is forced, though the force is easy to miss. Since "
                      "0 + 0 = 0, the rule gives f(0) + f(0) = f(0), and "
                      "cancelling one f(0) leaves f(0) = 0. Try to build an "
@@ -453,7 +448,7 @@ BRICKS = (
                     "Compare, and then check what the rule does to 0.",
                 ),
                 found="Crossing over first gives 19; adding first gives 12. "
-                      "The rule <em>add seven</em> does not preserve addition, and its "
+                      "The rule <em>add seven</em> doesn't preserve addition, and its "
                       "failure shows up in the same place as its failure to "
                       "fix zero: it sends 0 to 7. Those two failures are one "
                       "failure. A shift is a perfectly good map of collections "
@@ -464,8 +459,8 @@ BRICKS = (
                 widget="undo",
                 prompt="Four rules, and the two questions asked of each: can "
                        "it be undone, and does it survive addition?",
-                notice="The two questions do not travel together. Adding seven "
-                       "can be undone and does not survive addition. Doubling "
+                notice="The two questions don't travel together. Adding seven "
+                       "can be undone and doesn't survive addition. Doubling "
                        "survives addition and misses half the target. Rounding "
                        "down to even fails both. Only sending each number to "
                        "itself passes both. That independence is why algebra "
@@ -478,7 +473,7 @@ BRICKS = (
                 standard="a homomorphism of abelian groups",
                 notation="f(a + b) = f(a) + f(b)",
                 why="From here on, maps between abelian groups will always "
-                    "preserve addition. Maps that do not preserve it cannot "
+                    "preserve addition. Maps that don't preserve it can't "
                     "carry the group structure from one side to the other.",
             ),
             Math(
@@ -492,8 +487,8 @@ BRICKS = (
                         "demand, three consequences.",
             ),
         ),
-        hold="A homomorphism preserves addition. Once it does, it also sends "
-             "zero to zero and opposites to opposites.",
+        hold="A homomorphism keeps addition unchanged. This also forces zero "
+             "to go to zero and opposites to go to opposites.",
     ),
 )
 
@@ -502,8 +497,8 @@ WORLD = World(
     number=1,
     slug="what-you-already-do",
     title="Four familiar ideas",
-    promise="By the end, you will understand four ideas that support the rest "
-            "of the course: collections, maps, sameness, and addition. The "
-            "ideas are familiar, but their usual relationship is about to fail.",
+    promise="This world gives you four tools for everything ahead: collections, "
+            "maps, sameness, and addition. They start simple, but their usual "
+            "relationship will soon break.",
     bricks=BRICKS,
 )
